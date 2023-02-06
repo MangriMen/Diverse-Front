@@ -27,5 +27,8 @@ jobs:
     - name: Install dependencies
       run: yarn install --frozen-lockfile
       
+    - name: Linter check
+      run: yarn eslint ./src
+      
     - name: Build
       run: yarn build
