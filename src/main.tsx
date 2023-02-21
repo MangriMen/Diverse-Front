@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-
-import { App } from './App';
+import { Login } from 'components/auth/Login';
+import 'configs/i18next';
 import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <App />
+    <Login />
   </React.StrictMode>,
 );
