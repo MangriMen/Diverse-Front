@@ -1,5 +1,9 @@
 import { Box, Button, Container, TextField, styled } from '@mui/material';
 
+export const StyledContainer = styled(Container)({
+  height: '100%',
+});
+
 export const StyledInput = styled(TextField)({
   '& .MuiFilledInput-root': {
     borderRadius: 4,
@@ -15,13 +19,6 @@ export const StyledInput = styled(TextField)({
   },
 });
 
-export const StyledButton = styled(Button)({
-  backgroundColor: '#4f84c0',
-  '&:hover': {
-    backgroundColor: '#3073bf',
-  },
-});
-
 export const StyledBox = styled(Box)({
   display: 'flex',
   flexDirection: 'column',
@@ -30,22 +27,25 @@ export const StyledBox = styled(Box)({
   height: '100%',
 });
 
-export const FormContainer = styled(Box)({
+export const StyledFormBox = styled(Box)({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '1rem',
+});
+
+export const StyledFormContainer = styled(Box)({
   display: 'flex',
   flexDirection: 'column',
   gap: '5rem',
 });
 
+export const StyledButton = styled(Button)({
+  backgroundColor: '#4f84c0',
+  '&:hover': {
+    backgroundColor: '#3073bf',
+  },
+});
+
 export const StyledTextButton = styled(Button)({
   padding: 'none',
-});
-
-export const StyledContainer = styled(Container)({
-  height: '100%',
-});
-
-export const StyledFormBox = styled(Box)({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '1rem',
 });
