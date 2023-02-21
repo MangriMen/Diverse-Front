@@ -24,6 +24,7 @@ export const Login = () => {
             label={t('passwordPlaceholder')}
             variant="filled"
             helperText=" "
+            type="password"
             InputProps={{ disableUnderline: true }}
           />
 
