@@ -7,7 +7,7 @@ export const StyledContainer = styled(Container)({
 export const StyledInput = styled(TextField)(({ theme }) => ({
   '& .MuiFilledInput-root': {
     borderRadius: 4,
-    backgroundColor: theme.palette.third.main,
+    backgroundColor: theme.palette.common.third,
     // backgroundColor: '#141618',
     borderBottom: '2px solid',
     borderColor: theme.palette.secondary.main,
@@ -41,13 +41,6 @@ export const StyledFormContainer = styled(Box)({
   gap: '5rem',
 });
 
-export const StyledButton = styled(Button)(({ theme }) => ({
-  backgroundColor: theme.palette.secondary.main,
-  '&:hover': {
-    backgroundColor: theme.palette.secondary.dark,
-  },
-}));
-
 export const StyledTextButton = styled(Button)(({ theme }) => ({
   padding: '0',
   color: theme.palette.secondary.main,
@@ -60,3 +53,15 @@ export const StyledTextButton = styled(Button)(({ theme }) => ({
     outline: '2px solid',
   },
 }));
+
+export const StyledSwitchActionBox = styled(Box)({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+});
+
+export const StyledWrapperBox = styled(Box)({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '1rem',
+});

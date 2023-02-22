@@ -1,48 +1,47 @@
-import { Box, Typography } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import diverseText from 'assets/images/diverseText.svg';
+import { FC } from 'react';
 
 import {
-  StyledFormContainer,
-  StyledBox,
-  StyledButton,
-  StyledContainer,
   StyledFormBox,
   StyledInput,
   StyledTextButton,
+  StyledSwitchActionBox,
+  StyledWrapperBox,
 } from './styles';
+import { AuthFormProps } from './interfaces';
 
-export const Login = () => {
+export const Login: FC<AuthFormProps> = ({ changeFormType }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'auth' });
 
   return (
-    <StyledContainer maxWidth="lg">
-      <StyledBox>
-        <StyledFormContainer>
-          <Box component="img" src={diverseText} width="305px" alt="Diverse" />
-          <StyledFormBox>
-            <StyledInput
-              label={t('emailPlaceholder')}
-              variant="filled"
-              helperText=" "
-              InputProps={{ disableUnderline: true }}
-            />
-            <StyledInput
-              label={t('passwordPlaceholder')}
-              variant="filled"
-              helperText=" "
-              type="password"
-              InputProps={{ disableUnderline: true }}
-            />
+    <StyledWrapperBox>
+      <StyledFormBox>
+        <StyledInput
+          label={t('emailPlaceholder')}
+          variant="filled"
+          helperText=" "
+          InputProps={{ disableUnderline: true }}
+        />
+        <StyledInput
+          label={t('passwordPlaceholder')}
+          variant="filled"
+          helperText=" "
+          type="password"
+          InputProps={{ disableUnderline: true }}
+        />
 
-            <StyledButton variant="contained">{t('logIn')}</StyledButton>
-            <Typography align="center">{t('youDontHaveAnAccount')}</Typography>
-          </StyledFormBox>
-        </StyledFormContainer>
-        <StyledTextButton variant="text" disableRipple>
+        <Button variant="contained" color="secondary">
+          {t('logIn')}
+        </Button>
+      </StyledFormBox>
+      <StyledSwitchActionBox>
+        <Typography align="center">{t('alreadyHaveAnAccount')}</Typography>
+
+        <StyledTextButton variant="text" disableRipple onClick={changeFormType}>
           {t('signUp')}
         </StyledTextButton>
-      </StyledBox>
-    </StyledContainer>
+      </StyledSwitchActionBox>
+    </StyledWrapperBox>
   );
 };

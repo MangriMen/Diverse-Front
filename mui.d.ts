@@ -1,11 +1,20 @@
 import '@mui';
 
-declare module '@mui/material/styles' {
+declare module '@mui/material/styles/createPalette' {
+  interface CommonColors {
+    third: string;
+  }
   interface PaletteOptions {
-    third?: PaletteOptions['primary'];
+    third?: PaletteColorOptions;
   }
 
   interface Pallete {
-    third?: Pallete['primary'];
+    third: PalleteColor;
+  }
+}
+
+declare module '@mui/material' {
+  interface TextFieldPropsColorOverrides {
+    third;
   }
 }

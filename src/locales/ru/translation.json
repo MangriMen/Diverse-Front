@@ -6,7 +6,7 @@
         "loginPlaceholder": "Логин",
         "usernamePlaceholder": "Отображаемое имя",
         "passwordPlaceholder": "Пароль",
-        "youDontHaveAnAccount": "У вас еще нет аккаунта?",
-        "youAlreadyHaveAnAccount": "У вас уже есть аккаунт?"
+        "dontHaveAnAccount": "У вас еще нет аккаунта?",
+        "alreadyHaveAnAccount": "У вас уже есть аккаунт?"
     }
 }

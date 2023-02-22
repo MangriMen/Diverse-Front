@@ -12,6 +12,9 @@ export const defaultTheme = createTheme(
       },
       palette: {
         mode: 'dark',
+        common: {
+          third: '#141618',
+        },
         third: {
           main: '#141618',
           contrastText: '#fff',
