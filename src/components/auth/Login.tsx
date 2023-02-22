@@ -1,5 +1,6 @@
-import { Button, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import diverseText from 'assets/images/diverseText.svg';
 
 import {
   StyledFormContainer,
@@ -8,6 +9,7 @@ import {
   StyledContainer,
   StyledFormBox,
   StyledInput,
+  StyledTextButton,
 } from './styles';
 
 export const Login = () => {
@@ -17,8 +19,7 @@ export const Login = () => {
     <StyledContainer maxWidth="lg">
       <StyledBox>
         <StyledFormContainer>
-          <Typography variant="h1">{'Diverse'}</Typography>
-
+          <Box component="img" src={diverseText} width="305px" alt="Diverse" />
           <StyledFormBox>
             <StyledInput
               label={t('emailPlaceholder')}
@@ -38,7 +39,9 @@ export const Login = () => {
             <Typography align="center">{t('youDontHaveAnAccount')}</Typography>
           </StyledFormBox>
         </StyledFormContainer>
-        <Button variant="text">{t('signUp')}</Button>
+        <StyledTextButton variant="text" disableRipple>
+          {t('signUp')}
+        </StyledTextButton>
       </StyledBox>
     </StyledContainer>
   );

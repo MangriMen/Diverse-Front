@@ -4,20 +4,22 @@ export const StyledContainer = styled(Container)({
   height: '100%',
 });
 
-export const StyledInput = styled(TextField)({
+export const StyledInput = styled(TextField)(({ theme }) => ({
   '& .MuiFilledInput-root': {
     borderRadius: 4,
-    backgroundColor: '#141618',
-    borderBottom: '2px solid #4f84c0',
-    color: '#d9d9d9',
+    backgroundColor: theme.palette.third.main,
+    // backgroundColor: '#141618',
+    borderBottom: '2px solid',
+    borderColor: theme.palette.secondary.main,
+    color: theme.palette.primary.main,
   },
   '& .MuiFormLabel-root': {
-    color: '#d9d9d9',
+    color: theme.palette.primary.main,
   },
   '& .MuiFormLabel-root.Mui-focused': {
-    color: '#4f84c0',
+    color: theme.palette.secondary.main,
   },
-});
+}));
 
 export const StyledBox = styled(Box)({
   display: 'flex',
@@ -39,13 +41,22 @@ export const StyledFormContainer = styled(Box)({
   gap: '5rem',
 });
 
-export const StyledButton = styled(Button)({
-  backgroundColor: '#4f84c0',
+export const StyledButton = styled(Button)(({ theme }) => ({
+  backgroundColor: theme.palette.secondary.main,
   '&:hover': {
-    backgroundColor: '#3073bf',
+    backgroundColor: theme.palette.secondary.dark,
   },
-});
+}));
 
-export const StyledTextButton = styled(Button)({
-  padding: 'none',
-});
+export const StyledTextButton = styled(Button)(({ theme }) => ({
+  padding: '0',
+  color: theme.palette.secondary.main,
+  fontSize: '16px',
+  '&:hover': {
+    background: 'none',
+  },
+  '&:focus-visible': {
+    padding: '0 4px',
+    outline: '2px solid',
+  },
+}));

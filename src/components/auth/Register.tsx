@@ -1,5 +1,6 @@
-import { Button, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import diverseText from 'assets/images/diverseText.svg';
 
 import {
   StyledFormContainer,
@@ -17,7 +18,7 @@ export const Register = () => {
     <StyledContainer maxWidth="lg">
       <StyledBox>
         <StyledFormContainer>
-          <Typography variant="h1">{'Diverse'}</Typography>
+          <Box component="img" src={diverseText} width="305px" alt="Diverse" />
 
           <StyledFormBox>
             <StyledInput
