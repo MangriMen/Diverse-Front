@@ -47,6 +47,7 @@ export const StyledTextButton = styled(Button)(({ theme }) => ({
   fontSize: '16px',
   '&:hover': {
     background: 'none',
+    color: theme.palette.secondary.dark,
   },
   '&:focus-visible': {
     padding: '0 4px',
