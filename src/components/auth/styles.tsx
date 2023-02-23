@@ -37,6 +37,7 @@ export const StyledFormContainer = styled(Box)({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
+  padding: '8px 0',
   gap: 'clamp( 4rem, 3.229813664596273rem + 4.968944099378882vw, 8rem )',
 });
 
