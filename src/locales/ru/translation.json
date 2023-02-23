@@ -1,0 +1,12 @@
+{
+    "auth": {
+        "logIn": "Войти",
+        "signUp": "Зарегистрироваться",
+        "emailPlaceholder": "Электронная почта",
+        "loginPlaceholder": "Логин",
+        "usernamePlaceholder": "Отображаемое имя",
+        "passwordPlaceholder": "Пароль",
+        "dontHaveAnAccount": "У вас еще нет аккаунта?",
+        "alreadyHaveAnAccount": "У вас уже есть аккаунт?"
+    }
+}
