@@ -28,6 +28,7 @@ export const defaultTheme = createTheme(
         secondary: {
           dark: '#3073bf',
           main: '#4f84c0',
+          light: '#3c3f40',
         },
       },
     },

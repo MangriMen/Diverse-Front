@@ -1,17 +1,23 @@
 import { Box, Button, Container, TextField, styled } from '@mui/material';
 
 export const StyledContainer = styled(Container)({
-  height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  minHeight: '100%',
 });
 
 export const StyledInput = styled(TextField)(({ theme }) => ({
   '& .MuiFilledInput-root': {
     borderRadius: 4,
-    backgroundColor: theme.palette.common.third,
-    // backgroundColor: '#141618',
+    backgroundColor: theme.palette.secondary.light,
     borderBottom: '2px solid',
     borderColor: theme.palette.secondary.main,
     color: theme.palette.primary.main,
+    '&.Mui-focused': {
+      backgroundColor: theme.palette.common.third,
+    },
   },
   '& .MuiFormLabel-root': {
     color: theme.palette.primary.main,
@@ -20,14 +26,6 @@ export const StyledInput = styled(TextField)(({ theme }) => ({
     color: theme.palette.secondary.main,
   },
 }));
-
-export const StyledBox = styled(Box)({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-  height: '100%',
-});
 
 export const StyledFormBox = styled(Box)({
   display: 'flex',
@@ -38,22 +36,30 @@ export const StyledFormBox = styled(Box)({
 export const StyledFormContainer = styled(Box)({
   display: 'flex',
   flexDirection: 'column',
-  gap: '5rem',
+  alignItems: 'center',
+  gap: 'clamp( 4rem, 3.229813664596273rem + 4.968944099378882vw, 8rem )',
 });
 
 export const StyledTextButton = styled(Button)(({ theme }) => ({
-  padding: '0',
   color: theme.palette.secondary.main,
   fontSize: '16px',
+  padding: '0 4px',
   '&:hover': {
-    background: 'none',
-    color: theme.palette.secondary.dark,
+    background: '#ffffff0f',
   },
   '&:focus-visible': {
-    padding: '0 4px',
     outline: '2px solid',
+    outlineColor: 'white',
   },
 }));
+
+export const StyledButton = styled(Button)({
+  padding: '4px 16px',
+  fontSize: '18px',
+  '&:focus-visible': {
+    outline: '2px solid',
+  },
+});
 
 export const StyledSwitchActionBox = styled(Box)({
   display: 'flex',
@@ -66,3 +72,8 @@ export const StyledWrapperBox = styled(Box)({
   flexDirection: 'column',
   gap: '1rem',
 });
+
+export const StyledAppTitled = styled(Box)({
+  width:
+    'clamp( 15.5rem, 13.430124223602483rem + 13.354037267080745vw, 26.25rem )',
+}) as typeof Box;

@@ -1,4 +1,4 @@
-import { Button, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { FC } from 'react';
 
@@ -8,6 +8,7 @@ import {
   StyledTextButton,
   StyledSwitchActionBox,
   StyledWrapperBox,
+  StyledButton,
 } from './styles';
 import { AuthFormProps } from './interfaces';
 
@@ -43,9 +44,9 @@ export const Register: FC<AuthFormProps> = ({ changeFormType }) => {
           InputProps={{ disableUnderline: true }}
         />
 
-        <Button variant="contained" color="secondary">
+        <StyledButton variant="contained" color="secondary" disableFocusRipple>
           {t('signUp')}
-        </Button>
+        </StyledButton>
       </StyledFormBox>
       <StyledSwitchActionBox>
         <Typography align="center">{t('alreadyHaveAnAccount')}</Typography>

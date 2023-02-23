@@ -4,8 +4,8 @@ import { Login } from 'components/auth/Login';
 import { Register } from 'components/auth/Register';
 import {
   StyledFormContainer,
-  StyledBox,
   StyledContainer,
+  StyledAppTitled,
 } from 'components/auth/styles';
 import { useCallback, useState } from 'react';
 
@@ -18,16 +18,16 @@ export const AuthPage = () => {
 
   return (
     <StyledContainer maxWidth="lg">
-      <StyledBox>
-        <StyledFormContainer>
-          <Box component="img" src={diverseText} width="305px" alt="Diverse" />
+      <StyledFormContainer>
+        <StyledAppTitled component="img" src={diverseText} alt="Diverse" />
+        <Box maxWidth="280px" width="100%">
           {isLogin ? (
             <Login changeFormType={changeComponentType} />
           ) : (
             <Register changeFormType={changeComponentType} />
           )}
-        </StyledFormContainer>
-      </StyledBox>
+        </Box>
+      </StyledFormContainer>
     </StyledContainer>
   );
 };
