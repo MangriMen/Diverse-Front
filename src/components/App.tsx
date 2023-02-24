@@ -1,4 +1,4 @@
-import { ThemeProvider, CssBaseline } from '@mui/material';
+import { CssBaseline, ThemeProvider } from '@mui/material';
 import { defaultTheme } from 'themes/default';
 
 import { AuthPage } from './pages/AuthPage';

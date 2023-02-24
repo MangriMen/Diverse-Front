@@ -54,12 +54,18 @@ module.exports = {
     'prettier/prettier': [
       'error',
       {
+        tabWidth: 2,
+        printWidth: 80,
         endOfLine: 'auto',
         singleQuote: true,
+        semi: true,
         trailingComma: 'all',
         bracketSameLine: false,
         bracketSpacing: true,
         arrowParens: 'avoid',
+        importOrder: ['^@core/(.*)$', '^@server/(.*)$', '^@ui/(.*)$', '^[./]'],
+        importOrderSeparation: true,
+        importOrderSortSpecifiers: true,
       },
     ],
     'import/extensions': 0,

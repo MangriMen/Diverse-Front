@@ -1,16 +1,16 @@
 import { Typography } from '@mui/material';
-import { useTranslation } from 'react-i18next';
 import { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 
+import { AuthFormProps } from './interfaces';
 import {
+  StyledButton,
   StyledFormBox,
   StyledInput,
-  StyledTextButton,
   StyledSwitchActionBox,
+  StyledTextButton,
   StyledWrapperBox,
-  StyledButton,
 } from './styles';
-import { AuthFormProps } from './interfaces';
 
 export const Register: FC<AuthFormProps> = ({ changeFormType }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'auth' });

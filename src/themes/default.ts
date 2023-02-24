@@ -5,11 +5,6 @@ import { THEME_DEFAULT_OPTIONS } from 'consts/componentDefaultOptions';
 export const defaultTheme = createTheme(
   deepmerge(
     {
-      typography: {
-        button: {
-          textTransform: 'none',
-        },
-      },
       palette: {
         mode: 'dark',
         common: {

@@ -3,9 +3,9 @@ import diverseText from 'assets/images/diverseText.svg';
 import { Login } from 'components/auth/Login';
 import { Register } from 'components/auth/Register';
 import {
-  StyledFormContainer,
-  StyledContainer,
   StyledAppTitled,
+  StyledContainer,
+  StyledFormContainer,
 } from 'components/auth/styles';
 import { useCallback, useState } from 'react';
 
