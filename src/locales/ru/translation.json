@@ -3,10 +3,16 @@
         "logIn": "Войти",
         "signUp": "Зарегистрироваться",
         "emailPlaceholder": "Электронная почта",
-        "loginPlaceholder": "Логин",
+        "namePlaceholder": "Имя",
         "usernamePlaceholder": "Отображаемое имя",
         "passwordPlaceholder": "Пароль",
         "dontHaveAnAccount": "У вас еще нет аккаунта?",
-        "alreadyHaveAnAccount": "У вас уже есть аккаунт?"
+        "alreadyHaveAnAccount": "У вас уже есть аккаунт?",
+        "errorEmail": "Введите корректную почту",
+        "emptyEmail": "Введите почту",
+        "emptyPassword": "Введите пароль",
+        "emptyName": "Введите имя",
+        "emptyUserName": "Введите отображаемое имя пользователя",
+        "сharactersCount": "Поле должно содержать от 8 до 32 символов"
     }
 }

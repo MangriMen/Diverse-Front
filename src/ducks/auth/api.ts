@@ -1,11 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { ServerAuthResponse } from 'dtos/auth';
 import { API_BASE_URL, API_ENDPOINTS } from 'consts/endpoints';
-import { ServerUserResponse } from 'dtos/user';
 
-import { LoginValues } from './types';
-
-import { setUser, logout } from './index';
+import { LoginValues, RegisterValues } from './types';
 
 export const authApi = createApi({
   reducerPath: 'authApi',
@@ -20,23 +17,16 @@ export const authApi = createApi({
         },
       }),
     }),
-    getMe: build.query<ServerUserResponse, boolean>({
-      query: () => ({
-        url: API_ENDPOINTS.ME,
-        method: 'get',
+    register: build.mutation<ServerAuthResponse, RegisterValues>({
+      query: credentials => ({
+        url: API_ENDPOINTS.REGISTER,
+        method: 'post',
+        body: {
+          ...credentials,
+        },
       }),
-      async onQueryStarted(args, { dispatch, queryFulfilled }) {
-        try {
-          const { data } = await queryFulfilled;
-          if (data !== null) {
-            dispatch(setUser(data));
-          }
-        } catch (error) {
-          dispatch(logout());
-        }
-      },
     }),
   }),
 });
 
-export const { useLoginMutation } = authApi;
+export const { useLoginMutation, useRegisterMutation } = authApi;

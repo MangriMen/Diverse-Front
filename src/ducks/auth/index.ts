@@ -1,7 +1,6 @@
 import { deleteAuthToken, getAuthToken, setAuthToken } from 'tools/helpers';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { ServerAuthResponse } from 'dtos/auth';
-import { ServerUserResponse } from 'dtos/user';
 
 import { AuthState } from './types';
 
@@ -23,11 +22,8 @@ const authSlice = createSlice({
       state.isInit = false;
       state.userId = null;
     },
-    setUser(state, actions: PayloadAction<ServerUserResponse>) {
-      state.userId = { ...actions.payload };
-    },
   },
 });
 
 export const authReducer = authSlice.reducer;
-export const { setUser, enter, logout } = authSlice.actions;
+export const { enter, logout } = authSlice.actions;
