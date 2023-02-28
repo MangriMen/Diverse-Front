@@ -49,6 +49,7 @@ export const Login: FC<AuthFormProps> = ({ changeFormType }) => {
                 label={t('emailPlaceholder')}
                 variant="filled"
                 {...field}
+                error={!!errors.email?.message}
                 helperText={
                   errors.email?.message != undefined
                     ? t(errors.email?.message)
@@ -66,6 +67,7 @@ export const Login: FC<AuthFormProps> = ({ changeFormType }) => {
                 label={t('passwordPlaceholder')}
                 variant="filled"
                 {...field}
+                error={!!errors.password?.message}
                 helperText={
                   errors.password?.message != undefined
                     ? t(errors.password?.message)

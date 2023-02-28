@@ -51,6 +51,7 @@ export const Register: FC<AuthFormProps> = ({ changeFormType }) => {
                 label={t('namePlaceholder')}
                 variant="filled"
                 {...field}
+                error={!!errors.name?.message}
                 helperText={
                   errors.name?.message != undefined
                     ? t(errors.name?.message)
@@ -68,6 +69,7 @@ export const Register: FC<AuthFormProps> = ({ changeFormType }) => {
                 label={t('usernamePlaceholder')}
                 variant="filled"
                 {...field}
+                error={!!errors.username?.message}
                 helperText={
                   errors.username?.message != undefined
                     ? t(errors.username?.message)
@@ -85,6 +87,7 @@ export const Register: FC<AuthFormProps> = ({ changeFormType }) => {
                 label={t('emailPlaceholder')}
                 variant="filled"
                 {...field}
+                error={!!errors.email?.message}
                 helperText={
                   errors.email?.message != undefined
                     ? t(errors.email?.message)
@@ -102,6 +105,7 @@ export const Register: FC<AuthFormProps> = ({ changeFormType }) => {
                 label={t('passwordPlaceholder')}
                 variant="filled"
                 {...field}
+                error={!!errors.password?.message}
                 helperText={
                   errors.password?.message != undefined
                     ? t(errors.password?.message)
