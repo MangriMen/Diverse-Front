@@ -26,7 +26,7 @@ const defaultValues = {
 
 export const Register: FC<AuthFormProps> = ({ changeFormType }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'auth' });
-  const [register] = useRegisterMutation();
+  const [register, { isError }] = useRegisterMutation();
 
   const {
     control,
@@ -128,6 +128,9 @@ export const Register: FC<AuthFormProps> = ({ changeFormType }) => {
           >
             {t('signUp')}
           </StyledButton>
+          <Typography align="center" color="error" fontSize="12px">
+            {isError && t('alreadyTaken')}
+          </Typography>
         </StyledFormBox>
         <StyledSwitchActionBox>
           <Typography align="center">{t('alreadyHaveAnAccount')}</Typography>

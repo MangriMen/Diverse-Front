@@ -24,7 +24,7 @@ const defaultValues = {
 
 export const Login: FC<AuthFormProps> = ({ changeFormType }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'auth' });
-  const [login] = useLoginMutation();
+  const [login, { isError }] = useLoginMutation();
 
   const {
     control,
@@ -89,10 +89,13 @@ export const Login: FC<AuthFormProps> = ({ changeFormType }) => {
           >
             {t('logIn')}
           </StyledButton>
+          <Typography align="center" color="error" fontSize="12px">
+            {isError && t('notFound')}
+          </Typography>
         </StyledFormBox>
       </form>
       <StyledSwitchActionBox>
-        <Typography align="center">{t('dontHaveAnAccount')}</Typography>
+        <Typography>{t('dontHaveAnAccount')}</Typography>
 
         <StyledTextButton variant="text" disableRipple onClick={changeFormType}>
           {t('signUp')}
