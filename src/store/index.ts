@@ -1,13 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
-import { authApi } from 'ducks/auth/api';
 
 import { rootReducer } from './rootReducer';
+import { rootQuery } from './rootQuery';
 
 export const store = configureStore({
   reducer: rootReducer(),
-  middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(authApi.middleware),
+  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(rootQuery),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
