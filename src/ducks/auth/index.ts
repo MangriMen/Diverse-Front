@@ -1,6 +1,6 @@
-import { deleteAuthToken, getAuthToken, setAuthToken } from 'tools/helpers';
+import { deleteAuthToken, getAuthToken, setAuthToken } from 'helpers/tokens';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { ServerAuthResponse } from 'dtos/auth';
+import { ServerAuthResponse } from 'types/auth';
 
 import { AuthState } from './types';
 

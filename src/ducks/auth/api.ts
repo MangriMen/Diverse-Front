@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { ServerAuthResponse } from 'dtos/auth';
+import { ServerAuthResponse } from 'types/auth';
 import { API_BASE_URL, API_ENDPOINTS } from 'consts/endpoints';
 
 import { LoginValues, RegisterValues } from './types';
@@ -17,7 +17,10 @@ export const authApi = createApi({
         },
       }),
     }),
-    register: build.mutation<ServerAuthResponse, RegisterValues>({
+    register: build.mutation<
+      ServerAuthResponse,
+      Omit<RegisterValues, 'passwordConfirm'>
+    >({
       query: credentials => ({
         url: API_ENDPOINTS.REGISTER,
         method: 'post',
