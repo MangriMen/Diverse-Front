@@ -10,8 +10,7 @@ export const loginValidator = yup.object().shape({
 });
 
 export const registerValidator = yup.object().shape({
-  name: yup.string().max(32, 'сharactersCount').required('emptyName'),
-  username: yup.string().max(32, 'сharactersCount').required('emptyUserName'),
+  username: yup.string().max(32, 'сharactersCount').required('emptyName'),
   email: yup.string().email().required('emptyEmail'),
   password: yup
     .string()
@@ -19,4 +18,7 @@ export const registerValidator = yup.object().shape({
     .max(32, 'сharactersCount')
     .matches(/^\S*$/, 'passwordMustNotContainSpaces')
     .required('emptyPassword'),
+  passwordConfirm: yup
+    .string()
+    .oneOf([yup.ref('password'), null], 'mutchPassword'),
 });

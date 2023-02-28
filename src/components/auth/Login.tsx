@@ -17,6 +17,11 @@ import {
 import { AuthFormProps } from './interfaces';
 import { loginValidator } from './schemas';
 
+const defaultValues = {
+  email: '',
+  password: '',
+};
+
 export const Login: FC<AuthFormProps> = ({ changeFormType }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'auth' });
   const [login] = useLoginMutation();
@@ -26,10 +31,7 @@ export const Login: FC<AuthFormProps> = ({ changeFormType }) => {
     handleSubmit,
     formState: { errors },
   } = useForm<LoginValues>({
-    defaultValues: {
-      email: '',
-      password: '',
-    },
+    defaultValues: defaultValues,
     resolver: yupResolver(loginValidator),
   });
 

@@ -17,6 +17,13 @@ import {
 import { AuthFormProps } from './interfaces';
 import { registerValidator } from './schemas';
 
+const defaultValues = {
+  username: '',
+  email: '',
+  password: '',
+  passwordConfirm: '',
+};
+
 export const Register: FC<AuthFormProps> = ({ changeFormType }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'auth' });
   const [register] = useRegisterMutation();
@@ -26,12 +33,7 @@ export const Register: FC<AuthFormProps> = ({ changeFormType }) => {
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterValues>({
-    defaultValues: {
-      name: '',
-      username: '',
-      email: '',
-      password: '',
-    },
+    defaultValues: defaultValues,
     resolver: yupResolver(registerValidator),
   });
 
@@ -43,24 +45,6 @@ export const Register: FC<AuthFormProps> = ({ changeFormType }) => {
     <StyledWrapperBox>
       <form onSubmit={handleSubmit(onSubmit)}>
         <StyledFormBox>
-          <Controller
-            control={control}
-            name="name"
-            render={({ field }) => (
-              <StyledInput
-                label={t('namePlaceholder')}
-                variant="filled"
-                {...field}
-                error={!!errors.name?.message}
-                helperText={
-                  errors.name?.message != undefined
-                    ? t(errors.name?.message)
-                    : ' '
-                }
-                InputProps={{ disableUnderline: true }}
-              />
-            )}
-          />
           <Controller
             control={control}
             name="username"
@@ -109,6 +93,25 @@ export const Register: FC<AuthFormProps> = ({ changeFormType }) => {
                 helperText={
                   errors.password?.message != undefined
                     ? t(errors.password?.message)
+                    : ' '
+                }
+                type="password"
+                InputProps={{ disableUnderline: true }}
+              />
+            )}
+          />
+          <Controller
+            name="passwordConfirm"
+            control={control}
+            render={({ field }) => (
+              <StyledInput
+                label={t('passwordConfirm')}
+                variant="filled"
+                {...field}
+                error={!!errors.passwordConfirm?.message}
+                helperText={
+                  errors.passwordConfirm?.message != undefined
+                    ? t(errors.passwordConfirm?.message)
                     : ' '
                 }
                 type="password"
