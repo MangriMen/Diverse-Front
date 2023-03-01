@@ -5,6 +5,7 @@ import { useRegisterMutation } from 'ducks/auth/api';
 import { RegisterValues } from 'ducks/auth/types';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { conditionalTextHelper } from 'helpers/conditionalTextHelper';
 
 import {
   StyledFormBox,
@@ -54,11 +55,7 @@ export const Register: FC<AuthFormProps> = ({ changeFormType }) => {
                 variant="filled"
                 {...field}
                 error={!!errors.username?.message}
-                helperText={
-                  errors.username?.message != undefined
-                    ? t(errors.username?.message)
-                    : ' '
-                }
+                helperText={conditionalTextHelper(t, errors.username?.message)}
                 InputProps={{ disableUnderline: true }}
               />
             )}
@@ -72,11 +69,7 @@ export const Register: FC<AuthFormProps> = ({ changeFormType }) => {
                 variant="filled"
                 {...field}
                 error={!!errors.email?.message}
-                helperText={
-                  errors.email?.message != undefined
-                    ? t(errors.email?.message)
-                    : ' '
-                }
+                helperText={conditionalTextHelper(t, errors.email?.message)}
                 InputProps={{ disableUnderline: true }}
               />
             )}
@@ -90,11 +83,7 @@ export const Register: FC<AuthFormProps> = ({ changeFormType }) => {
                 variant="filled"
                 {...field}
                 error={!!errors.password?.message}
-                helperText={
-                  errors.password?.message != undefined
-                    ? t(errors.password?.message)
-                    : ' '
-                }
+                helperText={conditionalTextHelper(t, errors.password?.message)}
                 type="password"
                 InputProps={{ disableUnderline: true }}
               />
@@ -109,11 +98,10 @@ export const Register: FC<AuthFormProps> = ({ changeFormType }) => {
                 variant="filled"
                 {...field}
                 error={!!errors.passwordConfirm?.message}
-                helperText={
-                  errors.passwordConfirm?.message != undefined
-                    ? t(errors.passwordConfirm?.message)
-                    : ' '
-                }
+                helperText={conditionalTextHelper(
+                  t,
+                  errors.passwordConfirm?.message,
+                )}
                 type="password"
                 InputProps={{ disableUnderline: true }}
               />

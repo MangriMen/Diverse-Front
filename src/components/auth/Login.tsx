@@ -5,6 +5,7 @@ import { useLoginMutation } from 'ducks/auth/api';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { LoginValues } from 'ducks/auth/types';
+import { conditionalTextHelper } from 'helpers/conditionalTextHelper';
 
 import {
   StyledFormBox,
@@ -52,11 +53,7 @@ export const Login: FC<AuthFormProps> = ({ changeFormType }) => {
                 variant="filled"
                 {...field}
                 error={!!errors.email?.message}
-                helperText={
-                  errors.email?.message != undefined
-                    ? t(errors.email?.message)
-                    : ' '
-                }
+                helperText={conditionalTextHelper(t, errors.email?.message)}
                 InputProps={{ disableUnderline: true }}
               />
             )}
@@ -70,11 +67,7 @@ export const Login: FC<AuthFormProps> = ({ changeFormType }) => {
                 variant="filled"
                 {...field}
                 error={!!errors.password?.message}
-                helperText={
-                  errors.password?.message != undefined
-                    ? t(errors.password?.message)
-                    : ' '
-                }
+                helperText={conditionalTextHelper(t, errors.password?.message)}
                 type="password"
                 InputProps={{ disableUnderline: true }}
               />
