@@ -20,5 +20,5 @@ export const registerValidator = yup.object().shape({
     .required('emptyPassword'),
   passwordConfirm: yup
     .string()
-    .oneOf([yup.ref('password'), null], 'mutchConfirmPassword'),
+    .oneOf([yup.ref('password'), null], 'matchConfirmPassword'),
 });
