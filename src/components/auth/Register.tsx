@@ -5,7 +5,7 @@ import { useRegisterMutation } from 'ducks/auth/api';
 import { RegisterValues } from 'ducks/auth/types';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { conditionalTextHelper } from 'helpers/conditionalTextHelper';
+import { conditionalTranslate } from 'helpers/conditionalTranslate';
 
 import {
   StyledFormBox,
@@ -55,7 +55,7 @@ export const Register: FC<AuthFormProps> = ({ changeFormType }) => {
                 variant="filled"
                 {...field}
                 error={!!errors.username?.message}
-                helperText={conditionalTextHelper(t, errors.username?.message)}
+                helperText={conditionalTranslate(t, errors.username?.message)}
                 InputProps={{ disableUnderline: true }}
               />
             )}
@@ -69,7 +69,7 @@ export const Register: FC<AuthFormProps> = ({ changeFormType }) => {
                 variant="filled"
                 {...field}
                 error={!!errors.email?.message}
-                helperText={conditionalTextHelper(t, errors.email?.message)}
+                helperText={conditionalTranslate(t, errors.email?.message)}
                 InputProps={{ disableUnderline: true }}
               />
             )}
@@ -83,7 +83,7 @@ export const Register: FC<AuthFormProps> = ({ changeFormType }) => {
                 variant="filled"
                 {...field}
                 error={!!errors.password?.message}
-                helperText={conditionalTextHelper(t, errors.password?.message)}
+                helperText={conditionalTranslate(t, errors.password?.message)}
                 type="password"
                 InputProps={{ disableUnderline: true }}
               />
@@ -98,7 +98,7 @@ export const Register: FC<AuthFormProps> = ({ changeFormType }) => {
                 variant="filled"
                 {...field}
                 error={!!errors.passwordConfirm?.message}
-                helperText={conditionalTextHelper(
+                helperText={conditionalTranslate(
                   t,
                   errors.passwordConfirm?.message,
                 )}
