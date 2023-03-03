@@ -1,14 +1,14 @@
 import { ThemeProvider, CssBaseline } from '@mui/material';
 import { defaultTheme } from 'themes/default';
 
-import { AuthPage } from './pages/AuthPage';
+import { NotFoundPage } from './pages/NotFoundPage';
 
 export const App = () => {
   return (
     <>
       <ThemeProvider theme={defaultTheme}>
         <CssBaseline enableColorScheme />
-        <AuthPage />
+        <NotFoundPage />
       </ThemeProvider>
     </>
   );
