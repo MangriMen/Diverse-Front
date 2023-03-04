@@ -11,16 +11,12 @@ export const StyledContainer = styled(Container)({
 export const StyledInput = styled(TextField)(({ theme }) => ({
   '& .MuiFilledInput-root': {
     borderRadius: 4,
-    backgroundColor: theme.palette.secondary.light,
+    backgroundColor: theme.palette.common.third,
     borderBottom: '2px solid',
     borderColor: theme.palette.secondary.main,
-    color: theme.palette.primary.main,
     '&.Mui-focused': {
-      backgroundColor: theme.palette.common.third,
+      backgroundColor: theme.palette.primary.dark,
     },
-  },
-  '& .MuiFormLabel-root': {
-    color: theme.palette.primary.main,
   },
   '& .MuiFormLabel-root.Mui-focused': {
     color: theme.palette.secondary.main,

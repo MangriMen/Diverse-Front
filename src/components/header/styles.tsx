@@ -1,14 +1,15 @@
 import { AppBar, Box, styled } from '@mui/material';
 
-export const StyledAppBar = styled(AppBar)({
+export const StyledAppBar = styled(AppBar)(({ theme }) => ({
   position: 'static',
   display: 'flex',
   flexDirection: 'row',
-  maxHeight: '48px',
+  height: '48px',
   boxShadow: 'none',
   borderBottom: '1px solid',
-  borderColor: '#353a3d',
-});
+  borderColor: theme.palette.common.third,
+  background: theme.palette.primary.light,
+}));
 
 export const StyledLogo = styled(Box)({
   maxHeight: '28px',
