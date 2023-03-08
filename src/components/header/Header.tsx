@@ -10,6 +10,8 @@ import {
   Typography,
 } from '@mui/material';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { selectIsAuth, selectUser } from 'ducks/auth/selectors';
 
 import { StyledAppBar, StyledLogo } from './styles';
 
@@ -17,6 +19,9 @@ const settings = ['Profile', 'Logout'];
 
 export const Header = () => {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+
+  const user = useSelector(selectUser);
+  const isAuth = useSelector(selectIsAuth);
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -44,23 +49,36 @@ export const Header = () => {
             alignItems: 'center',
           }}
         >
-          <Typography>{'username'}</Typography>
-          <Tooltip title="Open">
-            <IconButton onClick={handleOpenUserMenu} disableRipple>
-              <Avatar src="src/assets/images/lucy.jpg" />
-            </IconButton>
-          </Tooltip>
-          <Menu
-            anchorEl={anchorElUser}
-            open={!!anchorElUser}
-            onClose={handleCloseUserMenu}
-          >
-            {settings.map(settings => (
-              <MenuItem key={settings}>
-                <Typography>{settings}</Typography>
-              </MenuItem>
-            ))}
-          </Menu>
+          {isAuth ? (
+            <>
+              <Typography>{user?.username}</Typography>
+              <Tooltip title="Open">
+                <IconButton onClick={handleOpenUserMenu} disableRipple>
+                  <Avatar src="src/assets/images/lucy.jpg" />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                anchorEl={anchorElUser}
+                open={!!anchorElUser}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map(settings => (
+                  <MenuItem key={settings}>
+                    <Typography>{settings}</Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </>
+          ) : (
+            <>
+              <Typography>{''}</Typography>
+              <Tooltip title="Open">
+                <IconButton onClick={handleOpenUserMenu} disableRipple>
+                  <Avatar />
+                </IconButton>
+              </Tooltip>
+            </>
+          )}
         </Box>
       </Container>
     </StyledAppBar>
