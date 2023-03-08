@@ -1,6 +1,6 @@
 import { createTheme } from '@mui/material';
 import { deepmerge } from '@mui/utils';
-import { THEME_DEFAULT_OPTIONS } from 'consts/componentDefaultOptions';
+import { THEME_DEFAULT_OPTIONS } from 'consts';
 
 export const defaultTheme = createTheme(
   deepmerge(
