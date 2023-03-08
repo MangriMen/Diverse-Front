@@ -4,6 +4,8 @@ import { ServerAuthResponse } from 'types/auth';
 
 import { FetchValues, LoginValues, RegisterValues } from './types';
 
+import { enter, logout } from '.';
+
 export const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({ baseUrl: API_BASE_URL }),
@@ -16,6 +18,16 @@ export const authApi = createApi({
           ...credentials,
         },
       }),
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          if (data !== null) {
+            dispatch(enter(data));
+          }
+        } catch (error) {
+          dispatch(logout());
+        }
+      },
     }),
     register: build.mutation<
       ServerAuthResponse,
