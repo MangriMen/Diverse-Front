@@ -38,7 +38,7 @@ export const StyledFormContainer = styled(Box)`
 `;
 
 export const StyledTextButton = styled(Button)`
-  color: theme.palette.secondary.main;
+  color: ${props => props.theme.palette.secondary.main};
   font-size: 16px;
   padding: 0 4px;
   &:hover {

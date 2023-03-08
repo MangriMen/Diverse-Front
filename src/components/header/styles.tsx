@@ -1,4 +1,11 @@
-import { AppBar, Avatar, Box, Toolbar, styled } from '@mui/material';
+import {
+  AppBar,
+  Avatar,
+  Box,
+  Toolbar,
+  Typography,
+  styled,
+} from '@mui/material';
 
 export const StyledAppBar = styled(AppBar)`
   position: static;
@@ -35,4 +42,10 @@ export const StyledUserBox = styled(Box)`
 export const StyledAvatar = styled(Avatar)`
   width: 32px;
   height: 32px;
+`;
+
+export const StyledUsername = styled(Typography)`
+  ${props => props.theme.breakpoints.down('sm')} {
+    display: none;
+  }
 `;

@@ -1,11 +1,9 @@
 import diverseText from 'assets/images/diverseText.svg';
 import {
-  Avatar,
   Container,
   IconButton,
   Menu,
   MenuItem,
-  Tooltip,
   Typography,
 } from '@mui/material';
 import { useState } from 'react';
@@ -18,6 +16,7 @@ import {
   StyledLogo,
   StyledToolbar,
   StyledUserBox,
+  StyledUsername,
 } from './styles';
 
 const settings = ['Profile', 'Logout'];
@@ -37,23 +36,30 @@ export const Header = () => {
   };
 
   return (
-    <StyledAppBar>
-      <Container>
+    <StyledAppBar position="static">
+      <Container maxWidth="lg">
         <StyledToolbar>
           <StyledLogo component="img" src={diverseText} alt="Diverse" />
           <StyledUserBox>
             {isAuth ? (
               <>
-                <Typography>{user?.username}</Typography>
-                <Tooltip title="Open">
-                  <IconButton onClick={handleOpenUserMenu} disableRipple>
-                    <StyledAvatar src="src/assets/images/lucy.jpg" />
-                  </IconButton>
-                </Tooltip>
+                <StyledUsername>{user?.username}</StyledUsername>
+                <IconButton onClick={handleOpenUserMenu} disableRipple>
+                  <StyledAvatar src="src/assets/images/lucy.jpg" />
+                </IconButton>
                 <Menu
+                  keepMounted
                   anchorEl={anchorElUser}
                   open={!!anchorElUser}
                   onClose={handleCloseUserMenu}
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                  }}
                 >
                   {settings.map(settings => (
                     <MenuItem key={settings}>
@@ -64,12 +70,9 @@ export const Header = () => {
               </>
             ) : (
               <>
-                <Typography>{''}</Typography>
-                <Tooltip title="Open">
-                  <IconButton onClick={handleOpenUserMenu} disableRipple>
-                    <Avatar />
-                  </IconButton>
-                </Tooltip>
+                <IconButton onClick={handleOpenUserMenu} disableRipple>
+                  <StyledAvatar />
+                </IconButton>
               </>
             )}
           </StyledUserBox>
