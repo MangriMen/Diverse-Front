@@ -51,6 +51,7 @@ export const Header = () => {
     {
       name: 'Logout',
       onClick: () => {
+        handleCloseUserMenu();
         dispatch(logout());
       },
     },
