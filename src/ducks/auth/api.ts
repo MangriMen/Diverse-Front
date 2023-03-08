@@ -3,7 +3,7 @@ import { API_BASE_URL, API_ENDPOINTS } from 'consts/endpoints';
 import { ServerAuthResponse } from 'types/auth';
 
 import { enter, logout } from '.';
-import { LoginValues, RegisterValues } from './types';
+import { FetchValues, LoginValues, RegisterValues } from './types';
 
 export const authApi = createApi({
   reducerPath: 'authApi',
@@ -34,6 +34,15 @@ export const authApi = createApi({
     >({
       query: credentials => ({
         url: API_ENDPOINTS.REGISTER,
+        method: 'post',
+        body: {
+          ...credentials,
+        },
+      }),
+    }),
+    fetch: build.mutation<ServerAuthResponse, FetchValues>({
+      query: credentials => ({
+        url: API_ENDPOINTS.FETCH,
         method: 'post',
         body: {
           ...credentials,
