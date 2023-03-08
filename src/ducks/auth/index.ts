@@ -5,7 +5,7 @@ import { ServerAuthResponse } from 'types/auth';
 import { AuthState } from './types';
 
 const initialState: AuthState = {
-  userId: null,
+  user: null,
   isInit: !!getAuthToken(),
 };
 
@@ -15,12 +15,13 @@ const authSlice = createSlice({
   reducers: {
     enter(state, action: PayloadAction<ServerAuthResponse>) {
       setAuthToken(action.payload.token);
+      state.user = action.payload.user;
       state.isInit = true;
     },
     logout(state) {
       deleteAuthToken();
       state.isInit = false;
-      state.userId = null;
+      state.user = null;
     },
   },
 });

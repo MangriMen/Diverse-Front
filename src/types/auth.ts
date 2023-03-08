@@ -1,6 +1,15 @@
+export interface User {
+  id: string;
+  email: string;
+  name: string;
+  username: string;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface ServerAuthResponse {
   error: boolean;
-  userId: string;
+  user: User;
   token: string;
   message: string;
 }

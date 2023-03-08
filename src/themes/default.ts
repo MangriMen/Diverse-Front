@@ -13,22 +13,20 @@ export const defaultTheme = createTheme(
       palette: {
         mode: 'dark',
         common: {
-          third: '#141618',
-        },
-        third: {
-          main: '#141618',
-          contrastText: '#fff',
+          third: '#3c3f40',
         },
         background: {
           default: '#1f2224',
         },
         primary: {
-          main: '#d9d9d9',
+          dark: '#1a1c1f',
+          main: '#1f2224',
+          light: '#222529',
         },
         secondary: {
           dark: '#3073bf',
           main: '#4f84c0',
-          light: '#3c3f40',
+          light: '#5e9ee6',
         },
       },
     },
