@@ -6,9 +6,10 @@ import {
   MenuItem,
   Typography,
 } from '@mui/material';
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { ReactNode, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectIsAuth, selectUser } from 'ducks/auth/selectors';
+import { logout } from 'ducks/auth';
 
 import {
   StyledAppBar,
@@ -19,7 +20,10 @@ import {
   StyledUsername,
 } from './styles';
 
-const settings = ['Profile', 'Logout'];
+interface UserMenuItems {
+  name: string;
+  onClick: () => void;
+}
 
 export const Header = () => {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
@@ -34,6 +38,35 @@ export const Header = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const dispatch = useDispatch();
+
+  const [userSettings] = useState<Array<UserMenuItems>>([
+    {
+      name: 'Profile',
+      onClick: () => {
+        handleCloseUserMenu();
+      },
+    },
+    {
+      name: 'Logout',
+      onClick: () => {
+        dispatch(logout());
+      },
+    },
+  ]);
+
+  const [menuItems, setMenuItem] = useState<ReactNode>();
+
+  useEffect(() => {
+    setMenuItem(
+      userSettings.map(settings => (
+        <MenuItem key={settings.name} onClick={settings.onClick}>
+          <Typography> {settings.name} </Typography>
+        </MenuItem>
+      )),
+    );
+  }, [userSettings]);
 
   return (
     <StyledAppBar position="static">
@@ -61,11 +94,7 @@ export const Header = () => {
                     horizontal: 'center',
                   }}
                 >
-                  {settings.map(settings => (
-                    <MenuItem key={settings}>
-                      <Typography>{settings}</Typography>
-                    </MenuItem>
-                  ))}
+                  {menuItems}
                 </Menu>
               </>
             ) : (
