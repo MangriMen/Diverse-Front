@@ -1,5 +1,7 @@
+import { User } from 'types/auth';
+
 export interface AuthState {
-  userId: string | null;
+  user: User | null;
   isInit: boolean;
 }
 
