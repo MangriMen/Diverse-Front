@@ -79,20 +79,6 @@ module.exports = {
     ],
     'import/no-unresolved': 0,
     'import/no-default-export': 1,
-    'import/order': [
-      'error',
-      {
-        'newlines-between': 'always',
-        groups: [
-          'external',
-          'internal',
-          'builtin',
-          'parent',
-          'sibling',
-          'index',
-        ],
-      },
-    ],
     'no-restricted-imports': [
       'error',
       {
