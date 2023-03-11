@@ -3,6 +3,7 @@ import { defaultTheme } from 'themes/default';
 
 import { AuthPage } from './pages/AuthPage';
 import { Header } from './header/Header';
+import { Post } from './post/Post';
 
 export const App = () => {
   return (
@@ -10,6 +11,7 @@ export const App = () => {
       <ThemeProvider theme={defaultTheme}>
         <CssBaseline enableColorScheme />
         <Header />
+        <Post />
         <AuthPage />
       </ThemeProvider>
     </>

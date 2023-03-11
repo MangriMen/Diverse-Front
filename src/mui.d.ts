@@ -3,6 +3,7 @@ import '@mui';
 declare module '@mui/material/styles/createPalette' {
   interface CommonColors {
     third: string;
+    dimmed: string;
   }
   interface PaletteOptions {
     third?: PaletteColorOptions;

@@ -13,7 +13,8 @@ export const defaultTheme = createTheme(
       palette: {
         mode: 'dark',
         common: {
-          third: '#3c3f40',
+          third: '#17191b',
+          dimmed: '#9e9e9e',
         },
         background: {
           default: '#1f2224',
