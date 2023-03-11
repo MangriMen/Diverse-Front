@@ -1,4 +1,3 @@
-import diverseText from 'assets/images/diverseText.svg';
 import {
   Container,
   IconButton,
@@ -6,10 +5,11 @@ import {
   MenuItem,
   Typography,
 } from '@mui/material';
+import diverseText from 'assets/images/diverseText.svg';
+import { logout } from 'ducks/auth';
+import { selectIsAuth, selectUser } from 'ducks/auth/selectors';
 import { ReactNode, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectIsAuth, selectUser } from 'ducks/auth/selectors';
-import { logout } from 'ducks/auth';
 
 import {
   StyledAppBar,

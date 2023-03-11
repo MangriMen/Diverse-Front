@@ -1,0 +1,162 @@
+{
+    "env": {
+        "browser": true,
+        "es2022": true,
+        "node": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:react-hooks/recommended",
+        "plugin:prettier/recommended",
+        "prettier"
+    ],
+    "globals": {
+        "HTMLElement": true,
+        "alert": true,
+        "document": true,
+        "localStorage": true,
+        "navigator": true,
+        "window": true
+    },
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "react-hooks",
+        "@typescript-eslint",
+        "import",
+        "jest",
+        "jsx-a11y",
+        "mysticatea",
+        "prefer-object-spread",
+        "prettier",
+        "risxss"
+    ],
+    "root": true,
+    "rules": {
+        "@typescript-eslint/ban-ts-comment": "off",
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/camelcase": 0,
+        "@typescript-eslint/explicit-function-return-type": 0,
+        "@typescript-eslint/explicit-member-accessibility": 0,
+        "@typescript-eslint/explicit-module-boundary-types": 0,
+        "@typescript-eslint/interface-name-prefix": 0,
+        "@typescript-eslint/no-explicit-any": "error",
+        "@typescript-eslint/no-unused-vars": [
+            "error",
+            {
+                "argsIgnorePattern": "^_"
+            }
+        ],
+        "complexity": [
+            "error",
+            9
+        ],
+        "curly": "error",
+        "import/extensions": 0,
+        "import/no-default-export": 1,
+        "import/no-extraneous-dependencies": [
+            "error",
+            {
+                "devDependencies": true,
+                "optionalDependencies": false,
+                "peerDependencies": false
+            }
+        ],
+        "import/no-unresolved": 0,
+        "max-depth": [
+            "error",
+            3
+        ],
+        "max-lines": [
+            "error",
+            2000
+        ],
+        "max-params": [
+            "error",
+            4
+        ],
+        "mysticatea/no-useless-rest-spread": "error",
+        "no-debugger": "warn",
+        "no-restricted-imports": [
+            "error",
+            {
+                "patterns": [
+                    "@mui/*/*/*",
+                    "!@mui/material/test-utils/*"
+                ]
+            }
+        ],
+        "prefer-object-spread/prefer-object-spread": 2,
+        "prettier/prettier": [
+            "error",
+            {
+                "arrowParens": "avoid",
+                "bracketSameLine": false,
+                "bracketSpacing": true,
+                "endOfLine": "auto",
+                "importOrder": [
+                    "^@core/(.*)$",
+                    "^@server/(.*)$",
+                    "^@ui/(.*)$",
+                    "^[./]"
+                ],
+                "importOrderSeparation": true,
+                "importOrderSortSpecifiers": true,
+                "printWidth": 80,
+                "semi": true,
+                "singleQuote": true,
+                "tabWidth": 2,
+                "trailingComma": "all"
+            }
+        ],
+        "react/destructuring-assignment": 0,
+        "react/jsx-boolean-value": 1,
+        "react/jsx-curly-brace-presence": [
+            1,
+            {
+                "children": "always",
+                "propElementValues": "always",
+                "props": "never"
+            }
+        ],
+        "react/jsx-filename-extension": [
+            1,
+            {
+                "extensions": [
+                    ".ts",
+                    ".tsx"
+                ]
+            }
+        ],
+        "react/no-array-index-key": 2,
+        "react/prefer-stateless-function": 0,
+        "react/prop-types": 0,
+        "react/react-in-jsx-scope": 0,
+        "react/require-default-props": 0,
+        "react/style-prop-object": [
+            "warn",
+            {
+                "allow": [
+                    "FormattedNumber",
+                    "FormattedNumberParts",
+                    "FormattedRelativeTime"
+                ]
+            }
+        ],
+        "risxss/catch-potential-xss-react": "error"
+    },
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    }
+}
