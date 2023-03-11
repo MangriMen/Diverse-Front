@@ -1,12 +1,13 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { deleteAuthToken, getAuthToken, setAuthToken } from 'helpers/token';
+import { STORAGE_KEYS } from 'consts';
+import { storageGet, storageRemove, storageSet } from 'helpers/localStorage';
 import { ServerAuthResponse } from 'types/auth';
 
 import { AuthState } from './types';
 
 const initialState: AuthState = {
-  user: null,
-  isInit: !!getAuthToken(),
+  user: storageGet(STORAGE_KEYS.USER),
+  isInit: !!storageGet(STORAGE_KEYS.TOKEN),
 };
 
 const authSlice = createSlice({
@@ -14,12 +15,12 @@ const authSlice = createSlice({
   initialState: initialState,
   reducers: {
     enter(state, action: PayloadAction<ServerAuthResponse>) {
-      setAuthToken(action.payload.token);
+      storageSet(STORAGE_KEYS.TOKEN, action.payload.token);
       state.user = action.payload.user;
       state.isInit = true;
     },
     logout(state) {
-      deleteAuthToken();
+      storageRemove(STORAGE_KEYS.TOKEN);
       state.isInit = false;
       state.user = null;
     },

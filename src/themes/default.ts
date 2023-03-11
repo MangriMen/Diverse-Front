@@ -8,6 +8,7 @@ export const defaultTheme = createTheme(
       palette: {
         mode: 'dark',
         common: {
+          hover: '#3c3f40aa',
           third: '#3c3f40',
         },
         background: {
@@ -22,6 +23,9 @@ export const defaultTheme = createTheme(
           dark: '#3073bf',
           main: '#4f84c0',
           light: '#5e9ee6',
+        },
+        third: {
+          main: 'red',
         },
       },
     },

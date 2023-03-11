@@ -16,8 +16,8 @@ export const AppRoutes = () => {
         </Route>
         <Route element={<UserRoute />}>
           <Route element={<PageWithNavbar />}>
-            <Route path={ROUTE.HOME} />
-            <Route path={ROUTE.ME} element={<></>} />
+            <Route path={ROUTE.HOME} element={<>{'Home'}</>} />
+            <Route path={ROUTE.NOT_FOUND} element={<>{'404'}</>} />
           </Route>
         </Route>
       </Route>

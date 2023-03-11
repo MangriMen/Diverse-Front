@@ -13,7 +13,7 @@ export const LoaderPage = () => {
       <Fade
         in
         style={{
-          transitionDelay: '100ms',
+          transitionDelay: '110ms',
         }}
         unmountOnExit
       >

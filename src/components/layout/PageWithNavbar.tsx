@@ -1,11 +1,11 @@
-import { Navbar } from 'components/common/Navbar';
+import { Header } from 'components/common/header/Header';
 import { FC } from 'react';
 import { Outlet } from 'react-router';
 
 export const PageWithNavbar: FC = () => {
   return (
     <>
-      <Navbar />
+      <Header />
       <Outlet />
     </>
   );

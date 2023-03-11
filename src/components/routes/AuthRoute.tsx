@@ -1,16 +1,12 @@
-import { LoaderPage } from 'components/common/LoaderPage';
 import { ROUTE } from 'consts/paths';
+import { selectIsAuth } from 'ducks/auth/selectors';
+import { useSelector } from 'react-redux';
 import { Navigate, Outlet } from 'react-router-dom';
 
 export const AuthRoute = () => {
-  const isLoading = false;
-  const isLogged = true;
+  const isAuth = useSelector(selectIsAuth);
 
-  if (isLoading) {
-    return <LoaderPage />;
-  }
-
-  if (!isLogged) {
+  if (isAuth) {
     return <Navigate to={ROUTE.HOME} replace />;
   }
 

@@ -18,11 +18,8 @@ export const StyledAppBar = styled(AppBar)`
   background: ${props => props.theme.palette.primary.light};
 `;
 
-export const StyledLogo = styled(Box)`
-  max-height: 28px;
-` as typeof Box;
-
 export const StyledToolbar = styled(Toolbar)`
+  height: 100%;
   justify-content: space-between;
   max-height: 48px;
   ${props => props.theme.breakpoints.up('sm')} {

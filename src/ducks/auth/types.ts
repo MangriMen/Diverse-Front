@@ -16,7 +16,3 @@ export interface RegisterValues {
   password: string;
   passwordConfirm: string;
 }
-
-export interface FetchValues {
-  token: string;
-}
