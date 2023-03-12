@@ -76,6 +76,12 @@ export const StyledTypography = styled(Typography)`
 export const StyledList = styled(List)`
   overflow: auto;
   height: 100%;
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: ${props => props.theme.palette.common.dimmed};
+  }
 `;
 
 export const StyledCommentHeaderBox = styled(Box)`
