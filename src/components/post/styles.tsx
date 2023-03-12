@@ -80,6 +80,7 @@ export const StyledList = styled(List)`
     width: 4px;
   }
   &::-webkit-scrollbar-thumb {
+    border-radius: 4px;
     background-color: ${props => props.theme.palette.common.dimmed};
   }
 `;
