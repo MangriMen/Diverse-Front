@@ -1,14 +1,12 @@
-import {
-  StyledAvatar,
-  StyledPostCardHeaderBox,
-  StyledTypography,
-} from './styles';
+import { Typography } from '@mui/material';
+
+import { StyledAvatar, StyledPostCardHeaderBox } from './styles';
 
 export const PostCardHeader = () => {
   return (
     <StyledPostCardHeaderBox>
       <StyledAvatar src="src/assets/images/lucy.jpg" />
-      <StyledTypography>{'Username'}</StyledTypography>
+      <Typography fontSize="20px">{'Username'}</Typography>
     </StyledPostCardHeaderBox>
   );
 };

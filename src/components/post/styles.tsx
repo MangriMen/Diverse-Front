@@ -8,16 +8,15 @@ import {
   InputBase,
   List,
   Paper,
-  Typography,
   styled,
 } from '@mui/material';
 
 export const StyledCard = styled(Card)`
-  max-width: 58.125rem;
-  max-height: 500px;
+  max-width: 930px;
+  max-height: 536px;
   display: flex;
   box-shadow: 0 0 0 2px ${props => props.theme.palette.common.third};
-  align: center;
+  justify-content: flex-end;
   & .MuiCardContent-root {
     width: 100%;
     background: ${props => props.theme.palette.primary.dark};
@@ -27,7 +26,11 @@ export const StyledCard = styled(Card)`
 export const StyledCardContent = styled(CardContent)`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  max-width: 320px;
+  gap: 0.5rem;
+  &:last-child {
+    padding-bottom: 16px;
+  }
 `;
 
 export const StyledPostCardHeaderBox = styled(Box)`
@@ -42,6 +45,7 @@ export const StyledAvatar = styled(Avatar)`
 `;
 
 export const StyledTextButton = styled(Button)`
+  font-size: 14px;
   padding: 0 4px;
   text-align: start;
   color: ${props => props.theme.palette.common.dimmed};
@@ -67,10 +71,6 @@ export const StyledActionBox = styled(Box)`
 
 export const StyledIconButton = styled(IconButton)`
   padding: 0px;
-`;
-
-export const StyledTypography = styled(Typography)`
-  font-size: 20px;
 `;
 
 export const StyledList = styled(List)`

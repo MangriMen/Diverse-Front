@@ -15,7 +15,7 @@ export const PostCardActions = () => {
         <StyledIconButton disableRipple>
           <FavoriteBorderIcon />
         </StyledIconButton>
-        <Typography>{'999K'}</Typography>
+        <Typography fontSize="14px">{'999K'}</Typography>
       </StyledLikeBox>
     </StyledActionBox>
   );

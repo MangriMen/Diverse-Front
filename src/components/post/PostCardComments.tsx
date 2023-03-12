@@ -11,21 +11,25 @@ import { StyledCommentHeaderBox, StyledList } from './styles';
 export const PostCardComments = () => {
   return (
     <StyledList>
-      <ListItem alignItems="flex-start">
+      <ListItem alignItems="flex-start" sx={{ p: '0' }}>
         <ListItemAvatar>
           <Avatar />
         </ListItemAvatar>
         <ListItemText
           primary={
             <StyledCommentHeaderBox>
-              <Typography>{'Username'}</Typography>
-              <Typography variant="caption" color="common.dimmed">
+              <Typography fontSize="12px">{'Username'}</Typography>
+              <Typography
+                variant="caption"
+                fontSize="9px"
+                color="common.dimmed"
+              >
                 {'2 Дня назад'}
               </Typography>
             </StyledCommentHeaderBox>
           }
           secondary={
-            <Typography variant="body2">
+            <Typography fontSize="12px" variant="body2">
               {
                 'Lorem ipsum dolor sit amet, consectetur popa daw adipiscing elit. Donec \r'
               }
