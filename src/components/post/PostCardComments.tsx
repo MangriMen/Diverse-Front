@@ -1,30 +1,28 @@
 import {
   Avatar,
-  List,
   ListItem,
   ListItemAvatar,
   ListItemText,
   Typography,
-  Box,
 } from '@mui/material';
+
+import { StyledCommentHeaderBox, StyledList } from './styles';
 
 export const PostCardComments = () => {
   return (
-    <List sx={{ overflow: 'auto' }}>
+    <StyledList>
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
           <Avatar />
         </ListItemAvatar>
         <ListItemText
           primary={
-            <Box
-              sx={{ display: 'flex', gap: '0 1.5rem', alignItems: 'flex-end' }}
-            >
+            <StyledCommentHeaderBox>
               <Typography>{'Username'}</Typography>
               <Typography variant="caption" color="common.dimmed">
                 {'2 Дня назад'}
               </Typography>
-            </Box>
+            </StyledCommentHeaderBox>
           }
           secondary={
             <Typography variant="body2">
@@ -35,6 +33,6 @@ export const PostCardComments = () => {
           }
         />
       </ListItem>
-    </List>
+    </StyledList>
   );
 };

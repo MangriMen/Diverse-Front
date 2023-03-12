@@ -5,6 +5,10 @@ import {
   Card,
   CardContent,
   IconButton,
+  InputBase,
+  List,
+  Paper,
+  Typography,
   styled,
 } from '@mui/material';
 
@@ -63,4 +67,31 @@ export const StyledActionBox = styled(Box)`
 
 export const StyledIconButton = styled(IconButton)`
   padding: 0px;
+`;
+
+export const StyledTypography = styled(Typography)`
+  font-size: 20px;
+`;
+
+export const StyledList = styled(List)`
+  overflow: auto;
+  height: 100%;
+`;
+
+export const StyledCommentHeaderBox = styled(Box)`
+  display: flex;
+  gap: 0 1.5rem;
+  align-items: flex-end;
+`;
+
+export const StyledPaper = styled(Paper)`
+  display: flex;
+  align-items: center;
+  box-shadow: none;
+` as typeof Paper;
+
+export const StyledInputBase = styled(InputBase)`
+  margin-left: 1rem;
+  flex: 1;
+  font-size: 16px;
 `;

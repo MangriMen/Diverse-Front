@@ -5,6 +5,7 @@ import { PostCardHeader } from './PostCardHeader';
 import { PostCardDescription } from './PostCardDescription';
 import { PostCardActions } from './PostCardActions';
 import { PostCardComments } from './PostCardComments';
+import { PostCardInput } from './PostCardInput';
 
 export const Post = () => {
   return (
@@ -19,6 +20,7 @@ export const Post = () => {
         <PostCardDescription />
         <PostCardActions />
         <PostCardComments />
+        <PostCardInput />
       </StyledCardContent>
     </StyledCard>
   );
