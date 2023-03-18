@@ -11,7 +11,7 @@ import { StyledCommentHeaderBox, StyledList } from './styles';
 export const PostCardComments = () => {
   return (
     <StyledList>
-      <ListItem alignItems="flex-start" sx={{ p: '0' }}>
+      <ListItem alignItems="flex-start" disablePadding>
         <ListItemAvatar>
           <Avatar />
         </ListItemAvatar>

@@ -44,8 +44,10 @@ export const StyledAvatar = styled(Avatar)`
   height: 48px;
 `;
 
-export const StyledTextButton = styled(Button)`
-  font-size: 14px;
+export const StyledTextButton = styled(Button, {
+  shouldForwardProp: prop => prop !== 'small',
+})<{ small: string }>`
+  font-size: ${props => props.small};
   padding: 0 4px;
   text-align: start;
   color: ${props => props.theme.palette.common.dimmed};

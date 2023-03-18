@@ -10,7 +10,9 @@ import {
 export const PostCardActions = () => {
   return (
     <StyledActionBox>
-      <StyledTextButton variant="text">{'Поделиться'}</StyledTextButton>
+      <StyledTextButton small="16px" variant="text">
+        {'Поделиться'}
+      </StyledTextButton>
       <StyledLikeBox>
         <StyledIconButton disableRipple>
           <FavoriteBorderIcon />
