@@ -45,9 +45,9 @@ export const StyledAvatar = styled(Avatar)`
 `;
 
 export const StyledTextButton = styled(Button, {
-  shouldForwardProp: prop => prop !== 'small',
-})<{ small: string }>`
-  font-size: ${props => props.small};
+  shouldForwardProp: prop => prop !== 'fontsize',
+})<{ fontsize: string }>`
+  font-size: ${props => props.fontsize};
   padding: 0 4px;
   text-align: start;
   color: ${props => props.theme.palette.common.dimmed};
@@ -63,6 +63,7 @@ export const StyledTextButton = styled(Button, {
 export const StyledLikeBox = styled(Box)`
   display: flex;
   gap: 0 0.2rem;
+  align-items: center;
 `;
 
 export const StyledActionBox = styled(Box)`
