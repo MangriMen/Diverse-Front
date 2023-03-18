@@ -90,7 +90,7 @@ export const StyledList = styled(List)`
 
 export const StyledCommentHeaderBox = styled(Box)`
   display: flex;
-  gap: 0 1.5rem;
+  gap: 0 1rem;
   align-items: flex-end;
 `;
 

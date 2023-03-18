@@ -43,7 +43,7 @@ export const PostCardComments = () => {
                 </Typography>
                 <Typography
                   variant="caption"
-                  fontSize="10px"
+                  fontSize="11px"
                   color="common.dimmed"
                 >
                   {item.createAt}
