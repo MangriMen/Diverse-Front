@@ -1,10 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { ServerAuthResponse } from 'types/auth';
 import { API_BASE_URL, API_ENDPOINTS } from 'consts/endpoints';
-
-import { LoginValues, RegisterValues } from './types';
+import { ServerAuthResponse } from 'types/auth';
 
 import { enter, logout } from '.';
+import { LoginValues, RegisterValues } from './types';
 
 export const authApi = createApi({
   reducerPath: 'authApi',

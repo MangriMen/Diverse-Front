@@ -1,22 +1,22 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import { Typography } from '@mui/material';
-import { useTranslation } from 'react-i18next';
-import { FC } from 'react';
 import { useRegisterMutation } from 'ducks/auth/api';
 import { RegisterValues } from 'ducks/auth/types';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { conditionalTranslate } from 'helpers/conditionalTranslate';
+import { FC } from 'react';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
-import {
-  StyledFormBox,
-  StyledInput,
-  StyledTextButton,
-  StyledSwitchActionBox,
-  StyledWrapperBox,
-  StyledButton,
-} from './styles';
 import { AuthFormProps } from './interfaces';
 import { registerValidator } from './schemas';
+import {
+  StyledButton,
+  StyledFormBox,
+  StyledInput,
+  StyledSwitchActionBox,
+  StyledTextButton,
+  StyledWrapperBox,
+} from './styles';
 
 const defaultValues = {
   username: '',
