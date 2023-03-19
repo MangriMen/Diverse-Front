@@ -2,6 +2,7 @@ import {
   AppBar,
   Avatar,
   Box,
+  Button,
   Toolbar,
   Typography,
   styled,
@@ -44,5 +45,16 @@ export const StyledAvatar = styled(Avatar)`
 export const StyledUsername = styled(Typography)`
   ${props => props.theme.breakpoints.down('sm')} {
     display: none;
+  }
+`;
+
+export const StyledHeaderAvatarButton = styled(Button)`
+  box-shadow: none;
+  background-color: transparent;
+  padding: 0.25rem 0.75rem;
+
+  &:hover {
+    background-color: ${props => props.theme.palette.common.hover};
+    box-shadow: none;
   }
 `;
