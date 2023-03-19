@@ -1,4 +1,5 @@
 import { CircularProgress } from '@mui/material';
+
 import { ContainerStyled, UserFetchFade } from './styles';
 
 export const LoaderPage = () => {
