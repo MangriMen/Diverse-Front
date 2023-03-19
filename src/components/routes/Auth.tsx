@@ -3,7 +3,7 @@ import { selectIsAuth } from 'ducks/auth/selectors';
 import { useSelector } from 'react-redux';
 import { Navigate, Outlet } from 'react-router-dom';
 
-export const AuthRoute = () => {
+export const Auth = () => {
   const isAuth = useSelector(selectIsAuth);
 
   if (isAuth) {

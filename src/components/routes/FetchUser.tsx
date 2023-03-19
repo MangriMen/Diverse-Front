@@ -4,7 +4,7 @@ import { selectIsAuth } from 'ducks/auth/selectors';
 import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 
-export const User = () => {
+export const FetchUser = () => {
   const { isError } = useFetchQuery();
   const isAuth = useSelector(selectIsAuth);
 

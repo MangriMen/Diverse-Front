@@ -1,21 +1,21 @@
-import { PageWithNavbar } from 'components/layout/PageWithNavbar';
+import { PageWithHeader } from 'components/layout/PageWithHeader';
 import { AuthPage } from 'components/pages/AuthPage';
-import { AuthRoute } from 'components/routes/AuthRoute';
-import { UserRoute } from 'components/routes/UserRoute';
+import { Auth } from 'components/routes/Auth';
+import { Private } from 'components/routes/Private';
 import { ROUTE } from 'consts';
 import { Route, Routes } from 'react-router-dom';
 
-import { User } from './routes/User';
+import { FetchUser } from './routes/FetchUser';
 
 export const AppRoutes = () => {
   return (
     <Routes>
-      <Route element={<User />}>
-        <Route element={<AuthRoute />}>
+      <Route element={<FetchUser />}>
+        <Route element={<Auth />}>
           <Route path={ROUTE.AUTH} element={<AuthPage />} />
         </Route>
-        <Route element={<UserRoute />}>
-          <Route element={<PageWithNavbar />}>
+        <Route element={<Private />}>
+          <Route element={<PageWithHeader />}>
             <Route path={ROUTE.HOME} element={<>{'Home'}</>} />
             <Route path={ROUTE.NOT_FOUND} element={<>{'404'}</>} />
           </Route>
