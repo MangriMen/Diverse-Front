@@ -5,5 +5,4 @@ export const API_ENDPOINTS = {
   REGISTER: '/register',
   FETCH: '/fetch',
   USERS: '/users',
-  FETCH: '/fetch',
 };
