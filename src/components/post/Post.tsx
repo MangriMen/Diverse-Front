@@ -10,7 +10,7 @@ import { PostCardInput } from './PostCardInput';
 export const Post = () => {
   return (
     <StyledCard>
-      <CardMedia component="img" image="src/assets/images/500.jpg"></CardMedia>
+      <CardMedia component="img" image="src/assets/images/500.jpg" />
       <StyledCardContent>
         <PostCardHeader />
         <PostCardDescription />

@@ -6,6 +6,8 @@ import {
   Typography,
 } from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { postComments } from 'mocks/mockPostComments';
+import { useTranslation } from 'react-i18next';
 
 import {
   StyledActionBox,
@@ -16,18 +18,10 @@ import {
   StyledTextButton,
 } from './styles';
 
-const commentList = [
-  {
-    id: '1',
-    avatar: '',
-    username: 'Main',
-    createAt: '2 дня назад',
-    comment: 'MemSkekOm',
-    likes: '2',
-  },
-];
+const commentList = [postComments];
 
 export const PostCardComments = () => {
+  const { t } = useTranslation('translation', { keyPrefix: 'post' });
   return (
     <StyledList>
       {commentList.map(item => (
@@ -57,7 +51,7 @@ export const PostCardComments = () => {
                 </Typography>
                 <StyledActionBox>
                   <StyledTextButton variant="text" fontsize="12px">
-                    {'Ответить'}
+                    {t('reply')}
                   </StyledTextButton>
                   <StyledLikeBox>
                     <StyledIconButton disableRipple>
