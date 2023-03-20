@@ -2,6 +2,7 @@ import {
   AppBar,
   Avatar,
   Box,
+  Button,
   Toolbar,
   Typography,
   styled,
@@ -18,11 +19,8 @@ export const StyledAppBar = styled(AppBar)`
   background: ${props => props.theme.palette.primary.light};
 `;
 
-export const StyledLogo = styled(Box)`
-  max-height: 28px;
-` as typeof Box;
-
 export const StyledToolbar = styled(Toolbar)`
+  height: 100%;
   justify-content: space-between;
   max-height: 48px;
   ${props => props.theme.breakpoints.up('sm')} {
@@ -47,5 +45,16 @@ export const StyledAvatar = styled(Avatar)`
 export const StyledUsername = styled(Typography)`
   ${props => props.theme.breakpoints.down('sm')} {
     display: none;
+  }
+`;
+
+export const StyledHeaderAvatarButton = styled(Button)`
+  box-shadow: none;
+  background-color: transparent;
+  padding: 0.25rem 0.75rem;
+
+  &:hover {
+    background-color: ${props => props.theme.palette.common.hover};
+    box-shadow: none;
   }
 `;

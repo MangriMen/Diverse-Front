@@ -1,17 +1,12 @@
-import { CssBaseline, ThemeProvider } from '@mui/material';
-import { defaultTheme } from 'themes/default';
+import { CssBaseline } from '@mui/material';
 
-import { Header } from './header/Header';
-import { AuthPage } from './pages/AuthPage';
+import { AppRoutes } from './AppRoutes';
 
 export const App = () => {
   return (
     <>
-      <ThemeProvider theme={defaultTheme}>
-        <CssBaseline enableColorScheme />
-        <Header />
-        <AuthPage />
-      </ThemeProvider>
+      <CssBaseline enableColorScheme />
+      <AppRoutes />
     </>
   );
 };
