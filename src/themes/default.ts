@@ -1,15 +1,10 @@
 import { createTheme } from '@mui/material';
 import { deepmerge } from '@mui/utils';
-import { THEME_DEFAULT_OPTIONS } from 'consts/componentDefaultOptions';
+import { THEME_DEFAULT_OPTIONS } from 'consts';
 
 export const defaultTheme = createTheme(
   deepmerge(
     {
-      typography: {
-        button: {
-          textTransform: 'none',
-        },
-      },
       palette: {
         mode: 'dark',
         common: {
@@ -28,6 +23,9 @@ export const defaultTheme = createTheme(
           dark: '#3073bf',
           main: '#4f84c0',
           light: '#5e9ee6',
+        },
+        third: {
+          main: 'red',
         },
       },
     },

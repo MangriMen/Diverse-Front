@@ -2,6 +2,7 @@ import '@mui';
 
 declare module '@mui/material/styles/createPalette' {
   interface CommonColors {
+    hover: string;
     third: string;
     dimmed: string;
   }
