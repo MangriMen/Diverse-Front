@@ -1,7 +1,7 @@
-import { Typography } from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import { useTranslation } from 'react-i18next';
+import { Typography } from '@mui/material';
 import { post } from 'mocks/mockPosts';
+import { useTranslation } from 'react-i18next';
 
 import {
   StyledActionBox,

@@ -1,5 +1,5 @@
-import { IconButton } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
+import { IconButton } from '@mui/material';
 
 import { StyledInputBase, StyledPaper } from './styles';
 

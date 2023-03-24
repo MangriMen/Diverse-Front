@@ -1,11 +1,11 @@
 import { CardMedia } from '@mui/material';
 
-import { StyledCard, StyledCardContent } from './styles';
-import { PostCardHeader } from './PostCardHeader';
-import { PostCardDescription } from './PostCardDescription';
 import { PostCardActions } from './PostCardActions';
 import { PostCardComments } from './PostCardComments';
+import { PostCardDescription } from './PostCardDescription';
+import { PostCardHeader } from './PostCardHeader';
 import { PostCardInput } from './PostCardInput';
+import { StyledCard, StyledCardContent } from './styles';
 
 export const Post = () => {
   return (
