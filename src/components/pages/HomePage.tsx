@@ -1,4 +1,3 @@
-import { Container } from '@mui/material';
 import { Post } from 'components/post/Post';
 
 import { StyledContainer } from './styles';
