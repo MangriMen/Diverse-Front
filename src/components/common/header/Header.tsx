@@ -37,6 +37,12 @@ export const Header = () => {
       },
     },
     {
+      name: 'Create Post',
+      onClick: () => {
+        handleCloseUserMenu();
+      },
+    },
+    {
       name: 'Logout',
       onClick: () => {
         handleCloseUserMenu();
