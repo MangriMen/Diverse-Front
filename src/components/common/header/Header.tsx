@@ -75,7 +75,7 @@ export const Header = () => {
   }, [userSettings]);
 
   return (
-    <StyledAppBar position="static">
+    <StyledAppBar position="sticky">
       <CreatePostForm isOpen={open} onClose={handleCloseCreateForm} />
       <Container maxWidth="lg">
         <StyledToolbar>
