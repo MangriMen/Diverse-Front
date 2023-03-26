@@ -9,7 +9,6 @@ import {
 } from '@mui/material';
 
 export const StyledAppBar = styled(AppBar)`
-  position: static;
   display: flex;
   flex-direction: row;
   height: 48px;

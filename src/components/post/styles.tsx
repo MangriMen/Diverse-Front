@@ -8,6 +8,7 @@ import {
   InputBase,
   List,
   Paper,
+  Typography,
   styled,
 } from '@mui/material';
 
@@ -105,3 +106,7 @@ export const StyledInputBase = styled(InputBase)`
   flex: 1;
   font-size: 16px;
 `;
+
+export const StyledComment = styled(Typography)`
+  float: left;
+` as typeof Typography;

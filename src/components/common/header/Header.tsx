@@ -58,7 +58,7 @@ export const Header = () => {
   }, [userSettings]);
 
   return (
-    <StyledAppBar position="static">
+    <StyledAppBar position="sticky">
       <Container maxWidth="lg">
         <StyledToolbar>
           <Logo />

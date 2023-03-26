@@ -3,9 +3,9 @@ export const post = {
   user: {
     id: '53039673-bf32-4c27-93b4-ef794bee62d0',
     username: 'username',
-    avatar: 'assets/images/lucy.jpg',
+    avatar: 'src/assets/images/lucy.jpg',
   },
-  content: 'assets/images/500.jpg',
+  content: 'src/assets/images/500.jpg',
   description:
     'Lorem ipsum dolor sit amet, consectetur popa daw adipiscing elit. Donec ',
   comments: [
@@ -14,7 +14,7 @@ export const post = {
       user: {
         id: '53039673-bf32-4c27-93b4-ef794bee62d0',
         username: 'username',
-        avatar: 'assets/images/lucy.jpg',
+        avatar: 'src/assets/images/lucy.jpg',
       },
       created_at: '21.03.2023',
       description:

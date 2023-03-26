@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 
 import {
   StyledActionBox,
+  StyledComment,
   StyledCommentHeaderBox,
   StyledIconButton,
   StyledLikeBox,
@@ -25,15 +26,16 @@ export const PostCardComments = () => {
       {post.comments.map(item => (
         <ListItem key={item.id} alignItems="flex-start" disablePadding>
           <ListItemAvatar>
-            <Avatar />
+            <Avatar src={item.user.avatar} />
           </ListItemAvatar>
           <ListItemText
             primary={
               <StyledCommentHeaderBox>
-                <Typography fontSize="12px" padding="0 4px">
+                <Typography component="span" fontSize="12px" padding="0 4px">
                   {item.user.username}
                 </Typography>
                 <Typography
+                  component="span"
                   variant="caption"
                   fontSize="11px"
                   color="common.dimmed"
@@ -44,18 +46,25 @@ export const PostCardComments = () => {
             }
             secondary={
               <>
-                <Typography fontSize="12px" variant="body2" padding="0 4px">
+                <StyledComment
+                  component="span"
+                  fontSize="12px"
+                  variant="body2"
+                  padding="0 4px"
+                >
                   {item.description}
-                </Typography>
-                <StyledActionBox>
+                </StyledComment>
+                <StyledActionBox component="span">
                   <StyledTextButton variant="text" fontsize="12px">
                     {t('reply')}
                   </StyledTextButton>
-                  <StyledLikeBox>
+                  <StyledLikeBox component="span">
                     <StyledIconButton disableRipple>
                       <FavoriteBorderIcon fontSize="small" />
                     </StyledIconButton>
-                    <Typography fontSize="12px">{item.likes}</Typography>
+                    <Typography component="span" fontSize="12px">
+                      {item.likes}
+                    </Typography>
                   </StyledLikeBox>
                 </StyledActionBox>
               </>

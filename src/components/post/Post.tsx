@@ -1,4 +1,5 @@
 import { CardMedia } from '@mui/material';
+import { post } from 'mocks/mockPosts';
 
 import { PostCardActions } from './PostCardActions';
 import { PostCardComments } from './PostCardComments';
@@ -10,7 +11,7 @@ import { StyledCard, StyledCardContent } from './styles';
 export const Post = () => {
   return (
     <StyledCard>
-      <CardMedia component="img" image="src/assets/images/500.jpg" />
+      <CardMedia component="img" image={post.content} />
       <StyledCardContent>
         <PostCardHeader />
         <PostCardDescription />
