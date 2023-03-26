@@ -3,6 +3,5 @@ export const ROUTE = {
   AUTH: '/auth',
   ME: '/me',
   SETTINGS: '/settings',
-  CHARLIST: '/charlist',
   NOT_FOUND: '*',
 };

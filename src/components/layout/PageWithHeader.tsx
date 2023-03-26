@@ -1,8 +1,7 @@
 import { Header } from 'components/common/header/Header';
-import { FC } from 'react';
-import { Outlet } from 'react-router';
+import { Outlet } from 'react-router-dom';
 
-export const PageWithHeader: FC = () => {
+export const PageWithHeader = () => {
   return (
     <>
       <Header />
