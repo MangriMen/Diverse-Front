@@ -1,5 +1,6 @@
 import { Container, Menu, MenuItem, Typography } from '@mui/material';
 import { Logo } from 'components/common/Logo';
+import { CreatePostForm } from 'components/post/CreatePostForm';
 import { ROUTE } from 'consts';
 import { logout } from 'ducks/auth';
 import { ReactNode, useEffect, useState } from 'react';
@@ -19,6 +20,15 @@ export const Header = () => {
   const navigate = useNavigate();
 
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+  const [open, setOpen] = useState(false);
+
+  const handleOpenCreateForm = () => {
+    setOpen(true);
+  };
+
+  const handleCloseCreateForm = () => {
+    setOpen(false);
+  };
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -39,6 +49,7 @@ export const Header = () => {
     {
       name: 'Create Post',
       onClick: () => {
+        handleOpenCreateForm();
         handleCloseUserMenu();
       },
     },
@@ -65,6 +76,7 @@ export const Header = () => {
 
   return (
     <StyledAppBar position="static">
+      <CreatePostForm isOpen={open} onClose={handleCloseCreateForm} />
       <Container maxWidth="lg">
         <StyledToolbar>
           <Logo />
