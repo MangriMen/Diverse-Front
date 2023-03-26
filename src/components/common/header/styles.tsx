@@ -16,6 +16,7 @@ export const StyledAppBar = styled(AppBar)`
   border-bottom: 1px solid;
   border-color: ${props => props.theme.palette.common.third};
   background: ${props => props.theme.palette.primary.light};
+  margin-bottom: 1rem;
 `;
 
 export const StyledToolbar = styled(Toolbar)`
