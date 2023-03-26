@@ -5,6 +5,8 @@ import { Private } from 'components/routes/Private';
 import { ROUTE } from 'consts';
 import { Route, Routes } from 'react-router-dom';
 
+import { HomePage } from './pages/HomePage';
+import { NotFoundPage } from './pages/NotFoundPage';
 import { FetchUser } from './routes/FetchUser';
 
 export const AppRoutes = () => {
@@ -16,8 +18,8 @@ export const AppRoutes = () => {
         </Route>
         <Route element={<Private />}>
           <Route element={<PageWithHeader />}>
-            <Route path={ROUTE.HOME} element={<>{'Home'}</>} />
-            <Route path={ROUTE.NOT_FOUND} element={<>{'404'}</>} />
+            <Route path={ROUTE.HOME} element={<HomePage />} />
+            <Route path={ROUTE.NOT_FOUND} element={<NotFoundPage />} />
           </Route>
         </Route>
       </Route>
