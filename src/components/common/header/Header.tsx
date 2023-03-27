@@ -1,6 +1,6 @@
 import { Container, Menu, MenuItem, Typography } from '@mui/material';
 import { Logo } from 'components/common/Logo';
-import { CreatePostForm } from 'components/post/CreatePostForm';
+import { CreatePostForm } from 'components/post/CreatePost/CreatePostForm';
 import { ROUTE } from 'consts';
 import { logout } from 'ducks/auth';
 import { ReactNode, useEffect, useState } from 'react';
