@@ -1,4 +1,3 @@
-import { Box } from '@mui/material';
 import { post } from 'mocks/mockPosts';
 
 import { PostCardActions } from './PostCardActions';

@@ -1,5 +1,5 @@
 import '@mui/material';
-import { Box, CardMedia } from '@mui/material';
+import { Box } from '@mui/material';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
