@@ -1,6 +1,7 @@
-import { GlobalStyles } from '@mui/material';
+import { GlobalStyles, useTheme } from '@mui/material';
 
 export const GlobalStylesComponent = () => {
+  const theme = useTheme();
   return (
     <GlobalStyles
       styles={{
@@ -9,7 +10,7 @@ export const GlobalStylesComponent = () => {
         },
         '::-webkit-scrollbar-thumb': {
           borderRadius: '4px',
-          backgroundColor: '#9e9e9e',
+          backgroundColor: theme.palette.common.dimmed,
         },
       }}
     />
