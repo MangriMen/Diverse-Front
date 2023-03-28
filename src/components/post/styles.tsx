@@ -85,13 +85,6 @@ export const StyledIconButton = styled(IconButton)`
 export const StyledList = styled(List)`
   overflow: auto;
   height: 100%;
-  &::-webkit-scrollbar {
-    width: 4px;
-  }
-  &::-webkit-scrollbar-thumb {
-    border-radius: 4px;
-    background-color: ${props => props.theme.palette.common.dimmed};
-  }
 `;
 
 export const StyledCommentHeaderBox = styled(Box)`

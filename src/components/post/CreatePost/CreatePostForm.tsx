@@ -26,10 +26,12 @@ export const CreatePostForm: FC<{ isOpen: boolean; onClose: () => void }> = ({
             variant="filled"
             label="Описание к посту"
             multiline
+            maxRows="15"
             autoComplete="off"
             InputProps={{ disableUnderline: true }}
-            inputProps={{ maxLength: 2048 }}
-            rows={15}
+            inputProps={{
+              maxLength: 2048,
+            }}
           />
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
             <StyledButton
