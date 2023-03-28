@@ -32,7 +32,7 @@ export const StyledCardContent = styled(CardContent)`
   max-height: 500px;
   max-width: 320px;
   min-width: 320px;
-  gap: 2rem;
+  gap: 0.5rem;
   &:last-child {
     padding-bottom: 16px;
   }
@@ -84,13 +84,6 @@ export const StyledIconButton = styled(IconButton)`
 export const StyledList = styled(List)`
   overflow: auto;
   height: 100%;
-  &::-webkit-scrollbar {
-    width: 4px;
-  }
-  &::-webkit-scrollbar-thumb {
-    border-radius: 4px;
-    background-color: ${props => props.theme.palette.common.dimmed};
-  }
 `;
 
 export const StyledCommentHeaderBox = styled(Box)`
