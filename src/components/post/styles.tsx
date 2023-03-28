@@ -4,6 +4,7 @@ import {
   Button,
   Card,
   CardContent,
+  CardMedia,
   IconButton,
   InputBase,
   List,
@@ -136,4 +137,14 @@ export const StyledButton = styled(Button)`
   &:focus-visible {
     outline: 2px solid;
   }
+`;
+
+export const StyledCardMedia = styled(CardMedia)`
+  object-fit: scale-down;
+` as typeof CardMedia;
+
+export const StyledCardMediaBox = styled(Box)`
+  display: flex;
+  min-width: 500px;
+  min-height: 500px;
 `;

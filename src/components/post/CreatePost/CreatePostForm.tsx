@@ -8,6 +8,8 @@ import {
   StyledCard,
   StyledCardContent,
   StyledCardCreateInput,
+  StyledCardMedia,
+  StyledCardMediaBox,
   StyledModal,
 } from '../styles';
 
@@ -20,7 +22,12 @@ export const CreatePostForm: FC<{ isOpen: boolean; onClose: () => void }> = ({
   return (
     <StyledModal open={isOpen} onClose={onClose}>
       <StyledCard>
-        <CardMedia component="img" image="src/assets/images/500.jpg" />
+        <StyledCardMediaBox>
+          <StyledCardMedia
+            component="img"
+            image="src/assets/images/searchPic.svg"
+          />
+        </StyledCardMediaBox>
         <StyledCardContent gap="2rem">
           <StyledCardCreateInput
             variant="filled"
@@ -47,6 +54,7 @@ export const CreatePostForm: FC<{ isOpen: boolean; onClose: () => void }> = ({
               color="secondary"
               disableFocusRipple
               type="submit"
+              onClick={onClose}
             >
               {t('cancel')}
             </StyledButton>

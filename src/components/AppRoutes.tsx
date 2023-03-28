@@ -13,14 +13,10 @@ export const AppRoutes = () => {
   return (
     <Routes>
       <Route element={<FetchUser />}>
-        <Route element={<Auth />}>
-          <Route path={ROUTE.AUTH} element={<AuthPage />} />
-        </Route>
-        <Route element={<Private />}>
-          <Route element={<PageWithHeader />}>
-            <Route path={ROUTE.HOME} element={<HomePage />} />
-            <Route path={ROUTE.NOT_FOUND} element={<NotFoundPage />} />
-          </Route>
+        <Route element={<Auth />}></Route>
+        <Route element={<PageWithHeader />}>
+          <Route path={ROUTE.AUTH} element={<HomePage />} />
+          <Route path={ROUTE.NOT_FOUND} element={<NotFoundPage />} />
         </Route>
       </Route>
     </Routes>

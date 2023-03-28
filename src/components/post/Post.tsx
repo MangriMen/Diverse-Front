@@ -1,4 +1,4 @@
-import { CardMedia } from '@mui/material';
+import { Box } from '@mui/material';
 import { post } from 'mocks/mockPosts';
 
 import { PostCardActions } from './PostCardActions';
@@ -6,12 +6,19 @@ import { PostCardComments } from './PostCardComments';
 import { PostCardDescription } from './PostCardDescription';
 import { PostCardHeader } from './PostCardHeader';
 import { PostCardInput } from './PostCardInput';
-import { StyledCard, StyledCardContent } from './styles';
+import {
+  StyledCard,
+  StyledCardContent,
+  StyledCardMedia,
+  StyledCardMediaBox,
+} from './styles';
 
 export const Post = () => {
   return (
     <StyledCard>
-      <CardMedia component="img" image={post.content} />
+      <StyledCardMediaBox>
+        <StyledCardMedia component="img" image={post.content} />
+      </StyledCardMediaBox>
       <StyledCardContent gap="0.5rem">
         <PostCardHeader />
         <PostCardDescription />
