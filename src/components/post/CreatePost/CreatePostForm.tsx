@@ -21,7 +21,7 @@ export const CreatePostForm: FC<{ isOpen: boolean; onClose: () => void }> = ({
     <StyledModal open={isOpen} onClose={onClose}>
       <StyledCard>
         <CardMedia component="img" image="src/assets/images/500.jpg" />
-        <StyledCardContent>
+        <StyledCardContent gap="2rem">
           <StyledCardCreateInput
             variant="filled"
             label="Описание к посту"

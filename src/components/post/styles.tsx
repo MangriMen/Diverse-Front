@@ -26,13 +26,14 @@ export const StyledCard = styled(Card)`
   }
 `;
 
-export const StyledCardContent = styled(CardContent)`
+export const StyledCardContent = styled(CardContent, {
+  shouldForwardProp: prop => prop !== 'gap',
+})<{ gap: string }>`
   display: flex;
   flex-direction: column;
-  max-height: 500px;
   max-width: 320px;
   min-width: 320px;
-  gap: 2rem;
+  gap: ${props => props.gap};
   &:last-child {
     padding-bottom: 16px;
   }

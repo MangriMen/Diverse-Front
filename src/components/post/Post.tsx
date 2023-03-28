@@ -12,7 +12,7 @@ export const Post = () => {
   return (
     <StyledCard>
       <CardMedia component="img" image={post.content} />
-      <StyledCardContent>
+      <StyledCardContent gap="0.5rem">
         <PostCardHeader />
         <PostCardDescription />
         <PostCardActions />
