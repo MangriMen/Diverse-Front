@@ -41,16 +41,9 @@ export const CreatePostForm: FC<{ isOpen: boolean; onClose: () => void }> = ({
       <form onSubmit={handleSubmit(onSubmit)}>
         <StyledCard>
           <StyledCardMediaBox>
-            <Controller
-              control={control}
-              name="content"
-              render={({ field }) => (
-                <StyledCardMedia
-                  {...field}
-                  component="img"
-                  image="src/assets/images/searchPic.svg"
-                />
-              )}
+            <StyledCardMedia
+              component="img"
+              image="src/assets/images/searchPic.svg"
             />
           </StyledCardMediaBox>
           <StyledCardContent gap="2rem">

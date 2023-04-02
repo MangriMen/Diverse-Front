@@ -140,6 +140,7 @@ export const StyledButton = styled(Button)`
 `;
 
 export const StyledCardMedia = styled(CardMedia)`
+  background-color: ${props => props.theme.palette.primary.dark};
   object-fit: scale-down;
 ` as typeof CardMedia;
 
