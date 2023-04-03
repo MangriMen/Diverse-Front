@@ -3,17 +3,15 @@ import { STORAGE_KEYS } from 'consts';
 import { API_BASE_URL, API_ENDPOINTS } from 'consts/endpoints';
 import { storageGet } from 'helpers/localStorage';
 
-import { PostValues } from './types';
-
-export const postApi = createApi({
-  reducerPath: 'postApi',
+export const dataApi = createApi({
+  reducerPath: 'dataApi',
   baseQuery: fetchBaseQuery({
     baseUrl: API_BASE_URL,
   }),
   endpoints: build => ({
-    posts: build.mutation<string, PostValues>({
+    data: build.mutation<string, FormData>({
       query: credentials => ({
-        url: API_ENDPOINTS.POSTS,
+        url: API_ENDPOINTS.DATA,
         method: 'post',
         headers: { Authorization: `Bearer ${storageGet(STORAGE_KEYS.TOKEN)}` },
         body: credentials,
@@ -22,4 +20,4 @@ export const postApi = createApi({
   }),
 });
 
-export const { usePostsMutation } = postApi;
+export const { useDataMutation } = dataApi;
