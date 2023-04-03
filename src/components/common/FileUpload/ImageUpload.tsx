@@ -1,3 +1,5 @@
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
+import SvgIcon from '@mui/icons-material/AddPhotoAlternate';
 import { StyledCardMedia, StyledCardMediaBox } from 'components/post/styles';
 import { BaseSyntheticEvent, FC, useState } from 'react';
 
@@ -25,10 +27,12 @@ export const ImageUpload: FC<FileUploadProps> = ({ name }) => {
   }
   return (
     <StyledCardMediaBox>
-      <StyledCardMedia
-        component="img"
-        image={fileData ?? 'src/assets/images/searchPic.svg'}
-      />
+      {fileData && <StyledCardMedia component="img" image={fileData} />}
+      {!fileData && (
+        <SvgIcon>
+          <AddPhotoAlternateIcon />
+        </SvgIcon>
+      )}
       <FileUpload name={name} onChange={handleOnChange} />
     </StyledCardMediaBox>
   );

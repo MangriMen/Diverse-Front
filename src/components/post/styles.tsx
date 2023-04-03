@@ -146,6 +146,8 @@ export const StyledCardMedia = styled(CardMedia)`
 
 export const StyledCardMediaBox = styled(Box)`
   display: flex;
+  align-items: center;
+  justify-content: center;
   min-width: 500px;
   min-height: 500px;
 `;
