@@ -145,6 +145,7 @@ export const StyledCardMedia = styled(CardMedia)`
 ` as typeof CardMedia;
 
 export const StyledCardMediaBox = styled(Box)`
+  background-color: ${props => props.theme.palette.primary.dark};
   display: flex;
   align-items: center;
   justify-content: center;
