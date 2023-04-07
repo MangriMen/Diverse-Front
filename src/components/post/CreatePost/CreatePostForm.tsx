@@ -68,7 +68,7 @@ export const CreatePostForm: FC<CreatePostFormProps> = ({
                     <StyledCardCreateInput
                       {...field}
                       variant="filled"
-                      label="Описание к посту"
+                      label={t('postDescription')}
                       multiline
                       maxRows="15"
                       autoComplete="off"

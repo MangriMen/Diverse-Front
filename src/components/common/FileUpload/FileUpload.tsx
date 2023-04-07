@@ -11,7 +11,9 @@ export const FileUpload: FC<FileUploadProps> = ({ name, onChange }) => {
   return (
     <StyledFileInput
       component="input"
-      {...register(name, { onChange: onChange })}
+      {...register(name, {
+        onChange: onChange,
+      })}
       accept={IMAGE_ALLOWED_TYPES}
       type="file"
     />
