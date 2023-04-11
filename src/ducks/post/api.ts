@@ -12,11 +12,11 @@ export const postApi = createApi({
   }),
   endpoints: build => ({
     posts: build.mutation<string, PostValues>({
-      query: credentials => ({
+      query: arg => ({
         url: API_ENDPOINTS.POSTS,
         method: 'post',
         headers: { Authorization: `Bearer ${storageGet(STORAGE_KEYS.TOKEN)}` },
-        body: credentials,
+        body: arg,
       }),
     }),
   }),

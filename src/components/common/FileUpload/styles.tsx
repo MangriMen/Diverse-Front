@@ -3,9 +3,9 @@ import { Box, SvgIcon } from '@mui/material';
 
 export const StyledFileInput = styled(Box)`
   opacity: 0;
-  position: fixed;
-  width: 25%;
-  height: 50%;
+  position: absolute;
+  width: 100%;
+  height: 100%;
   cursor: pointer;
 ` as typeof Box;
 
