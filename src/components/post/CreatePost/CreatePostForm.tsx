@@ -1,5 +1,5 @@
 import '@mui/material';
-import { Box } from '@mui/material';
+import { Alert, Box } from '@mui/material';
 import { ImageUpload } from 'components/common/FileUpload/ImageUpload';
 import { useDataMutation } from 'ducks/data/api';
 import { DataValues } from 'ducks/data/types';
@@ -39,7 +39,7 @@ export const CreatePostForm: FC<CreatePostFormProps> = ({
   const form = useForm<PostForm>({ defaultValues: defaultValues });
 
   const [sendPost] = usePostsMutation();
-  const [sendData] = useDataMutation();
+  const [sendData, { isError }] = useDataMutation();
 
   const onSubmitHandler: SubmitHandler<PostForm> = async data => {
     const formData = new FormData();
@@ -56,6 +56,7 @@ export const CreatePostForm: FC<CreatePostFormProps> = ({
   return (
     <StyledModal open={isOpen} onClose={onClose}>
       <Box>
+        {isError && <Alert severity="error">{' Err '}</Alert>}
         <FormProvider {...form}>
           <Box component="form" onSubmit={form.handleSubmit(onSubmitHandler)}>
             <StyledCard>
