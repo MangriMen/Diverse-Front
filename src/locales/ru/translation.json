@@ -24,6 +24,7 @@
         "reply": "Ответить",
         "accept": "Принять",
         "cancel": "Отменить",
-        "postDescription": "Описание к посту"
+        "postDescription": "Описание к посту",
+        "ErrorSendPost": "Ошибка в создании поста"
     }
 }

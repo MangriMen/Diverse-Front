@@ -1,11 +1,11 @@
 import '@mui/material';
-import { Alert, Box } from '@mui/material';
+import { Alert, Box, Snackbar } from '@mui/material';
 import { ImageUpload } from 'components/common/FileUpload/ImageUpload';
 import { useDataMutation } from 'ducks/data/api';
 import { DataValues } from 'ducks/data/types';
 import { usePostsMutation } from 'ducks/post/api';
 import { PostValues } from 'ducks/post/types';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import {
   Controller,
   FormProvider,
@@ -41,6 +41,23 @@ export const CreatePostForm: FC<CreatePostFormProps> = ({
   const [sendPost] = usePostsMutation();
   const [sendData, { isError }] = useDataMutation();
 
+  const [open, setOpen] = useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (
+    event: React.SyntheticEvent | Event,
+    reason?: string,
+  ) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
   const onSubmitHandler: SubmitHandler<PostForm> = async data => {
     const formData = new FormData();
     formData.append('file', data.file[0] ?? '');
@@ -56,7 +73,6 @@ export const CreatePostForm: FC<CreatePostFormProps> = ({
   return (
     <StyledModal open={isOpen} onClose={onClose}>
       <Box>
-        {isError && <Alert severity="error">{' Err '}</Alert>}
         <FormProvider {...form}>
           <Box component="form" onSubmit={form.handleSubmit(onSubmitHandler)}>
             <StyledCard>
@@ -86,6 +102,7 @@ export const CreatePostForm: FC<CreatePostFormProps> = ({
                     color="secondary"
                     disableFocusRipple
                     type="submit"
+                    onClick={handleClick}
                   >
                     {t('accept')}
                   </StyledButton>
@@ -97,6 +114,16 @@ export const CreatePostForm: FC<CreatePostFormProps> = ({
                   >
                     {t('cancel')}
                   </StyledButton>
+                  {isError && (
+                    <Snackbar
+                      anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                      autoHideDuration={5000}
+                      open={open}
+                      onClose={handleClose}
+                    >
+                      <Alert severity="error">{t('ErrorSendPost')}</Alert>
+                    </Snackbar>
+                  )}
                 </Box>
               </StyledCardContent>
             </StyledCard>
