@@ -43,10 +43,6 @@ export const CreatePostForm: FC<CreatePostFormProps> = ({
 
   const [open, setOpen] = useState(false);
 
-  const handleClick = () => {
-    setOpen(true);
-  };
-
   const handleClose = (
     event: React.SyntheticEvent | Event,
     reason?: string,
@@ -66,8 +62,9 @@ export const CreatePostForm: FC<CreatePostFormProps> = ({
       data.content = payload.id;
       sendPost({ content: data.content, description: data.description });
     } catch {
-      return;
+      /* empty */
     }
+    setOpen(true);
   };
 
   return (
@@ -102,7 +99,6 @@ export const CreatePostForm: FC<CreatePostFormProps> = ({
                     color="secondary"
                     disableFocusRipple
                     type="submit"
-                    onClick={handleClick}
                   >
                     {t('accept')}
                   </StyledButton>
@@ -114,16 +110,18 @@ export const CreatePostForm: FC<CreatePostFormProps> = ({
                   >
                     {t('cancel')}
                   </StyledButton>
-                  {isError && (
-                    <Snackbar
-                      anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-                      autoHideDuration={5000}
-                      open={open}
-                      onClose={handleClose}
-                    >
+                  <Snackbar
+                    anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                    autoHideDuration={5000}
+                    open={open}
+                    onClose={handleClose}
+                  >
+                    {isError ? (
                       <Alert severity="error">{t('ErrorSendPost')}</Alert>
-                    </Snackbar>
-                  )}
+                    ) : (
+                      <Alert severity="success">{t('AccessSendPost')}</Alert>
+                    )}
+                  </Snackbar>
                 </Box>
               </StyledCardContent>
             </StyledCard>

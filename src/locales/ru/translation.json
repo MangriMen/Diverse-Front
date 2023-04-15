@@ -25,6 +25,7 @@
         "accept": "Принять",
         "cancel": "Отменить",
         "postDescription": "Описание к посту",
-        "ErrorSendPost": "Ошибка в создании поста"
+        "ErrorSendPost": "Ошибка в создании поста",
+        "AccessSendPost": "Пост успешно создан"
     }
 }
