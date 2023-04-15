@@ -147,8 +147,10 @@ export const StyledCardMedia = styled(CardMedia)`
 ` as typeof CardMedia;
 
 export const StyledCardMediaBox = styled(Box)`
-  background-color: ${props => props.theme.palette.primary.dark};
+  position: relative;
   display: flex;
   flex-grow: 1;
+  align-items: center;
+  justify-content: center;
   min-height: 500px;
 `;
