@@ -17,13 +17,16 @@ import {
 
 export const StyledCard = styled(Card)`
   max-width: 930px;
+  min-width: 930px;
   max-height: 536px;
   display: flex;
   box-shadow: 0 0 0 2px ${props => props.theme.palette.common.third};
-  justify-content: flex-end;
+  justify-content: space-between;
   & .MuiCardContent-root {
     width: 100%;
-    background: ${props => props.theme.palette.primary.dark};
+  }
+  &.MuiPaper-root {
+    background-color: ${props => props.theme.palette.primary.dark};
   }
 `;
 
@@ -140,16 +143,12 @@ export const StyledButton = styled(Button)`
 `;
 
 export const StyledCardMedia = styled(CardMedia)`
-  background-color: ${props => props.theme.palette.primary.dark};
   object-fit: scale-down;
 ` as typeof CardMedia;
 
 export const StyledCardMediaBox = styled(Box)`
   background-color: ${props => props.theme.palette.primary.dark};
-  position: relative;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 500px;
+  flex-grow: 1;
   min-height: 500px;
 `;

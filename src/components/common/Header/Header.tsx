@@ -1,9 +1,10 @@
-import { Container, Menu, MenuItem, Typography } from '@mui/material';
+import { Box, Container, Menu, MenuItem, Typography } from '@mui/material';
 import { Logo } from 'components/common/Logo';
 import { CreatePostForm } from 'components/post/CreatePost/CreatePostForm';
+import { StyledModal } from 'components/post/styles';
 import { ROUTE } from 'consts';
 import { logout } from 'ducks/auth';
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -24,10 +25,6 @@ export const Header = () => {
 
   const handleOpenCreateForm = () => {
     setOpen(true);
-  };
-
-  const handleCloseCreateForm = () => {
-    setOpen(false);
   };
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -74,9 +71,17 @@ export const Header = () => {
     );
   }, [userSettings]);
 
+  const handleCloseCreateForm = useCallback(() => {
+    setOpen(false);
+  }, []);
+
   return (
     <StyledAppBar position="sticky">
-      <CreatePostForm isOpen={open} onClose={handleCloseCreateForm} />
+      <StyledModal open={open} onClose={handleCloseCreateForm}>
+        <Box>
+          <CreatePostForm onClose={handleCloseCreateForm} />
+        </Box>
+      </StyledModal>
       <Container maxWidth="lg">
         <StyledToolbar>
           <Logo />

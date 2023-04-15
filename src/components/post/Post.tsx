@@ -14,7 +14,7 @@ import {
 
 export const Post = () => {
   return (
-    <StyledCard>
+    <StyledCard elevation={0}>
       <StyledCardMediaBox>
         <StyledCardMedia component="img" image={post.content} />
       </StyledCardMediaBox>

@@ -1,11 +1,12 @@
 import '@mui/material';
-import { Alert, Box, Snackbar } from '@mui/material';
+import { Box } from '@mui/material';
 import { ImageUpload } from 'components/common/FileUpload/ImageUpload';
 import { useDataMutation } from 'ducks/data/api';
 import { DataValues } from 'ducks/data/types';
 import { usePostsMutation } from 'ducks/post/api';
 import { PostValues } from 'ducks/post/types';
-import { FC, useState } from 'react';
+import { useSnackbar } from 'notistack';
+import { FC, useEffect, useState } from 'react';
 import {
   Controller,
   FormProvider,
@@ -19,7 +20,6 @@ import {
   StyledCard,
   StyledCardContent,
   StyledCardCreateInput,
-  StyledModal,
 } from '../styles';
 import { CreatePostFormProps } from './interfaces';
 
@@ -30,104 +30,96 @@ const defaultValues = {
   description: '',
 };
 
-export const CreatePostForm: FC<CreatePostFormProps> = ({
-  isOpen,
-  onClose,
-}) => {
+export const CreatePostForm: FC<CreatePostFormProps> = ({ onClose }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'post' });
 
   const form = useForm<PostForm>({ defaultValues: defaultValues });
 
   const [sendPost] = usePostsMutation();
-  const [sendData, { isError }] = useDataMutation();
+  const [sendData] = useDataMutation();
 
-  const [open, setOpen] = useState(false);
+  const [disable, setDisable] = useState(false);
 
-  const handleClose = (
-    event: React.SyntheticEvent | Event,
-    reason?: string,
-  ) => {
-    if (reason === 'clickaway') {
-      return;
+  const { enqueueSnackbar } = useSnackbar();
+
+  useEffect(() => {
+    console.log(disable);
+    if (disable) {
+      setDisable(true);
+      const timer = setTimeout(() => {
+        setDisable(false);
+      }, 1500);
+      return () => clearTimeout(timer);
     }
-
-    setOpen(false);
-  };
+  }, [disable]);
 
   const onSubmitHandler: SubmitHandler<PostForm> = async data => {
+    setDisable(true);
     const formData = new FormData();
     formData.append('file', data.file[0] ?? '');
     try {
       const payload = Object(await sendData(formData).unwrap());
       data.content = payload.id;
-      sendPost({ content: data.content, description: data.description });
+      await sendPost({ content: data.content, description: data.description });
+      enqueueSnackbar(t('SuccessSendPost'), {
+        variant: 'success',
+        anchorOrigin: { vertical: 'top', horizontal: 'center' },
+      });
+      onClose();
     } catch {
-      /* empty */
+      enqueueSnackbar(t('ErrorSendPost'), {
+        variant: 'error',
+        anchorOrigin: { vertical: 'top', horizontal: 'center' },
+      });
     }
-    setOpen(true);
   };
 
   return (
-    <StyledModal open={isOpen} onClose={onClose}>
-      <Box>
-        <FormProvider {...form}>
-          <Box component="form" onSubmit={form.handleSubmit(onSubmitHandler)}>
-            <StyledCard>
-              <ImageUpload name="file" />
-              <StyledCardContent gap="2rem">
-                <Controller
-                  control={form.control}
-                  name="description"
-                  render={({ field }) => (
-                    <StyledCardCreateInput
-                      {...field}
-                      variant="filled"
-                      label={t('postDescription')}
-                      multiline
-                      maxRows="15"
-                      autoComplete="off"
-                      InputProps={{ disableUnderline: true }}
-                      inputProps={{
-                        maxLength: 2048,
-                      }}
-                    />
-                  )}
+    <FormProvider {...form}>
+      <Box component="form" onSubmit={form.handleSubmit(onSubmitHandler)}>
+        <StyledCard elevation={0}>
+          <ImageUpload name="file" />
+          <StyledCardContent gap="2rem">
+            <Controller
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <StyledCardCreateInput
+                  {...field}
+                  variant="filled"
+                  label={t('postDescription')}
+                  multiline
+                  maxRows="15"
+                  autoComplete="off"
+                  InputProps={{ disableUnderline: true }}
+                  inputProps={{
+                    maxLength: 2048,
+                  }}
                 />
-                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <StyledButton
-                    variant="contained"
-                    color="secondary"
-                    disableFocusRipple
-                    type="submit"
-                  >
-                    {t('accept')}
-                  </StyledButton>
-                  <StyledButton
-                    variant="contained"
-                    color="secondary"
-                    disableFocusRipple
-                    onClick={onClose}
-                  >
-                    {t('cancel')}
-                  </StyledButton>
-                  <Snackbar
-                    anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-                    autoHideDuration={5000}
-                    open={open}
-                    onClose={handleClose}
-                  >
-                    {isError ? (
-                      <Alert severity="error">{t('ErrorSendPost')}</Alert>
-                    ) : (
-                      <Alert severity="success">{t('AccessSendPost')}</Alert>
-                    )}
-                  </Snackbar>
-                </Box>
-              </StyledCardContent>
-            </StyledCard>
-          </Box>
-        </FormProvider>
+              )}
+            />
+            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+              <StyledButton
+                variant="contained"
+                color="secondary"
+                disableFocusRipple
+                type="submit"
+                disabled={disable}
+              >
+                {t('accept')}
+              </StyledButton>
+              <StyledButton
+                variant="contained"
+                color="third"
+                disableFocusRipple
+                onClick={onClose}
+              >
+                {t('cancel')}
+              </StyledButton>
+            </Box>
+          </StyledCardContent>
+        </StyledCard>
       </Box>
-    </StyledModal>
+    </FormProvider>
   );
 };
