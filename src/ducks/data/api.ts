@@ -10,11 +10,11 @@ export const dataApi = createApi({
   }),
   endpoints: build => ({
     data: build.mutation<string, FormData>({
-      query: credentials => ({
+      query: arg => ({
         url: API_ENDPOINTS.DATA,
         method: 'post',
         headers: { Authorization: `Bearer ${storageGet(STORAGE_KEYS.TOKEN)}` },
-        body: credentials,
+        body: arg,
       }),
     }),
   }),
