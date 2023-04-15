@@ -6,9 +6,10 @@ import {
   ListItemText,
   Typography,
 } from '@mui/material';
-import { post } from 'mocks/mockPosts';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { PostCardCommentsProps } from './interfaces';
 import {
   StyledActionBox,
   StyledComment,
@@ -19,14 +20,14 @@ import {
   StyledTextButton,
 } from './styles';
 
-export const PostCardComments = () => {
+export const PostCardComments: FC<PostCardCommentsProps> = ({ comments }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'post' });
   return (
     <StyledList>
-      {post.comments.map(item => (
+      {comments.map(item => (
         <ListItem key={item.id} alignItems="flex-start" disablePadding>
           <ListItemAvatar>
-            <Avatar src={item.user.avatar} />
+            <Avatar src={item.user.avatar_url} />
           </ListItemAvatar>
           <ListItemText
             primary={
@@ -52,7 +53,7 @@ export const PostCardComments = () => {
                   variant="body2"
                   padding="0 4px"
                 >
-                  {item.description}
+                  {item.content}
                 </StyledComment>
                 <StyledActionBox component="span">
                   <StyledTextButton variant="text" fontsize="12px">

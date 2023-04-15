@@ -1,15 +1,17 @@
 import { CircularProgress, Typography } from '@mui/material';
 import { UserFetchFade } from 'components/common/LoaderPage';
-import { Post } from 'components/user/Post';
+import { Post } from 'components/post/Post';
 import {
   StyledProfileAvatar,
   StyledUserInfo,
   StyledUserPosts,
 } from 'components/user/styles';
+import { API_BASE_URL } from 'consts/endpoints';
 import { selectUser } from 'ducks/auth/selectors';
 import { useGetPostsQuery } from 'ducks/post/api';
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { PostModel } from 'types/post';
 
 import { StyledContainer } from './styles';
 
@@ -18,23 +20,27 @@ export const UserPage = () => {
 
   const { data, isLoading } = useGetPostsQuery({
     params: {
-      type: 'all',
-      user_id: user?.id ?? '0000-0000-0000-0000',
+      type: 'user',
+      user_id: user?.id ?? '',
       count: 20,
     },
   });
 
-  const [userPosts] = useState<ReactNode[]>(() => {
-    if (data?.posts == undefined) {
-      return [];
+  const [userPosts, setUserPosts] = useState<ReactNode[]>();
+
+  useEffect(() => {
+    if (data?.posts != undefined) {
+      setUserPosts(
+        data?.posts.map(value => {
+          const preparedPost: PostModel = {
+            ...value,
+            content: `${API_BASE_URL}${value.content}`,
+          };
+          return <Post key={value.id} post={preparedPost} size="small" />;
+        }),
+      );
     }
-
-    return data?.posts.map(value => (
-      <Post key={value.id} description={value.description} />
-    ));
-  });
-
-  // useEffect(() => {});
+  }, [data?.posts]);
 
   return (
     <StyledContainer>

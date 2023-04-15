@@ -4,6 +4,7 @@ import {
   Button,
   Card,
   CardContent,
+  CardMedia,
   IconButton,
   InputBase,
   List,
@@ -12,25 +13,32 @@ import {
   styled,
 } from '@mui/material';
 
-export const StyledCard = styled(Card)`
-  max-width: 930px;
-  max-height: 536px;
+import { PostSize } from './interfaces';
+
+export const StyledCard = styled(Card, {
+  shouldForwardProp: prop => prop !== 'size',
+})<{ size: PostSize }>`
+  height: ${props => (props.size == 'default' ? '536px' : '')};
+  max-width: ${props => (props.size == 'default' ? '930px' : '300px')};
   display: flex;
+  flex-direction: ${props => (props.size == 'default' ? 'row' : 'column')};
   box-shadow: 0 0 0 2px ${props => props.theme.palette.common.third};
-  justify-content: flex-end;
-  & .MuiCardContent-root {
-    width: 100%;
-    background: ${props => props.theme.palette.primary.dark};
+  &.MuiPaper-root {
+    background-color: ${props => props.theme.palette.primary.dark};
   }
 `;
 
-export const StyledCardContent = styled(CardContent)`
+export const StyledCardContent = styled(CardContent, {
+  shouldForwardProp: prop => prop !== 'size',
+})<{ size: PostSize }>`
   display: flex;
   flex-direction: column;
   max-width: 320px;
+  min-width: 320px;
   gap: 0.5rem;
+  padding: ${props => (props.size == 'default' ? '' : '4px')};
   &:last-child {
-    padding-bottom: 16px;
+    padding-bottom: ${props => (props.size == 'default' ? '16px' : '4px')};
   }
 `;
 
@@ -47,17 +55,15 @@ export const StyledAvatar = styled(Avatar)`
 
 export const StyledTextButton = styled(Button, {
   shouldForwardProp: prop => prop !== 'fontsize',
-})<{ fontsize: string }>`
+})<{ fontsize?: string }>`
   font-size: ${props => props.fontsize};
-  padding: 0 4px;
-  text-align: start;
   color: ${props => props.theme.palette.common.dimmed};
+  padding: 0 4px;
   &:hover {
     background: #ffffff0f;
   }
   &:focus-visible {
-    outline: 2px solid;
-    outline-color: white;
+    outline: 2px solid white;
   }
 `;
 
@@ -110,3 +116,20 @@ export const StyledInputBase = styled(InputBase)`
 export const StyledComment = styled(Typography)`
   float: left;
 ` as typeof Typography;
+
+export const StyledDescriptionTypography = styled(Typography)`
+  font-size: 14px;
+  padding: 0 4px;
+` as typeof Typography;
+
+export const StyledCardMedia = styled(CardMedia)`
+  object-fit: scale-down;
+` as typeof CardMedia;
+
+export const StyledCardMediaBox = styled(Box, {
+  shouldForwardProp: prop => prop !== 'size',
+})<{ size: PostSize }>`
+  display: flex;
+  /* min-width: ${props => (props.size == 'default' ? '512px' : '')}; */
+  /* aspect-ratio: ${props => (props.size == 'default' ? '1/1' : ' ')}; */
+`;
