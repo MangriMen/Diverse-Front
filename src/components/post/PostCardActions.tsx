@@ -1,3 +1,4 @@
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { Typography } from '@mui/material';
 import { StyledTextButton } from 'components/common/styles';
@@ -13,6 +14,8 @@ import { StyledActionBox, StyledIconButton, StyledLikeBox } from './styles';
 export const PostCardActions = ({ post, setPost }: PostProps) => {
   const { t } = useTranslation('translation', { keyPrefix: 'post' });
 
+  const [getPostValues] = useState({ path: { post: post.id } });
+
   const [isLikeDisabled, setIsLikeDisabled] = useState(false);
 
   const [likePost] = useLikePostMutation();
@@ -20,19 +23,20 @@ export const PostCardActions = ({ post, setPost }: PostProps) => {
 
   const handleLikePost = useCallback(async () => {
     setIsLikeDisabled(true);
-    if (post.likes === 0) {
-      const response: ServerGetPostResponse = Object(
-        await likePost({ path: { post: post.id } }).unwrap(),
-      );
-      setPost(preparePostToDisplay(response.post));
-    } else {
-      const response: ServerGetPostResponse = Object(
-        await unlikePost({ path: { post: post.id } }).unwrap(),
-      );
-      setPost(preparePostToDisplay(response.post));
-    }
+
+    const response: ServerGetPostResponse = Object(
+      await (() => (post.liked_by_me ? unlikePost : likePost))()(
+        getPostValues,
+      ).unwrap(),
+    );
+
+    setPost(prevState => ({
+      ...prevState,
+      ...preparePostToDisplay(response.post),
+    }));
+
     setIsLikeDisabled(false);
-  }, [likePost, post, setPost, unlikePost]);
+  }, [getPostValues, likePost, post.liked_by_me, setPost, unlikePost]);
 
   return (
     <StyledActionBox>
@@ -45,7 +49,8 @@ export const PostCardActions = ({ post, setPost }: PostProps) => {
           disabled={isLikeDisabled}
           onClick={handleLikePost}
         >
-          <FavoriteBorderIcon />
+          {post.liked_by_me && <FavoriteIcon />}
+          {!post.liked_by_me && <FavoriteBorderIcon />}
         </StyledIconButton>
         <Typography fontSize="14px">{post.likes}</Typography>
       </StyledLikeBox>

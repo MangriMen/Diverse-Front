@@ -17,6 +17,7 @@ export interface PostModel {
   created_at: string;
   user: User;
   comments: CommentModel[];
+  liked_by_me: true;
 }
 
 export interface ServerGetPostsResponse {

@@ -15,7 +15,7 @@ export const HomePage = () => {
 
   const { data, isLoading } = useGetPostsQuery({
     params: {
-      type: 'user',
+      type: 'all',
       user_id: user?.id ?? '',
       count: 20,
     },

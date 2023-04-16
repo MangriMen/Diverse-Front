@@ -20,7 +20,7 @@ export const MoreButton = styled(
       </StyledTextButton>
     );
   },
-)`
+)<{}>`
   position: ${props => (!props.expanded ? 'absolute' : 'relative')};
   align-self: flex-end;
   right: 0;
