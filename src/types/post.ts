@@ -25,3 +25,9 @@ export interface ServerGetPostsResponse {
   count: number;
   posts: PostModel[];
 }
+
+export interface ServerGetPostResponse {
+  error: boolean;
+  message: string;
+  post: PostModel;
+}

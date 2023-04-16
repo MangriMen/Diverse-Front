@@ -12,3 +12,10 @@ export interface GetPostsParams {
 export interface GetPostsValues {
   params?: GetPostsParams;
 }
+
+export interface GetPostPath {
+  post: string;
+}
+export interface GetPostValues {
+  path?: GetPostPath;
+}

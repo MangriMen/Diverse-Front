@@ -1,16 +1,22 @@
 import { Button } from '@mui/material';
+import { useState } from 'react';
 
 import { PostCard } from './PostCard';
 import { PostProps } from './interfaces';
 
-export const Post = ({ post, size = 'default' }: PostProps) => {
+export const Post = ({
+  post,
+  size = 'default',
+}: Omit<PostProps, 'setPost'>) => {
+  const [postData, setPostData] = useState(post);
+
   switch (size) {
     case 'default':
-      return <PostCard post={post} size={size} />;
+      return <PostCard post={postData} setPost={setPostData} size={size} />;
     case 'small':
       return (
         <Button>
-          <PostCard post={post} size={size} />
+          <PostCard post={postData} setPost={setPostData} size={size} />
         </Button>
       );
   }

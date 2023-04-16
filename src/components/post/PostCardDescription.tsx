@@ -18,7 +18,7 @@ export const PostCardDescription = styled(
     const [isNeedMoreButton, setIsNeedMoreButton] = useState(false);
 
     useEffect(() => {
-      if (collapseRef != null && collapseRef.current != null) {
+      if (collapseRef !== null && collapseRef.current !== null) {
         setIsNeedMoreButton(
           collapseRef.current.scrollHeight > collapseRef.current.clientHeight,
         );

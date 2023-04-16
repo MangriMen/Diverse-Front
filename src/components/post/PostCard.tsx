@@ -13,7 +13,7 @@ import {
   StyledCardMediaBox,
 } from './styles';
 
-export const PostCard = ({ post, size = 'default' }: PostProps) => {
+export const PostCard = ({ post, setPost, size = 'default' }: PostProps) => {
   const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {
@@ -35,9 +35,9 @@ export const PostCard = ({ post, size = 'default' }: PostProps) => {
         />
         {size === 'default' && !expanded && (
           <>
-            <PostCardActions />
-            <PostCardComments comments={post.comments} />
-            <PostCardInput />
+            <PostCardActions post={post} setPost={setPost} />
+            <PostCardComments post={post} setPost={setPost} />
+            <PostCardInput post={post} setPost={setPost} />
           </>
         )}
       </StyledCardContent>
