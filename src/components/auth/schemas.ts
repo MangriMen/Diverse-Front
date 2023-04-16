@@ -11,7 +11,7 @@ export const loginValidator = yup.object().shape({
 
 export const registerValidator = yup.object().shape({
   username: yup.string().max(32, 'сharactersCount').required('emptyName'),
-  email: yup.string().email().required('emptyEmail'),
+  email: yup.string().email().required('errorEmail'),
   password: yup
     .string()
     .min(8, 'сharactersCount')

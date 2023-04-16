@@ -4,31 +4,40 @@ import {
   Button,
   Card,
   CardContent,
+  CardMedia,
   IconButton,
   InputBase,
   List,
+  Modal,
   Paper,
+  TextField,
   Typography,
   styled,
 } from '@mui/material';
 
 export const StyledCard = styled(Card)`
   max-width: 930px;
+  min-width: 930px;
   max-height: 536px;
   display: flex;
   box-shadow: 0 0 0 2px ${props => props.theme.palette.common.third};
-  justify-content: flex-end;
+  justify-content: space-between;
   & .MuiCardContent-root {
     width: 100%;
-    background: ${props => props.theme.palette.primary.dark};
+  }
+  &.MuiPaper-root {
+    background-color: ${props => props.theme.palette.primary.dark};
   }
 `;
 
-export const StyledCardContent = styled(CardContent)`
+export const StyledCardContent = styled(CardContent, {
+  shouldForwardProp: prop => prop !== 'gap',
+})<{ gap: string }>`
   display: flex;
   flex-direction: column;
   max-width: 320px;
-  gap: 0.5rem;
+  min-width: 320px;
+  gap: ${props => props.gap};
   &:last-child {
     padding-bottom: 16px;
   }
@@ -80,13 +89,6 @@ export const StyledIconButton = styled(IconButton)`
 export const StyledList = styled(List)`
   overflow: auto;
   height: 100%;
-  &::-webkit-scrollbar {
-    width: 4px;
-  }
-  &::-webkit-scrollbar-thumb {
-    border-radius: 4px;
-    background-color: ${props => props.theme.palette.common.dimmed};
-  }
 `;
 
 export const StyledCommentHeaderBox = styled(Box)`
@@ -110,3 +112,45 @@ export const StyledInputBase = styled(InputBase)`
 export const StyledComment = styled(Typography)`
   float: left;
 ` as typeof Typography;
+
+export const StyledModal = styled(Modal)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const StyledCardCreateInput = styled(TextField)`
+  & .MuiFilledInput-root {
+    border-radius: 4;
+    background-color: ${props => props.theme.palette.common.third};
+    border-bottom: 2px solid;
+    border-color: ${props => props.theme.palette.secondary.main};
+    &.Mui-Focused {
+      background-color: ${props => props.theme.palette.primary.dark};
+    }
+  }
+  & .MuiFormLabel-root.Mui-focused {
+    color: ${props => props.theme.palette.secondary.main};
+  }
+`;
+
+export const StyledButton = styled(Button)`
+  padding: 4px 16px;
+  font-size: 18px;
+  &:focus-visible {
+    outline: 2px solid;
+  }
+`;
+
+export const StyledCardMedia = styled(CardMedia)`
+  object-fit: scale-down;
+` as typeof CardMedia;
+
+export const StyledCardMediaBox = styled(Box)`
+  position: relative;
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+  min-height: 500px;
+`;

@@ -5,7 +5,7 @@ export const post = {
     username: 'username',
     avatar: 'src/assets/images/lucy.jpg',
   },
-  content: 'src/assets/images/500.jpg',
+  content: 'src/assets/images/800.jpg',
   description:
     'Lorem ipsum dolor sit amet, consectetur popa daw adipiscing elit. Donec ',
   comments: [

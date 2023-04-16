@@ -21,6 +21,11 @@
     },
     "post": {
         "share": "Поделиться",
-        "reply": "Ответить"
+        "reply": "Ответить",
+        "accept": "Принять",
+        "cancel": "Отменить",
+        "postDescription": "Описание к посту",
+        "ErrorSendPost": "Ошибка в создании поста",
+        "SuccessSendPost": "Пост успешно создан"
     }
 }

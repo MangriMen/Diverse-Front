@@ -25,7 +25,7 @@ export const defaultTheme = createTheme(
           light: '#5e9ee6',
         },
         third: {
-          main: 'red',
+          main: '#26292e',
         },
       },
     },
