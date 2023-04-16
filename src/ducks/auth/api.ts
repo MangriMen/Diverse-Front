@@ -17,9 +17,7 @@ export const authApi = createApi({
       query: credentials => ({
         url: API_ENDPOINTS.LOGIN,
         method: 'post',
-        body: {
-          ...credentials,
-        },
+        body: credentials,
       }),
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         try {
@@ -39,9 +37,7 @@ export const authApi = createApi({
       query: credentials => ({
         url: API_ENDPOINTS.REGISTER,
         method: 'post',
-        body: {
-          ...credentials,
-        },
+        body: credentials,
       }),
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         try {
