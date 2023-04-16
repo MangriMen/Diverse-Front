@@ -19,4 +19,8 @@ declare module '@mui/material' {
   interface TextFieldPropsColorOverrides {
     third;
   }
+
+  interface ButtonPropsColorOverrides {
+    dimmed;
+  }
 }

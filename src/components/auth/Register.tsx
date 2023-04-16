@@ -1,5 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Typography } from '@mui/material';
+import { StyledTextButton } from 'components/common/styles';
 import { useRegisterMutation } from 'ducks/auth/api';
 import { RegisterValues } from 'ducks/auth/types';
 import { conditionalTranslate } from 'helpers/conditionalTranslate';
@@ -14,7 +15,6 @@ import {
   StyledFormBox,
   StyledInput,
   StyledSwitchActionBox,
-  StyledTextButton,
   StyledWrapperBox,
 } from './styles';
 
@@ -124,8 +124,8 @@ export const Register: FC<AuthFormProps> = ({ changeFormType }) => {
           <Typography align="center">{t('alreadyHaveAnAccount')}</Typography>
 
           <StyledTextButton
-            variant="text"
             disableRipple
+            color="secondary"
             onClick={changeFormType}
           >
             {t('logIn')}

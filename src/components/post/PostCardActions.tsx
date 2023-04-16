@@ -1,21 +1,17 @@
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { Typography } from '@mui/material';
+import { StyledTextButton } from 'components/common/styles';
 import { post } from 'mocks/mockPosts';
 import { useTranslation } from 'react-i18next';
 
-import {
-  StyledActionBox,
-  StyledIconButton,
-  StyledLikeBox,
-  StyledTextButton,
-} from './styles';
+import { StyledActionBox, StyledIconButton, StyledLikeBox } from './styles';
 
 export const PostCardActions = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'post' });
 
   return (
     <StyledActionBox>
-      <StyledTextButton fontsize="14px" variant="text">
+      <StyledTextButton color="dimmed" fontSize="14px">
         {t('share')}
       </StyledTextButton>
       <StyledLikeBox>

@@ -9,7 +9,8 @@ export interface PostProps {
 
 export interface PostCardDescriptionProps {
   expanded: boolean;
-  handleExpandClick: () => void;
+  onExpand: () => void;
+  size?: PostSize;
   description?: string;
 }
 

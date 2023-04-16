@@ -1,23 +1,18 @@
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import {
-  Avatar,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  Typography,
-} from '@mui/material';
+import { Avatar, ListItem, ListItemText, Typography } from '@mui/material';
+import { StyledTextButton } from 'components/common/styles';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { PostCardCommentsProps } from './interfaces';
 import {
+  ListItemAvatarStyled,
   StyledActionBox,
   StyledComment,
   StyledCommentHeaderBox,
   StyledIconButton,
   StyledLikeBox,
   StyledList,
-  StyledTextButton,
 } from './styles';
 
 export const PostCardComments: FC<PostCardCommentsProps> = ({ comments }) => {
@@ -26,9 +21,9 @@ export const PostCardComments: FC<PostCardCommentsProps> = ({ comments }) => {
     <StyledList>
       {comments.map(item => (
         <ListItem key={item.id} alignItems="flex-start" disablePadding>
-          <ListItemAvatar>
+          <ListItemAvatarStyled>
             <Avatar src={item.user.avatar_url} />
-          </ListItemAvatar>
+          </ListItemAvatarStyled>
           <ListItemText
             primary={
               <StyledCommentHeaderBox>
@@ -56,7 +51,7 @@ export const PostCardComments: FC<PostCardCommentsProps> = ({ comments }) => {
                   {item.content}
                 </StyledComment>
                 <StyledActionBox component="span">
-                  <StyledTextButton variant="text" fontsize="12px">
+                  <StyledTextButton color="dimmed" fontSize="12px">
                     {t('reply')}
                   </StyledTextButton>
                   <StyledLikeBox component="span">
