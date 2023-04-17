@@ -1,4 +1,4 @@
-import { MenuProps } from '@mui/material';
+import { SvgIcon, SvgIconProps } from '@mui/material';
 import { Dispatch, SetStateAction } from 'react';
 import { PostModel } from 'types/post';
 
@@ -17,7 +17,13 @@ export interface PostCardDescriptionProps {
   description?: string;
 }
 
-export interface PostCommentActionsProps extends MenuProps {
-  editAction?: () => void;
-  deleteAction?: () => void;
+export interface PostCommentMenuAction {
+  key: string;
+  color?: SvgIconProps['color'];
+  icon: typeof SvgIcon;
+  callback?: () => void;
+}
+
+export interface PostCommentMenuActions {
+  [x: string]: PostCommentMenuAction;
 }

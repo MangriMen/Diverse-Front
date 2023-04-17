@@ -1,17 +1,17 @@
 import { useState } from 'react';
 
-import { PostCardActions } from './PostCardActions';
-import { PostCardComments } from './PostCardComments';
-import { PostCardDescription } from './PostCardDescription';
-import { PostCardHeader } from './PostCardHeader';
-import { PostCardInput } from './PostCardInput';
-import { PostProps } from './interfaces';
+import { PostProps } from '../interfaces';
 import {
   StyledCard,
   StyledCardContent,
   StyledCardMedia,
   StyledCardMediaBox,
-} from './styles';
+} from '../styles';
+import { PostCardActions } from './PostActions';
+import { PostCardComments } from './PostComments';
+import { PostCardDescription } from './PostDescription';
+import { PostCardHeader } from './PostHeader';
+import { PostCardInput } from './PostInput';
 
 export const PostCard = ({ post, setPost, size = 'default' }: PostProps) => {
   const [expanded, setExpanded] = useState(false);

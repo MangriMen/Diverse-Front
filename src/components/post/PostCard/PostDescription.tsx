@@ -1,9 +1,12 @@
 import { Box, styled } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 
-import { MoreButton } from './MoreTextButton';
-import { PostCardDescriptionProps } from './interfaces';
-import { PostCardDescriptionCollapse, PostCardDescriptionText } from './styles';
+import { MoreButton } from '../MoreTextButton';
+import { PostCardDescriptionProps } from '../interfaces';
+import {
+  PostCardDescriptionCollapse,
+  PostCardDescriptionText,
+} from '../styles';
 
 export const PostCardDescription = styled(
   ({

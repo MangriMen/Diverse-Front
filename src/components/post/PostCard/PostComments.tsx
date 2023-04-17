@@ -1,8 +1,8 @@
 import { ReactElement, useEffect, useRef, useState } from 'react';
 
-import { PostCardComment } from './PostCardComment';
-import { PostProps } from './interfaces';
-import { StyledList } from './styles';
+import { PostCardComment } from '../PostComment/PostComment';
+import { PostProps } from '../interfaces';
+import { StyledList } from '../styles';
 
 export const PostCardComments = ({ post }: PostProps) => {
   const ref = useRef<HTMLUListElement>(null);

@@ -1,16 +1,19 @@
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { Avatar, ListItem, ListItemText, Typography } from '@mui/material';
 import { StyledTextButton } from 'components/common/styles';
 import { selectUser } from 'ducks/auth/selectors';
 import { useDeleteCommentMutation } from 'ducks/comment/api';
-import { useCallback, useState } from 'react';
+import { ReactElement, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { CommentModel, PostModel } from 'types/post';
 
-import { CommentDate } from './CommentDate';
-import { PostCommentActionsButton } from './PostCommentActionsButton';
-import { PostCommentActionsMenu } from './PostCommentActionsMenu';
+import { PostCommentMenuButton } from '../PostCommentMenuButton';
+import { PostCommentMenuItem } from '../PostCommentMenuItem';
+import { VerticalMenu } from '../VerticalMenu';
+import { PostCommentMenuActions } from '../interfaces';
 import {
   ListItemAvatarStyled,
   StyledActionBox,
@@ -18,7 +21,20 @@ import {
   StyledCommentHeaderBox,
   StyledIconButton,
   StyledLikeBox,
-} from './styles';
+} from '../styles';
+import { CommentDate } from './CommentDate';
+
+const commentMenuActions: PostCommentMenuActions = {
+  edit: {
+    key: 'comment.edit',
+    icon: EditIcon,
+  },
+  delete: {
+    key: 'comment.delete',
+    color: 'error',
+    icon: DeleteIcon,
+  },
+};
 
 export const PostCardComment = ({
   post,
@@ -45,12 +61,38 @@ export const PostCardComment = ({
 
   const [deleteComment] = useDeleteCommentMutation();
 
+  const handleEditComment = useCallback(() => {
+    console.log('edit comment');
+    handleClose();
+  }, []);
+
   const handleDeleteComment = useCallback(async () => {
     await deleteComment({
       path: { post: post.id, comment: comment.id },
     });
     handleClose();
   }, [comment.id, deleteComment, post.id]);
+
+  const [commentMenuItems, setCommentMenuItems] = useState<ReactElement[]>();
+
+  useEffect(() => {
+    const preparedActions = {
+      edit: {
+        ...commentMenuActions.edit,
+        callback: handleEditComment,
+      },
+      delete: {
+        ...commentMenuActions.delete,
+        callback: handleDeleteComment,
+      },
+    };
+
+    setCommentMenuItems(
+      Object.values(preparedActions).map(action => (
+        <PostCommentMenuItem key={action.key} action={action} />
+      )),
+    );
+  }, [handleDeleteComment, handleEditComment]);
 
   return (
     <ListItem alignItems="flex-start" disablePadding>
@@ -71,13 +113,17 @@ export const PostCardComment = ({
             <CommentDate created_at={comment.created_at} />
             {comment.user.id == user?.id && (
               <>
-                <PostCommentActionsButton onClick={handleClick} />
-                <PostCommentActionsMenu
+                <PostCommentMenuButton
+                  title={t('actions') ?? ''}
+                  onClick={handleClick}
+                />
+                <VerticalMenu
                   open={openMenu}
                   anchorEl={anchorEl}
                   onClose={handleClose}
-                  deleteAction={handleDeleteComment}
-                />
+                >
+                  {commentMenuItems}
+                </VerticalMenu>
               </>
             )}
           </StyledCommentHeaderBox>
@@ -97,7 +143,7 @@ export const PostCardComment = ({
                 {t('reply')}
               </StyledTextButton>
               <StyledLikeBox component="span">
-                <StyledIconButton disableRipple>
+                <StyledIconButton disableRipple title={t('like') ?? ''}>
                   <FavoriteBorderIcon fontSize="small" />
                 </StyledIconButton>
                 <Typography component="span" fontSize="12px">

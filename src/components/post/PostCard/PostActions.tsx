@@ -8,8 +8,8 @@ import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ServerGetPostResponse } from 'types/post';
 
-import { PostProps } from './interfaces';
-import { StyledActionBox, StyledIconButton, StyledLikeBox } from './styles';
+import { PostProps } from '../interfaces';
+import { StyledActionBox, StyledIconButton, StyledLikeBox } from '../styles';
 
 export const PostCardActions = ({ post, setPost }: PostProps) => {
   const { t } = useTranslation('translation', { keyPrefix: 'post' });
@@ -45,6 +45,7 @@ export const PostCardActions = ({ post, setPost }: PostProps) => {
       </StyledTextButton>
       <StyledLikeBox>
         <StyledIconButton
+          title={t('like') ?? ''}
           disableRipple
           disabled={isLikeDisabled}
           onClick={handleLikePost}
