@@ -2,9 +2,10 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { Typography } from '@mui/material';
 import { API_BASE_URL } from 'consts/endpoints';
-import { FC, ReactElement, useCallback, useEffect, useState } from 'react';
+import { useDeletePostMutation } from 'ducks/post/api';
+import { ReactElement, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { User } from 'types/auth';
+import { PostModel } from 'types/post';
 
 import { PostCommentMenuButton } from '../PostCommentMenuButton';
 import { PostCommentMenuItem } from '../PostCommentMenuItem';
@@ -24,7 +25,7 @@ const postMenuActions: PostCommentMenuActions = {
   },
 };
 
-export const PostCardHeader: FC<{ user: User }> = ({ user }) => {
+export const PostCardHeader = ({ post }: { post: PostModel }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'post' });
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -39,15 +40,19 @@ export const PostCardHeader: FC<{ user: User }> = ({ user }) => {
     setAnchorEl(null);
   };
 
+  const [deletePost] = useDeletePostMutation();
+
   const handleEditPost = useCallback(() => {
     console.log('edit post');
     handleClose();
   }, []);
 
-  const handleDeletePost = useCallback(() => {
-    console.log('delete post');
+  const handleDeletePost = useCallback(async () => {
+    await deletePost({
+      path: { post: post.id },
+    });
     handleClose();
-  }, []);
+  }, [deletePost, post.id]);
 
   const [postMenuItems, setPostMenuItems] = useState<ReactElement[]>();
 
@@ -72,9 +77,9 @@ export const PostCardHeader: FC<{ user: User }> = ({ user }) => {
 
   return (
     <StyledPostCardHeaderBox>
-      <StyledAvatar src={`${API_BASE_URL}${user?.avatar_url}?width=96`} />
-      <Typography fontSize="20px">{user.username}</Typography>
-      {user.id == user?.id && (
+      <StyledAvatar src={`${API_BASE_URL}${post.user?.avatar_url}?width=96`} />
+      <Typography fontSize="20px">{post.user.username}</Typography>
+      {post.user.id == post.user?.id && (
         <>
           <PostCommentMenuButton
             title={t('actions') ?? ''}

@@ -26,7 +26,7 @@ export const PostCard = ({ post, setPost, size = 'default' }: PostProps) => {
         <StyledCardMedia component="img" image={post.content} />
       </StyledCardMediaBox>
       <StyledCardContent size={size}>
-        {size === 'default' && <PostCardHeader user={post.user} />}
+        {size === 'default' && <PostCardHeader post={post} />}
         <PostCardDescription
           expanded={expanded}
           onExpand={handleExpandClick}

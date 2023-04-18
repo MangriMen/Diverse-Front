@@ -20,6 +20,13 @@ export const postApi = createApi({
         params: args.params,
       }),
     }),
+    deletePost: build.mutation<ServerGetPostsResponse, GetPostValues>({
+      query: args => ({
+        url: `${API_ENDPOINTS.POSTS}/${args.path?.post}`,
+        method: 'delete',
+        headers: { Authorization: `Bearer ${storageGet(STORAGE_KEYS.TOKEN)}` },
+      }),
+    }),
     likePost: build.mutation<ServerGetPostResponse, GetPostValues>({
       query: args => ({
         url: `${API_ENDPOINTS.POSTS}/${args.path?.post}/like`,
@@ -37,5 +44,9 @@ export const postApi = createApi({
   }),
 });
 
-export const { useGetPostsQuery, useLikePostMutation, useUnlikePostMutation } =
-  postApi;
+export const {
+  useGetPostsQuery,
+  useDeletePostMutation,
+  useLikePostMutation,
+  useUnlikePostMutation,
+} = postApi;

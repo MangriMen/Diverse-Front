@@ -1,13 +1,7 @@
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { IconButton, IconButtonProps, styled } from '@mui/material';
 
-export const PostCommentMenuButton = styled(({ ...props }: IconButtonProps) => {
-  return (
-    <IconButton disableRipple {...props}>
-      <MoreHorizIcon />
-    </IconButton>
-  );
-})<{}>`
+const IconButtonStyled = styled(IconButton)`
   width: 24px;
   height: 24px;
   border-radius: 4px;
@@ -19,3 +13,11 @@ export const PostCommentMenuButton = styled(({ ...props }: IconButtonProps) => {
     background-color: ${props => props.theme.palette.primary.light};
   }
 `;
+
+export const PostCommentMenuButton = ({ ...props }: IconButtonProps) => {
+  return (
+    <IconButtonStyled disableRipple {...props}>
+      <MoreHorizIcon />
+    </IconButtonStyled>
+  );
+};
