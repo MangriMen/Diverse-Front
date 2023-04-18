@@ -6,4 +6,5 @@ export const API_ENDPOINTS = {
   FETCH: '/fetch',
   USERS: '/users',
   POSTS: '/posts',
+  DATA: '/data',
 };

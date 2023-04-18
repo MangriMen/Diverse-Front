@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { STORAGE_KEYS } from 'consts';
 import { API_BASE_URL, API_ENDPOINTS } from 'consts/endpoints';
 import { storageGet } from 'helpers/localStorage';
-import { ServerGetPostResponse } from 'types/post';
+import { ServerGetCommentResponse, ServerGetPostResponse } from 'types/post';
 
 import {
   GetCommentValues,
@@ -39,7 +39,27 @@ export const commentApi = createApi({
         headers: { Authorization: `Bearer ${storageGet(STORAGE_KEYS.TOKEN)}` },
       }),
     }),
+    likeComment: build.mutation<ServerGetCommentResponse, GetCommentValues>({
+      query: args => ({
+        url: `${API_ENDPOINTS.POSTS}/${args.path?.post}/comments/${args.path?.comment}/like`,
+        method: 'post',
+        headers: { Authorization: `Bearer ${storageGet(STORAGE_KEYS.TOKEN)}` },
+      }),
+    }),
+    unlikeComment: build.mutation<ServerGetCommentResponse, GetCommentValues>({
+      query: args => ({
+        url: `${API_ENDPOINTS.POSTS}/${args.path?.post}/comments/${args.path?.comment}/like`,
+        method: 'delete',
+        headers: { Authorization: `Bearer ${storageGet(STORAGE_KEYS.TOKEN)}` },
+      }),
+    }),
   }),
 });
 
-export const { useSendCommentMutation, useDeleteCommentMutation } = commentApi;
+export const {
+  useSendCommentMutation,
+  useUpdateCommentMutation,
+  useDeleteCommentMutation,
+  useLikeCommentMutation,
+  useUnlikeCommentMutation,
+} = commentApi;

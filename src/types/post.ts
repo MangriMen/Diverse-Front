@@ -7,6 +7,7 @@ export interface CommentModel {
   updated_at: string;
   likes: number;
   user: User;
+  liked_by_me: boolean;
 }
 
 export interface PostModel {
@@ -17,18 +18,24 @@ export interface PostModel {
   created_at: string;
   user: User;
   comments: CommentModel[];
-  liked_by_me: true;
+  liked_by_me: boolean;
 }
 
 export interface ServerGetPostsResponse {
   error: boolean;
   message: string;
   count: number;
-  posts: PostModel[];
+  data: PostModel[];
 }
 
 export interface ServerGetPostResponse {
   error: boolean;
   message: string;
-  post: PostModel;
+  data: PostModel;
+}
+
+export interface ServerGetCommentResponse {
+  error: boolean;
+  message: string;
+  data: CommentModel;
 }

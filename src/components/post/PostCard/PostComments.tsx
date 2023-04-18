@@ -1,6 +1,6 @@
 import { ReactElement, useEffect, useRef, useState } from 'react';
 
-import { PostCardComment } from '../PostComment/PostComment';
+import { Comment } from '../Comment/Comment';
 import { PostProps } from '../interfaces';
 import { StyledList } from '../styles';
 
@@ -15,7 +15,7 @@ export const PostCardComments = ({ post }: PostProps) => {
         .slice()
         .reverse()
         .map(comment => (
-          <PostCardComment key={comment.id} post={post} comment={comment} />
+          <Comment key={comment.id} post={post} comment={comment} />
         )),
     );
   }, [post, post.comments]);

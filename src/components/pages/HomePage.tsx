@@ -25,9 +25,9 @@ export const HomePage = () => {
     useState<ReactNode[]>();
 
   useEffect(() => {
-    if (data?.posts != undefined) {
+    if (data?.data != undefined) {
       setUserSubscriptionPosts(
-        data?.posts.map(value => {
+        data?.data.map(value => {
           const preparedPost: PostModel = {
             ...value,
             content: `${API_BASE_URL}${value.content}`,
@@ -36,7 +36,7 @@ export const HomePage = () => {
         }),
       );
     }
-  }, [data?.posts]);
+  }, [data?.data]);
 
   return (
     <StyledContainer>

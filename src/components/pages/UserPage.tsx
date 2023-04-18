@@ -29,23 +29,25 @@ export const UserPage = () => {
   const [userPosts, setUserPosts] = useState<ReactNode[]>();
 
   useEffect(() => {
-    if (data?.posts != undefined) {
+    if (data?.data != undefined) {
       setUserPosts(
-        data?.posts.map(value => {
+        data?.data.map(value => {
           const preparedPost: PostModel = {
             ...value,
-            content: `${API_BASE_URL}${value.content}`,
+            content: `${API_BASE_URL}${value.content}?width=200`,
           };
           return <Post key={value.id} post={preparedPost} size="small" />;
         }),
       );
     }
-  }, [data?.posts]);
+  }, [data?.data]);
 
   return (
     <StyledContainer>
       <StyledUserInfo>
-        <StyledProfileAvatar src={user?.avatar_url} />
+        <StyledProfileAvatar
+          src={`${API_BASE_URL}${user?.avatar_url}?width=256`}
+        />
         <Typography fontSize="24px">{`@${user?.username}`}</Typography>
         <Typography>{user?.name}</Typography>
       </StyledUserInfo>

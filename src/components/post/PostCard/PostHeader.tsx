@@ -1,6 +1,7 @@
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { Typography } from '@mui/material';
+import { API_BASE_URL } from 'consts/endpoints';
 import { FC, ReactElement, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { User } from 'types/auth';
@@ -71,7 +72,7 @@ export const PostCardHeader: FC<{ user: User }> = ({ user }) => {
 
   return (
     <StyledPostCardHeaderBox>
-      <StyledAvatar src={user.avatar_url} />
+      <StyledAvatar src={`${API_BASE_URL}${user?.avatar_url}?width=96`} />
       <Typography fontSize="20px">{user.username}</Typography>
       {user.id == user?.id && (
         <>

@@ -1,8 +1,8 @@
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { Avatar, ListItem, ListItemText, Typography } from '@mui/material';
 import { StyledTextButton } from 'components/common/styles';
+import { API_BASE_URL } from 'consts/endpoints';
 import { selectUser } from 'ducks/auth/selectors';
 import { useDeleteCommentMutation } from 'ducks/comment/api';
 import { ReactElement, useCallback, useEffect, useState } from 'react';
@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { CommentModel, PostModel } from 'types/post';
 
+import { CommentLike } from '../PostCommentLike';
 import { PostCommentMenuButton } from '../PostCommentMenuButton';
 import { PostCommentMenuItem } from '../PostCommentMenuItem';
 import { VerticalMenu } from '../VerticalMenu';
@@ -19,10 +20,9 @@ import {
   StyledActionBox,
   StyledComment,
   StyledCommentHeaderBox,
-  StyledIconButton,
-  StyledLikeBox,
 } from '../styles';
 import { CommentDate } from './CommentDate';
+import { CommentTextStyled } from './styles';
 
 const commentMenuActions: PostCommentMenuActions = {
   edit: {
@@ -36,7 +36,7 @@ const commentMenuActions: PostCommentMenuActions = {
   },
 };
 
-export const PostCardComment = ({
+export const Comment = ({
   post,
   comment,
 }: {
@@ -97,7 +97,7 @@ export const PostCardComment = ({
   return (
     <ListItem alignItems="flex-start" disablePadding>
       <ListItemAvatarStyled>
-        <Avatar src={comment.user.avatar_url} />
+        <Avatar src={`${API_BASE_URL}${comment.user.avatar_url}?width=64`} />
       </ListItemAvatarStyled>
       <ListItemText
         primary={
@@ -129,7 +129,7 @@ export const PostCardComment = ({
           </StyledCommentHeaderBox>
         }
         secondary={
-          <>
+          <CommentTextStyled component="span">
             <StyledComment
               component="span"
               fontSize="12px"
@@ -142,16 +142,9 @@ export const PostCardComment = ({
               <StyledTextButton color="dimmed" fontSize="12px">
                 {t('reply')}
               </StyledTextButton>
-              <StyledLikeBox component="span">
-                <StyledIconButton disableRipple title={t('like') ?? ''}>
-                  <FavoriteBorderIcon fontSize="small" />
-                </StyledIconButton>
-                <Typography component="span" fontSize="12px">
-                  {comment.likes}
-                </Typography>
-              </StyledLikeBox>
+              <CommentLike post={post} comment={comment} />
             </StyledActionBox>
-          </>
+          </CommentTextStyled>
         }
       />
     </ListItem>

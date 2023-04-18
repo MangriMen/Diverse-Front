@@ -1,4 +1,4 @@
-import { SvgIcon, SvgIconProps } from '@mui/material';
+import { IconButtonProps, SvgIcon, SvgIconProps } from '@mui/material';
 import { Dispatch, SetStateAction } from 'react';
 import { PostModel } from 'types/post';
 
@@ -26,4 +26,12 @@ export interface PostCommentMenuAction {
 
 export interface PostCommentMenuActions {
   [x: string]: PostCommentMenuAction;
+}
+
+export interface PostCommentLikeProps {
+  variant?: 'post' | 'comment';
+  count: number;
+  liked: boolean;
+  onClick: IconButtonProps['onClick'];
+  disabled: IconButtonProps['disabled'];
 }
