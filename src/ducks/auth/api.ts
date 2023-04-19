@@ -5,6 +5,7 @@ import { getAccessToken } from 'helpers/api';
 import { ServerAuthResponse } from 'types/auth';
 
 import { enter, logout } from '.';
+import { transformUser } from './services';
 import { LoginValues, RegisterValues } from './types';
 
 export const authApi = createApi({
@@ -21,7 +22,8 @@ export const authApi = createApi({
           ...credentials,
         },
       }),
-      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+      transformResponse: transformUser,
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
           if (data !== null) {
@@ -43,7 +45,7 @@ export const authApi = createApi({
           ...credentials,
         },
       }),
-      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
           if (data !== null) {
@@ -60,7 +62,7 @@ export const authApi = createApi({
         method: METHOD.GET,
         headers: { Authorization: getAccessToken() },
       }),
-      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
           if (data !== null) {

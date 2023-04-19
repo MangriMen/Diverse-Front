@@ -1,5 +1,6 @@
 import { STORAGE_KEYS } from 'consts';
 import { API_BASE_URL } from 'consts/endpoints';
+import { User } from 'types/auth';
 import { PostModel } from 'types/post';
 import { RelationModel } from 'types/user';
 
@@ -24,6 +25,12 @@ export const prepareUrl = (urlPart: string | undefined): string | undefined => {
   }
 
   return `${API_BASE_URL}${urlPart}`;
+};
+
+export const prepareUser = (user: User): User => {
+  user.avatar_url = prepareUrl(user.avatar_url) ?? '';
+
+  return user;
 };
 
 export const preparePost = (post: PostModel): PostModel => {
