@@ -1,11 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { STORAGE_KEYS } from 'consts';
+import { METHOD } from 'consts';
 import { API_BASE_URL, API_ENDPOINTS } from 'consts/endpoints';
-import { prepareRelation } from 'helpers/api';
-import { storageGet } from 'helpers/localStorage';
+import { getAccessToken } from 'helpers/api';
 import { ServerGetRelationsResponse } from 'types/user';
 
-import { GetRelationsValues } from './types';
+import { transformRelations } from './services';
+import { GetRelationsRequest } from './types';
 
 export const userApi = createApi({
   reducerPath: 'userApi',
@@ -13,25 +13,18 @@ export const userApi = createApi({
     baseUrl: API_BASE_URL,
   }),
   endpoints: build => ({
-    getRelations: build.query<ServerGetRelationsResponse, GetRelationsValues>({
+    getRelations: build.query<ServerGetRelationsResponse, GetRelationsRequest>({
       query: args => ({
-        url: `${API_ENDPOINTS.USERS}/${args.path?.user}/relations`,
-        method: 'get',
-        headers: { Authorization: `Bearer ${storageGet(STORAGE_KEYS.TOKEN)}` },
+        url: `${API_ENDPOINTS.USERS}/${args.path.user}/relations`,
+        method: METHOD.GET,
+        headers: { Authorization: getAccessToken() },
         params: args.params,
       }),
-      transformResponse: (
-        response: ServerGetRelationsResponse,
-      ): ServerGetRelationsResponse => {
-        return {
-          ...response,
-          relations: response.relations.map(prepareRelation),
-        };
-      },
+      transformResponse: transformRelations,
     }),
     // deleteRelation: build.mutation<void, void>({
     //   query: args => ({
-    //     url: `${API_ENDPOINTS.POSTS}/users/${args.path?.user}/relations/${args.path?.relationUser}`,
+    //     url: `${API_ENDPOINTS.POSTS}/users/${args.path.user}/relations/${args.path.relationUser}`,
     //     method: 'delete',
     //     headers: { Authorization: `Bearer ${storageGet(STORAGE_KEYS.TOKEN)}` },
     //   }),

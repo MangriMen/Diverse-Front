@@ -1,5 +1,5 @@
 import { Box, CircularProgress } from '@mui/material';
-import { UserFetchFade } from 'components/common/LoaderPage';
+import { DefaultFetchFade } from 'components/common/LoaderPage';
 import { Post } from 'components/post/Post';
 import { API_BASE_URL } from 'consts/endpoints';
 import { selectUser } from 'ducks/auth/selectors';
@@ -41,9 +41,9 @@ export const HomePage = () => {
   return (
     <StyledContainer>
       {isLoading && (
-        <UserFetchFade>
+        <DefaultFetchFade>
           <CircularProgress color="secondary" size="4rem" />
-        </UserFetchFade>
+        </DefaultFetchFade>
       )}
       {!isLoading && (
         <Box display="flex" flexDirection="column" gap="2rem">

@@ -1,15 +1,38 @@
+import { STORAGE_KEYS } from 'consts';
 import { API_BASE_URL } from 'consts/endpoints';
-import { Relation } from 'types/user';
+import { PostModel } from 'types/post';
+import { RelationModel } from 'types/user';
 
-export const prepareUrl = (urlPart: string | null): string | null => {
-  if (urlPart === null) {
-    return null;
+import { storageGet } from './localStorage';
+
+export const getAccessToken = () => {
+  return getBearerToken(STORAGE_KEYS.TOKEN);
+};
+
+export const getBearerToken = (key: string): string => {
+  const token = storageGet(key);
+  if (token === null) {
+    return '';
+  }
+
+  return `Bearer ${token}`;
+};
+
+export const prepareUrl = (urlPart: string | undefined): string | undefined => {
+  if (urlPart === undefined) {
+    return undefined;
   }
 
   return `${API_BASE_URL}${urlPart}`;
 };
 
-export const prepareRelation = (relation: Relation): Relation => {
+export const preparePost = (post: PostModel): PostModel => {
+  post.content = prepareUrl(post.content) ?? '';
+
+  return post;
+};
+
+export const prepareRelation = (relation: RelationModel): RelationModel => {
   relation.relation_user.avatar_url = prepareUrl(
     relation.relation_user.avatar_url,
   );

@@ -1,6 +1,10 @@
-export interface PostValues {
+export interface CreatePostBody {
   content: string;
-  description: string;
+  description?: string;
+}
+
+export interface CreatePostRequest {
+  body: CreatePostBody;
 }
 
 export interface GetPostsParams {
@@ -9,13 +13,13 @@ export interface GetPostsParams {
   count?: number;
 }
 
-export interface GetPostsValues {
-  params?: GetPostsParams;
+export interface GetPostsRequest {
+  params: GetPostsParams;
 }
 
 export interface GetPostPath {
   post: string;
 }
-export interface GetPostValues {
-  path?: GetPostPath;
+export interface GetPostRequest {
+  path: GetPostPath;
 }

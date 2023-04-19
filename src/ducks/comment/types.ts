@@ -1,22 +1,22 @@
 import { GetPostPath } from 'ducks/post/types';
 
-export interface SendCommentBody {
+export interface CreateCommentBody {
   content: string;
 }
 
-export interface SendCommentValues {
+export interface CreateCommentRequest {
   path: GetPostPath;
-  body: SendCommentBody;
+  body: CreateCommentBody;
 }
 
-export interface GetCommentParams {
+export interface GetCommentPath {
   comment: string;
 }
 
-export interface GetCommentValues {
-  path?: GetPostPath & GetCommentParams;
+export interface GetCommentRequest {
+  path: GetPostPath & GetCommentPath;
 }
 
-export interface UpdateCommentValues extends GetCommentValues {
-  body: SendCommentBody;
+export interface UpdateCommentRequest extends GetCommentRequest {
+  body: CreateCommentBody;
 }

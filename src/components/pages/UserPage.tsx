@@ -1,5 +1,5 @@
 import { Box, CircularProgress, Typography } from '@mui/material';
-import { UserFetchFade } from 'components/common/LoaderPage';
+import { DefaultFetchFade } from 'components/common/LoaderPage';
 import { Post } from 'components/post/Post';
 import { UserRelation } from 'components/user/UserRelation';
 import {
@@ -12,7 +12,6 @@ import { selectUser } from 'ducks/auth/selectors';
 import { useGetPostsQuery } from 'ducks/post/api';
 import { ReactNode, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { PostModel } from 'types/post';
 
 import { StyledContainer } from './styles';
 
@@ -30,17 +29,9 @@ export const UserPage = () => {
   const [userPosts, setUserPosts] = useState<ReactNode[]>();
 
   useEffect(() => {
-    if (data?.data != undefined) {
-      setUserPosts(
-        data?.data.map(value => {
-          const preparedPost: PostModel = {
-            ...value,
-            content: `${API_BASE_URL}${value.content}?width=380`,
-          };
-          return <Post key={value.id} post={preparedPost} size="small" />;
-        }),
-      );
-    }
+    setUserPosts(
+      data?.data.map(post => <Post key={post.id} post={post} size="small" />),
+    );
   }, [data?.data]);
 
   return (
@@ -67,9 +58,9 @@ export const UserPage = () => {
         <UserRelation title="Followings" type="following" />
       </StyledUserInfo>
       {isLoading && (
-        <UserFetchFade>
+        <DefaultFetchFade>
           <CircularProgress color="secondary" size="4rem" />
-        </UserFetchFade>
+        </DefaultFetchFade>
       )}
       {!isLoading && <StyledUserPosts>{userPosts}</StyledUserPosts>}
     </StyledContainer>

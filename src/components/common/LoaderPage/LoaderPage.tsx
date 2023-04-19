@@ -1,13 +1,13 @@
 import { CircularProgress } from '@mui/material';
 
-import { ContainerStyled, UserFetchFade } from './styles';
+import { ContainerStyled, DefaultFetchFade } from './styles';
 
 export const LoaderPage = () => {
   return (
     <ContainerStyled maxWidth={false}>
-      <UserFetchFade in unmountOnExit>
+      <DefaultFetchFade in unmountOnExit>
         <CircularProgress color="secondary" size="4rem" />
-      </UserFetchFade>
+      </DefaultFetchFade>
     </ContainerStyled>
   );
 };

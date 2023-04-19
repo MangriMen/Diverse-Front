@@ -1,7 +1,7 @@
 import { User } from './auth';
 import { ServerBaseResponse } from './base';
 
-export interface Relation {
+export interface RelationModel {
   id: string;
   type: string;
   created_at: string;
@@ -10,5 +10,5 @@ export interface Relation {
 
 export interface ServerGetRelationsResponse extends ServerBaseResponse {
   count: number;
-  relations: Relation[];
+  relations: RelationModel[];
 }

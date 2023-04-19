@@ -7,7 +7,7 @@ export interface GetRelationsParams {
   type: string;
 }
 
-export interface GetRelationsValues {
+export interface GetRelationsRequest {
   path: GetRelationsPath;
   params?: GetRelationsParams;
 }

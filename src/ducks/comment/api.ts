@@ -1,13 +1,13 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { STORAGE_KEYS } from 'consts';
+import { METHOD } from 'consts';
 import { API_BASE_URL, API_ENDPOINTS } from 'consts/endpoints';
-import { storageGet } from 'helpers/localStorage';
+import { getAccessToken } from 'helpers/api';
 import { ServerGetCommentResponse, ServerGetPostResponse } from 'types/post';
 
 import {
-  GetCommentValues,
-  SendCommentValues,
-  UpdateCommentValues,
+  CreateCommentRequest,
+  GetCommentRequest,
+  UpdateCommentRequest,
 } from './types';
 
 export const commentApi = createApi({
@@ -16,41 +16,41 @@ export const commentApi = createApi({
     baseUrl: API_BASE_URL,
   }),
   endpoints: build => ({
-    sendComment: build.mutation<ServerGetPostResponse, SendCommentValues>({
+    sendComment: build.mutation<ServerGetPostResponse, CreateCommentRequest>({
       query: args => ({
-        url: `${API_ENDPOINTS.POSTS}/${args.path?.post}/comments`,
-        method: 'post',
-        headers: { Authorization: `Bearer ${storageGet(STORAGE_KEYS.TOKEN)}` },
+        url: `${API_ENDPOINTS.POSTS}/${args.path.post}/comments`,
+        method: METHOD.POST,
+        headers: { Authorization: getAccessToken() },
         body: args.body,
       }),
     }),
-    updateComment: build.mutation<string, UpdateCommentValues>({
+    updateComment: build.mutation<string, UpdateCommentRequest>({
       query: args => ({
-        url: `${API_ENDPOINTS.POSTS}/${args.path?.post}/comments/${args.path?.comment}`,
-        method: 'patch',
-        headers: { Authorization: `Bearer ${storageGet(STORAGE_KEYS.TOKEN)}` },
+        url: `${API_ENDPOINTS.POSTS}/${args.path.post}/comments/${args.path.comment}`,
+        method: METHOD.PATCH,
+        headers: { Authorization: getAccessToken() },
         body: args.body,
       }),
     }),
-    deleteComment: build.mutation<void, GetCommentValues>({
+    deleteComment: build.mutation<void, GetCommentRequest>({
       query: args => ({
-        url: `${API_ENDPOINTS.POSTS}/${args.path?.post}/comments/${args.path?.comment}`,
-        method: 'delete',
-        headers: { Authorization: `Bearer ${storageGet(STORAGE_KEYS.TOKEN)}` },
+        url: `${API_ENDPOINTS.POSTS}/${args.path.post}/comments/${args.path.comment}`,
+        method: METHOD.DELETE,
+        headers: { Authorization: getAccessToken() },
       }),
     }),
-    likeComment: build.mutation<ServerGetCommentResponse, GetCommentValues>({
+    likeComment: build.mutation<ServerGetCommentResponse, GetCommentRequest>({
       query: args => ({
-        url: `${API_ENDPOINTS.POSTS}/${args.path?.post}/comments/${args.path?.comment}/like`,
-        method: 'post',
-        headers: { Authorization: `Bearer ${storageGet(STORAGE_KEYS.TOKEN)}` },
+        url: `${API_ENDPOINTS.POSTS}/${args.path.post}/comments/${args.path.comment}/like`,
+        method: METHOD.POST,
+        headers: { Authorization: getAccessToken() },
       }),
     }),
-    unlikeComment: build.mutation<ServerGetCommentResponse, GetCommentValues>({
+    unlikeComment: build.mutation<ServerGetCommentResponse, GetCommentRequest>({
       query: args => ({
-        url: `${API_ENDPOINTS.POSTS}/${args.path?.post}/comments/${args.path?.comment}/like`,
-        method: 'delete',
-        headers: { Authorization: `Bearer ${storageGet(STORAGE_KEYS.TOKEN)}` },
+        url: `${API_ENDPOINTS.POSTS}/${args.path.post}/comments/${args.path.comment}/like`,
+        method: METHOD.DELETE,
+        headers: { Authorization: getAccessToken() },
       }),
     }),
   }),

@@ -1,13 +1,3 @@
-import { API_BASE_URL } from 'consts/endpoints';
-import { PostModel } from 'types/post';
-
-export const preparePostToDisplay = (post: PostModel): PostModel => {
-  return {
-    ...post,
-    content: `${API_BASE_URL}${post.content}`,
-  };
-};
-
 export const getLocale = (): string => {
   return navigator.languages && navigator.languages.length
     ? navigator.languages[0]
