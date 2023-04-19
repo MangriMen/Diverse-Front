@@ -1,4 +1,4 @@
-import { Avatar, AvatarGroup, capitalize } from '@mui/material';
+import { Avatar, AvatarGroup } from '@mui/material';
 import { StyledTextButton } from 'components/common/styles';
 import { selectUser } from 'ducks/auth/selectors';
 import { useGetRelationsQuery } from 'ducks/user/api';

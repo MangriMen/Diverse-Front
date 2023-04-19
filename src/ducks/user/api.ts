@@ -19,10 +19,6 @@ export const userApi = createApi({
         method: 'get',
         headers: { Authorization: `Bearer ${storageGet(STORAGE_KEYS.TOKEN)}` },
         params: args.params,
-        transform: (response: ServerGetRelationsResponse) => {
-          console.log(response);
-          return response;
-        },
       }),
       transformResponse: (
         response: ServerGetRelationsResponse,
