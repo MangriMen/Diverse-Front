@@ -1,3 +1,4 @@
+import { CardActionArea } from '@mui/material';
 import { useState } from 'react';
 
 import { PostProps } from '../interfaces';
@@ -22,25 +23,29 @@ export const PostCard = ({ post, setPost, size = 'default' }: PostProps) => {
 
   return (
     <StyledCard size={size} elevation={0}>
-      <StyledCardMediaBox size={size}>
-        <StyledCardMedia component="img" image={post.content} />
-      </StyledCardMediaBox>
-      <StyledCardContent size={size}>
-        {size === 'default' && <PostCardHeader post={post} />}
-        <PostCardDescription
-          expanded={expanded}
-          onExpand={handleExpandClick}
-          size={size}
-          description={post.description}
-        />
-        {size === 'default' && !expanded && (
-          <>
-            <PostCardActions post={post} setPost={setPost} />
-            <PostCardComments post={post} setPost={setPost} />
-            <PostCardInput post={post} setPost={setPost} />
-          </>
-        )}
-      </StyledCardContent>
+      <CardActionArea>
+        <StyledCardMediaBox size={size}>
+          <StyledCardMedia component="img" image={post.content} />
+        </StyledCardMediaBox>
+      </CardActionArea>
+      {size === 'default' && (
+        <StyledCardContent size={size}>
+          {size === 'default' && <PostCardHeader post={post} />}
+          <PostCardDescription
+            expanded={expanded}
+            onExpand={handleExpandClick}
+            size={size}
+            description={post.description}
+          />
+          {size === 'default' && !expanded && (
+            <>
+              <PostCardActions post={post} setPost={setPost} />
+              <PostCardComments post={post} setPost={setPost} />
+              <PostCardInput post={post} setPost={setPost} />
+            </>
+          )}
+        </StyledCardContent>
+      )}
     </StyledCard>
   );
 };

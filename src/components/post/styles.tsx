@@ -21,7 +21,7 @@ export const StyledCard = styled(Card, {
   shouldForwardProp: prop => prop !== 'size',
 })<{ size: PostSize }>`
   height: ${props => (props.size === 'default' ? '536px' : '')};
-  width: ${props => (props.size === 'default' ? '930px' : '320px')};
+  width: ${props => (props.size === 'default' ? '930px' : '352px')};
   display: flex;
   flex-direction: ${props => (props.size === 'default' ? 'row' : 'column')};
   box-shadow: 0 0 0 2px ${props => props.theme.palette.common.third};
@@ -113,7 +113,7 @@ export const PostCardDescriptionText = styled(Typography)`
 ` as typeof Typography;
 
 export const StyledCardMedia = styled(CardMedia)`
-  object-fit: scale-down;
+  object-fit: contain;
 ` as typeof CardMedia;
 
 export const StyledCardMediaBox = styled(Box, {
@@ -121,6 +121,7 @@ export const StyledCardMediaBox = styled(Box, {
 })<{ size: PostSize }>`
   display: flex;
   flex-grow: ${props => (props.size === 'default' ? 1 : 0)};
+  height: 100%;
 `;
 
 export const PostCardDescriptionCollapse = styled(Collapse)<{

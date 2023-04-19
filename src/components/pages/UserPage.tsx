@@ -34,7 +34,7 @@ export const UserPage = () => {
         data?.data.map(value => {
           const preparedPost: PostModel = {
             ...value,
-            content: `${API_BASE_URL}${value.content}?width=200`,
+            content: `${API_BASE_URL}${value.content}?width=380`,
           };
           return <Post key={value.id} post={preparedPost} size="small" />;
         }),
