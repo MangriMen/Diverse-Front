@@ -2,7 +2,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { Avatar, ListItem, ListItemText, Typography } from '@mui/material';
 import { StyledTextButton } from 'components/common/styles';
-import { API_BASE_URL } from 'consts/endpoints';
 import { selectUser } from 'ducks/auth/selectors';
 import { useDeleteCommentMutation } from 'ducks/comment/api';
 import { ReactElement, useCallback, useEffect, useState } from 'react';
@@ -97,7 +96,7 @@ export const Comment = ({
   return (
     <ListItem alignItems="flex-start" disablePadding>
       <ListItemAvatarStyled>
-        <Avatar src={`${API_BASE_URL}${comment.user.avatar_url}?width=64`} />
+        <Avatar src={`${comment.user.avatar_url}?width=80`} />
       </ListItemAvatarStyled>
       <ListItemText
         primary={

@@ -1,6 +1,7 @@
 import { STORAGE_KEYS } from 'consts';
 import { API_BASE_URL } from 'consts/endpoints';
-import { PostModel } from 'types/post';
+import { User } from 'types/auth';
+import { CommentModel, PostModel } from 'types/post';
 import { RelationModel } from 'types/user';
 
 import { storageGet } from './localStorage';
@@ -26,8 +27,21 @@ export const prepareUrl = (urlPart: string | undefined): string | undefined => {
   return `${API_BASE_URL}${urlPart}`;
 };
 
+export const prepareUser = (user: User): User => {
+  user.avatar_url = prepareUrl(user.avatar_url) ?? '';
+
+  return user;
+};
+
+export const prepareComment = (comment: CommentModel): CommentModel => {
+  comment.user = prepareUser(comment.user);
+
+  return comment;
+};
+
 export const preparePost = (post: PostModel): PostModel => {
   post.content = prepareUrl(post.content) ?? '';
+  post.comments = post.comments.map(comment => prepareComment(comment));
 
   return post;
 };

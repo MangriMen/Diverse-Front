@@ -7,7 +7,6 @@ import {
   StyledUserInfo,
   StyledUserPosts,
 } from 'components/user/styles';
-import { API_BASE_URL } from 'consts/endpoints';
 import { selectUser } from 'ducks/auth/selectors';
 import { useGetPostsQuery } from 'ducks/post/api';
 import { ReactNode, useEffect, useState } from 'react';
@@ -45,13 +44,7 @@ export const UserPage = () => {
           justifyContent="center"
           gap="1rem"
         >
-          <StyledProfileAvatar
-            src={
-              user?.avatar_url == null
-                ? undefined
-                : `${API_BASE_URL}${user?.avatar_url}?width=256`
-            }
-          />
+          <StyledProfileAvatar src={`${user?.avatar_url}?width=256`} />
           <Typography fontSize="24px">{`@${user?.username}`}</Typography>
           <Typography>{user?.name}</Typography>
         </Box>

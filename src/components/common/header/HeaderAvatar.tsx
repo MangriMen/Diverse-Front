@@ -1,5 +1,4 @@
 import { IconButtonProps } from '@mui/material';
-import { API_BASE_URL } from 'consts/endpoints';
 import { selectUser } from 'ducks/auth/selectors';
 import { FC } from 'react';
 import { useSelector } from 'react-redux';
@@ -17,15 +16,7 @@ export const HeaderAvatar: FC<{ onClick: IconButtonProps['onClick'] }> = ({
 
   return (
     <StyledHeaderAvatarButton
-      endIcon={
-        <StyledAvatar
-          src={
-            user?.avatar_url == null
-              ? undefined
-              : `${API_BASE_URL}${user?.avatar_url}?width=64`
-          }
-        />
-      }
+      endIcon={<StyledAvatar src={`${user?.avatar_url}?width=64`} />}
       onClick={onClick}
       variant="contained"
       disableRipple
