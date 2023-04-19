@@ -1,8 +1,7 @@
 import { Box, CircularProgress, Typography } from '@mui/material';
 import { UserFetchFade } from 'components/common/LoaderPage';
 import { Post } from 'components/post/Post';
-import { UserFollowers } from 'components/user/UserFollowers';
-import { UserFollowings } from 'components/user/UserFollowings';
+import { UserRelation } from 'components/user/UserRelation';
 import {
   StyledProfileAvatar,
   StyledUserInfo,
@@ -47,7 +46,7 @@ export const UserPage = () => {
   return (
     <StyledContainer>
       <StyledUserInfo>
-        <UserFollowers />
+        <UserRelation title="Followers" type="follower" />
         <Box
           display="flex"
           flexDirection="column"
@@ -65,7 +64,7 @@ export const UserPage = () => {
           <Typography fontSize="24px">{`@${user?.username}`}</Typography>
           <Typography>{user?.name}</Typography>
         </Box>
-        <UserFollowings />
+        <UserRelation title="Followings" type="following" />
       </StyledUserInfo>
       {isLoading && (
         <UserFetchFade>

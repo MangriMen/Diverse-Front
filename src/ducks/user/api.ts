@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { STORAGE_KEYS } from 'consts';
 import { API_BASE_URL, API_ENDPOINTS } from 'consts/endpoints';
+import { prepareRelation } from 'helpers/api';
 import { storageGet } from 'helpers/localStorage';
 import { ServerGetRelationsResponse } from 'types/user';
 
@@ -18,7 +19,19 @@ export const userApi = createApi({
         method: 'get',
         headers: { Authorization: `Bearer ${storageGet(STORAGE_KEYS.TOKEN)}` },
         params: args.params,
+        transform: (response: ServerGetRelationsResponse) => {
+          console.log(response);
+          return response;
+        },
       }),
+      transformResponse: (
+        response: ServerGetRelationsResponse,
+      ): ServerGetRelationsResponse => {
+        return {
+          ...response,
+          relations: response.relations.map(prepareRelation),
+        };
+      },
     }),
     // deleteRelation: build.mutation<void, void>({
     //   query: args => ({

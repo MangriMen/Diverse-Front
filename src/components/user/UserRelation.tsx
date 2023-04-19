@@ -1,33 +1,43 @@
-import { Avatar, AvatarGroup } from '@mui/material';
+import { Avatar, AvatarGroup, capitalize } from '@mui/material';
 import { StyledTextButton } from 'components/common/styles';
-import { API_BASE_URL } from 'consts/endpoints';
+import { selectUser } from 'ducks/auth/selectors';
+import { useGetRelationsQuery } from 'ducks/user/api';
 import { ReactElement, useEffect, useState } from 'react';
-import { Relation } from 'types/user';
+import { useSelector } from 'react-redux';
 
 import { RelationBlock } from './styles';
 
-export const UserRelation = ({ relations }: { relations: Relation[] }) => {
+export const UserRelation = ({
+  title,
+  type,
+}: {
+  title: string;
+  type: string;
+}) => {
+  const user = useSelector(selectUser);
+
+  const { data } = useGetRelationsQuery({
+    path: { user: user?.id ?? '' },
+    params: { count: 20, type: type },
+  });
+
   const [relationsUsers, setRelationsUsers] = useState<ReactElement[]>();
 
   useEffect(() => {
     setRelationsUsers(
-      relations.map(relation => (
+      data?.relations.map(relation => (
         <Avatar
           key={relation.id}
-          src={
-            relation.relation_user.avatar_url == null
-              ? undefined
-              : `${API_BASE_URL}${relation.relation_user.avatar_url}?width=96`
-          }
+          src={`${relation.relation_user.avatar_url}?width=96`}
         />
       )),
     );
-  }, [relations]);
+  }, [data?.relations]);
 
   return (
     <RelationBlock>
       <StyledTextButton sx={{ color: 'white' }} fontSize="18px">
-        {'Followings'}
+        {title}
       </StyledTextButton>
       <AvatarGroup max={4}>{relationsUsers}</AvatarGroup>
     </RelationBlock>
