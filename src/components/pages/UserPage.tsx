@@ -1,6 +1,8 @@
-import { CircularProgress, Typography } from '@mui/material';
+import { Box, CircularProgress, Typography } from '@mui/material';
 import { UserFetchFade } from 'components/common/LoaderPage';
 import { Post } from 'components/post/Post';
+import { UserFollowers } from 'components/user/UserFollowers';
+import { UserFollowings } from 'components/user/UserFollowings';
 import {
   StyledProfileAvatar,
   StyledUserInfo,
@@ -45,11 +47,25 @@ export const UserPage = () => {
   return (
     <StyledContainer>
       <StyledUserInfo>
-        <StyledProfileAvatar
-          src={`${API_BASE_URL}${user?.avatar_url}?width=256`}
-        />
-        <Typography fontSize="24px">{`@${user?.username}`}</Typography>
-        <Typography>{user?.name}</Typography>
+        <UserFollowers />
+        <Box
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="center"
+          gap="1rem"
+        >
+          <StyledProfileAvatar
+            src={
+              user?.avatar_url == null
+                ? undefined
+                : `${API_BASE_URL}${user?.avatar_url}?width=256`
+            }
+          />
+          <Typography fontSize="24px">{`@${user?.username}`}</Typography>
+          <Typography>{user?.name}</Typography>
+        </Box>
+        <UserFollowings />
       </StyledUserInfo>
       {isLoading && (
         <UserFetchFade>

@@ -1,3 +1,5 @@
+import { ServerBaseResponse } from './base';
+
 export interface User {
   id: string;
   email: string;
@@ -8,9 +10,7 @@ export interface User {
   avatar_url: string;
 }
 
-export interface ServerAuthResponse {
-  error: boolean;
+export interface ServerAuthResponse extends ServerBaseResponse {
   user: User;
   token: string;
-  message: string;
 }

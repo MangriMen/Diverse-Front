@@ -18,7 +18,13 @@ export const HeaderAvatar: FC<{ onClick: IconButtonProps['onClick'] }> = ({
   return (
     <StyledHeaderAvatarButton
       endIcon={
-        <StyledAvatar src={`${API_BASE_URL}${user?.avatar_url}?width=64`} />
+        <StyledAvatar
+          src={
+            user?.avatar_url == null
+              ? undefined
+              : `${API_BASE_URL}${user?.avatar_url}?width=64`
+          }
+        />
       }
       onClick={onClick}
       variant="contained"

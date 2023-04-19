@@ -1,4 +1,5 @@
 import { User } from './auth';
+import { ServerBaseResponse } from './base';
 
 export interface CommentModel {
   id: string;
@@ -21,21 +22,15 @@ export interface PostModel {
   liked_by_me: boolean;
 }
 
-export interface ServerGetPostsResponse {
-  error: boolean;
-  message: string;
+export interface ServerGetPostsResponse extends ServerBaseResponse {
   count: number;
   data: PostModel[];
 }
 
-export interface ServerGetPostResponse {
-  error: boolean;
-  message: string;
+export interface ServerGetPostResponse extends ServerBaseResponse {
   data: PostModel;
 }
 
-export interface ServerGetCommentResponse {
-  error: boolean;
-  message: string;
+export interface ServerGetCommentResponse extends ServerBaseResponse {
   data: CommentModel;
 }

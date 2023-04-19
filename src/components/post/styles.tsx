@@ -114,6 +114,7 @@ export const PostCardDescriptionText = styled(Typography)`
 
 export const StyledCardMedia = styled(CardMedia)`
   object-fit: contain;
+  pointer-events: none;
 ` as typeof CardMedia;
 
 export const StyledCardMediaBox = styled(Box, {
