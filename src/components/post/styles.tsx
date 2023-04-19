@@ -144,6 +144,7 @@ export const StyledButton = styled(Button)`
 
 export const StyledCardMedia = styled(CardMedia)`
   object-fit: scale-down;
+  pointer-events: none;
 ` as typeof CardMedia;
 
 export const StyledCardMediaBox = styled(Box)`

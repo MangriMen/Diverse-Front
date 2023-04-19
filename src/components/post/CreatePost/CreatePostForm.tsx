@@ -59,7 +59,7 @@ export const CreatePostForm: FC<CreatePostFormProps> = ({ onClose }) => {
     formData.append('file', data.file[0] ?? '');
     try {
       const payload = Object(await sendData(formData).unwrap());
-      data.content = payload.id;
+      data.content = payload.path;
       await sendPost({ content: data.content, description: data.description });
       enqueueSnackbar(t('SuccessSendPost'), {
         variant: 'success',
