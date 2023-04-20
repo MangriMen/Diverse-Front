@@ -32,3 +32,18 @@ export const UsersHorizontalList = styled(Box)`
   display: flex;
   gap: 1rem;
 `;
+
+export const UserProfileAvatarAndUsername = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+`;
+
+export const UsernameAndName = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;

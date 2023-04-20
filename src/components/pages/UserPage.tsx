@@ -1,11 +1,12 @@
-import { Box, CircularProgress, Typography } from '@mui/material';
-import { DefaultFetchFade } from 'components/common/LoaderPage';
+import { Typography } from '@mui/material';
 import { Post } from 'components/post/Post';
 import { UserRelation } from 'components/user/UserRelation';
 import {
   StyledProfileAvatar,
   StyledUserInfo,
   StyledUserPosts,
+  UserProfileAvatarAndUsername,
+  UsernameAndName,
 } from 'components/user/styles';
 import { selectUser } from 'ducks/auth/selectors';
 import { useGetPostsQuery } from 'ducks/post/api';
@@ -17,7 +18,7 @@ import { StyledContainer } from './styles';
 export const UserPage = () => {
   const user = useSelector(selectUser);
 
-  const { data, isLoading } = useGetPostsQuery({
+  const { data, isFetching } = useGetPostsQuery({
     params: {
       type: 'user',
       user_id: user?.id ?? '',
@@ -36,26 +37,17 @@ export const UserPage = () => {
   return (
     <StyledContainer>
       <StyledUserInfo>
-        <UserRelation title="Followers" type="follower" />
-        <Box
-          display="flex"
-          flexDirection="column"
-          alignItems="center"
-          justifyContent="center"
-          gap="1rem"
-        >
+        <UserRelation type="follower" />
+        <UserProfileAvatarAndUsername>
           <StyledProfileAvatar src={`${user?.avatar_url}?width=256`} />
-          <Typography fontSize="24px">{`@${user?.username}`}</Typography>
-          <Typography>{user?.name}</Typography>
-        </Box>
-        <UserRelation title="Followings" type="following" />
+          <UsernameAndName>
+            <Typography fontSize="24px">{`@${user?.username}`}</Typography>
+            <Typography>{user?.name}</Typography>
+          </UsernameAndName>
+        </UserProfileAvatarAndUsername>
+        <UserRelation type="following" />
       </StyledUserInfo>
-      {isLoading && (
-        <DefaultFetchFade>
-          <CircularProgress color="secondary" size="4rem" />
-        </DefaultFetchFade>
-      )}
-      {!isLoading && <StyledUserPosts>{userPosts}</StyledUserPosts>}
+      <StyledUserPosts>{!isFetching && userPosts}</StyledUserPosts>
     </StyledContainer>
   );
 };
