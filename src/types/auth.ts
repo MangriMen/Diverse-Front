@@ -8,6 +8,7 @@ export interface User {
   created_at: string;
   updated_at: string;
   avatar_url?: string;
+  about?: string;
 }
 
 export interface ServerAuthResponse extends ServerBaseResponse {

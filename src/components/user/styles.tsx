@@ -1,16 +1,35 @@
-import { Avatar, Box, styled } from '@mui/material';
+import { Avatar, Box, Typography, styled } from '@mui/material';
 
 export const StyledProfileAvatar = styled(Avatar)`
   width: 192px;
   height: 192px;
 `;
 
-export const StyledUserInfo = styled(Box)`
+export const UserInfo = styled(Box)`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+`;
+
+export const MainUserInfo = styled(Box)`
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
+`;
+
+export const UserDescription = styled(Box)`
+  width: 100;
+  display: flex;
+  justify-content: center;
+`;
+
+export const UserDescriptionText = styled(Typography)`
+  width: 65%;
+  text-align: center;
+  font-size: 14px;
 `;
 
 export const StyledUserPosts = styled(Box)`
@@ -33,7 +52,7 @@ export const UsersHorizontalList = styled(Box)`
   gap: 1rem;
 `;
 
-export const UserProfileAvatarAndUsername = styled(Box)`
+export const AvatarWithName = styled(Box)`
   display: flex;
   flex-direction: column;
   align-items: center;
