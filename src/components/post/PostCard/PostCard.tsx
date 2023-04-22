@@ -23,7 +23,7 @@ export const PostCard = ({ post, setPost, size = 'default' }: PostProps) => {
 
   return (
     <StyledCard size={size} elevation={0}>
-      <CardActionArea>
+      <CardActionArea sx={{ width: '100%', height: '100%' }}>
         <StyledCardMediaBox size={size}>
           <StyledCardMedia component="img" image={post.content} />
         </StyledCardMediaBox>
@@ -31,12 +31,14 @@ export const PostCard = ({ post, setPost, size = 'default' }: PostProps) => {
       {size === 'default' && (
         <StyledCardContent size={size}>
           {size === 'default' && <PostCardHeader post={post} />}
-          <PostCardDescription
-            expanded={expanded}
-            onExpand={handleExpandClick}
-            size={size}
-            description={post.description}
-          />
+          {post.description && (
+            <PostCardDescription
+              expanded={expanded}
+              onExpand={handleExpandClick}
+              size={size}
+              description={post.description}
+            />
+          )}
           {size === 'default' && !expanded && (
             <>
               <PostCardActions post={post} setPost={setPost} />

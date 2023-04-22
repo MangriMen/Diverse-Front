@@ -33,9 +33,10 @@ export const UserDescriptionText = styled(Typography)`
 `;
 
 export const StyledUserPosts = styled(Box)`
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 378px);
+  gap: 0.5rem;
 `;
 
 export const RelationBlock = styled(Box)`

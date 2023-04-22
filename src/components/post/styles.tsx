@@ -20,11 +20,13 @@ import { PostSize } from './interfaces';
 export const StyledCard = styled(Card, {
   shouldForwardProp: prop => prop !== 'size',
 })<{ size: PostSize }>`
-  height: ${props => (props.size === 'default' ? '536px' : '')};
-  width: ${props => (props.size === 'default' ? '930px' : '352px')};
+  height: ${props => (props.size === 'default' ? '546px' : '')};
+  width: ${props => (props.size === 'default' ? '864px' : '')};
+
   display: flex;
   flex-direction: ${props => (props.size === 'default' ? 'row' : 'column')};
-  box-shadow: 0 0 0 2px ${props => props.theme.palette.common.third};
+
+  border: 1px solid ${props => props.theme.palette.common.third};
 
   &.MuiPaper-root {
     background-color: ${props => props.theme.palette.primary.dark};
@@ -121,8 +123,10 @@ export const StyledCardMediaBox = styled(Box, {
   shouldForwardProp: prop => prop !== 'size',
 })<{ size: PostSize }>`
   display: flex;
-  flex-grow: ${props => (props.size === 'default' ? 1 : 0)};
+  justify-content: center;
   height: 100%;
+  max-height: ${props => (props.size === 'default' ? '1220px' : '756px')};
+  flex-grow: ${props => (props.size === 'default' ? '1' : '')};
 `;
 
 export const PostCardDescriptionCollapse = styled(Collapse)<{
