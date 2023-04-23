@@ -1,9 +1,12 @@
+import SettingsIcon from '@mui/icons-material/Settings';
 import { Typography } from '@mui/material';
 import { Post } from 'components/post/Post';
 import { UserRelation } from 'components/user/UserRelation';
 import {
   AvatarWithName,
   MainUserInfo,
+  ProfileAvatarWithSettings,
+  ProfileSettingsButton,
   StyledProfileAvatar,
   StyledUserPosts,
   UserDescription,
@@ -43,7 +46,12 @@ export const UserPage = () => {
         <MainUserInfo>
           <UserRelation type="follower" />
           <AvatarWithName>
-            <StyledProfileAvatar src={`${user?.avatar_url}?width=256`} />
+            <ProfileAvatarWithSettings>
+              <StyledProfileAvatar src={`${user?.avatar_url}?width=256`} />
+              <ProfileSettingsButton disableRipple>
+                <SettingsIcon />
+              </ProfileSettingsButton>
+            </ProfileAvatarWithSettings>
             <UsernameAndName>
               <Typography fontSize="24px">{`@${user?.username}`}</Typography>
               <Typography>{user?.name}</Typography>

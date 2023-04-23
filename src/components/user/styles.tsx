@@ -1,4 +1,5 @@
 import { Avatar, Box, Typography, styled } from '@mui/material';
+import { StyledIconButton } from 'components/post/styles';
 
 export const StyledProfileAvatar = styled(Avatar)`
   width: 192px;
@@ -66,4 +67,26 @@ export const UsernameAndName = styled(Box)`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+`;
+
+export const ProfileAvatarWithSettings = styled(Box)`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  :hover * {
+    visibility: visible;
+    opacity: 1;
+  }
+`;
+
+export const ProfileSettingsButton = styled(StyledIconButton)`
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+  bottom: 0;
+  right: 0;
+
+  transition: visibility 0.3s ease-out, opacity 0.3s ease-out;
 `;
