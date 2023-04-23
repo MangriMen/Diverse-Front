@@ -20,7 +20,7 @@ export const postApi = createApi({
         body: arg,
       }),
     }),
-    endlessScroll: build.query<ServerGetPostsResponse, GetPostValues>({
+    getPosts: build.query<ServerGetPostsResponse, GetPostValues>({
       query: arg => ({
         url: API_ENDPOINTS.POSTS,
         method: 'get',
@@ -42,4 +42,4 @@ export const postApi = createApi({
   }),
 });
 
-export const { usePostsMutation, useEndlessScrollQuery } = postApi;
+export const { usePostsMutation, useGetPostsQuery } = postApi;

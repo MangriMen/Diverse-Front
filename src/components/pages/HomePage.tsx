@@ -1,5 +1,5 @@
 import { Post } from 'components/post/Post';
-import { useEndlessScrollQuery } from 'ducks/post/api';
+import { useGetPostsQuery } from 'ducks/post/api';
 import { ReactElement, useEffect, useState } from 'react';
 
 import { StyledContainer } from './styles';
@@ -14,7 +14,7 @@ const lastSeenPostDefaultValues: LastSeenPost = {};
 export const HomePage = () => {
   const [lastSeenPost, setLastSeenPost] = useState(lastSeenPostDefaultValues);
   const [posts, setPosts] = useState<ReactElement[]>();
-  const { data, isFetching } = useEndlessScrollQuery({
+  const { data, isFetching } = useGetPostsQuery({
     params: {
       type: 'all',
       last_seen_post_id: lastSeenPost.id,
