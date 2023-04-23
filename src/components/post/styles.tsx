@@ -27,9 +27,11 @@ export const StyledCard = styled(Card, {
 
   display: flex;
   flex-direction: ${props => (props.size === 'default' ? 'row' : 'column')};
-
+  justify-content: space-between;
   border: 1px solid ${props => props.theme.palette.common.third};
-
+  & .MuiCardContent-root {
+    width: 100%;
+  }
   &.MuiPaper-root {
     background-color: ${props => props.theme.palette.primary.dark};
   }
@@ -117,6 +119,7 @@ export const StyledCardMedia = styled(CardMedia)`
 export const StyledCardMediaBox = styled(Box, {
   shouldForwardProp: prop => prop !== 'size',
 })<{ size: PostSize }>`
+  position: relative;
   display: flex;
   justify-content: center;
   height: 100%;

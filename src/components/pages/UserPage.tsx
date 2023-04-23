@@ -13,28 +13,61 @@ import {
 } from 'components/user/styles';
 import { selectUser } from 'ducks/auth/selectors';
 import { useGetPostsQuery } from 'ducks/post/api';
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { StyledContainer } from './styles';
 
+interface LastSeenPost {
+  id?: string;
+  created_at?: string;
+}
+
+const lastSeenPostDefaultValues: LastSeenPost = {};
+
 export const UserPage = () => {
   const user = useSelector(selectUser);
+
+  const [lastSeenPost, setLastSeenPost] = useState(lastSeenPostDefaultValues);
+  const [posts, setPosts] = useState<ReactElement[]>();
 
   const { data, isFetching } = useGetPostsQuery({
     params: {
       type: 'user',
       user_id: user?.id ?? '',
-      count: 20,
+      last_seen_post_id: lastSeenPost.id,
+      last_seen_post_created_at: lastSeenPost.created_at,
+      count: 10,
     },
   });
 
-  const [userPosts, setUserPosts] = useState<ReactNode[]>();
+  useEffect(() => {
+    const onScroll = () => {
+      const scrolledToButtom =
+        window.innerHeight + window.scrollY >= document.body.offsetHeight;
+      if (scrolledToButtom && !isFetching) {
+        if (data !== undefined) {
+          setLastSeenPost({
+            id: data.data[data.data.length - 1].id,
+            created_at: data.data[data.data.length - 1].created_at,
+          });
+        }
+      }
+    };
+
+    document.addEventListener('scroll', onScroll);
+
+    return function () {
+      document.removeEventListener('scroll', onScroll);
+    };
+  }, [data, isFetching]);
 
   useEffect(() => {
-    setUserPosts(
-      data?.data.map(post => <Post key={post.id} post={post} size="small" />),
-    );
+    if (data?.data !== undefined) {
+      setPosts(
+        data?.data.map(post => <Post key={post.id} post={post} size="small" />),
+      );
+    }
   }, [data?.data]);
 
   return (
@@ -55,7 +88,7 @@ export const UserPage = () => {
           <UserDescriptionText>{user?.about}</UserDescriptionText>
         </UserDescription>
       </UserInfo>
-      <StyledUserPosts>{!isFetching && userPosts}</StyledUserPosts>
+      <StyledUserPosts>{posts}</StyledUserPosts>
     </StyledContainer>
   );
 };

@@ -6,6 +6,7 @@ import { getAccessToken } from 'helpers/api';
 import { storageGet } from 'helpers/localStorage';
 import { ServerGetPostResponse, ServerGetPostsResponse } from 'types/post';
 
+import { transformPosts } from './services';
 import { GetPostRequest, GetPostsValues, PostValues } from './types';
 
 export const postApi = createApi({
@@ -14,7 +15,7 @@ export const postApi = createApi({
     baseUrl: API_BASE_URL,
   }),
   endpoints: build => ({
-    posts: build.mutation<string, PostValues>({
+    createPost: build.mutation<string, PostValues>({
       query: arg => ({
         url: API_ENDPOINTS.POSTS,
         method: METHOD.POST,
@@ -40,6 +41,7 @@ export const postApi = createApi({
       forceRefetch({ currentArg, previousArg }) {
         return currentArg !== previousArg;
       },
+      transformResponse: transformPosts,
     }),
     deletePost: build.mutation<ServerGetPostsResponse, GetPostRequest>({
       query: args => ({
@@ -66,7 +68,7 @@ export const postApi = createApi({
 });
 
 export const {
-  usePostsMutation,
+  useCreatePostMutation,
   useGetPostsQuery,
   useDeletePostMutation,
   useLikePostMutation,
