@@ -22,9 +22,9 @@ export const userApi = createApi({
     baseUrl: API_BASE_URL,
   }),
   endpoints: build => ({
-    getUser: build.query<ServerGetUserResponse, GetUserRequest>({
+    getUserByUsername: build.query<ServerGetUserResponse, GetUserRequest>({
       query: args => ({
-        url: `${API_ENDPOINTS.USERS}/${args.path.user}`,
+        url: `${API_ENDPOINTS.USERS}/username/${args.path.username}`,
         mehtod: METHOD.GET,
         headers: { Authorization: getAccessToken() },
       }),
@@ -61,7 +61,7 @@ export const userApi = createApi({
 });
 
 export const {
-  useGetUserQuery,
+  useGetUserByUsernameQuery,
   useGetRelationsCountQuery,
   useGetRelationsQuery,
 } = userApi;

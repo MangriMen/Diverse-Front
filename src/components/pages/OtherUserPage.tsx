@@ -14,7 +14,7 @@ import {
 import { ROUTE } from 'consts';
 import { selectUser } from 'ducks/auth/selectors';
 import { useGetPostsQuery } from 'ducks/post/api';
-import { useGetUserQuery } from 'ducks/user/api';
+import { useGetUserByUsernameQuery } from 'ducks/user/api';
 import { ReactNode, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -32,9 +32,9 @@ export const OtherUserPage = () => {
     navigate(ROUTE.ME);
   }
 
-  const { data: userData } = useGetUserQuery({
+  const { data: userData } = useGetUserByUsernameQuery({
     path: {
-      user: id ?? '',
+      username: id ?? '',
     },
   });
 

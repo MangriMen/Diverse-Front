@@ -1,5 +1,5 @@
 export interface GetUserPath {
-  user: string;
+  username: string;
 }
 
 export interface GetUserRequest {
