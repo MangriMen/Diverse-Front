@@ -27,6 +27,9 @@ export const defaultTheme = createTheme(
         third: {
           main: '#26292e',
         },
+        dimmed: {
+          main: '#9e9e9e',
+        },
       },
     },
     THEME_DEFAULT_OPTIONS,

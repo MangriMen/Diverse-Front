@@ -26,6 +26,38 @@
         "cancel": "Отменить",
         "postDescription": "Описание к посту",
         "ErrorSendPost": "Ошибка в создании поста",
-        "SuccessSendPost": "Пост успешно создан"
+        "SuccessSendPost": "Пост успешно создан",
+        "like": "Нравится",
+        "actions": "Действия",
+        "more": "больше",
+        "less": "меньше",
+        "edit": "Редактировать",
+        "delete": "Удалить"
+    },
+    "comment": {
+        "creationTimeSeconds": "{{count}} секунду назад",
+        "creationTimeSeconds_few": "{{count}} секунды назад",
+        "creationTimeSeconds_many": "{{count}} секунд назад",
+        "creationTimeMinutes": "{{count}} минуту назад",
+        "creationTimeMinutes_few": "{{count}} минуты назад",
+        "creationTimeMinutes_many": "{{count}} минут назад",
+        "creationTimeHours": "{{count}} час назад",
+        "creationTimeHours_few": "{{count}} часа назад",
+        "creationTimeHours_many": "{{count}} часов назад",
+        "creationTimeDays": "{{count}} день назад",
+        "creationTimeDays_few": "{{count}} дня назад",
+        "creationTimeDays_many": "{{count}} дней назад",
+        "creationTimeWeeks": "{{count}} неделю назад",
+        "creationTimeWeeks_few": "{{count}} недели назад",
+        "creationTimeWeeks_many": "{{count}} недель назад",
+        "edit": "Редактировать",
+        "delete": "Удалить",
+        "send": "Отправить"
+    },
+    "user": {
+        "followings": "Подписки",
+        "followers": "Подписчики",
+        "noFollowings": "Вы ещё ни на кого не подписаны",
+        "noFollowers": "Никто ещё не подписан на вас"
     }
 }

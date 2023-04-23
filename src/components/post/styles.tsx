@@ -1,13 +1,15 @@
 import {
   Avatar,
   Box,
-  Button,
   Card,
   CardContent,
   CardMedia,
+  Collapse,
+  CollapseProps,
   IconButton,
   InputBase,
   List,
+  ListItemAvatar,
   Modal,
   Paper,
   TextField,
@@ -15,31 +17,36 @@ import {
   styled,
 } from '@mui/material';
 
-export const StyledCard = styled(Card)`
-  max-width: 930px;
-  min-width: 930px;
-  max-height: 536px;
+import { PostSize } from './interfaces';
+
+export const StyledCard = styled(Card, {
+  shouldForwardProp: prop => prop !== 'size',
+})<{ size: PostSize }>`
+  height: ${props => (props.size === 'default' ? '546px' : '')};
+  width: ${props => (props.size === 'default' ? '864px' : '')};
+
   display: flex;
-  box-shadow: 0 0 0 2px ${props => props.theme.palette.common.third};
-  justify-content: space-between;
-  & .MuiCardContent-root {
-    width: 100%;
-  }
+  flex-direction: ${props => (props.size === 'default' ? 'row' : 'column')};
+
+  border: 1px solid ${props => props.theme.palette.common.third};
+
   &.MuiPaper-root {
     background-color: ${props => props.theme.palette.primary.dark};
   }
 `;
 
 export const StyledCardContent = styled(CardContent, {
-  shouldForwardProp: prop => prop !== 'gap',
-})<{ gap: string }>`
+  shouldForwardProp: prop => prop !== 'size',
+})<{ size: PostSize }>`
+  padding: ${props => (props.size === 'default' ? '' : '4px')};
   display: flex;
   flex-direction: column;
-  max-width: 320px;
   min-width: 320px;
-  gap: ${props => props.gap};
+  max-width: 320px;
+  gap: 0.5rem;
+
   &:last-child {
-    padding-bottom: 16px;
+    padding-bottom: ${props => (props.size === 'default' ? '16px' : '4px')};
   }
 `;
 
@@ -52,22 +59,6 @@ export const StyledPostCardHeaderBox = styled(Box)`
 export const StyledAvatar = styled(Avatar)`
   width: 48px;
   height: 48px;
-`;
-
-export const StyledTextButton = styled(Button, {
-  shouldForwardProp: prop => prop !== 'fontsize',
-})<{ fontsize: string }>`
-  font-size: ${props => props.fontsize};
-  padding: 0 4px;
-  text-align: start;
-  color: ${props => props.theme.palette.common.dimmed};
-  &:hover {
-    background: #ffffff0f;
-  }
-  &:focus-visible {
-    outline: 2px solid;
-    outline-color: white;
-  }
 `;
 
 export const StyledLikeBox = styled(Box)`
@@ -105,13 +96,45 @@ export const StyledPaper = styled(Paper)`
 
 export const StyledInputBase = styled(InputBase)`
   margin-left: 1rem;
-  flex: 1;
+  flex-grow: 1;
   font-size: 16px;
 `;
 
 export const StyledComment = styled(Typography)`
   float: left;
 ` as typeof Typography;
+
+export const PostCardDescriptionText = styled(Typography)`
+  font-size: 14px;
+  padding: 0 4px;
+` as typeof Typography;
+
+export const StyledCardMedia = styled(CardMedia)`
+  object-fit: contain;
+  pointer-events: none;
+` as typeof CardMedia;
+
+export const StyledCardMediaBox = styled(Box, {
+  shouldForwardProp: prop => prop !== 'size',
+})<{ size: PostSize }>`
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  max-height: ${props => (props.size === 'default' ? '1220px' : '756px')};
+  flex-grow: ${props => (props.size === 'default' ? '1' : '')};
+`;
+
+export const PostCardDescriptionCollapse = styled(Collapse)<{
+  in: CollapseProps['in'];
+}>`
+  overflow: ${props => (props.in ? 'scroll' : 'hidden')};
+  max-height: 86%;
+  scroll-behavior: smooth;
+`;
+
+export const ListItemAvatarStyled = styled(ListItemAvatar)`
+  min-width: 48px;
+`;
 
 export const StyledModal = styled(Modal)`
   display: flex;
@@ -132,26 +155,4 @@ export const StyledCardCreateInput = styled(TextField)`
   & .MuiFormLabel-root.Mui-focused {
     color: ${props => props.theme.palette.secondary.main};
   }
-`;
-
-export const StyledButton = styled(Button)`
-  padding: 4px 16px;
-  font-size: 18px;
-  &:focus-visible {
-    outline: 2px solid;
-  }
-`;
-
-export const StyledCardMedia = styled(CardMedia)`
-  object-fit: scale-down;
-  pointer-events: noneщ;
-` as typeof CardMedia;
-
-export const StyledCardMediaBox = styled(Box)`
-  position: relative;
-  display: flex;
-  flex-grow: 1;
-  align-items: center;
-  justify-content: center;
-  min-height: 500px;
 `;

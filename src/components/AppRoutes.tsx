@@ -7,6 +7,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import { HomePage } from './pages/HomePage';
 import { NotFoundPage } from './pages/NotFoundPage';
+import { UserPage } from './pages/UserPage';
 import { FetchUser } from './routes/FetchUser';
 
 export const AppRoutes = () => {
@@ -19,6 +20,7 @@ export const AppRoutes = () => {
         <Route element={<Private />}>
           <Route element={<PageWithHeader />}>
             <Route path={ROUTE.HOME} element={<HomePage />} />
+            <Route path={ROUTE.ME} element={<UserPage />} />
             <Route path={ROUTE.NOT_FOUND} element={<NotFoundPage />} />
           </Route>
         </Route>

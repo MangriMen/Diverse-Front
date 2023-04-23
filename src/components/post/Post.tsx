@@ -1,30 +1,13 @@
-import { post } from 'mocks/mockPosts';
+import { useState } from 'react';
 
-import { PostCardActions } from './PostCardActions';
-import { PostCardComments } from './PostCardComments';
-import { PostCardDescription } from './PostCardDescription';
-import { PostCardHeader } from './PostCardHeader';
-import { PostCardInput } from './PostCardInput';
-import {
-  StyledCard,
-  StyledCardContent,
-  StyledCardMedia,
-  StyledCardMediaBox,
-} from './styles';
+import { PostCard } from './PostCard/PostCard';
+import { PostProps } from './interfaces';
 
-export const Post = () => {
-  return (
-    <StyledCard elevation={0}>
-      <StyledCardMediaBox>
-        <StyledCardMedia component="img" image={post.content} />
-      </StyledCardMediaBox>
-      <StyledCardContent gap="0.5rem">
-        <PostCardHeader />
-        <PostCardDescription />
-        <PostCardActions />
-        <PostCardComments />
-        <PostCardInput />
-      </StyledCardContent>
-    </StyledCard>
-  );
+export const Post = ({
+  post,
+  size = 'default',
+}: Omit<PostProps, 'setPost'>) => {
+  const [postData, setPostData] = useState(post);
+
+  return <PostCard post={postData} setPost={setPostData} size={size} />;
 };

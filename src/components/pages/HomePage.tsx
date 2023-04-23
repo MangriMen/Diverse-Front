@@ -45,7 +45,7 @@ export const HomePage = () => {
   }, [data, isFetching]);
 
   useEffect(() => {
-    setPosts(data?.data.map(post => <Post key={post.id} />));
+    setPosts(data?.data.map(post => <Post key={post.id} post={post} />));
   }, [data?.data]);
 
   return <StyledContainer>{posts}</StyledContainer>;

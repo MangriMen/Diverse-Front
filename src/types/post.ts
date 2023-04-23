@@ -1,11 +1,5 @@
-export interface User {
-  id: string;
-  email: string;
-  name: string;
-  username: string;
-  created_at: string;
-  updated_at: string;
-}
+import { User } from './auth';
+import { ServerBaseResponse } from './base';
 
 export interface CommentModel {
   id: string;
@@ -33,4 +27,12 @@ export interface ServerGetPostsResponse {
   message: string;
   count: number;
   data: PostModel[];
+}
+
+export interface ServerGetPostResponse extends ServerBaseResponse {
+  data: PostModel;
+}
+
+export interface ServerGetCommentResponse extends ServerBaseResponse {
+  data: CommentModel;
 }
