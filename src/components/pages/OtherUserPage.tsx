@@ -64,7 +64,7 @@ export const OtherUserPage = () => {
     <StyledContainer>
       <UserInfo>
         <MainUserInfo>
-          <UserRelation type="follower" />
+          <UserRelation user={user} type="follower" />
           <AvatarWithName>
             <StyledProfileAvatar src={`${user?.avatar_url}?width=256`} />
             <UsernameAndName>
@@ -72,7 +72,7 @@ export const OtherUserPage = () => {
               <Typography>{user?.name}</Typography>
             </UsernameAndName>
           </AvatarWithName>
-          <UserRelation type="following" />
+          <UserRelation user={user} type="following" />
         </MainUserInfo>
         <UserDescription>
           <UserDescriptionText>{user?.about}</UserDescriptionText>

@@ -1,22 +1,18 @@
 import { AvatarGroup, Typography } from '@mui/material';
 import { StyledTextButton } from 'components/common/styles';
-import { selectUser } from 'ducks/auth/selectors';
 import {
   useGetRelationsCountQuery,
   useGetRelationsQuery,
 } from 'ducks/user/api';
 import { ReactElement, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
 
 import { AvatarButton } from './AvatarButton';
 import { UserRelationProps } from './interfaces';
 import { RelationBlock } from './styles';
 
-export const UserRelation = ({ type }: UserRelationProps) => {
+export const UserRelation = ({ user, type }: UserRelationProps) => {
   const { t } = useTranslation('translation', { keyPrefix: 'user' });
-
-  const user = useSelector(selectUser);
 
   const { data: dataCount } = useGetRelationsCountQuery({
     path: { user: user?.id ?? '' },

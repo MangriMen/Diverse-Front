@@ -44,7 +44,7 @@ export const UserPage = () => {
     <StyledContainer>
       <UserInfo>
         <MainUserInfo>
-          <UserRelation type="follower" />
+          <UserRelation user={user ?? undefined} type="follower" />
           <AvatarWithName>
             <ProfileAvatarWithSettings>
               <StyledProfileAvatar src={`${user?.avatar_url}?width=256`} />
@@ -57,7 +57,7 @@ export const UserPage = () => {
               <Typography>{user?.name}</Typography>
             </UsernameAndName>
           </AvatarWithName>
-          <UserRelation type="following" />
+          <UserRelation user={user ?? undefined} type="following" />
         </MainUserInfo>
         <UserDescription>
           <UserDescriptionText>{user?.about}</UserDescriptionText>
