@@ -1,14 +1,20 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { METHOD } from 'consts';
 import { API_BASE_URL, API_ENDPOINTS } from 'consts/endpoints';
+import { transformUser } from 'ducks/auth/services';
 import { getAccessToken } from 'helpers/api';
 import {
   ServerGetRelationsCountResponse,
   ServerGetRelationsResponse,
+  ServerGetUserResponse,
 } from 'types/user';
 
 import { transformRelations } from './services';
-import { GetRelationsCountRequest, GetRelationsRequest } from './types';
+import {
+  GetRelationsCountRequest,
+  GetRelationsRequest,
+  GetUserRequest,
+} from './types';
 
 export const userApi = createApi({
   reducerPath: 'userApi',
@@ -16,6 +22,14 @@ export const userApi = createApi({
     baseUrl: API_BASE_URL,
   }),
   endpoints: build => ({
+    getUser: build.query<ServerGetUserResponse, GetUserRequest>({
+      query: args => ({
+        url: `${API_ENDPOINTS.USERS}/${args.path.user}`,
+        mehtod: METHOD.GET,
+        headers: { Authorization: getAccessToken() },
+      }),
+      transformResponse: transformUser,
+    }),
     getRelationsCount: build.query<
       ServerGetRelationsCountResponse,
       GetRelationsCountRequest
@@ -46,4 +60,8 @@ export const userApi = createApi({
   }),
 });
 
-export const { useGetRelationsCountQuery, useGetRelationsQuery } = userApi;
+export const {
+  useGetUserQuery,
+  useGetRelationsCountQuery,
+  useGetRelationsQuery,
+} = userApi;

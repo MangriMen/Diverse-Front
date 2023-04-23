@@ -1,3 +1,11 @@
+export interface GetUserPath {
+  user: string;
+}
+
+export interface GetUserRequest {
+  path: GetUserPath;
+}
+
 export interface GetRelationsCountPath {
   user: string;
 }

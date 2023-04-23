@@ -1,6 +1,10 @@
 import { User } from './auth';
 import { ServerBaseResponse } from './base';
 
+export interface ServerGetUserResponse extends ServerBaseResponse {
+  user: User;
+}
+
 export interface RelationModel {
   id: string;
   type: string;
