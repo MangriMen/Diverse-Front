@@ -8,6 +8,10 @@ export interface RelationModel {
   relation_user: User;
 }
 
+export interface ServerGetRelationsCountResponse extends ServerBaseResponse {
+  count: number;
+}
+
 export interface ServerGetRelationsResponse extends ServerBaseResponse {
   count: number;
   relations: RelationModel[];

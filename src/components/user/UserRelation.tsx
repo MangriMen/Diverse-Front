@@ -1,7 +1,10 @@
 import { Avatar, AvatarGroup, Typography } from '@mui/material';
 import { StyledTextButton } from 'components/common/styles';
 import { selectUser } from 'ducks/auth/selectors';
-import { useGetRelationsQuery } from 'ducks/user/api';
+import {
+  useGetRelationsCountQuery,
+  useGetRelationsQuery,
+} from 'ducks/user/api';
 import { ReactElement, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -14,9 +17,14 @@ export const UserRelation = ({ type }: UserRelationProps) => {
 
   const user = useSelector(selectUser);
 
+  const { data: dataCount } = useGetRelationsCountQuery({
+    path: { user: user?.id ?? '' },
+    params: { type: type },
+  });
+
   const { data } = useGetRelationsQuery({
     path: { user: user?.id ?? '' },
-    params: { count: 20, type: type },
+    params: { count: 5, type: type },
   });
 
   const [realCount, setRealCount] = useState(0);
@@ -32,14 +40,15 @@ export const UserRelation = ({ type }: UserRelationProps) => {
         />
       )),
     );
-    setRealCount(data?.count ?? 0);
-  }, [data?.count, data?.relations]);
+
+    setRealCount(dataCount?.count ?? 0);
+  }, [data?.relations, dataCount?.count]);
 
   return (
     <RelationBlock>
       <StyledTextButton sx={{ color: 'white' }} fontSize="18px">
         {t(type === 'following' ? 'followings' : 'followers')}
-        {realCount > 0 && ` (${data?.count})`}
+        {realCount > 0 && ` (${realCount})`}
       </StyledTextButton>
       {realCount > 0 && <AvatarGroup max={4}>{relationsUsers}</AvatarGroup>}
       {realCount === 0 && (
