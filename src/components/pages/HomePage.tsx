@@ -16,7 +16,7 @@ export const HomePage = () => {
   const [posts, setPosts] = useState<ReactElement[]>();
   const { data, isFetching } = useGetPostsQuery({
     params: {
-      type: 'user',
+      type: 'all',
       last_seen_post_id: lastSeenPost.id,
       last_seen_post_created_at: lastSeenPost.created_at,
       count: 10,
