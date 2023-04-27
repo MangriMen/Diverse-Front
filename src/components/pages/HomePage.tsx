@@ -19,7 +19,7 @@ export const HomePage = () => {
       type: 'all',
       last_seen_post_id: lastSeenPost.id,
       last_seen_post_created_at: lastSeenPost.created_at,
-      count: 10,
+      count: 5,
     },
   });
 

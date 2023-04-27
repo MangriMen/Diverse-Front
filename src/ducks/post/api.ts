@@ -39,7 +39,7 @@ export const postApi = createApi({
         currentCache.data.push(...newItems.data);
       },
       forceRefetch({ currentArg, previousArg }) {
-        return currentArg !== previousArg;
+        return previousArg !== currentArg;
       },
       transformResponse: transformPosts,
     }),
