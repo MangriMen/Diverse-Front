@@ -6,6 +6,7 @@ import { ServerGetPostResponse, ServerGetPostsResponse } from 'types/post';
 
 import { transformPosts } from './services';
 import { GetPostRequest, GetPostsRequest } from './types';
+import { PostValues } from './types';
 
 export const postApi = createApi({
   reducerPath: 'postApi',
@@ -21,6 +22,14 @@ export const postApi = createApi({
         params: args.params,
       }),
       transformResponse: transformPosts,
+    }),
+    createPost: build.mutation<string, PostValues>({
+      query: arg => ({
+        url: API_ENDPOINTS.POSTS,
+        method: METHOD.POST,
+        headers: { Authorization: getAccessToken() },
+        body: arg,
+      }),
     }),
     deletePost: build.mutation<ServerGetPostsResponse, GetPostRequest>({
       query: args => ({
@@ -48,6 +57,7 @@ export const postApi = createApi({
 
 export const {
   useGetPostsQuery,
+  useCreatePostMutation,
   useDeletePostMutation,
   useLikePostMutation,
   useUnlikePostMutation,

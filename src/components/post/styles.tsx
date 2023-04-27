@@ -1,6 +1,7 @@
 import {
   Avatar,
   Box,
+  Button,
   Card,
   CardContent,
   CardMedia,
@@ -10,7 +11,9 @@ import {
   InputBase,
   List,
   ListItemAvatar,
+  Modal,
   Paper,
+  TextField,
   Typography,
   styled,
 } from '@mui/material';
@@ -78,13 +81,6 @@ export const StyledIconButton = styled(IconButton)`
 export const StyledList = styled(List)`
   overflow: auto;
   height: 100%;
-  &::-webkit-scrollbar {
-    width: 4px;
-  }
-  &::-webkit-scrollbar-thumb {
-    border-radius: 4px;
-    background-color: ${props => props.theme.palette.common.dimmed};
-  }
 `;
 
 export const StyledCommentHeaderBox = styled(Box)`
@@ -139,4 +135,33 @@ export const PostCardDescriptionCollapse = styled(Collapse)<{
 
 export const ListItemAvatarStyled = styled(ListItemAvatar)`
   min-width: 48px;
+`;
+
+export const StyledModal = styled(Modal)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const StyledCardCreateInput = styled(TextField)`
+  & .MuiFilledInput-root {
+    border-radius: 4;
+    background-color: ${props => props.theme.palette.common.third};
+    border-bottom: 2px solid;
+    border-color: ${props => props.theme.palette.secondary.main};
+    &.Mui-Focused {
+      background-color: ${props => props.theme.palette.primary.dark};
+    }
+  }
+  & .MuiFormLabel-root.Mui-focused {
+    color: ${props => props.theme.palette.secondary.main};
+  }
+`;
+
+export const StyledButton = styled(Button)`
+  padding: 4px 16px;
+  font-size: 18px;
+  &:focus-visible {
+    outline: 2px solid;
+  }
 `;

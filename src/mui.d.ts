@@ -22,5 +22,6 @@ declare module '@mui/material' {
 
   interface ButtonPropsColorOverrides {
     dimmed;
+    third;
   }
 }

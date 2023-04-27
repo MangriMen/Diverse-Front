@@ -23,3 +23,8 @@ export interface GetPostPath {
 export interface GetPostRequest {
   path: GetPostPath;
 }
+
+export interface PostValues {
+  content: string;
+  description: string;
+}

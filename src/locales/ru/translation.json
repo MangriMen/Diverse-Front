@@ -53,6 +53,11 @@
         "followings": "Подписки",
         "followers": "Подписчики",
         "noFollowings": "Вы ещё ни на кого не подписаны",
-        "noFollowers": "Никто ещё не подписан на вас"
+        "noFollowers": "Никто ещё не подписан на вас",
+        "accept": "Принять",
+        "cancel": "Отменить",
+        "postDescription": "Описание к посту",
+        "ErrorSendPost": "Ошибка в создании поста",
+        "SuccessSendPost": "Пост успешно создан"
     }
 }
