@@ -1,12 +1,14 @@
 import SettingsIcon from '@mui/icons-material/Settings';
 import { Typography } from '@mui/material';
+import { StyledContainer } from 'components/pages/styles';
 import { Post } from 'components/post/Post';
-import { UserRelation } from 'components/user/UserRelation';
+import { ToggleRealtionButton } from 'components/user/UserRelation/ToggleRealtionButton';
+import { UserRelation } from 'components/user/UserRelation/UserRelation';
 import {
   AvatarWithName,
   MainUserInfo,
-  ProfileAvatarWithSettings,
-  ProfileSettingsButton,
+  ProfileAvatarSettingsButton,
+  ProfileAvatarWithAction,
   StyledProfileAvatar,
   StyledUserPosts,
   UserDescription,
@@ -14,16 +16,17 @@ import {
   UserInfo,
   UsernameAndName,
 } from 'components/user/styles';
-import { selectUser } from 'ducks/auth/selectors';
 import { useGetPostsQuery } from 'ducks/post/api';
 import { ReactNode, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { User } from 'types/auth';
 
-import { StyledContainer } from './styles';
-
-export const UserPage = () => {
-  const user = useSelector(selectUser);
-
+export const UserPageContent = ({
+  isMe,
+  user,
+}: {
+  isMe?: boolean;
+  user: User;
+}) => {
   const { data, isFetching } = useGetPostsQuery({
     params: {
       type: 'user',
@@ -44,23 +47,26 @@ export const UserPage = () => {
     <StyledContainer>
       <UserInfo>
         <MainUserInfo>
-          <UserRelation user={user ?? undefined} type="follower" />
+          <UserRelation isMe={isMe} user={user} type="follower" />
           <AvatarWithName>
-            <ProfileAvatarWithSettings>
-              <StyledProfileAvatar src={`${user?.avatar_url}?width=256`} />
-              <ProfileSettingsButton>
-                <SettingsIcon />
-              </ProfileSettingsButton>
-            </ProfileAvatarWithSettings>
+            <ProfileAvatarWithAction>
+              <StyledProfileAvatar src={`${user.avatar_url}?width=256`} />
+              {isMe && (
+                <ProfileAvatarSettingsButton>
+                  <SettingsIcon />
+                </ProfileAvatarSettingsButton>
+              )}
+              {!isMe && <ToggleRealtionButton user={user} />}
+            </ProfileAvatarWithAction>
             <UsernameAndName>
-              <Typography fontSize="24px">{`@${user?.username}`}</Typography>
-              <Typography>{user?.name}</Typography>
+              <Typography fontSize="24px">{`@${user.username}`}</Typography>
+              <Typography>{user.name}</Typography>
             </UsernameAndName>
           </AvatarWithName>
-          <UserRelation user={user ?? undefined} type="following" />
+          <UserRelation isMe={isMe} user={user} type="following" />
         </MainUserInfo>
         <UserDescription>
-          <UserDescriptionText>{user?.about}</UserDescriptionText>
+          <UserDescriptionText>{user.about}</UserDescriptionText>
         </UserDescription>
       </UserInfo>
       <StyledUserPosts>{!isFetching && userPosts}</StyledUserPosts>

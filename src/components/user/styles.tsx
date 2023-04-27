@@ -69,7 +69,7 @@ export const UsernameAndName = styled(Box)`
   justify-content: center;
 `;
 
-export const ProfileAvatarWithSettings = styled(Box)`
+export const ProfileAvatarWithAction = styled(Box)`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -81,12 +81,15 @@ export const ProfileAvatarWithSettings = styled(Box)`
   }
 `;
 
-export const ProfileSettingsButton = styled(StyledIconButton)`
+export const ProfileAvatarActionButton = styled(StyledIconButton)`
   position: absolute;
-  visibility: hidden;
-  opacity: 0;
   bottom: 0;
   right: 0;
+`;
+
+export const ProfileAvatarSettingsButton = styled(ProfileAvatarActionButton)`
+  visibility: hidden;
+  opacity: 0;
 
   transition: visibility 0.3s ease-out, opacity 0.3s ease-out;
 `;

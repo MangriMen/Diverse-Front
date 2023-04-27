@@ -1,6 +1,7 @@
 import { User } from 'types/auth';
 
 export interface UserRelationProps {
-  user: User | undefined;
+  isMe?: boolean;
+  user: User;
   type: string;
 }

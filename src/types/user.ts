@@ -20,3 +20,9 @@ export interface ServerGetRelationsResponse extends ServerBaseResponse {
   count: number;
   relations: RelationModel[];
 }
+
+export interface ServerGetRelationStatusResponse extends ServerBaseResponse {
+  follower: boolean;
+  following: boolean;
+  blocked: boolean;
+}

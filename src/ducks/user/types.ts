@@ -32,3 +32,25 @@ export interface GetRelationsRequest {
   path: GetRelationsPath;
   params?: GetRelationsParams;
 }
+
+export interface GetRelationStatusPath extends GetRelationsPath {
+  relationUser: string;
+}
+
+export interface GetRelationStatusRequest {
+  path: GetRelationStatusPath;
+}
+
+export interface CreateRelationParams {
+  type: string;
+}
+
+export interface CreateRelationRequest {
+  path: GetRelationStatusPath;
+  params: CreateRelationParams;
+}
+
+export interface DeleteRelationRequest {
+  path: GetRelationStatusPath;
+  params: CreateRelationParams;
+}

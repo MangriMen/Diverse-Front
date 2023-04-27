@@ -4,6 +4,7 @@ import { API_BASE_URL, API_ENDPOINTS } from 'consts/endpoints';
 import { transformUser } from 'ducks/auth/services';
 import { getAccessToken } from 'helpers/api';
 import {
+  ServerGetRelationStatusResponse,
   ServerGetRelationsCountResponse,
   ServerGetRelationsResponse,
   ServerGetUserResponse,
@@ -11,6 +12,9 @@ import {
 
 import { transformRelations } from './services';
 import {
+  CreateRelationRequest,
+  DeleteRelationRequest,
+  GetRelationStatusRequest,
   GetRelationsCountRequest,
   GetRelationsRequest,
   GetUserRequest,
@@ -21,6 +25,7 @@ export const userApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: API_BASE_URL,
   }),
+  tagTypes: ['RelationStatus'],
   endpoints: build => ({
     getUserByUsername: build.query<ServerGetUserResponse, GetUserRequest>({
       query: args => ({
@@ -40,6 +45,7 @@ export const userApi = createApi({
         headers: { Authorization: getAccessToken() },
         params: args.params,
       }),
+      providesTags: ['RelationStatus'],
     }),
     getRelations: build.query<ServerGetRelationsResponse, GetRelationsRequest>({
       query: args => ({
@@ -49,19 +55,46 @@ export const userApi = createApi({
         params: args.params,
       }),
       transformResponse: transformRelations,
+      providesTags: ['RelationStatus'],
     }),
-    // deleteRelation: build.mutation<void, void>({
-    //   query: args => ({
-    //     url: `${API_ENDPOINTS.POSTS}/users/${args.path.user}/relations/${args.path.relationUser}`,
-    //     method: 'delete',
-    //     headers: { Authorization: `Bearer ${storageGet(STORAGE_KEYS.TOKEN)}` },
-    //   }),
-    // }),
+    getRelationStatus: build.query<
+      ServerGetRelationStatusResponse,
+      GetRelationStatusRequest
+    >({
+      query: args => ({
+        url: `${API_ENDPOINTS.USERS}/${args.path.user}/relations/${args.path.relationUser}`,
+        method: METHOD.GET,
+        headers: { Authorization: getAccessToken() },
+      }),
+      providesTags: ['RelationStatus'],
+    }),
+    createRelation: build.mutation<void, CreateRelationRequest>({
+      query: args => ({
+        url: `${API_ENDPOINTS.USERS}/${args.path.user}/relations/${args.path.relationUser}`,
+        method: METHOD.POST,
+        headers: { Authorization: getAccessToken() },
+        params: args.params,
+      }),
+      invalidatesTags: ['RelationStatus'],
+    }),
+    deleteRelation: build.mutation<void, DeleteRelationRequest>({
+      query: args => ({
+        url: `${API_ENDPOINTS.USERS}/${args.path.user}/relations/${args.path.relationUser}`,
+        method: METHOD.DELETE,
+        headers: { Authorization: getAccessToken() },
+        params: args.params,
+      }),
+      invalidatesTags: ['RelationStatus'],
+    }),
   }),
 });
 
 export const {
   useGetUserByUsernameQuery,
+  useLazyGetUserByUsernameQuery,
   useGetRelationsCountQuery,
   useGetRelationsQuery,
+  useGetRelationStatusQuery,
+  useCreateRelationMutation,
+  useDeleteRelationMutation,
 } = userApi;
