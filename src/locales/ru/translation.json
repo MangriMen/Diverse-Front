@@ -22,6 +22,11 @@
     "post": {
         "share": "Поделиться",
         "reply": "Ответить",
+        "accept": "Принять",
+        "cancel": "Отменить",
+        "postDescription": "Описание к посту",
+        "ErrorSendPost": "Ошибка в создании поста",
+        "SuccessSendPost": "Пост успешно создан",
         "like": "Нравится",
         "actions": "Действия",
         "more": "больше",
