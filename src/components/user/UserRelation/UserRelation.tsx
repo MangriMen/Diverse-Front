@@ -17,13 +17,14 @@ import {
 
 import { UserRelationModal } from './UserRelationModal';
 
-const getRelationsCountDefaultResponse: ServerGetRelationsCountResponse = {
-  error: false,
-  message: '',
-  count: 0,
-};
+export const getRelationsCountDefaultResponse: ServerGetRelationsCountResponse =
+  {
+    error: false,
+    message: '',
+    count: 0,
+  };
 
-const getRelationsDefaultResponse: ServerGetRelationsResponse = {
+export const getRelationsDefaultResponse: ServerGetRelationsResponse = {
   error: false,
   message: '',
   count: 0,

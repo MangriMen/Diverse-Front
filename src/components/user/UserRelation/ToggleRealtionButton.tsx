@@ -1,6 +1,7 @@
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 import { Tooltip, Typography } from '@mui/material';
+import { StyledIconButton } from 'components/post/styles';
 import { selectUser } from 'ducks/auth/selectors';
 import {
   useCreateRelationMutation,
@@ -12,8 +13,6 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { User } from 'types/auth';
 import { ServerGetRelationStatusResponse } from 'types/user';
-
-import { ProfileAvatarActionButton } from '../styles';
 
 const getRelationStatusDefaultResponse: ServerGetRelationStatusResponse = {
   error: false,
@@ -65,12 +64,13 @@ export const ToggleRealtionButton = ({ user }: { user: User }) => {
           {t(data.following ? 'unfollow' : 'follow')}
         </Typography>
       }
-      onClick={data.following ? handleUnfollow : handleFollow}
     >
-      <ProfileAvatarActionButton>
+      <StyledIconButton
+        onClick={data.following ? handleUnfollow : handleFollow}
+      >
         {data.following && <CloseIcon />}
         {!data.following && <AddIcon />}
-      </ProfileAvatarActionButton>
+      </StyledIconButton>
     </Tooltip>
   );
 };
