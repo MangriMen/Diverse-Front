@@ -1,4 +1,4 @@
-import { Avatar } from '@mui/material';
+import { Avatar, Tooltip, Typography } from '@mui/material';
 import { StyledIconButton } from 'components/post/styles';
 import { ROUTE } from 'consts';
 import React from 'react';
@@ -9,12 +9,14 @@ export const AvatarButton = ({ user }: { user: User | null }) => {
   const navigate = useNavigate();
 
   return (
-    <StyledIconButton
-      onClick={() => {
-        navigate(`${ROUTE.HOME}${user?.username}`);
-      }}
-    >
-      <Avatar src={`${user?.avatar_url}?width=96`} />
-    </StyledIconButton>
+    <Tooltip title={<Typography>{user?.username}</Typography>}>
+      <StyledIconButton
+        onClick={() => {
+          navigate(`${ROUTE.HOME}${user?.username}`);
+        }}
+      >
+        <Avatar src={`${user?.avatar_url}?width=96`} />
+      </StyledIconButton>
+    </Tooltip>
   );
 };
