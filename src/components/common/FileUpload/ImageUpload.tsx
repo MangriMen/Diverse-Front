@@ -26,7 +26,7 @@ export const ImageUpload: FC<FileUploadProps> = ({ name }) => {
     }
   }
   return (
-    <StyledCardMediaBox>
+    <StyledCardMediaBox size="default">
       {fileData && <StyledCardMedia component="img" image={fileData} />}
       {!fileData && (
         <StyledSvgIcon>
