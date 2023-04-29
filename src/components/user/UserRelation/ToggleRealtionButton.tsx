@@ -11,8 +11,17 @@ import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { User } from 'types/auth';
+import { ServerGetRelationStatusResponse } from 'types/user';
 
 import { ProfileAvatarActionButton } from '../styles';
+
+const getRelationStatusDefaultResponse: ServerGetRelationStatusResponse = {
+  error: false,
+  message: '',
+  follower: false,
+  following: false,
+  blocked: false,
+};
 
 export const ToggleRealtionButton = ({ user }: { user: User }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'user' });
@@ -31,9 +40,11 @@ export const ToggleRealtionButton = ({ user }: { user: User }) => {
     [localUserID, user.id],
   );
 
-  const { data } = useGetRelationStatusQuery({
-    path: { user: localUserID, relationUser: user.id },
-  });
+  const { data = getRelationStatusDefaultResponse } = useGetRelationStatusQuery(
+    {
+      path: { user: localUserID, relationUser: user.id },
+    },
+  );
 
   const [createRelation] = useCreateRelationMutation();
   const [deleteRelation] = useDeleteRelationMutation();
@@ -51,13 +62,14 @@ export const ToggleRealtionButton = ({ user }: { user: User }) => {
       placement="right"
       title={
         <Typography fontSize="14px">
-          {t(data?.following ? 'follow' : 'unfollow')}
+          {t(data.following ? 'unfollow' : 'follow')}
         </Typography>
       }
+      onClick={data.following ? handleUnfollow : handleFollow}
     >
       <ProfileAvatarActionButton>
-        {!data?.following && <AddIcon onClick={handleFollow} />}
-        {data?.following && <CloseIcon onClick={handleUnfollow} />}
+        {data.following && <CloseIcon />}
+        {!data.following && <AddIcon />}
       </ProfileAvatarActionButton>
     </Tooltip>
   );
