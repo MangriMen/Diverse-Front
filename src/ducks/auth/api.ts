@@ -74,4 +74,9 @@ export const authApi = createApi({
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation, useFetchQuery } = authApi;
+export const {
+  useLoginMutation,
+  useRegisterMutation,
+  useFetchQuery,
+  useLazyFetchQuery,
+} = authApi;
