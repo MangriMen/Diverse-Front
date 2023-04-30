@@ -17,8 +17,13 @@ import {
   Typography,
   styled,
 } from '@mui/material';
+import { SkeletonStyled } from 'components/common/SkeletonStyled';
 
-import { PostSize } from './interfaces';
+import {
+  CardMediaSkeletonProps,
+  PostSize,
+  StyledCardMediaBoxProps,
+} from './interfaces';
 
 export const StyledCard = styled(Card, {
   shouldForwardProp: prop => prop !== 'size',
@@ -110,6 +115,15 @@ export const PostCardDescriptionText = styled(Typography)`
   padding: 0 4px;
 ` as typeof Typography;
 
+export const CardMediaSkeleton = styled(SkeletonStyled, {
+  shouldForwardProp: prop => prop !== 'isLoading' && prop !== 'size',
+})<CardMediaSkeletonProps>`
+  display: ${props => (props.isLoading ? '' : 'none')};
+  width: 100%;
+  height: auto;
+  aspect-ratio: ${props => (props.size === 'default' ? '' : '2/1')};
+`;
+
 export const StyledCardMedia = styled(CardMedia)`
   object-fit: contain;
   pointer-events: none;
@@ -117,7 +131,7 @@ export const StyledCardMedia = styled(CardMedia)`
 
 export const StyledCardMediaBox = styled(Box, {
   shouldForwardProp: prop => prop !== 'size',
-})<{ size: PostSize }>`
+})<StyledCardMediaBoxProps>`
   display: flex;
   justify-content: center;
   height: 100%;

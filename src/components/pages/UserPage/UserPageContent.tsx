@@ -1,12 +1,15 @@
 import SettingsIcon from '@mui/icons-material/Settings';
-import { Typography } from '@mui/material';
 import { StyledContainer } from 'components/pages/styles';
 import { Post } from 'components/post/Post';
 import { ToggleRealtionButton } from 'components/user/UserRelation/ToggleRealtionButton';
 import { UserRelation } from 'components/user/UserRelation/UserRelation';
 import {
   AvatarWithName,
+  FollowerRelation,
+  FollowingRelation,
   MainUserInfo,
+  Name,
+  NameInDescription,
   ProfileAvatarButtonBox,
   ProfileAvatarSettingsButton,
   ProfileAvatarWithAction,
@@ -15,6 +18,8 @@ import {
   UserDescription,
   UserDescriptionText,
   UserInfo,
+  UserPageLayout,
+  Username,
   UsernameAndName,
 } from 'components/user/styles';
 import { useGetPostsQuery } from 'ducks/post/api';
@@ -46,33 +51,43 @@ export const UserPageContent = ({
 
   return (
     <StyledContainer>
-      <UserInfo>
-        <MainUserInfo>
-          <UserRelation isMe={isMe} user={user} type="follower" />
-          <AvatarWithName>
-            <ProfileAvatarWithAction>
-              <StyledProfileAvatar src={`${user.avatar_url}?width=256`} />
-              <ProfileAvatarButtonBox>
-                {isMe && (
-                  <ProfileAvatarSettingsButton>
-                    <SettingsIcon />
-                  </ProfileAvatarSettingsButton>
-                )}
-                {!isMe && <ToggleRealtionButton user={user} />}
-              </ProfileAvatarButtonBox>
-            </ProfileAvatarWithAction>
-            <UsernameAndName>
-              <Typography fontSize="24px">{`@${user.username}`}</Typography>
-              <Typography>{user.name}</Typography>
-            </UsernameAndName>
-          </AvatarWithName>
-          <UserRelation isMe={isMe} user={user} type="following" />
-        </MainUserInfo>
-        <UserDescription>
-          <UserDescriptionText>{user.about}</UserDescriptionText>
-        </UserDescription>
-      </UserInfo>
-      <StyledUserPosts>{!isFetching && userPosts}</StyledUserPosts>
+      <UserPageLayout>
+        <UserInfo>
+          <MainUserInfo>
+            <FollowerRelation>
+              <UserRelation isMe={isMe} user={user} type="follower" />
+            </FollowerRelation>
+            <AvatarWithName>
+              <ProfileAvatarWithAction>
+                <StyledProfileAvatar src={`${user.avatar_url}?width=256`} />
+                <ProfileAvatarButtonBox>
+                  {isMe && (
+                    <ProfileAvatarSettingsButton>
+                      <SettingsIcon />
+                    </ProfileAvatarSettingsButton>
+                  )}
+                  {!isMe && <ToggleRealtionButton user={user} />}
+                </ProfileAvatarButtonBox>
+              </ProfileAvatarWithAction>
+              <UsernameAndName>
+                <Username>{`@${user.username}`}</Username>
+                <Name>{user.name}</Name>
+              </UsernameAndName>
+            </AvatarWithName>
+            <FollowingRelation>
+              <UserRelation isMe={isMe} user={user} type="following" />
+            </FollowingRelation>
+          </MainUserInfo>
+          <UserDescription>
+            <NameInDescription>{user.name}</NameInDescription>
+            <UserDescriptionText>
+              {user.about ??
+                `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent id pharetra neque, vel convallis purus. Morbi id dictum sem, sed finibus nunc. Vestibulum aliquet felis in nibh venenatis sollicitudin. Proin ullamcorper nunc ac ullamcorper tincidunt. Nam luctus enim vitae quam posuere faucibus. Proin lacus est, ullamcorper at mi vitae, congue efficitur erat. Aenean pulvinar metus sit amet interdum semper. Cras vitae eleifend massa. Nam nec lectus a ex molestie malesuada. Mauris iaculis tortor eget sollicitudin placerat. Etiam mollis lacus nisi, sit amet tempor massa efficitur vitae. Donec in tempus nisl. Cras ultricies magna nec metus condimentum, eget consequat ipsum mattis. Sed venenatis magna venenatis, euismod eros vel, porttitor libero. Pellentesque quis elementum odio. Phasellus elementum sem nulla.`}
+            </UserDescriptionText>
+          </UserDescription>
+        </UserInfo>
+        <StyledUserPosts>{!isFetching && userPosts}</StyledUserPosts>
+      </UserPageLayout>
     </StyledContainer>
   );
 };

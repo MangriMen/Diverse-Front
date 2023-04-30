@@ -1,5 +1,5 @@
-import { AvatarGroup, Typography } from '@mui/material';
-import { StyledTextButton } from 'components/common/styles';
+import { Typography } from '@mui/material';
+import { SkeletonStyled } from 'components/common/SkeletonStyled';
 import { AvatarButton } from 'components/user/AvatarButton';
 import { UserRelationProps } from 'components/user/interfaces';
 import { RelationBlock } from 'components/user/styles';
@@ -16,6 +16,7 @@ import {
 } from 'types/user';
 
 import { UserRelationModal } from './UserRelationModal';
+import { AvatarGroupStyled, RelationInfo, RelationInfoText } from './styles';
 
 export const getRelationsCountDefaultResponse: ServerGetRelationsCountResponse =
   {
@@ -39,15 +40,17 @@ export const UserRelation = ({ isMe, user, type }: UserRelationProps) => {
     type === 'following' ? 'noFollowings' : 'noFollowers'
   }${isMe ? '' : 'NotMe'}`;
 
-  const { data: dataCount = getRelationsCountDefaultResponse } =
-    useGetRelationsCountQuery({
-      path: { user: user.id },
-      params: { type },
-    });
+  const {
+    data: dataCount = getRelationsCountDefaultResponse,
+    isFetching: isDataCountFetching,
+  } = useGetRelationsCountQuery({
+    path: { user: user.id },
+    params: { type },
+  });
 
   const { data = getRelationsDefaultResponse } = useGetRelationsQuery({
     path: { user: user.id },
-    params: { count: RELATION_MAX_AVATARS_COUNT - 1, type },
+    params: { count: RELATION_MAX_AVATARS_COUNT, type },
   });
 
   const [relationsUsers, setRelationsUsers] = useState<ReactElement[]>();
@@ -79,19 +82,32 @@ export const UserRelation = ({ isMe, user, type }: UserRelationProps) => {
         type={type}
       />
       <RelationBlock>
-        <StyledTextButton onClick={handleOpenModal} fontSize="18px">
-          {t(title, { count: dataCount.count })}
-        </StyledTextButton>
-        {dataCount.count === 0 && (
-          <Typography fontSize="14px" color="common.dimmed">
-            {t(notFoundTitle)}
-          </Typography>
+        {isDataCountFetching && <SkeletonStyled variant="text" width={100} />}
+        {!isDataCountFetching && (
+          <RelationInfoText onClick={handleOpenModal}>
+            {t(title, { count: dataCount.count })}
+          </RelationInfoText>
         )}
-        {dataCount.count > 0 && (
-          <AvatarGroup max={RELATION_MAX_AVATARS_COUNT}>
-            {relationsUsers}
-          </AvatarGroup>
-        )}
+        <RelationInfo>
+          {dataCount.count === 0 && (
+            <Typography fontSize="14px" color="common.dimmed">
+              {t(notFoundTitle)}
+            </Typography>
+          )}
+          {dataCount.count > 0 && (
+            <AvatarGroupStyled
+              total={dataCount.count}
+              max={RELATION_MAX_AVATARS_COUNT}
+              slotProps={{
+                additionalAvatar: {
+                  onClick: handleOpenModal,
+                },
+              }}
+            >
+              {relationsUsers}
+            </AvatarGroupStyled>
+          )}
+        </RelationInfo>
       </RelationBlock>
     </>
   );

@@ -1,5 +1,5 @@
 import CloseIcon from '@mui/icons-material/Close';
-import { CardContent, ModalProps, Typography } from '@mui/material';
+import { ModalProps, Typography } from '@mui/material';
 import { StyledIconButton, StyledModal } from 'components/post/styles';
 import { RELATION_MAX_AVATARS_COUNT } from 'consts';
 import { selectUser } from 'ducks/auth/selectors';
@@ -18,7 +18,12 @@ import {
   getRelationsCountDefaultResponse,
   getRelationsDefaultResponse,
 } from './UserRelation';
-import { CardStyled, HeaderStyled, UserRelationListItem } from './styles';
+import {
+  CardContentStyled,
+  CardStyled,
+  HeaderStyled,
+  UserRelationListItem,
+} from './styles';
 
 export const UserRelationModal = ({
   open,
@@ -46,7 +51,7 @@ export const UserRelationModal = ({
 
   const { data = getRelationsDefaultResponse } = useGetRelationsQuery({
     path: { user: user.id },
-    params: { count: RELATION_MAX_AVATARS_COUNT - 1, type },
+    params: { count: RELATION_MAX_AVATARS_COUNT * 2, type },
   });
 
   const [relationsUsers, setRelationsUsers] = useState<ReactNode[]>();
@@ -56,9 +61,7 @@ export const UserRelationModal = ({
       data?.relations.map(relation => (
         <UserRelationListItem key={relation.id}>
           <AvatarButton user={relation.relation_user} />
-          <Typography fontWeight="bold" flex={1}>
-            {relation.relation_user.username}
-          </Typography>
+          <Typography flex={1}>{relation.relation_user.username}</Typography>
           {localUser?.id !== relation.relation_user.id && (
             <ToggleRealtionButton user={relation.relation_user} />
           )}
@@ -78,7 +81,7 @@ export const UserRelationModal = ({
             </StyledIconButton>
           }
         />
-        <CardContent>{relationsUsers}</CardContent>
+        <CardContentStyled>{relationsUsers}</CardContentStyled>
       </CardStyled>
     </StyledModal>
   );
