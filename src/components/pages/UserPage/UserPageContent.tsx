@@ -80,10 +80,7 @@ export const UserPageContent = ({
           </MainUserInfo>
           <UserDescription>
             <NameInDescription>{user.name}</NameInDescription>
-            <UserDescriptionText>
-              {user.about ??
-                `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent id pharetra neque, vel convallis purus. Morbi id dictum sem, sed finibus nunc. Vestibulum aliquet felis in nibh venenatis sollicitudin. Proin ullamcorper nunc ac ullamcorper tincidunt. Nam luctus enim vitae quam posuere faucibus. Proin lacus est, ullamcorper at mi vitae, congue efficitur erat. Aenean pulvinar metus sit amet interdum semper. Cras vitae eleifend massa. Nam nec lectus a ex molestie malesuada. Mauris iaculis tortor eget sollicitudin placerat. Etiam mollis lacus nisi, sit amet tempor massa efficitur vitae. Donec in tempus nisl. Cras ultricies magna nec metus condimentum, eget consequat ipsum mattis. Sed venenatis magna venenatis, euismod eros vel, porttitor libero. Pellentesque quis elementum odio. Phasellus elementum sem nulla.`}
-            </UserDescriptionText>
+            <UserDescriptionText>{user.about}</UserDescriptionText>
           </UserDescription>
         </UserInfo>
         <StyledUserPosts>{!isFetching && userPosts}</StyledUserPosts>
