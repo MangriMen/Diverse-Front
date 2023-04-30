@@ -19,7 +19,15 @@ declare module '@mui/material' {
   interface TextFieldPropsColorOverrides {
     third;
   }
+
   interface ButtonPropsColorOverrides {
+    dimmed;
     third;
+  }
+}
+
+declare module '@mui/material/styles' {
+  interface BreakpointOverrides {
+    mobile: true;
   }
 }

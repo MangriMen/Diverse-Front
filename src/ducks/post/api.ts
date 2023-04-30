@@ -1,8 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { STORAGE_KEYS } from 'consts';
+import { METHOD } from 'consts';
 import { API_BASE_URL, API_ENDPOINTS } from 'consts/endpoints';
-import { storageGet } from 'helpers/localStorage';
+import { getAccessToken } from 'helpers/api';
+import { ServerGetPostResponse, ServerGetPostsResponse } from 'types/post';
 
+import { transformPosts } from './services';
+import { GetPostRequest, GetPostsRequest } from './types';
 import { PostValues } from './types';
 
 export const postApi = createApi({
@@ -11,15 +14,51 @@ export const postApi = createApi({
     baseUrl: API_BASE_URL,
   }),
   endpoints: build => ({
-    posts: build.mutation<string, PostValues>({
+    getPosts: build.query<ServerGetPostsResponse, GetPostsRequest>({
+      query: args => ({
+        url: API_ENDPOINTS.POSTS,
+        method: METHOD.GET,
+        headers: { Authorization: getAccessToken() },
+        params: args.params,
+      }),
+      transformResponse: transformPosts,
+    }),
+    createPost: build.mutation<string, PostValues>({
       query: arg => ({
         url: API_ENDPOINTS.POSTS,
-        method: 'post',
-        headers: { Authorization: `Bearer ${storageGet(STORAGE_KEYS.TOKEN)}` },
+        method: METHOD.POST,
+        headers: { Authorization: getAccessToken() },
         body: arg,
+      }),
+    }),
+    deletePost: build.mutation<ServerGetPostsResponse, GetPostRequest>({
+      query: args => ({
+        url: `${API_ENDPOINTS.POSTS}/${args.path.post}`,
+        method: METHOD.DELETE,
+        headers: { Authorization: getAccessToken() },
+      }),
+    }),
+    likePost: build.mutation<ServerGetPostResponse, GetPostRequest>({
+      query: args => ({
+        url: `${API_ENDPOINTS.POSTS}/${args.path.post}/like`,
+        method: METHOD.POST,
+        headers: { Authorization: getAccessToken() },
+      }),
+    }),
+    unlikePost: build.mutation<ServerGetPostResponse, GetPostRequest>({
+      query: args => ({
+        url: `${API_ENDPOINTS.POSTS}/${args.path.post}/like`,
+        method: METHOD.DELETE,
+        headers: { Authorization: getAccessToken() },
       }),
     }),
   }),
 });
 
-export const { usePostsMutation } = postApi;
+export const {
+  useGetPostsQuery,
+  useCreatePostMutation,
+  useDeletePostMutation,
+  useLikePostMutation,
+  useUnlikePostMutation,
+} = postApi;

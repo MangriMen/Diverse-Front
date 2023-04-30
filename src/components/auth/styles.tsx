@@ -37,20 +37,6 @@ export const StyledFormContainer = styled(Box)`
   gap: clamp(4rem, 3.229813664596273rem + 4.968944099378882vw, 8rem);
 `;
 
-export const StyledTextButton = styled(Button)`
-  color: ${props => props.theme.palette.secondary.main};
-  font-size: 16px;
-  padding: 0 4px;
-  &:hover {
-    background: #ffffff0f;
-  }
-  ,
-  &:focus-visible {
-    outline: 2px solid;
-    outline-color: white;
-  }
-`;
-
 export const StyledButton = styled(Button)`
   padding: 4px 16px;
   font-size: 18px;

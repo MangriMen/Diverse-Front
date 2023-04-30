@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import { ImageUpload } from 'components/common/FileUpload/ImageUpload';
 import { useDataMutation } from 'ducks/data/api';
 import { DataValues } from 'ducks/data/types';
-import { usePostsMutation } from 'ducks/post/api';
+import { useCreatePostMutation } from 'ducks/post/api';
 import { PostValues } from 'ducks/post/types';
 import { useSnackbar } from 'notistack';
 import { FC, useEffect, useState } from 'react';
@@ -35,7 +35,7 @@ export const CreatePostForm: FC<CreatePostFormProps> = ({ onClose }) => {
 
   const form = useForm<PostForm>({ defaultValues: defaultValues });
 
-  const [sendPost] = usePostsMutation();
+  const [sendPost] = useCreatePostMutation();
   const [sendData] = useDataMutation();
 
   const [disable, setDisable] = useState(false);
@@ -77,9 +77,9 @@ export const CreatePostForm: FC<CreatePostFormProps> = ({ onClose }) => {
   return (
     <FormProvider {...form}>
       <Box component="form" onSubmit={form.handleSubmit(onSubmitHandler)}>
-        <StyledCard elevation={0}>
+        <StyledCard elevation={0} size="default">
           <ImageUpload name="file" />
-          <StyledCardContent gap="2rem">
+          <StyledCardContent size="default">
             <Controller
               control={form.control}
               name="description"

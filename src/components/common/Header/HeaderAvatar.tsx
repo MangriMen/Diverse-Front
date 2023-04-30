@@ -16,7 +16,7 @@ export const HeaderAvatar: FC<{ onClick: IconButtonProps['onClick'] }> = ({
 
   return (
     <StyledHeaderAvatarButton
-      endIcon={<StyledAvatar src="src/assets/images/lucy.jpg" />}
+      endIcon={<StyledAvatar src={`${user?.avatar_url}?width=64`} />}
       onClick={onClick}
       variant="contained"
       disableRipple
