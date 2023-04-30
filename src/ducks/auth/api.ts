@@ -1,10 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { STORAGE_KEYS } from 'consts';
+import { METHOD } from 'consts';
 import { API_BASE_URL, API_ENDPOINTS } from 'consts/endpoints';
-import { storageGet } from 'helpers/localStorage';
+import { getAccessToken } from 'helpers/api';
 import { ServerAuthResponse } from 'types/auth';
 
 import { enter, logout } from '.';
+import { transformUser } from './services';
 import { LoginValues, RegisterValues } from './types';
 
 export const authApi = createApi({
@@ -16,10 +17,11 @@ export const authApi = createApi({
     login: build.mutation<ServerAuthResponse, LoginValues>({
       query: credentials => ({
         url: API_ENDPOINTS.LOGIN,
-        method: 'post',
+        method: METHOD.POST,
         body: credentials,
       }),
-      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+      transformResponse: transformUser,
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
           if (data !== null) {
@@ -36,10 +38,11 @@ export const authApi = createApi({
     >({
       query: credentials => ({
         url: API_ENDPOINTS.REGISTER,
-        method: 'post',
+        method: METHOD.POST,
         body: credentials,
       }),
-      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+      transformResponse: transformUser,
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
           if (data !== null) {
@@ -53,10 +56,11 @@ export const authApi = createApi({
     fetch: build.query<ServerAuthResponse, void>({
       query: () => ({
         url: API_ENDPOINTS.FETCH,
-        method: 'get',
-        headers: { Authorization: `Bearer ${storageGet(STORAGE_KEYS.TOKEN)}` },
+        method: METHOD.GET,
+        headers: { Authorization: getAccessToken() },
       }),
-      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+      transformResponse: transformUser,
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
           if (data !== null) {
@@ -70,4 +74,9 @@ export const authApi = createApi({
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation, useFetchQuery } = authApi;
+export const {
+  useLoginMutation,
+  useRegisterMutation,
+  useFetchQuery,
+  useLazyFetchQuery,
+} = authApi;

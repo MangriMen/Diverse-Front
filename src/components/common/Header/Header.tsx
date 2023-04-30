@@ -2,10 +2,10 @@ import { Box, Container, Menu, MenuItem, Typography } from '@mui/material';
 import { Logo } from 'components/common/Logo';
 import { CreatePostForm } from 'components/post/CreatePost/CreatePostForm';
 import { StyledModal } from 'components/post/styles';
-import { ROUTE } from 'consts';
 import { logout } from 'ducks/auth';
+import { selectUser } from 'ducks/auth/selectors';
 import { ReactNode, useCallback, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { HeaderAvatar } from './HeaderAvatar';
@@ -19,6 +19,8 @@ interface UserMenuItems {
 export const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const user = useSelector(selectUser);
 
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const [open, setOpen] = useState(false);
@@ -39,7 +41,7 @@ export const Header = () => {
     {
       name: 'Profile',
       onClick: () => {
-        navigate(ROUTE.ME);
+        navigate(user?.username ?? '');
         handleCloseUserMenu();
       },
     },

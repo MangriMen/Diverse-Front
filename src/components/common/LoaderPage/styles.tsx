@@ -8,6 +8,6 @@ export const ContainerStyled = styled(Container)`
   height: 100vh;
 `;
 
-export const UserFetchFade = styled(Fade)`
+export const DefaultFetchFade = styled(Fade)`
   transition-delay: '110ms';
 `;

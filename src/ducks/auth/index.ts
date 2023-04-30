@@ -16,11 +16,13 @@ const authSlice = createSlice({
   reducers: {
     enter(state, action: PayloadAction<ServerAuthResponse>) {
       storageSet(STORAGE_KEYS.TOKEN, action.payload.token);
+      storageSet(STORAGE_KEYS.USER, action.payload.user);
       state.user = action.payload.user;
       state.isInit = true;
     },
     logout(state) {
       storageRemove(STORAGE_KEYS.TOKEN);
+      storageRemove(STORAGE_KEYS.USER);
       state.isInit = false;
       state.user = null;
     },

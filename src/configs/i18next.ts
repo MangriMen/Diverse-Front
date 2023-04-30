@@ -11,4 +11,6 @@ i18n.use(initReactI18next).init({
   fallbackLng: ['en', 'ru'],
 });
 
+i18n.changeLanguage('ru');
+
 export { i18n };

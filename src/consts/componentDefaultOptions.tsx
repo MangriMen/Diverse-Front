@@ -15,6 +15,16 @@ const LinkBehavior = forwardRef<
 LinkBehavior.displayName = 'LinkBehavior';
 
 export const THEME_DEFAULT_OPTIONS = {
+  breakpoints: {
+    values: {
+      xs: 0,
+      mobile: 420,
+      sm: 600,
+      md: 900,
+      lg: 1200,
+      xl: 1536,
+    },
+  },
   typography: {
     allVariants: {
       color: '#f5f5f5',

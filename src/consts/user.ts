@@ -1,0 +1,1 @@
+export const RELATION_MAX_AVATARS_COUNT = 4;
