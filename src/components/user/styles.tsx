@@ -81,6 +81,12 @@ export const ProfileAvatarWithAction = styled(Box)`
   }
 `;
 
+export const ProfileAvatarButtonBox = styled(Box)`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+`;
+
 export const ProfileAvatarActionButton = styled(StyledIconButton)`
   position: absolute;
   bottom: 0;

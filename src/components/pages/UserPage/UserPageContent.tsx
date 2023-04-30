@@ -7,7 +7,7 @@ import { UserRelation } from 'components/user/UserRelation/UserRelation';
 import {
   AvatarWithName,
   MainUserInfo,
-  ProfileAvatarActionButton,
+  ProfileAvatarButtonBox,
   ProfileAvatarSettingsButton,
   ProfileAvatarWithAction,
   StyledProfileAvatar,
@@ -52,16 +52,14 @@ export const UserPageContent = ({
           <AvatarWithName>
             <ProfileAvatarWithAction>
               <StyledProfileAvatar src={`${user.avatar_url}?width=256`} />
-              {isMe && (
-                <ProfileAvatarSettingsButton>
-                  <SettingsIcon />
-                </ProfileAvatarSettingsButton>
-              )}
-              {!isMe && (
-                <ProfileAvatarActionButton>
-                  <ToggleRealtionButton user={user} />
-                </ProfileAvatarActionButton>
-              )}
+              <ProfileAvatarButtonBox>
+                {isMe && (
+                  <ProfileAvatarSettingsButton>
+                    <SettingsIcon />
+                  </ProfileAvatarSettingsButton>
+                )}
+                {!isMe && <ToggleRealtionButton user={user} />}
+              </ProfileAvatarButtonBox>
             </ProfileAvatarWithAction>
             <UsernameAndName>
               <Typography fontSize="24px">{`@${user.username}`}</Typography>
