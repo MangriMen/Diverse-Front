@@ -25,3 +25,9 @@ declare module '@mui/material' {
     third;
   }
 }
+
+declare module '@mui/material/styles' {
+  interface BreakpointOverrides {
+    mobile: true;
+  }
+}
