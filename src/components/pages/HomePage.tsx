@@ -1,4 +1,5 @@
 import { Post } from 'components/post/Post';
+import { HomePageLayout } from 'components/post/styles';
 import { useGetPostsQuery } from 'ducks/post/api';
 import { ReactElement, useEffect, useState } from 'react';
 
@@ -50,5 +51,9 @@ export const HomePage = () => {
     }
   }, [data?.data]);
 
-  return <StyledContainer>{posts}</StyledContainer>;
+  return (
+    <StyledContainer>
+      <HomePageLayout>{posts}</HomePageLayout>
+    </StyledContainer>
+  );
 };
