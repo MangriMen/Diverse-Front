@@ -1,0 +1,35 @@
+version: "3.9"
+
+x-frontend:
+  &frontend
+  container_name: diverse-frontend-$PROFILE
+  restart: always
+  pull_policy: always
+  env_file: .env.local
+  build:
+    context: .
+    dockerfile: deploy/Dockerfile
+    target: $PROFILE
+    args:
+      - API_BASE_URL=$VITE_APP_API_BASE_URL
+
+services:
+  frontend:
+    <<: *frontend
+    image: ghcr.io/mangrimen/diverse-front:latest
+    profiles: [ prod ]
+    ports: [ "80:80" ]
+    networks:
+      - frontend
+
+  frontend-test:
+    <<: *frontend
+    image: ghcr.io/mangrimen/diverse-front:develop
+    profiles: [ test ]
+    ports: [ "4040:80" ]
+    networks:
+      - frontend
+
+networks:
+  frontend:
+    name: diverse-frontend-${PROFILE}
