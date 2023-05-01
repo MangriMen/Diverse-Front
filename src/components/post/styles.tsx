@@ -1,6 +1,7 @@
 import {
   Avatar,
   Box,
+  Button,
   Card,
   CardContent,
   CardMedia,
@@ -16,22 +17,24 @@ import {
   Typography,
   styled,
 } from '@mui/material';
+import { SkeletonStyled } from 'components/common/SkeletonStyled';
 
-import { PostSize } from './interfaces';
+import {
+  CardMediaSkeletonProps,
+  PostSize,
+  StyledCardMediaBoxProps,
+} from './interfaces';
 
 export const StyledCard = styled(Card, {
   shouldForwardProp: prop => prop !== 'size',
 })<{ size: PostSize }>`
   height: ${props => (props.size === 'default' ? '546px' : '')};
   width: ${props => (props.size === 'default' ? '864px' : '')};
-
   display: flex;
   flex-direction: ${props => (props.size === 'default' ? 'row' : 'column')};
-  justify-content: space-between;
+
   border: 1px solid ${props => props.theme.palette.common.third};
-  & .MuiCardContent-root {
-    width: 100%;
-  }
+
   &.MuiPaper-root {
     background-color: ${props => props.theme.palette.primary.dark};
   }
@@ -111,6 +114,15 @@ export const PostCardDescriptionText = styled(Typography)`
   padding: 0 4px;
 ` as typeof Typography;
 
+export const CardMediaSkeleton = styled(SkeletonStyled, {
+  shouldForwardProp: prop => prop !== 'isLoading' && prop !== 'size',
+})<CardMediaSkeletonProps>`
+  display: ${props => (props.isLoading ? '' : 'none')};
+  width: 100%;
+  height: auto;
+  aspect-ratio: ${props => (props.size === 'default' ? '' : '2/1')};
+`;
+
 export const StyledCardMedia = styled(CardMedia)`
   object-fit: contain;
   pointer-events: none;
@@ -118,7 +130,7 @@ export const StyledCardMedia = styled(CardMedia)`
 
 export const StyledCardMediaBox = styled(Box, {
   shouldForwardProp: prop => prop !== 'size',
-})<{ size: PostSize }>`
+})<StyledCardMediaBoxProps>`
   position: relative;
   display: flex;
   justify-content: center;
@@ -157,5 +169,13 @@ export const StyledCardCreateInput = styled(TextField)`
   }
   & .MuiFormLabel-root.Mui-focused {
     color: ${props => props.theme.palette.secondary.main};
+  }
+`;
+
+export const StyledButton = styled(Button)`
+  padding: 4px 16px;
+  font-size: 18px;
+  &:focus-visible {
+    outline: 2px solid;
   }
 `;

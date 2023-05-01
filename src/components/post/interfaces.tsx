@@ -1,4 +1,9 @@
-import { IconButtonProps, SvgIcon, SvgIconProps } from '@mui/material';
+import {
+  CardMediaProps,
+  IconButtonProps,
+  SvgIcon,
+  SvgIconProps,
+} from '@mui/material';
 import { Dispatch, SetStateAction } from 'react';
 import { PostModel } from 'types/post';
 
@@ -35,3 +40,18 @@ export interface PostCommentLikeProps {
   onClick: IconButtonProps['onClick'];
   disabled: IconButtonProps['disabled'];
 }
+
+export interface MediaSkeletonProps {
+  isLoading: boolean;
+}
+
+export interface CardMediaSkeletonProps extends MediaSkeletonProps {
+  size?: PostSize;
+}
+
+export interface StyledCardMediaBoxProps {
+  size: PostSize;
+}
+
+export type PostCardMediaProps = StyledCardMediaBoxProps &
+  Pick<CardMediaProps, 'image'>;

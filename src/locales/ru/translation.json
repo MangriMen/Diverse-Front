@@ -55,10 +55,23 @@
         "send": "Отправить"
     },
     "user": {
-        "followings": "Подписки",
-        "followers": "Подписчики",
+        "follow": "Подписаться",
+        "unfollow": "Отписаться",
+        "followings": "{{count}} подписка",
+        "followings_few": "{{count}} подписки",
+        "followings_many": "{{count}} подписок",
+        "followers": "{{count}} подписчик",
+        "followers_few": "{{count}} подписчика",
+        "followers_many": "{{count}} подписчиков",
         "noFollowings": "Вы ещё ни на кого не подписаны",
-        "noFollowers": "Никто ещё не подписан на вас"
+        "noFollowingsNotMe": "Этот пользователь ещё ни на кого не подписан",
+        "noFollowers": "Никто ещё не подписан на вас",
+        "noFollowersNotMe": "Никто ещё не подписан на этого пользователя",
+        "accept": "Принять",
+        "cancel": "Отменить",
+        "postDescription": "Описание к посту",
+        "ErrorSendPost": "Ошибка в создании поста",
+        "SuccessSendPost": "Пост успешно создан"
     },
     "header": {
         "profile": "Профиль",

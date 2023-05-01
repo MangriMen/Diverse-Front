@@ -2,13 +2,9 @@ import { CardActionArea } from '@mui/material';
 import { useState } from 'react';
 
 import { PostProps } from '../interfaces';
-import {
-  StyledCard,
-  StyledCardContent,
-  StyledCardMedia,
-  StyledCardMediaBox,
-} from '../styles';
+import { StyledCard, StyledCardContent } from '../styles';
 import { PostCardActions } from './PostActions';
+import { PostCardMeida } from './PostCardMeida';
 import { PostCardComments } from './PostComments';
 import { PostCardDescription } from './PostDescription';
 import { PostCardHeader } from './PostHeader';
@@ -24,9 +20,7 @@ export const PostCard = ({ post, setPost, size = 'default' }: PostProps) => {
   return (
     <StyledCard size={size} elevation={0}>
       <CardActionArea sx={{ width: '100%', height: '100%' }}>
-        <StyledCardMediaBox size={size}>
-          <StyledCardMedia component="img" image={post.content} />
-        </StyledCardMediaBox>
+        <PostCardMeida size={size} image={post.content} />
       </CardActionArea>
       {size === 'default' && (
         <StyledCardContent size={size}>

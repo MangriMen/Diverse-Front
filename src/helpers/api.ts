@@ -20,7 +20,7 @@ export const getBearerToken = (key: string): string => {
 };
 
 export const prepareUrl = (urlPart: string | undefined): string | undefined => {
-  if (urlPart === undefined) {
+  if (urlPart === null || urlPart === undefined) {
     return undefined;
   }
 

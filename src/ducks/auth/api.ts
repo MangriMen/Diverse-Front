@@ -18,9 +18,7 @@ export const authApi = createApi({
       query: credentials => ({
         url: API_ENDPOINTS.LOGIN,
         method: METHOD.POST,
-        body: {
-          ...credentials,
-        },
+        body: credentials,
       }),
       transformResponse: transformUser,
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
@@ -41,9 +39,7 @@ export const authApi = createApi({
       query: credentials => ({
         url: API_ENDPOINTS.REGISTER,
         method: METHOD.POST,
-        body: {
-          ...credentials,
-        },
+        body: credentials,
       }),
       transformResponse: transformUser,
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
@@ -78,4 +74,9 @@ export const authApi = createApi({
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation, useFetchQuery } = authApi;
+export const {
+  useLoginMutation,
+  useRegisterMutation,
+  useFetchQuery,
+  useLazyFetchQuery,
+} = authApi;

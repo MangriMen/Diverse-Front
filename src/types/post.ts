@@ -22,9 +22,7 @@ export interface PostModel {
   liked_by_me: boolean;
 }
 
-export interface ServerGetPostsResponse {
-  error: boolean;
-  message: string;
+export interface ServerGetPostsResponse extends ServerBaseResponse {
   count: number;
   data: PostModel[];
 }

@@ -78,7 +78,7 @@ export const CreatePostForm: FC<CreatePostFormProps> = ({ onClose }) => {
     <FormProvider {...form}>
       <Box component="form" onSubmit={form.handleSubmit(onSubmitHandler)}>
         <StyledCard elevation={0} size="default">
-          <ImageUpload name="file" />{' '}
+          <ImageUpload name="file" />
           <StyledCardContent size="default">
             <Controller
               control={form.control}
