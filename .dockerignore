@@ -1,0 +1,9 @@
+.git
+.gitignore
+.github
+.vscode
+README.md
+.env
+.env.example
+.eslintrc.json
+node_modules
