@@ -73,7 +73,6 @@ export const CreatePostForm = ({ onClose }: CreatePostFormProps) => {
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
-    console.log(disable);
     if (disable) {
       setDisable(true);
       const timer = setTimeout(() => {
@@ -89,9 +88,12 @@ export const CreatePostForm = ({ onClose }: CreatePostFormProps) => {
     const formData = new FormData();
     formData.append('file', data.file[0] ?? '');
     try {
-      const payload = Object(await sendData(formData).unwrap());
-      data.content = payload.id;
-      await sendPost({ content: data.content, description: data.description });
+      const { path } = await sendData(formData).unwrap();
+
+      data.content = path;
+
+      const { content, description } = data;
+      await sendPost({ content, description });
 
       enqueueSnackbar(
         t(PostSnackOptions.success.title),
