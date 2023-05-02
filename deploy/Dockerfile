@@ -2,19 +2,19 @@ FROM node:18-alpine as build
 WORKDIR /build
 
 COPY package.json .
+COPY pnpm-lock.yaml .
 
 RUN apk update &&\
     apk upgrade &&\
-    npm config rm proxy &&\
-    npm config rm https-proxy &&\
-    npm install
+    npm install -g pnpm &&\
+    pnpm i
 
 COPY . .
 
 ARG API_BASE_URL
 ENV VITE_APP_API_BASE_URL $API_BASE_URL
 
-RUN yarn build
+RUN pnpm build
 
 FROM nginx:alpine as prod
 WORKDIR /app
