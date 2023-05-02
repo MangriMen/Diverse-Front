@@ -7,7 +7,7 @@ RUN apk update &&\
     apk upgrade &&\
     npm config rm proxy &&\
     npm config rm https-proxy &&\
-    yarn install
+    npm install
 
 COPY . .
 
