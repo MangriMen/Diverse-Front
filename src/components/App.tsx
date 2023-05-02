@@ -2,6 +2,7 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 import { AppRoutes } from 'components/AppRoutes';
 import { GlobalStylesComponent } from 'components/common/GlobalStylesComponent';
 import 'configs/i18next';
+import { MAX_SNACK_COUNT } from 'consts/app';
 import { SnackbarProvider } from 'notistack';
 import { Provider } from 'react-redux';
 import {
@@ -20,7 +21,7 @@ export const App = () => {
   return (
     <Provider store={store}>
       <ThemeProvider theme={defaultTheme}>
-        <SnackbarProvider maxSnack={3}>
+        <SnackbarProvider maxSnack={MAX_SNACK_COUNT}>
           <CssBaseline enableColorScheme />
           <GlobalStylesComponent />
           <RouterProvider router={router} />

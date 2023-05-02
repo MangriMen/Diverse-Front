@@ -22,6 +22,7 @@ import {
   Username,
   UsernameAndName,
 } from 'components/user/styles';
+import { POSTS_FETCH_COUNT } from 'consts';
 import { useInfinityPostFeed } from 'hooks/useInfinityPostFeed';
 import { ReactElement, useEffect, useState } from 'react';
 import { User } from 'types/auth';
@@ -37,7 +38,7 @@ export const UserPageContent = ({
 
   const { data } = useInfinityPostFeed({
     type: 'user',
-    count: 9,
+    count: POSTS_FETCH_COUNT.USER,
     user_id: user.id,
   });
 

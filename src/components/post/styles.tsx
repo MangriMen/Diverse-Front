@@ -46,6 +46,7 @@ export const StyledCardContent = styled(CardContent, {
   padding: ${props => (props.size === 'default' ? '' : '4px')};
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   min-width: 320px;
   max-width: 320px;
   gap: 0.5rem;

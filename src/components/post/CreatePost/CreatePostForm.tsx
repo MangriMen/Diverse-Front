@@ -22,6 +22,11 @@ import {
   StyledCardCreateInput,
 } from '../styles';
 import { CreatePostFormProps } from './interfaces';
+import {
+  POST_DESCRIPTION_MAX_ROWS,
+  SHAPE_CONSTRAINTS,
+  SUBMIT_TIMEOUT,
+} from 'consts';
 
 type PostForm = PostValues & DataValues;
 
@@ -48,7 +53,7 @@ export const CreatePostForm: FC<CreatePostFormProps> = ({ onClose }) => {
       setDisable(true);
       const timer = setTimeout(() => {
         setDisable(false);
-      }, 5000);
+      }, SUBMIT_TIMEOUT.CREATE_POST);
       return () => clearTimeout(timer);
     }
   }, [disable]);
@@ -89,16 +94,16 @@ export const CreatePostForm: FC<CreatePostFormProps> = ({ onClose }) => {
                   variant="filled"
                   label={t('postDescription')}
                   multiline
-                  maxRows="15"
+                  maxRows={POST_DESCRIPTION_MAX_ROWS}
                   autoComplete="off"
                   InputProps={{ disableUnderline: true }}
                   inputProps={{
-                    maxLength: 2048,
+                    maxLength: SHAPE_CONSTRAINTS.DESCRIPTION_MAX,
                   }}
                 />
               )}
             />
-            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Box display="flex" justifyContent="space-between">
               <StyledButton
                 variant="contained"
                 color="secondary"
