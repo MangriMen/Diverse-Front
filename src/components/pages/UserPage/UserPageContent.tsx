@@ -22,7 +22,7 @@ import {
   Username,
   UsernameAndName,
 } from 'components/user/styles';
-import { useGetPostsQuery } from 'ducks/post/api';
+import { useInfinityPostFeed } from 'hooks/useInfinityPostFeed';
 import { ReactNode, useEffect, useState } from 'react';
 import { User } from 'types/auth';
 
@@ -33,15 +33,13 @@ export const UserPageContent = ({
   isMe?: boolean;
   user: User;
 }) => {
-  const { data, isFetching } = useGetPostsQuery({
-    params: {
-      type: 'user',
-      user_id: user?.id ?? '',
-      count: 20,
-    },
-  });
-
   const [userPosts, setUserPosts] = useState<ReactNode[]>();
+
+  const { data } = useInfinityPostFeed({
+    type: 'user',
+    count: 9,
+    user_id: user.id,
+  });
 
   useEffect(() => {
     setUserPosts(
@@ -83,7 +81,7 @@ export const UserPageContent = ({
             <UserDescriptionText>{user.about}</UserDescriptionText>
           </UserDescription>
         </UserInfo>
-        <StyledUserPosts>{!isFetching && userPosts}</StyledUserPosts>
+        <StyledUserPosts>{userPosts}</StyledUserPosts>
       </UserPageLayout>
     </StyledContainer>
   );
