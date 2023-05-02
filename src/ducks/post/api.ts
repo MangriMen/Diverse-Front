@@ -15,7 +15,7 @@ export const postApi = createApi({
     baseUrl: API_BASE_URL,
   }),
   endpoints: build => ({
-    createPost: build.mutation<string, PostValues>({
+    createPost: build.mutation<ServerGetPostsResponse, PostValues>({
       query: arg => ({
         url: API_ENDPOINTS.POSTS,
         method: METHOD.POST,
@@ -32,11 +32,31 @@ export const postApi = createApi({
         },
         params: arg.params,
       }),
-      serializeQueryArgs: ({ endpointName }) => {
-        return endpointName;
+      serializeQueryArgs: ({ endpointName, queryArgs }) => {
+        return [
+          endpointName,
+          queryArgs.params?.type,
+          queryArgs.params?.user_id,
+        ].join('_');
       },
+      //TODO: need fix it
       merge: (currentCache, newItems) => {
-        currentCache.data.push(...newItems.data);
+        let isUpdated = false;
+        for (const newItem of newItems.data) {
+          isUpdated = false;
+
+          for (const itemIndex in currentCache.data) {
+            if (newItem.id === currentCache.data[itemIndex].id) {
+              currentCache.data[itemIndex] = newItem;
+              isUpdated = true;
+              break;
+            }
+          }
+
+          if (!isUpdated) {
+            currentCache.data.push(newItem);
+          }
+        }
       },
       forceRefetch({ currentArg, previousArg }) {
         return previousArg !== currentArg;

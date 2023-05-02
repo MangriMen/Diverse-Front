@@ -48,7 +48,7 @@ export const CreatePostForm: FC<CreatePostFormProps> = ({ onClose }) => {
       setDisable(true);
       const timer = setTimeout(() => {
         setDisable(false);
-      }, 1500);
+      }, 5000);
       return () => clearTimeout(timer);
     }
   }, [disable]);
