@@ -24,6 +24,7 @@ import {
   PostSize,
   StyledCardMediaBoxProps,
 } from './interfaces';
+import { BaseLayout } from 'components/pages/styles';
 
 export const StyledCard = styled(Card, {
   shouldForwardProp: prop => prop !== 'size',
@@ -181,11 +182,8 @@ export const StyledButton = styled(Button)`
   }
 `;
 
-export const HomePageLayout = styled(Box)`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+export const HomePageLayout = styled(BaseLayout)`
+  justify-content: flex-start;
   align-items: center;
   gap: 2rem;
 `;

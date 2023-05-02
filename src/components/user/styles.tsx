@@ -1,12 +1,10 @@
 import { Avatar, Box, Typography, styled } from '@mui/material';
+import { BaseLayout } from 'components/pages/styles';
 import { StyledIconButton } from 'components/post/styles';
 
-export const UserPageLayout = styled(Box)`
+export const UserPageLayout = styled(BaseLayout)`
   width: 100%;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   gap: 2rem;
 `;

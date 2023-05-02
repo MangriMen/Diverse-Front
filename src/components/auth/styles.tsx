@@ -1,12 +1,4 @@
-import { Box, Button, Container, TextField, styled } from '@mui/material';
-
-export const StyledContainer = styled(Container)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100%;
-`;
+import { Box, Button, TextField, styled } from '@mui/material';
 
 export const StyledInput = styled(TextField)`
   & .MuiFilledInput-root {
