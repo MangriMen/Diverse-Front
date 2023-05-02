@@ -6,6 +6,8 @@ COPY yarn.lock .
 
 RUN apk update &&\
     apk upgrade &&\
+    npm config rm proxy &&\
+    npm config rm https-proxy &&\
     yarn install
 
 COPY . .
