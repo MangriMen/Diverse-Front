@@ -1,0 +1,112 @@
+name: Docker build and deploy
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+on:
+  push:
+    branches:
+      - develop
+      - "setup-deploy"
+  release:
+    types: ["published"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to the registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, label) for Docker
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+      - name: Build and push image
+        uses: docker/build-push-action@v4
+        with:
+          platforms: linux/arm64
+          push: true
+          context: .
+          target: prod
+          file: "./deploy/Dockerfile"
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+  deploy:
+    runs-on: ubuntu-latest
+    if: ${{ always() }}
+    needs: build
+
+    env:
+      PROJECT_BASE_PATH: ${{ vars.PROJECT_ROOT }}/${{ github.event.repository.name }}
+      BASE_HOST: ${{ vars.BASE_HOST }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup environment
+        shell: bash
+        run: |
+          branch=$(echo ${GITHUB_REF#refs/heads/})
+          profile=''
+          checkout_branch=''
+
+          if [[ $branch == 'develop' || $branch == 'setup-deploy' ]]; then
+              profile='test'
+              checkout_branch='develop'
+          else
+              profile='prod'
+              checkout_branch='main'
+          fi
+
+          echo "PROFILE=$profile" >> $GITHUB_ENV
+          echo "CHECKOUT_BRANCH=$checkout_branch" >> $GITHUB_ENV
+          echo "PROFILE_PATH=${{ env.PROJECT_BASE_PATH }}-$profile" >> $GITHUB_ENV
+
+      - name: Copy repository
+        uses: appleboy/scp-action@master
+        with:
+          key: ${{ secrets.SERVER_KEY }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          host: ${{ secrets.SERVER_HOST }}
+          port: ${{ secrets.SSH_PORT }}
+          source: ./
+          target: ~/${{ env.PROFILE_PATH }}
+
+      - name: Deploy on server
+        uses: appleboy/ssh-action@master
+        with:
+          key: ${{ secrets.SERVER_KEY }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          host: ${{ secrets.SERVER_HOST }}
+          port: ${{ secrets.SSH_PORT }}
+          envs: PROFILE_PATH,PROFILE,CHECKOUT_BRANCH,BASE_HOST
+          script: |
+            cd $PROFILE_PATH
+
+            make undeploy profile=$PROFILE
+
+            git restore .
+            git checkout $CHECKOUT_BRANCH
+            git pull
+
+            make deploy profile=$PROFILE
