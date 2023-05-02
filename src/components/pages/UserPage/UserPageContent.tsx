@@ -23,7 +23,7 @@ import {
   UsernameAndName,
 } from 'components/user/styles';
 import { useInfinityPostFeed } from 'hooks/useInfinityPostFeed';
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { User } from 'types/auth';
 
 export const UserPageContent = ({
@@ -33,7 +33,7 @@ export const UserPageContent = ({
   isMe?: boolean;
   user: User;
 }) => {
-  const [userPosts, setUserPosts] = useState<ReactNode[]>();
+  const [userPosts, setUserPosts] = useState<ReactElement[]>();
 
   const { data } = useInfinityPostFeed({
     type: 'user',
