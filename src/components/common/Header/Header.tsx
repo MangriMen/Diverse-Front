@@ -5,6 +5,7 @@ import { StyledModal } from 'components/post/styles';
 import { logout } from 'ducks/auth';
 import { selectUser } from 'ducks/auth/selectors';
 import { ReactNode, useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -17,6 +18,8 @@ interface UserMenuItems {
 }
 
 export const Header = () => {
+  const { t } = useTranslation('translation', { keyPrefix: 'header' });
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -39,21 +42,21 @@ export const Header = () => {
 
   const [userSettings] = useState<Array<UserMenuItems>>([
     {
-      name: 'Profile',
+      name: t('profile'),
       onClick: () => {
         navigate(user?.username ?? '');
         handleCloseUserMenu();
       },
     },
     {
-      name: 'Create Post',
+      name: t('createPost'),
       onClick: () => {
         handleOpenCreateForm();
         handleCloseUserMenu();
       },
     },
     {
-      name: 'Logout',
+      name: t('logout'),
       onClick: () => {
         handleCloseUserMenu();
         dispatch(logout());

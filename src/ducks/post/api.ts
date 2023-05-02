@@ -1,12 +1,13 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { STORAGE_KEYS } from 'consts';
 import { METHOD } from 'consts';
 import { API_BASE_URL, API_ENDPOINTS } from 'consts/endpoints';
 import { getAccessToken } from 'helpers/api';
+import { storageGet } from 'helpers/localStorage';
 import { ServerGetPostResponse, ServerGetPostsResponse } from 'types/post';
 
 import { transformPosts } from './services';
-import { GetPostRequest, GetPostsRequest } from './types';
-import { PostValues } from './types';
+import { GetPostRequest, GetPostsValues, PostValues } from './types';
 
 export const postApi = createApi({
   reducerPath: 'postApi',
@@ -14,22 +15,53 @@ export const postApi = createApi({
     baseUrl: API_BASE_URL,
   }),
   endpoints: build => ({
-    getPosts: build.query<ServerGetPostsResponse, GetPostsRequest>({
-      query: args => ({
-        url: API_ENDPOINTS.POSTS,
-        method: METHOD.GET,
-        headers: { Authorization: getAccessToken() },
-        params: args.params,
-      }),
-      transformResponse: transformPosts,
-    }),
-    createPost: build.mutation<string, PostValues>({
+    createPost: build.mutation<ServerGetPostsResponse, PostValues>({
       query: arg => ({
         url: API_ENDPOINTS.POSTS,
         method: METHOD.POST,
-        headers: { Authorization: getAccessToken() },
+        headers: { Authorization: `Bearer ${storageGet(STORAGE_KEYS.TOKEN)}` },
         body: arg,
       }),
+    }),
+    getPosts: build.query<ServerGetPostsResponse, GetPostsValues>({
+      query: arg => ({
+        url: API_ENDPOINTS.POSTS,
+        method: METHOD.GET,
+        headers: {
+          Authorization: `Bearer ${storageGet(STORAGE_KEYS.TOKEN)}`,
+        },
+        params: arg.params,
+      }),
+      serializeQueryArgs: ({ endpointName, queryArgs }) => {
+        return [
+          endpointName,
+          queryArgs.params?.type,
+          queryArgs.params?.user_id,
+        ].join('_');
+      },
+      //TODO: need fix it
+      merge: (currentCache, newItems) => {
+        let isUpdated = false;
+        for (const newItem of newItems.data) {
+          isUpdated = false;
+
+          for (const itemIndex in currentCache.data) {
+            if (newItem.id === currentCache.data[itemIndex].id) {
+              currentCache.data[itemIndex] = newItem;
+              isUpdated = true;
+              break;
+            }
+          }
+
+          if (!isUpdated) {
+            currentCache.data.push(newItem);
+          }
+        }
+      },
+      forceRefetch({ currentArg, previousArg }) {
+        return previousArg !== currentArg;
+      },
+      transformResponse: transformPosts,
     }),
     deletePost: build.mutation<ServerGetPostsResponse, GetPostRequest>({
       query: args => ({
@@ -56,8 +88,8 @@ export const postApi = createApi({
 });
 
 export const {
-  useGetPostsQuery,
   useCreatePostMutation,
+  useGetPostsQuery,
   useDeletePostMutation,
   useLikePostMutation,
   useUnlikePostMutation,

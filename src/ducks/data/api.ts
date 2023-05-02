@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { STORAGE_KEYS } from 'consts';
+import { METHOD, STORAGE_KEYS } from 'consts';
 import { API_BASE_URL, API_ENDPOINTS } from 'consts/endpoints';
 import { storageGet } from 'helpers/localStorage';
 
@@ -12,7 +12,7 @@ export const dataApi = createApi({
     data: build.mutation<string, FormData>({
       query: arg => ({
         url: API_ENDPOINTS.DATA,
-        method: 'post',
+        method: METHOD.POST,
         headers: { Authorization: `Bearer ${storageGet(STORAGE_KEYS.TOKEN)}` },
         body: arg,
       }),

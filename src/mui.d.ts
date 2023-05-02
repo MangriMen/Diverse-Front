@@ -24,6 +24,10 @@ declare module '@mui/material' {
     dimmed;
     third;
   }
+
+  interface ButtonPropsColorOverrides {
+    dimmed;
+  }
 }
 
 declare module '@mui/material/styles' {
