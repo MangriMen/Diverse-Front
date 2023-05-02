@@ -27,6 +27,7 @@ import {
   SHAPE_CONSTRAINTS,
   SUBMIT_TIMEOUT,
 } from 'consts';
+import { useNavigate } from 'react-router-dom';
 
 type PostForm = PostValues & DataValues;
 
@@ -62,6 +63,8 @@ const PostSnackOptions: {
 
 export const CreatePostForm = ({ onClose }: CreatePostFormProps) => {
   const { t } = useTranslation('translation', { keyPrefix: 'post' });
+
+  const navigate = useNavigate();
 
   const form = useForm<PostForm>({ defaultValues: defaultValues });
 
@@ -101,6 +104,8 @@ export const CreatePostForm = ({ onClose }: CreatePostFormProps) => {
       );
 
       onClose();
+
+      navigate(0);
     } catch {
       enqueueSnackbar(
         t(PostSnackOptions.error.title),

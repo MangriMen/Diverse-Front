@@ -1,4 +1,5 @@
-import { useGetPostsQuery } from 'ducks/post/api';
+import { POSTS_LOADING_OFFSET_HEIGHT } from 'consts';
+import { postsAdapter, postsSelector, useGetPostsQuery } from 'ducks/post/api';
 import { GetPostParams } from 'ducks/post/types';
 import { useEffect, useState } from 'react';
 
@@ -9,7 +10,8 @@ const lastSeenPostDefaultValues: Pick<
 
 const onScrollHandle = (onScroll: () => void) => {
   const scrolledToButtom =
-    window.innerHeight + window.scrollY >= document.body.offsetHeight;
+    window.innerHeight + window.scrollY >=
+    document.body.offsetHeight - POSTS_LOADING_OFFSET_HEIGHT;
   if (scrolledToButtom) {
     onScroll();
   }
@@ -21,24 +23,32 @@ export const useInfinityPostFeed = ({
   user_id,
 }: Pick<GetPostParams, 'type' | 'count' | 'user_id'>) => {
   const [lastSeenPost, setLastSeenPost] = useState(lastSeenPostDefaultValues);
-  const response = useGetPostsQuery({
-    params: {
-      ...lastSeenPost,
-      type,
-      user_id,
-      count,
+
+  const response = useGetPostsQuery(
+    {
+      params: {
+        ...lastSeenPost,
+        type,
+        user_id,
+        count,
+      },
     },
-  });
+    {
+      selectFromResult: ({ data, ...otherParams }) => ({
+        data: postsSelector.selectAll(data ?? postsAdapter.getInitialState()),
+        ...otherParams,
+      }),
+    },
+  );
 
   useEffect(() => {
     const onScroll = () => {
       onScrollHandle(() => {
         if (response.data !== undefined && !response.isFetching) {
           setLastSeenPost({
-            last_seen_post_id:
-              response.data.data[response.data.data.length - 1].id,
+            last_seen_post_id: response.data[response.data.length - 1].id,
             last_seen_post_created_at:
-              response.data.data[response.data.data.length - 1].created_at,
+              response.data[response.data.length - 1].created_at,
           });
         }
       });
