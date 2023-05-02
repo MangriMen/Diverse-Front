@@ -12,7 +12,6 @@ export const post: PostModel = {
     created_at: '21.03.2023',
     updated_at: '21.03.2023',
   },
-  liked_by_me: false,
   created_at: '22.03.2023',
   content: `${API_BASE_URL}/data/image/raw/0777776a875a41a2b3265509d65a773e`,
   description:
@@ -91,6 +90,7 @@ export const post: PostModel = {
       liked_by_me: false,
     },
   ],
+  liked_by_me: false,
   likes: 20,
 };
 

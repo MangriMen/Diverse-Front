@@ -30,7 +30,6 @@ export const StyledCard = styled(Card, {
 })<{ size: PostSize }>`
   height: ${props => (props.size === 'default' ? '546px' : '')};
   width: ${props => (props.size === 'default' ? '864px' : '')};
-
   display: flex;
   flex-direction: ${props => (props.size === 'default' ? 'row' : 'column')};
 
@@ -47,6 +46,7 @@ export const StyledCardContent = styled(CardContent, {
   padding: ${props => (props.size === 'default' ? '' : '4px')};
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   min-width: 320px;
   max-width: 320px;
   gap: 0.5rem;
@@ -132,6 +132,7 @@ export const StyledCardMedia = styled(CardMedia)`
 export const StyledCardMediaBox = styled(Box, {
   shouldForwardProp: prop => prop !== 'size',
 })<StyledCardMediaBoxProps>`
+  position: relative;
   display: flex;
   justify-content: center;
   height: 100%;
@@ -178,4 +179,13 @@ export const StyledButton = styled(Button)`
   &:focus-visible {
     outline: 2px solid;
   }
+`;
+
+export const HomePageLayout = styled(Box)`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
 `;

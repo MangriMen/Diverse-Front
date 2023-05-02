@@ -1,45 +1,28 @@
-import { Box, CircularProgress } from '@mui/material';
-import { DefaultFetchFade } from 'components/common/LoaderPage';
 import { Post } from 'components/post/Post';
-import { selectUser } from 'ducks/auth/selectors';
-import { useGetPostsQuery } from 'ducks/post/api';
-import { ReactNode, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { HomePageLayout } from 'components/post/styles';
+import { ReactElement, useEffect, useState } from 'react';
 
 import { StyledContainer } from './styles';
+import { useInfinityPostFeed } from 'hooks/useInfinityPostFeed';
+import { POSTS_FETCH_COUNT } from 'consts';
 
 export const HomePage = () => {
-  const user = useSelector(selectUser);
+  const [posts, setPosts] = useState<ReactElement[]>();
 
-  const { data, isLoading } = useGetPostsQuery({
-    params: {
-      type: 'all',
-      user_id: user?.id ?? '',
-      count: 20,
-    },
+  const { data } = useInfinityPostFeed({
+    type: 'all',
+    count: POSTS_FETCH_COUNT.FEED,
   });
 
-  const [userSubscriptionPosts, setUserSubscriptionPosts] =
-    useState<ReactNode[]>();
-
   useEffect(() => {
-    setUserSubscriptionPosts(
-      data?.data.map(post => <Post key={post.id} post={post} />),
-    );
+    if (data?.data !== undefined) {
+      setPosts(data?.data.map(post => <Post key={post.id} post={post} />));
+    }
   }, [data?.data]);
 
   return (
     <StyledContainer>
-      {isLoading && (
-        <DefaultFetchFade>
-          <CircularProgress color="secondary" size="4rem" />
-        </DefaultFetchFade>
-      )}
-      {!isLoading && (
-        <Box display="flex" flexDirection="column" gap="2rem">
-          {userSubscriptionPosts}
-        </Box>
-      )}
+      <HomePageLayout>{posts}</HomePageLayout>
     </StyledContainer>
   );
 };

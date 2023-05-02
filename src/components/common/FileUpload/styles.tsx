@@ -10,5 +10,6 @@ export const StyledFileInput = styled(Box)`
 ` as typeof Box;
 
 export const StyledSvgIcon = styled(SvgIcon)`
+  height: 100%;
   font-size: 256px;
 `;

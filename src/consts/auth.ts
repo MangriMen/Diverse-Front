@@ -1,0 +1,5 @@
+export const SHAPE_CONSTRAINTS = {
+  USERNAME_MAX: 32,
+  PASSWORD_MIN: 8,
+  PASSWORD_MAX: 32,
+};

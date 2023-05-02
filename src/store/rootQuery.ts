@@ -8,6 +8,6 @@ export const rootQuery = [
   authApi.middleware,
   postApi.middleware,
   commentApi.middleware,
-  userApi.middleware,
   dataApi.middleware,
+  userApi.middleware,
 ];

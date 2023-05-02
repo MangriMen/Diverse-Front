@@ -12,7 +12,7 @@ export const rootReducer = () => {
     [authApi.reducerPath]: authApi.reducer,
     [postApi.reducerPath]: postApi.reducer,
     [commentApi.reducerPath]: commentApi.reducer,
-    [userApi.reducerPath]: userApi.reducer,
     [dataApi.reducerPath]: dataApi.reducer,
+    [userApi.reducerPath]: userApi.reducer,
   });
 };
