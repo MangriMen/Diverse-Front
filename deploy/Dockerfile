@@ -2,7 +2,6 @@ FROM node:18-alpine as build
 WORKDIR /build
 
 COPY package.json .
-COPY yarn.lock .
 
 RUN apk update &&\
     apk upgrade &&\
