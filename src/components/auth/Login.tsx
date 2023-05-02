@@ -4,7 +4,6 @@ import { StyledTextButton } from 'components/common/styles';
 import { useLoginMutation } from 'ducks/auth/api';
 import { LoginValues } from 'ducks/auth/types';
 import { conditionalTranslate } from 'helpers/conditionalTranslate';
-import { FC } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -17,13 +16,15 @@ import {
   StyledSwitchActionBox,
   StyledWrapperBox,
 } from './styles';
+import { removeWhitespace } from 'helpers/auth';
+import { ChangeEvent } from 'react';
 
 const defaultValues = {
   email: '',
   password: '',
 };
 
-export const Login: FC<AuthFormProps> = ({ changeFormType }) => {
+export const Login = ({ changeFormType }: AuthFormProps) => {
   const { t } = useTranslation('translation', { keyPrefix: 'auth' });
   const [login, { isError }] = useLoginMutation();
 
@@ -40,6 +41,9 @@ export const Login: FC<AuthFormProps> = ({ changeFormType }) => {
     login(data);
   };
 
+  const handleOnChangeNoSpace = (event: ChangeEvent<HTMLInputElement>) =>
+    removeWhitespace(event.target.value);
+
   return (
     <StyledWrapperBox>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -55,6 +59,9 @@ export const Login: FC<AuthFormProps> = ({ changeFormType }) => {
                 error={!!errors.email?.message}
                 helperText={conditionalTranslate(t, errors.email?.message)}
                 InputProps={{ disableUnderline: true }}
+                onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                  field.onChange(handleOnChangeNoSpace(event))
+                }
               />
             )}
           />
@@ -70,6 +77,9 @@ export const Login: FC<AuthFormProps> = ({ changeFormType }) => {
                 helperText={conditionalTranslate(t, errors.password?.message)}
                 type="password"
                 InputProps={{ disableUnderline: true }}
+                onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                  field.onChange(handleOnChangeNoSpace(event))
+                }
               />
             )}
           />

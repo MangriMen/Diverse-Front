@@ -4,7 +4,7 @@ import { StyledTextButton } from 'components/common/styles';
 import { useRegisterMutation } from 'ducks/auth/api';
 import { RegisterValues } from 'ducks/auth/types';
 import { conditionalTranslate } from 'helpers/conditionalTranslate';
-import { FC } from 'react';
+import { ChangeEvent, FC } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -17,6 +17,7 @@ import {
   StyledSwitchActionBox,
   StyledWrapperBox,
 } from './styles';
+import { removeWhitespace, replaceWhitespaces } from 'helpers/auth';
 
 const defaultValues = {
   username: '',
@@ -42,6 +43,12 @@ export const Register: FC<AuthFormProps> = ({ changeFormType }) => {
     register(data);
   };
 
+  const handleOnChangeNickname = (event: ChangeEvent<HTMLInputElement>) =>
+    replaceWhitespaces(event.target.value);
+
+  const handleOnChangeNoSpace = (event: ChangeEvent<HTMLInputElement>) =>
+    removeWhitespace(event.target.value);
+
   return (
     <StyledWrapperBox>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -57,6 +64,9 @@ export const Register: FC<AuthFormProps> = ({ changeFormType }) => {
                 error={!!errors.username?.message}
                 helperText={conditionalTranslate(t, errors.username?.message)}
                 InputProps={{ disableUnderline: true }}
+                onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                  field.onChange(handleOnChangeNickname(event))
+                }
               />
             )}
           />
@@ -71,6 +81,9 @@ export const Register: FC<AuthFormProps> = ({ changeFormType }) => {
                 error={!!errors.email?.message}
                 helperText={conditionalTranslate(t, errors.email?.message)}
                 InputProps={{ disableUnderline: true }}
+                onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                  field.onChange(handleOnChangeNoSpace(event))
+                }
               />
             )}
           />
@@ -86,6 +99,9 @@ export const Register: FC<AuthFormProps> = ({ changeFormType }) => {
                 helperText={conditionalTranslate(t, errors.password?.message)}
                 type="password"
                 InputProps={{ disableUnderline: true }}
+                onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                  field.onChange(handleOnChangeNoSpace(event))
+                }
               />
             )}
           />
@@ -104,6 +120,9 @@ export const Register: FC<AuthFormProps> = ({ changeFormType }) => {
                 )}
                 type="password"
                 InputProps={{ disableUnderline: true }}
+                onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                  field.onChange(handleOnChangeNoSpace(event))
+                }
               />
             )}
           />
