@@ -20,3 +20,5 @@ export const SHAPE_CONSTRAINTS = {
 };
 
 export const POST_DESCRIPTION_MAX_ROWS = 18;
+
+export const POSTS_LOADING_OFFSET_HEIGHT = 1000;

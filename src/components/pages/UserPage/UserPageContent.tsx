@@ -1,4 +1,5 @@
 import SettingsIcon from '@mui/icons-material/Settings';
+import { Loader } from 'components/common/LoaderPage';
 import { StyledContainer } from 'components/pages/styles';
 import { Post } from 'components/post/Post';
 import { ToggleRealtionButton } from 'components/user/UserRelation/ToggleRealtionButton';
@@ -24,7 +25,6 @@ import {
 } from 'components/user/styles';
 import { POSTS_FETCH_COUNT } from 'consts';
 import { useInfinityPostFeed } from 'hooks/useInfinityPostFeed';
-import { ReactElement, useEffect, useState } from 'react';
 import { User } from 'types/auth';
 
 export const UserPageContent = ({
@@ -34,19 +34,11 @@ export const UserPageContent = ({
   isMe?: boolean;
   user: User;
 }) => {
-  const [userPosts, setUserPosts] = useState<ReactElement[]>();
-
-  const { data } = useInfinityPostFeed({
+  const { data, isFetching } = useInfinityPostFeed({
     type: 'user',
     count: POSTS_FETCH_COUNT.USER,
     user_id: user.id,
   });
-
-  useEffect(() => {
-    setUserPosts(
-      data?.data.map(post => <Post key={post.id} post={post} size="small" />),
-    );
-  }, [data?.data]);
 
   return (
     <StyledContainer>
@@ -82,7 +74,12 @@ export const UserPageContent = ({
             <UserDescriptionText>{user.about}</UserDescriptionText>
           </UserDescription>
         </UserInfo>
-        <StyledUserPosts>{userPosts}</StyledUserPosts>
+        <StyledUserPosts>
+          {data.map(post => (
+            <Post key={post.id} post={post} size="small" />
+          ))}
+        </StyledUserPosts>
+        {isFetching && <Loader />}
       </UserPageLayout>
     </StyledContainer>
   );

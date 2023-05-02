@@ -12,6 +12,7 @@ import { PostCommentMenuItem } from '../PostCommentMenuItem';
 import { VerticalMenu } from '../VerticalMenu';
 import { PostCommentMenuActions } from '../interfaces';
 import { StyledAvatar, StyledPostCardHeaderBox } from '../styles';
+import { useNavigate } from 'react-router-dom';
 
 const postMenuActions: PostCommentMenuActions = {
   edit: {
@@ -27,6 +28,8 @@ const postMenuActions: PostCommentMenuActions = {
 
 export const PostCardHeader = ({ post }: { post: PostModel }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'post' });
+
+  const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -52,7 +55,8 @@ export const PostCardHeader = ({ post }: { post: PostModel }) => {
       path: { post: post.id },
     });
     handleClose();
-  }, [deletePost, post.id]);
+    navigate(0);
+  }, [deletePost, navigate, post.id]);
 
   const [postMenuItems, setPostMenuItems] = useState<ReactElement[]>();
 

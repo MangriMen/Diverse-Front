@@ -6,8 +6,8 @@ import { useDataMutation } from 'ducks/data/api';
 import { DataValues } from 'ducks/data/types';
 import { useCreatePostMutation } from 'ducks/post/api';
 import { PostValues } from 'ducks/post/types';
-import { useSnackbar } from 'notistack';
-import { FC, useEffect, useState } from 'react';
+import { OptionsObject, useSnackbar } from 'notistack';
+import { useEffect, useState } from 'react';
 import {
   Controller,
   FormProvider,
@@ -27,6 +27,7 @@ import {
   SHAPE_CONSTRAINTS,
   SUBMIT_TIMEOUT,
 } from 'consts';
+import { useNavigate } from 'react-router-dom';
 
 type PostForm = PostValues & DataValues;
 
@@ -35,8 +36,35 @@ const defaultValues = {
   description: '',
 };
 
-export const CreatePostForm: FC<CreatePostFormProps> = ({ onClose }) => {
+interface PostSnackOption {
+  title: string;
+  options: OptionsObject;
+}
+
+const PostSnackOptions: {
+  success: PostSnackOption;
+  error: PostSnackOption;
+} = {
+  success: {
+    title: 'successSendPost',
+    options: {
+      variant: 'success',
+      anchorOrigin: { vertical: 'top', horizontal: 'center' },
+    },
+  },
+  error: {
+    title: 'errorSendPost',
+    options: {
+      variant: 'error',
+      anchorOrigin: { vertical: 'top', horizontal: 'center' },
+    },
+  },
+};
+
+export const CreatePostForm = ({ onClose }: CreatePostFormProps) => {
   const { t } = useTranslation('translation', { keyPrefix: 'post' });
+
+  const navigate = useNavigate();
 
   const form = useForm<PostForm>({ defaultValues: defaultValues });
 
@@ -48,7 +76,6 @@ export const CreatePostForm: FC<CreatePostFormProps> = ({ onClose }) => {
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
-    console.log(disable);
     if (disable) {
       setDisable(true);
       const timer = setTimeout(() => {
@@ -60,22 +87,30 @@ export const CreatePostForm: FC<CreatePostFormProps> = ({ onClose }) => {
 
   const onSubmitHandler: SubmitHandler<PostForm> = async data => {
     setDisable(true);
+
     const formData = new FormData();
     formData.append('file', data.file[0] ?? '');
     try {
-      const payload = Object(await sendData(formData).unwrap());
-      data.content = payload.id;
-      await sendPost({ content: data.content, description: data.description });
-      enqueueSnackbar(t('SuccessSendPost'), {
-        variant: 'success',
-        anchorOrigin: { vertical: 'top', horizontal: 'center' },
-      });
+      const { path } = await sendData(formData).unwrap();
+
+      data.content = path;
+
+      const { content, description } = data;
+      await sendPost({ content, description });
+
+      enqueueSnackbar(
+        t(PostSnackOptions.success.title),
+        PostSnackOptions.success.options,
+      );
+
       onClose();
+
+      navigate(0);
     } catch {
-      enqueueSnackbar(t('ErrorSendPost'), {
-        variant: 'error',
-        anchorOrigin: { vertical: 'top', horizontal: 'center' },
-      });
+      enqueueSnackbar(
+        t(PostSnackOptions.error.title),
+        PostSnackOptions.error.options,
+      );
     }
   };
 

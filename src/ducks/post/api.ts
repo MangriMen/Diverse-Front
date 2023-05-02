@@ -2,28 +2,40 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { STORAGE_KEYS } from 'consts';
 import { METHOD } from 'consts';
 import { API_BASE_URL, API_ENDPOINTS } from 'consts/endpoints';
-import { getAccessToken } from 'helpers/api';
+import { getAccessToken, preparePost } from 'helpers/api';
 import { storageGet } from 'helpers/localStorage';
-import { ServerGetPostResponse, ServerGetPostsResponse } from 'types/post';
+import {
+  PostModel,
+  ServerGetPostResponse,
+  ServerGetPostsResponse,
+} from 'types/post';
 
-import { transformPosts } from './services';
 import { GetPostRequest, GetPostsValues, PostValues } from './types';
+import { EntityState, createEntityAdapter } from '@reduxjs/toolkit';
+
+export const postsAdapter = createEntityAdapter({
+  selectId: (item: PostModel) => item.id,
+});
+
+export const postsSelector = postsAdapter.getSelectors();
 
 export const postApi = createApi({
   reducerPath: 'postApi',
   baseQuery: fetchBaseQuery({
     baseUrl: API_BASE_URL,
   }),
+  tagTypes: ['Post'],
   endpoints: build => ({
-    createPost: build.mutation<ServerGetPostsResponse, PostValues>({
+    createPost: build.mutation<string, PostValues>({
       query: arg => ({
         url: API_ENDPOINTS.POSTS,
         method: METHOD.POST,
         headers: { Authorization: `Bearer ${storageGet(STORAGE_KEYS.TOKEN)}` },
         body: arg,
       }),
+      invalidatesTags: () => ['Post'],
     }),
-    getPosts: build.query<ServerGetPostsResponse, GetPostsValues>({
+    getPosts: build.query<EntityState<PostModel>, GetPostsValues>({
       query: arg => ({
         url: API_ENDPOINTS.POSTS,
         method: METHOD.GET,
@@ -32,6 +44,26 @@ export const postApi = createApi({
         },
         params: arg.params,
       }),
+      providesTags: (result, _error, arg) =>
+        result
+          ? [
+              ...postsSelector.selectAll(result).map(({ id }) => ({
+                type: 'Post' as const,
+                id,
+              })),
+              {
+                type: 'Post',
+                id: [arg.params?.type, arg.params?.user_id].join('_'),
+              },
+              'Post',
+            ]
+          : [
+              {
+                type: 'Post',
+                id: [arg.params?.type, arg.params?.user_id].join('_'),
+              },
+              'Post',
+            ],
       serializeQueryArgs: ({ endpointName, queryArgs }) => {
         return [
           endpointName,
@@ -39,36 +71,27 @@ export const postApi = createApi({
           queryArgs.params?.user_id,
         ].join('_');
       },
-      //TODO: need fix it
       merge: (currentCache, newItems) => {
-        let isUpdated = false;
-        for (const newItem of newItems.data) {
-          isUpdated = false;
-
-          for (const itemIndex in currentCache.data) {
-            if (newItem.id === currentCache.data[itemIndex].id) {
-              currentCache.data[itemIndex] = newItem;
-              isUpdated = true;
-              break;
-            }
-          }
-
-          if (!isUpdated) {
-            currentCache.data.push(newItem);
-          }
-        }
+        postsAdapter.addMany(currentCache, postsSelector.selectAll(newItems));
       },
       forceRefetch({ currentArg, previousArg }) {
         return previousArg !== currentArg;
       },
-      transformResponse: transformPosts,
+      transformResponse: (response: ServerGetPostsResponse) =>
+        postsAdapter.addMany(
+          postsAdapter.getInitialState(),
+          response.data.map(preparePost),
+        ),
     }),
-    deletePost: build.mutation<ServerGetPostsResponse, GetPostRequest>({
+    deletePost: build.mutation<string, GetPostRequest>({
       query: args => ({
         url: `${API_ENDPOINTS.POSTS}/${args.path.post}`,
         method: METHOD.DELETE,
         headers: { Authorization: getAccessToken() },
       }),
+      invalidatesTags: (_result, _error, arg) => [
+        { type: 'Post' as const, id: arg.path.post },
+      ],
     }),
     likePost: build.mutation<ServerGetPostResponse, GetPostRequest>({
       query: args => ({
