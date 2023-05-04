@@ -5,6 +5,7 @@ declare module '@mui/material/styles/createPalette' {
     hover: string;
     third: string;
     dimmed: string;
+    like: string;
   }
   interface PaletteOptions {
     third?: PaletteColorOptions;

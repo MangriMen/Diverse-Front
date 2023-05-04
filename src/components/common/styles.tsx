@@ -6,10 +6,12 @@ export const StyledTextButton = styled(Button, {
 })<{ fontSize?: string }>`
   color: ${props => props.color ?? props.theme.palette.common.white};
   font-size: ${props => props.fontSize ?? '1rem'};
-  padding: 0 4px;
+  padding: 0;
+
   &:hover {
     background: #ffffff0f;
   }
+
   &:focus-visible {
     outline: 2px solid white;
   }

@@ -35,11 +35,11 @@ export const CommentDate = ({
       title={<Typography fontSize="inherit">{commentDateString}</Typography>}
     >
       <Typography
+        display="inline"
         onMouseOver={updateDateDiff}
         component="span"
         fontSize="12px"
         color="common.dimmed"
-        alignSelf="center"
       >
         {t(`creationTime${capitalize(commentDateDiff.units)}`, {
           count: commentDateDiff.diff,

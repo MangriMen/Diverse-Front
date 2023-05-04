@@ -30,7 +30,7 @@ export const StyledCard = styled(Card, {
   shouldForwardProp: prop => prop !== 'size',
 })<{ size: PostSize }>`
   height: ${props => (props.size === 'default' ? '546px' : '')};
-  width: ${props => (props.size === 'default' ? '864px' : '')};
+  width: ${props => (props.size === 'default' ? '904px' : '')};
   display: flex;
   flex-direction: ${props => (props.size === 'default' ? 'row' : 'column')};
 
@@ -44,12 +44,16 @@ export const StyledCard = styled(Card, {
 export const StyledCardContent = styled(CardContent, {
   shouldForwardProp: prop => prop !== 'size',
 })<{ size: PostSize }>`
+  --fixed-width: 360px;
+
   padding: ${props => (props.size === 'default' ? '' : '4px')};
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-width: 320px;
-  max-width: 320px;
+
+  min-width: var(--fixed-width);
+  max-width: var(--fixed-width);
+
   gap: 0.5rem;
 
   &:last-child {
@@ -68,16 +72,9 @@ export const StyledAvatar = styled(Avatar)`
   height: 48px;
 `;
 
-export const StyledLikeBox = styled(Box)`
-  display: flex;
-  gap: 0 0.2rem;
-  align-items: center;
-`;
-
 export const StyledActionBox = styled(Box)`
   display: flex;
   justify-content: space-between;
-  padding-right: 4px;
 `;
 
 export const StyledIconButton = styled(IconButton)`
@@ -87,12 +84,14 @@ export const StyledIconButton = styled(IconButton)`
 export const StyledList = styled(List)`
   overflow: auto;
   height: 100%;
+  padding-right: 0.4rem;
 `;
 
 export const StyledCommentHeaderBox = styled(Box)`
   display: flex;
-  gap: 0 1rem;
-  align-items: flex-end;
+  gap: 0 0.5rem;
+  justify-items: center;
+  align-items: center;
 `;
 
 export const StyledPaper = styled(Paper)`
@@ -109,6 +108,7 @@ export const StyledInputBase = styled(InputBase)`
 
 export const StyledComment = styled(Typography)`
   float: left;
+  overflow-wrap: break-word;
 ` as typeof Typography;
 
 export const PostCardDescriptionText = styled(Typography)`
@@ -150,7 +150,7 @@ export const PostCardDescriptionCollapse = styled(Collapse)<{
 `;
 
 export const ListItemAvatarStyled = styled(ListItemAvatar)`
-  min-width: 48px;
+  min-width: 0px;
 `;
 
 export const StyledModal = styled(Modal)`
