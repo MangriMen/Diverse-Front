@@ -25,6 +25,7 @@ import {
   StyledCardMediaBoxProps,
 } from './interfaces';
 import { BaseLayout } from 'components/pages/styles';
+import { Span, StyledTextButton } from 'components/common/styles';
 
 export const StyledCard = styled(Card, {
   shouldForwardProp: prop => prop !== 'size',
@@ -72,7 +73,7 @@ export const StyledAvatar = styled(Avatar)`
   height: 48px;
 `;
 
-export const StyledActionBox = styled(Box)`
+export const StyledActionBox = styled(Span)`
   display: flex;
   justify-content: space-between;
 `;
@@ -87,7 +88,8 @@ export const StyledList = styled(List)`
   padding-right: 0.4rem;
 `;
 
-export const StyledCommentHeaderBox = styled(Box)`
+export const CommentHeader = styled(Box)`
+  height: 1.3125rem;
   display: flex;
   gap: 0 0.5rem;
   justify-items: center;
@@ -106,10 +108,17 @@ export const StyledInputBase = styled(InputBase)`
   font-size: 16px;
 `;
 
-export const StyledComment = styled(Typography)`
+export const CommentText = styled(Typography)`
   float: left;
   overflow-wrap: break-word;
+  font-size: ${props => props.theme.typography.body2.fontSize};
+  padding: 0 0.25rem;
 ` as typeof Typography;
+
+export const CommentButton = styled(StyledTextButton)`
+  font-size: ${props => props.theme.typography.caption.fontSize};
+  color: ${props => props.theme.palette.common.dimmed};
+`;
 
 export const PostCardDescriptionText = styled(Typography)`
   font-size: 14px;

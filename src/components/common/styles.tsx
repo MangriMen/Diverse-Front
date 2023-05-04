@@ -1,4 +1,4 @@
-import { Box, Button, styled } from '@mui/material';
+import { Box, BoxProps, Button, styled } from '@mui/material';
 import { MediaSkeletonProps } from 'components/post/interfaces';
 
 export const StyledTextButton = styled(Button, {
@@ -24,3 +24,7 @@ export const SkeletonOnLoadBox = styled(Box, {
   height: 100%;
   display: ${props => (props.isLoading ? 'none' : 'flex')};
 `;
+
+export const Span = ({ ...props }: BoxProps) => (
+  <Box component="span" {...props} />
+);

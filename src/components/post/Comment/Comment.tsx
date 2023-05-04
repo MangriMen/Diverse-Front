@@ -1,7 +1,6 @@
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { Avatar, Box, ListItemText } from '@mui/material';
-import { StyledTextButton } from 'components/common/styles';
+import { Avatar, ListItemText } from '@mui/material';
 import { selectUser } from 'ducks/auth/selectors';
 import { useDeleteCommentMutation } from 'ducks/comment/api';
 import { ReactElement, useCallback, useEffect, useState } from 'react';
@@ -13,12 +12,13 @@ import { CommentLike } from '../PostCommentLike';
 import { PostCommentMenuItem } from '../PostCommentMenuItem';
 import {
   ListItemAvatarStyled,
-  StyledActionBox,
-  StyledComment,
-  StyledCommentHeaderBox,
+  StyledActionBox as CommentActions,
+  CommentText,
+  CommentHeader,
+  CommentButton,
 } from '../styles';
 import { CommentDate } from './CommentDate';
-import { CommentUsername, CommentTextStyled, ListItemStyled } from './styles';
+import { CommentUsername, CommentBody, ListItemStyled } from './styles';
 import { PostCommentMenuActions } from '../interfaces';
 import { PostCommentMenu } from '../PostCommentMenu';
 
@@ -76,41 +76,24 @@ export const Comment = ({
       </ListItemAvatarStyled>
       <ListItemText
         primary={
-          <StyledCommentHeaderBox>
-            <CommentUsername
-              title={comment.user.username}
-              component="span"
-              padding="0 4px"
-            >
+          <CommentHeader>
+            <CommentUsername component="span" title={comment.user.username}>
               {comment.user.username}
             </CommentUsername>
-            <CommentDate created_at={comment.created_at} />
-            <Box width="24px">
-              {comment.user.id == user?.id && (
-                <PostCommentMenu title={t('actions') ?? ''}>
-                  {commentMenuItems}
-                </PostCommentMenu>
-              )}
-            </Box>
-          </StyledCommentHeaderBox>
+            <CommentDate date={comment.created_at} />
+            <PostCommentMenu visible={comment.user.id == user?.id}>
+              {commentMenuItems}
+            </PostCommentMenu>
+          </CommentHeader>
         }
         secondary={
-          <CommentTextStyled component="span">
-            <StyledComment
-              component="span"
-              fontSize="12px"
-              variant="body2"
-              padding="0 4px"
-            >
-              {comment.content}
-            </StyledComment>
-            <StyledActionBox component="span">
-              <StyledTextButton color="dimmed" fontSize="12px">
-                {t('reply')}
-              </StyledTextButton>
+          <CommentBody>
+            <CommentText component="span">{comment.content}</CommentText>
+            <CommentActions>
+              <CommentButton>{t('reply')}</CommentButton>
               <CommentLike post={post} comment={comment} />
-            </StyledActionBox>
-          </CommentTextStyled>
+            </CommentActions>
+          </CommentBody>
         }
       />
     </ListItemStyled>

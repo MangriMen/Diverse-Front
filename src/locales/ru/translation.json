@@ -36,6 +36,7 @@
     },
     "comment": {
         "creationTimeSeconds": "{{count}} секунду назад",
+        "creationTimeSeconds_zero": "только что",
         "creationTimeSeconds_few": "{{count}} секунды назад",
         "creationTimeSeconds_many": "{{count}} секунд назад",
         "creationTimeMinutes": "{{count}} минуту назад",

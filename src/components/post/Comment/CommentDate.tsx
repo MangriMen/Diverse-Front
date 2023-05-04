@@ -1,4 +1,4 @@
-import { Tooltip, Typography } from '@mui/material';
+import { Tooltip, Typography, styled } from '@mui/material';
 import capitalize from '@mui/utils/capitalize';
 import { commentDateFormat } from 'consts';
 import { dateDiff } from 'helpers/post';
@@ -6,14 +6,16 @@ import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CommentModel } from 'types/post';
 
-export const CommentDate = ({
-  created_at,
-}: {
-  created_at: CommentModel['created_at'];
-}) => {
+const CommentDateText = styled(Typography)`
+  display: inline;
+  font-size: ${props => props.theme.typography.caption.fontSize};
+  color: ${props => props.theme.palette.common.dimmed};
+` as typeof Typography;
+
+export const CommentDate = ({ date }: { date: CommentModel['created_at'] }) => {
   const { i18n, t } = useTranslation('translation', { keyPrefix: 'comment' });
 
-  const [commentDate] = useState(new Date(created_at));
+  const [commentDate] = useState(new Date(date));
   const [commentDateString] = useState(
     commentDate.toLocaleString(i18n.language, commentDateFormat),
   );
@@ -23,10 +25,15 @@ export const CommentDate = ({
   }, [commentDate]);
 
   const [commentDateDiff, setCommentDateDiff] = useState(getDateDiff());
+  const [translationKey, setTranslationKey] = useState(
+    `creationTime${capitalize(commentDateDiff.units)}`,
+  );
 
   const updateDateDiff = useCallback(() => {
-    setCommentDateDiff(getDateDiff());
-  }, [getDateDiff]);
+    const dateDiff = getDateDiff();
+    setCommentDateDiff(dateDiff);
+    setTranslationKey(`creationTime${capitalize(commentDateDiff.units)}`);
+  }, [commentDateDiff.units, getDateDiff]);
 
   return (
     <Tooltip
@@ -34,17 +41,9 @@ export const CommentDate = ({
       placement="top"
       title={<Typography fontSize="inherit">{commentDateString}</Typography>}
     >
-      <Typography
-        display="inline"
-        onMouseOver={updateDateDiff}
-        component="span"
-        fontSize="12px"
-        color="common.dimmed"
-      >
-        {t(`creationTime${capitalize(commentDateDiff.units)}`, {
-          count: commentDateDiff.diff,
-        })}
-      </Typography>
+      <CommentDateText component="span" onMouseOver={updateDateDiff}>
+        {t(translationKey, { count: commentDateDiff.diff })}
+      </CommentDateText>
     </Tooltip>
   );
 };

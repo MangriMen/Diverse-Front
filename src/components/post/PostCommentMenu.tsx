@@ -1,15 +1,18 @@
 import { useState } from 'react';
 import { PostCommentMenuButton } from './PostCommentMenuButton';
 import { VerticalMenu } from './VerticalMenu';
-import { ButtonProps, MenuProps } from '@mui/material';
+import { MenuProps } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 export const PostCommentMenu = ({
-  title,
+  visible,
   children,
 }: {
-  title: ButtonProps['title'];
+  visible: boolean;
   children: MenuProps['children'];
 }) => {
+  const { t } = useTranslation('translation', { keyPrefix: 'post' });
+
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const openMenu = Boolean(anchorEl);
@@ -24,7 +27,11 @@ export const PostCommentMenu = ({
 
   return (
     <>
-      <PostCommentMenuButton title={title} onClick={handleClick} />
+      <PostCommentMenuButton
+        title={t('actions') ?? ''}
+        visibility={visible ? 'visible' : 'hidden'}
+        onClick={handleClick}
+      />
       <VerticalMenu
         open={openMenu}
         anchorEl={anchorEl}
