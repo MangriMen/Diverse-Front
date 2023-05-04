@@ -10,7 +10,6 @@ import {
   IconButton,
   InputBase,
   List,
-  ListItemAvatar,
   Modal,
   Paper,
   TextField,
@@ -25,7 +24,7 @@ import {
   StyledCardMediaBoxProps,
 } from './interfaces';
 import { BaseLayout } from 'components/pages/styles';
-import { Span, StyledTextButton } from 'components/common/styles';
+import { Span } from 'components/common/styles';
 
 export const StyledCard = styled(Card, {
   shouldForwardProp: prop => prop !== 'size',
@@ -88,14 +87,6 @@ export const StyledList = styled(List)`
   padding-right: 0.4rem;
 `;
 
-export const CommentHeader = styled(Box)`
-  height: 1.3125rem;
-  display: flex;
-  gap: 0 0.5rem;
-  justify-items: center;
-  align-items: center;
-`;
-
 export const StyledPaper = styled(Paper)`
   display: flex;
   align-items: center;
@@ -106,18 +97,6 @@ export const StyledInputBase = styled(InputBase)`
   margin-left: 1rem;
   flex-grow: 1;
   font-size: 16px;
-`;
-
-export const CommentText = styled(Typography)`
-  float: left;
-  overflow-wrap: break-word;
-  font-size: ${props => props.theme.typography.body2.fontSize};
-  padding: 0 0.25rem;
-` as typeof Typography;
-
-export const CommentButton = styled(StyledTextButton)`
-  font-size: ${props => props.theme.typography.caption.fontSize};
-  color: ${props => props.theme.palette.common.dimmed};
 `;
 
 export const PostCardDescriptionText = styled(Typography)`
@@ -156,10 +135,6 @@ export const PostCardDescriptionCollapse = styled(Collapse)<{
   overflow: ${props => (props.in ? 'scroll' : 'hidden')};
   max-height: 86%;
   scroll-behavior: smooth;
-`;
-
-export const ListItemAvatarStyled = styled(ListItemAvatar)`
-  min-width: 0px;
 `;
 
 export const StyledModal = styled(Modal)`

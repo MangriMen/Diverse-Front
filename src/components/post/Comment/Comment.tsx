@@ -3,24 +3,26 @@ import EditIcon from '@mui/icons-material/Edit';
 import { Avatar, ListItemText } from '@mui/material';
 import { selectUser } from 'ducks/auth/selectors';
 import { useDeleteCommentMutation } from 'ducks/comment/api';
-import { ReactElement, useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { CommentModel, PostModel } from 'types/post';
 
 import { CommentLike } from '../PostCommentLike';
-import { PostCommentMenuItem } from '../PostCommentMenuItem';
-import {
-  ListItemAvatarStyled,
-  StyledActionBox as CommentActions,
-  CommentText,
-  CommentHeader,
-  CommentButton,
-} from '../styles';
-import { CommentDate } from './CommentDate';
-import { CommentUsername, CommentBody, ListItemStyled } from './styles';
-import { PostCommentMenuActions } from '../interfaces';
 import { PostCommentMenu } from '../PostCommentMenu';
+import { PostCommentMenuItem } from '../PostCommentMenuItem';
+import { PostCommentMenuActions } from '../interfaces';
+import { StyledActionBox as CommentActions } from '../styles';
+import { CommentDate } from './CommentDate';
+import {
+  CommentBody,
+  CommentButton,
+  CommentHeader,
+  CommentText,
+  CommentUsername,
+  ListItemAvatarStyled,
+  ListItemStyled,
+} from './styles';
 
 const commentMenuActions: PostCommentMenuActions = {
   edit: {
@@ -59,16 +61,6 @@ export const Comment = ({
     });
   }, [comment.id, deleteComment, post.id]);
 
-  const [commentMenuItems, setCommentMenuItems] = useState<ReactElement[]>();
-
-  useEffect(() => {
-    setCommentMenuItems(
-      Object.values(preparedActions).map(action => (
-        <PostCommentMenuItem key={action.key} action={action} />
-      )),
-    );
-  }, [preparedActions]);
-
   return (
     <ListItemStyled disablePadding alignItems="flex-start">
       <ListItemAvatarStyled>
@@ -80,9 +72,11 @@ export const Comment = ({
             <CommentUsername component="span" title={comment.user.username}>
               {comment.user.username}
             </CommentUsername>
-            <CommentDate date={comment.created_at} />
+            <CommentDate timestamp={comment.created_at} />
             <PostCommentMenu visible={comment.user.id == user?.id}>
-              {commentMenuItems}
+              {Object.values(preparedActions).map(action => (
+                <PostCommentMenuItem key={action.key} action={action} />
+              ))}
             </PostCommentMenu>
           </CommentHeader>
         }

@@ -51,6 +51,9 @@
         "creationTimeWeeks": "{{count}} неделю назад",
         "creationTimeWeeks_few": "{{count}} недели назад",
         "creationTimeWeeks_many": "{{count}} недель назад",
+        "creationTimeMonth": "{{count}} месяц назад",
+        "creationTimeMonth_few": "{{count}} месяца назад",
+        "creationTimeMonth_many": "{{count}} месяцев назад",
         "edit": "Редактировать",
         "delete": "Удалить",
         "send": "Отправить"
