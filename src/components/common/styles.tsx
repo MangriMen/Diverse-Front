@@ -15,6 +15,14 @@ export const StyledTextButton = styled(Button, {
   }
 `;
 
+export const StyledButton = styled(Button)`
+  padding: 4px 16px;
+  font-size: 18px;
+  &:focus-visible {
+    outline: 2px solid;
+  }
+`;
+
 export const SkeletonOnLoadBox = styled(Box, {
   shouldForwardProp: prop => prop !== 'isLoading',
 })<MediaSkeletonProps>`
