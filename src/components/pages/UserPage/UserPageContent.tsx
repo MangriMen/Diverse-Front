@@ -23,8 +23,9 @@ import {
   Username,
   UsernameAndName,
 } from 'components/user/styles';
-import { POSTS_FETCH_COUNT } from 'consts';
+import { POSTS_FETCH_COUNT, ROUTE } from 'consts';
 import { useInfinityPostFeed } from 'hooks/useInfinityPostFeed';
+import { useNavigate } from 'react-router-dom';
 import { User } from 'types/auth';
 
 export const UserPageContent = ({
@@ -40,6 +41,12 @@ export const UserPageContent = ({
     user_id: user.id,
   });
 
+  const navigate = useNavigate();
+
+  const toSettings = () => {
+    navigate(ROUTE.SETTINGS);
+  };
+
   return (
     <StyledContainer>
       <UserPageLayout>
@@ -53,7 +60,7 @@ export const UserPageContent = ({
                 <StyledProfileAvatar src={`${user.avatar_url}?width=256`} />
                 <ProfileAvatarButtonBox>
                   {isMe && (
-                    <ProfileAvatarSettingsButton>
+                    <ProfileAvatarSettingsButton onClick={toSettings}>
                       <SettingsIcon />
                     </ProfileAvatarSettingsButton>
                   )}

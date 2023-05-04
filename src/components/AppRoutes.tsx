@@ -9,6 +9,7 @@ import { FetchUser } from 'components/routes/FetchUser';
 import { Private } from 'components/routes/Private';
 import { ROUTE } from 'consts';
 import { Outlet, Route } from 'react-router-dom';
+import { UserSettingsPage } from './pages/UserSettingsPage';
 
 export const AppRoutes = (store: Store) => (
   <Route element={<Outlet />}>
@@ -25,6 +26,9 @@ export const AppRoutes = (store: Store) => (
             errorElement={<NotFoundPage />}
             loader={userLoader(store)}
           />
+          <Route path={`${ROUTE.SETTINGS}/*`} element={<UserSettingsPage />}>
+            <Route path=":page" element={<UserSettingsPage />}></Route>
+          </Route>
           <Route path={ROUTE.NOT_FOUND} element={<NotFoundPage />} />
         </Route>
       </Route>

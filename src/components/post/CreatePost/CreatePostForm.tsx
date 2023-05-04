@@ -1,6 +1,5 @@
 import '@mui/material';
 import { Box } from '@mui/material';
-import { StyledButton } from 'components/auth/styles';
 import { ImageUpload } from 'components/common/FileUpload/ImageUpload';
 import { useDataMutation } from 'ducks/data/api';
 import { DataValues } from 'ducks/data/types';
@@ -28,6 +27,7 @@ import {
   SUBMIT_TIMEOUT,
 } from 'consts';
 import { useNavigate } from 'react-router-dom';
+import { StyledButton } from 'components/common/styles';
 
 type PostForm = PostValues & DataValues;
 

@@ -30,6 +30,11 @@ export const defaultTheme = createTheme(
         third: {
           main: '#26292e',
         },
+        transparentButton: {
+          dark: '#00000',
+          main: '#9e9e9e1a',
+          light: '#9e9e9e0a',
+        },
       },
     },
     THEME_DEFAULT_OPTIONS,

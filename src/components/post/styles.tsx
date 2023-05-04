@@ -1,7 +1,6 @@
 import {
   Avatar,
   Box,
-  Button,
   Card,
   CardContent,
   CardMedia,
@@ -171,14 +170,6 @@ export const StyledCardCreateInput = styled(TextField)`
   }
   & .MuiFormLabel-root.Mui-focused {
     color: ${props => props.theme.palette.secondary.main};
-  }
-`;
-
-export const StyledButton = styled(Button)`
-  padding: 4px 16px;
-  font-size: 18px;
-  &:focus-visible {
-    outline: 2px solid;
   }
 `;
 

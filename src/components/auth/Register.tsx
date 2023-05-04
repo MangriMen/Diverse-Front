@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Typography } from '@mui/material';
-import { StyledTextButton } from 'components/common/styles';
+import { StyledButton, StyledTextButton } from 'components/common/styles';
 import { useRegisterMutation } from 'ducks/auth/api';
 import { RegisterValues } from 'ducks/auth/types';
 import { conditionalTranslate } from 'helpers/conditionalTranslate';
@@ -11,7 +11,6 @@ import { useTranslation } from 'react-i18next';
 import { AuthFormProps } from './interfaces';
 import { registerValidator } from './schemas';
 import {
-  StyledButton,
   StyledFormBox,
   StyledInput,
   StyledSwitchActionBox,
