@@ -1,5 +1,6 @@
 import { PostProps } from 'components/post';
 import { useState } from 'react';
+
 import { PostCardActions } from './PostCardActions';
 import { PostCardComments } from './PostCardComments';
 import { PostCardDescription } from './PostCardDescription';

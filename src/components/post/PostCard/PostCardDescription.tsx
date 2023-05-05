@@ -2,6 +2,7 @@ import { Box, styled } from '@mui/material';
 import { MoreText } from 'components/post/MoreText';
 import { POST_DESCRIPTION_COLLAPSED_SIZE } from 'consts';
 import { useEffect, useRef, useState } from 'react';
+
 import { PostCardDescriptionProps } from './interfaces';
 import { PostCardDescriptionCollapse, PostCardDescriptionText } from './styles';
 

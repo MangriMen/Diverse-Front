@@ -1,9 +1,9 @@
-import { PostLike } from 'components/post/Like';
 import {
   StyledActionBox as PostActions,
   PostButton,
   PostProps,
 } from 'components/post';
+import { PostLike } from 'components/post/Like';
 import { useTranslation } from 'react-i18next';
 
 export const PostCardActions = ({ post }: PostProps) => {

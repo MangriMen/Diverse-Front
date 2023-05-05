@@ -11,9 +11,10 @@ import {
   TypographyProps,
   styled,
 } from '@mui/material';
-import { PostProps } from '../interfaces';
 import { SkeletonStyled } from 'components/common';
-import { CardMediaSkeletonProps, CardMediaBoxProps } from './interfaces';
+
+import { PostProps } from '../interfaces';
+import { CardMediaBoxProps, CardMediaSkeletonProps } from './interfaces';
 
 export const PostCardStyled = styled(Card, {
   shouldForwardProp: prop => prop !== 'size',

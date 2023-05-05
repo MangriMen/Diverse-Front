@@ -13,6 +13,7 @@ import { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { PostModel } from 'types/post';
+
 import { PostHeader, PostUsername } from './styles';
 
 const postMenuActions: PostCommentMenuActions = {

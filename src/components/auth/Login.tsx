@@ -3,7 +3,9 @@ import { Typography } from '@mui/material';
 import { StyledTextButton } from 'components/common/styles';
 import { useLoginMutation } from 'ducks/auth/api';
 import { LoginValues } from 'ducks/auth/types';
+import { removeWhitespace } from 'helpers/auth';
 import { conditionalTranslate } from 'helpers/conditionalTranslate';
+import { ChangeEvent } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -16,8 +18,6 @@ import {
   StyledSwitchActionBox,
   StyledWrapperBox,
 } from './styles';
-import { removeWhitespace } from 'helpers/auth';
-import { ChangeEvent } from 'react';
 
 const defaultValues = {
   email: '',

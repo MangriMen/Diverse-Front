@@ -1,6 +1,7 @@
-import { ReactElement, useEffect, useRef, useState } from 'react';
-import { Comment } from 'components/post/Comment';
 import { PostProps } from 'components/post';
+import { Comment } from 'components/post/Comment';
+import { ReactElement, useEffect, useRef, useState } from 'react';
+
 import { PostCardCommentsList } from './styles';
 
 export const PostCardComments = ({ post }: PostProps) => {

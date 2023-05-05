@@ -1,3 +1,4 @@
+import { EntityState, createEntityAdapter } from '@reduxjs/toolkit';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { STORAGE_KEYS } from 'consts';
 import { METHOD } from 'consts';
@@ -11,7 +12,6 @@ import {
 } from 'types/post';
 
 import { GetPostRequest, GetPostsValues, PostValues } from './types';
-import { EntityState, createEntityAdapter } from '@reduxjs/toolkit';
 
 export const postsAdapter = createEntityAdapter({
   selectId: (item: PostModel) => item.id,

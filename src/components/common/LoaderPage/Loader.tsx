@@ -1,4 +1,5 @@
 import { CircularProgress } from '@mui/material';
+
 import { DefaultFetchFade } from './styles';
 
 export const Loader = () => {

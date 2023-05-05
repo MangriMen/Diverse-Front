@@ -1,5 +1,4 @@
 import { Avatar, IconButton, Modal, styled } from '@mui/material';
-
 import { Span, StyledTextButton } from 'components/common/styles';
 
 export const StyledAvatar = styled(Avatar)`

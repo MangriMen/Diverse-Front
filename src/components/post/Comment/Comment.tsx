@@ -5,18 +5,19 @@ import {
   StyledActionBox as CommentActions,
   CommentButton,
 } from 'components/post';
-import { CommentLike } from 'components/post/Like';
 import {
   ActionMenu,
   PostCommentMenuActions,
   PostCommentMenuItem,
 } from 'components/post/ActionMenu';
+import { CommentLike } from 'components/post/Like';
 import { selectUser } from 'ducks/auth/selectors';
 import { useDeleteCommentMutation } from 'ducks/comment/api';
 import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { CommentModel, PostModel } from 'types/post';
+
 import { CommentDate } from './CommentDate';
 import {
   CommentBody,

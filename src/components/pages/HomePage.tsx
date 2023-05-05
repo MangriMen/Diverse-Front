@@ -1,9 +1,9 @@
+import { Loader } from 'components/common/LoaderPage';
 import { Post } from 'components/post/Post';
+import { POSTS_FETCH_COUNT } from 'consts';
+import { useInfinityPostFeed } from 'hooks/useInfinityPostFeed';
 
 import { HomePageLayout, StyledContainer } from './styles';
-import { useInfinityPostFeed } from 'hooks/useInfinityPostFeed';
-import { POSTS_FETCH_COUNT } from 'consts';
-import { Loader } from 'components/common/LoaderPage';
 
 export const HomePage = () => {
   const { data, isFetching } = useInfinityPostFeed({

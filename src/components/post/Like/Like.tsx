@@ -1,9 +1,9 @@
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { styled } from '@mui/material';
+import { StyledTextButton } from 'components/common/styles';
 import { useTranslation } from 'react-i18next';
 
-import { StyledTextButton } from 'components/common/styles';
-import { styled } from '@mui/material';
 import { LikeProps } from './interfaces';
 
 const FavoriteIconFilled = styled(FavoriteIcon)`
