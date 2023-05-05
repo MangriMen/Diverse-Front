@@ -31,7 +31,7 @@ export const StyledFormContainer = styled(Box)`
 
 export const StyledButton = styled(Button)`
   padding: 4px 16px;
-  font-size: 18px;
+  font-size: 1rem;
   &:focus-visible {
     outline: 2px solid;
   }
