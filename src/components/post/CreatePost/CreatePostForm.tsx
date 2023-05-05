@@ -1,16 +1,15 @@
 import '@mui/material';
-import { Box } from '@mui/material';
+import { Box, TextField, styled } from '@mui/material';
 import { StyledButton } from 'components/auth/styles';
 import { ImageUpload } from 'components/common/FileUpload/ImageUpload';
+import { PostCardContent, PostCardStyled } from 'components/post/PostCard';
 import {
   POST_DESCRIPTION_MAX_ROWS,
   SHAPE_CONSTRAINTS,
   SUBMIT_TIMEOUT,
 } from 'consts';
 import { useDataMutation } from 'ducks/data/api';
-import { DataValues } from 'ducks/data/types';
 import { useCreatePostMutation } from 'ducks/post/api';
-import { PostValues } from 'ducks/post/types';
 import { OptionsObject, useSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
 import {
@@ -22,14 +21,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-import {
-  StyledCard,
-  StyledCardContent,
-  StyledCardCreateInput,
-} from '../styles';
-import { CreatePostFormProps } from './interfaces';
-
-type PostForm = PostValues & DataValues;
+import { CreatePostFormProps, PostForm } from './interfaces';
 
 const defaultValues = {
   content: '',
@@ -60,6 +52,23 @@ const PostSnackOptions: {
     },
   },
 };
+
+const postSize = 'default';
+
+const DescriptionInput = styled(TextField)`
+  & .MuiFilledInput-root {
+    border-radius: 4;
+    background-color: ${props => props.theme.palette.common.third};
+    border-bottom: 2px solid;
+    border-color: ${props => props.theme.palette.secondary.main};
+    &.Mui-Focused {
+      background-color: ${props => props.theme.palette.primary.dark};
+    }
+  }
+  & .MuiFormLabel-root.Mui-focused {
+    color: ${props => props.theme.palette.secondary.main};
+  }
+`;
 
 export const CreatePostForm = ({ onClose }: CreatePostFormProps) => {
   const { t } = useTranslation('translation', { keyPrefix: 'post' });
@@ -117,14 +126,14 @@ export const CreatePostForm = ({ onClose }: CreatePostFormProps) => {
   return (
     <FormProvider {...form}>
       <Box component="form" onSubmit={form.handleSubmit(onSubmitHandler)}>
-        <StyledCard elevation={0} size="default">
+        <PostCardStyled elevation={0} size={postSize}>
           <ImageUpload name="file" />
-          <StyledCardContent size="default">
+          <PostCardContent size={postSize}>
             <Controller
               control={form.control}
               name="description"
               render={({ field }) => (
-                <StyledCardCreateInput
+                <DescriptionInput
                   {...field}
                   variant="filled"
                   label={t('postDescription')}
@@ -157,8 +166,8 @@ export const CreatePostForm = ({ onClose }: CreatePostFormProps) => {
                 {t('cancel')}
               </StyledButton>
             </Box>
-          </StyledCardContent>
-        </StyledCard>
+          </PostCardContent>
+        </PostCardStyled>
       </Box>
     </FormProvider>
   );

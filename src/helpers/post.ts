@@ -18,10 +18,12 @@ const dateToUTC = (date: Date) => {
 
 export type dateDiffUnits = 'seconds' | 'minutes' | 'hours' | 'days' | 'weeks';
 
-export const dateDiff = (
-  a: Date,
-  b: Date,
-): { diff: number; units: dateDiffUnits } => {
+export interface DateDiff {
+  diff: number;
+  units: dateDiffUnits;
+}
+
+export const dateDiff = (a: Date, b: Date): DateDiff => {
   const _MS_PER_SECOND = 1000;
   const _MS_PER_MINUTE = _MS_PER_SECOND * 60;
   const _MS_PER_HOUR = _MS_PER_MINUTE * 60;

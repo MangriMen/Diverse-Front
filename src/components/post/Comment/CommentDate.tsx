@@ -1,50 +1,83 @@
-import { Tooltip, Typography } from '@mui/material';
+import { Tooltip, Typography, styled } from '@mui/material';
 import capitalize from '@mui/utils/capitalize';
-import { commentDateFormat } from 'consts';
-import { dateDiff } from 'helpers/post';
-import { useCallback, useState } from 'react';
+import { COMMENT_DATE_TOOLTIP_TIMEOUT, commentDateFormat } from 'consts';
+import { DateDiff, dateDiff } from 'helpers/post';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CommentModel } from 'types/post';
 
+const CommentDateText = styled(Typography)`
+  display: inline;
+  font-size: ${props => props.theme.typography.caption.fontSize};
+  color: ${props => props.theme.palette.common.dimmed};
+` as typeof Typography;
+
+const baseKeyPart = 'creationTime';
+
 export const CommentDate = ({
-  created_at,
+  timestamp,
 }: {
-  created_at: CommentModel['created_at'];
+  timestamp: CommentModel['created_at'];
 }) => {
   const { i18n, t } = useTranslation('translation', { keyPrefix: 'comment' });
 
-  const [commentDate] = useState(new Date(created_at));
-  const [commentDateString] = useState(
-    commentDate.toLocaleString(i18n.language, commentDateFormat),
+  const { commentDate, localizedDate } = useMemo(() => {
+    const date = new Date(timestamp);
+    return {
+      commentDate: date,
+      localizedDate: date.toLocaleString(i18n.language, commentDateFormat),
+    };
+  }, [i18n.language, timestamp]);
+
+  const getDateDiff = useCallback(
+    () => dateDiff(commentDate, new Date()),
+    [commentDate],
   );
 
-  const getDateDiff = useCallback(() => {
-    return dateDiff(commentDate, new Date(Date.now()));
-  }, [commentDate]);
+  const [currentDiff, setCurrentDiff] = useState(getDateDiff());
 
-  const [commentDateDiff, setCommentDateDiff] = useState(getDateDiff());
+  const getDisplayDate = useCallback(
+    (diff: DateDiff) => {
+      return t(`${baseKeyPart}${capitalize(diff.units)}`, { count: diff.diff });
+    },
+    [t],
+  );
+
+  const [displayDate, setDisplayDate] = useState<string | null>(
+    getDisplayDate(getDateDiff()),
+  );
 
   const updateDateDiff = useCallback(() => {
-    setCommentDateDiff(getDateDiff());
-  }, [getDateDiff]);
+    const diff = getDateDiff();
+    if (currentDiff.units !== diff.units || currentDiff.diff !== diff.diff) {
+      setCurrentDiff(diff);
+      setDisplayDate(getDisplayDate(diff));
+    }
+  }, [currentDiff.diff, currentDiff.units, getDateDiff, getDisplayDate]);
+
+  useEffect(() => {
+    updateDateDiff();
+  }, [updateDateDiff]);
 
   return (
     <Tooltip
       arrow
       placement="top"
-      title={<Typography fontSize="inherit">{commentDateString}</Typography>}
+      enterDelay={COMMENT_DATE_TOOLTIP_TIMEOUT}
+      enterNextDelay={COMMENT_DATE_TOOLTIP_TIMEOUT}
+      title={
+        <Typography onMouseMove={updateDateDiff} fontSize="inherit">
+          {localizedDate}
+        </Typography>
+      }
     >
-      <Typography
-        onMouseOver={updateDateDiff}
-        component="span"
-        fontSize="12px"
-        color="common.dimmed"
-        alignSelf="center"
+      <CommentDateText
+        component="time"
+        dateTime={commentDate.toISOString()}
+        onMouseMove={updateDateDiff}
       >
-        {t(`creationTime${capitalize(commentDateDiff.units)}`, {
-          count: commentDateDiff.diff,
-        })}
-      </Typography>
+        {displayDate}
+      </CommentDateText>
     </Tooltip>
   );
 };
