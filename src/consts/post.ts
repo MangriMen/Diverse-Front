@@ -20,6 +20,7 @@ export const SHAPE_CONSTRAINTS = {
 };
 
 export const POST_DESCRIPTION_MAX_ROWS = 18;
+export const POST_DESCRIPTION_COLLAPSED_SIZE = '6.5625rem';
 
 export const POSTS_LOADING_OFFSET_HEIGHT = 1000;
 

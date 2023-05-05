@@ -18,3 +18,9 @@ export const CenterLayout = styled(BaseLayout)`
   justify-content: center;
   align-items: center;
 `;
+
+export const HomePageLayout = styled(BaseLayout)`
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2rem;
+`;

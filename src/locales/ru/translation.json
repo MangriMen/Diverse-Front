@@ -35,6 +35,7 @@
         "delete": "Удалить"
     },
     "comment": {
+        "writeComment": "Написать комментарий...",
         "creationTimeSeconds": "{{count}} секунду назад",
         "creationTimeSeconds_zero": "только что",
         "creationTimeSeconds_few": "{{count}} секунды назад",

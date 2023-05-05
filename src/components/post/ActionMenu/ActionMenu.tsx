@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { PostCommentMenuButton } from './PostCommentMenuButton';
-import { VerticalMenu } from './VerticalMenu';
+import { PostCommentMenuButton } from './ActionMenuButton';
+import { VerticalMenu } from '../../common/VerticalMenu';
 import { MenuProps } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-export const PostCommentMenu = ({
+export const ActionMenu = ({
   visible,
   children,
 }: {

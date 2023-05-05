@@ -1,22 +1,25 @@
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { Avatar, ListItemText } from '@mui/material';
+import {
+  StyledActionBox as CommentActions,
+  CommentButton,
+} from 'components/post';
+import { CommentLike } from 'components/post/Like';
+import {
+  ActionMenu,
+  PostCommentMenuActions,
+  PostCommentMenuItem,
+} from 'components/post/ActionMenu';
 import { selectUser } from 'ducks/auth/selectors';
 import { useDeleteCommentMutation } from 'ducks/comment/api';
 import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { CommentModel, PostModel } from 'types/post';
-
-import { CommentLike } from '../PostCommentLike';
-import { PostCommentMenu } from '../PostCommentMenu';
-import { PostCommentMenuItem } from '../PostCommentMenuItem';
-import { PostCommentMenuActions } from '../interfaces';
-import { StyledActionBox as CommentActions } from '../styles';
 import { CommentDate } from './CommentDate';
 import {
   CommentBody,
-  CommentButton,
   CommentHeader,
   CommentText,
   CommentUsername,
@@ -73,11 +76,11 @@ export const Comment = ({
               {comment.user.username}
             </CommentUsername>
             <CommentDate timestamp={comment.created_at} />
-            <PostCommentMenu visible={comment.user.id == user?.id}>
+            <ActionMenu visible={comment.user.id == user?.id}>
               {Object.values(preparedActions).map(action => (
                 <PostCommentMenuItem key={action.key} action={action} />
               ))}
-            </PostCommentMenu>
+            </ActionMenu>
           </CommentHeader>
         }
         secondary={

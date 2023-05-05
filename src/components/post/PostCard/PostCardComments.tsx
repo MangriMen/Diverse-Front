@@ -1,8 +1,7 @@
 import { ReactElement, useEffect, useRef, useState } from 'react';
-
-import { Comment } from '../Comment/Comment';
-import { PostProps } from '../interfaces';
-import { StyledList } from '../styles';
+import { Comment } from 'components/post/Comment';
+import { PostProps } from 'components/post';
+import { PostCardCommentsList } from './styles';
 
 export const PostCardComments = ({ post }: PostProps) => {
   const ref = useRef<HTMLUListElement>(null);
@@ -26,5 +25,5 @@ export const PostCardComments = ({ post }: PostProps) => {
     }
   }, [comments]);
 
-  return <StyledList ref={ref}>{comments}</StyledList>;
+  return <PostCardCommentsList ref={ref}>{comments}</PostCardCommentsList>;
 };

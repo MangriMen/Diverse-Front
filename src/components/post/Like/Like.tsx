@@ -2,9 +2,9 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { useTranslation } from 'react-i18next';
 
-import { PostCommentLikeProps } from '../interfaces';
 import { StyledTextButton } from 'components/common/styles';
 import { styled } from '@mui/material';
+import { LikeProps } from './interfaces';
 
 const FavoriteIconFilled = styled(FavoriteIcon)`
   color: ${props => props.theme.palette.common.like};
@@ -18,12 +18,12 @@ const LikeButton = styled(StyledTextButton)`
   }
 `;
 
-export const PostCommentLike = ({
+export const Like = ({
   count,
   liked,
   variant = 'post',
   ...props
-}: PostCommentLikeProps) => {
+}: LikeProps) => {
   const { t } = useTranslation('translation', { keyPrefix: 'post' });
 
   const iconSize = variant === 'post' ? 'large' : 'small';
