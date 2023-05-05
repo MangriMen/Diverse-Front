@@ -1,5 +1,5 @@
 import { Box, BoxProps, Button, styled } from '@mui/material';
-import { MediaSkeletonProps } from 'components/post/interfaces';
+import { MediaSkeletonProps } from 'components/post/PostCard';
 
 export const StyledTextButton = styled(Button, {
   shouldForwardProp: prop => prop !== 'fontSize',

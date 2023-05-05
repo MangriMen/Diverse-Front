@@ -6,3 +6,4 @@ export * from './PostCardHeader';
 export * from './PostCardInput';
 export * from './PostCardMeida';
 export * from './styles';
+export * from './interfaces';
