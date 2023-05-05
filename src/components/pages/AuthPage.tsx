@@ -4,6 +4,7 @@ import { Login } from 'components/auth/Login';
 import { Register } from 'components/auth/Register';
 import { StyledAppTitled, StyledFormContainer } from 'components/auth/styles';
 import { useCallback, useState } from 'react';
+
 import { CenterLayout, StyledContainer } from './styles';
 
 export const AuthPage = () => {
