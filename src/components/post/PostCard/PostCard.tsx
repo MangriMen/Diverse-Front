@@ -1,14 +1,13 @@
-import { CardActionArea } from '@mui/material';
+import { PostProps } from 'components/post';
 import { useState } from 'react';
 
-import { PostProps } from '../interfaces';
-import { StyledCard, StyledCardContent } from '../styles';
-import { PostCardActions } from './PostActions';
+import { PostCardActions } from './PostCardActions';
+import { PostCardComments } from './PostCardComments';
+import { PostCardDescription } from './PostCardDescription';
+import { PostCardHeader } from './PostCardHeader';
+import { PostCardInput } from './PostCardInput';
 import { PostCardMeida } from './PostCardMeida';
-import { PostCardComments } from './PostComments';
-import { PostCardDescription } from './PostDescription';
-import { PostCardHeader } from './PostHeader';
-import { PostCardInput } from './PostInput';
+import { PostCardActionArea, PostCardContent, PostCardStyled } from './styles';
 
 export const PostCard = ({ post, setPost, size = 'default' }: PostProps) => {
   const [expanded, setExpanded] = useState(false);
@@ -18,30 +17,27 @@ export const PostCard = ({ post, setPost, size = 'default' }: PostProps) => {
   };
 
   return (
-    <StyledCard size={size} elevation={0}>
-      <CardActionArea sx={{ width: '100%', height: '100%' }}>
+    <PostCardStyled size={size} elevation={0}>
+      <PostCardActionArea>
         <PostCardMeida size={size} image={post.content} />
-      </CardActionArea>
+      </PostCardActionArea>
       {size === 'default' && (
-        <StyledCardContent size={size}>
-          {size === 'default' && <PostCardHeader post={post} />}
-          {post.description && (
-            <PostCardDescription
-              expanded={expanded}
-              onExpand={handleExpandClick}
-              size={size}
-              description={post.description}
-            />
-          )}
-          {size === 'default' && !expanded && (
+        <PostCardContent size={size}>
+          <PostCardHeader post={post} />
+          <PostCardDescription
+            expanded={expanded}
+            onExpand={handleExpandClick}
+            description={post.description}
+          />
+          {!expanded && (
             <>
               <PostCardActions post={post} setPost={setPost} />
               <PostCardComments post={post} setPost={setPost} />
               <PostCardInput post={post} setPost={setPost} />
             </>
           )}
-        </StyledCardContent>
+        </PostCardContent>
       )}
-    </StyledCard>
+    </PostCardStyled>
   );
 };

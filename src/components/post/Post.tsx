@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { PostCard } from './PostCard/PostCard';
+import { PostCard } from './PostCard';
 import { PostProps } from './interfaces';
 
 export const Post = ({

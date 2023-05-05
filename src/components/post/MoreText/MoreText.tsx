@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import { MoreTextButtonProps } from './interfaces';
 
-export const MoreButton = styled(
+export const MoreText = styled(
   ({ expanded, onExpand, ...props }: MoreTextButtonProps) => {
     const { t } = useTranslation('translation', { keyPrefix: 'post' });
 

@@ -35,7 +35,9 @@
         "delete": "Удалить"
     },
     "comment": {
+        "writeComment": "Написать комментарий...",
         "creationTimeSeconds": "{{count}} секунду назад",
+        "creationTimeSeconds_zero": "только что",
         "creationTimeSeconds_few": "{{count}} секунды назад",
         "creationTimeSeconds_many": "{{count}} секунд назад",
         "creationTimeMinutes": "{{count}} минуту назад",
@@ -50,6 +52,9 @@
         "creationTimeWeeks": "{{count}} неделю назад",
         "creationTimeWeeks_few": "{{count}} недели назад",
         "creationTimeWeeks_many": "{{count}} недель назад",
+        "creationTimeMonth": "{{count}} месяц назад",
+        "creationTimeMonth_few": "{{count}} месяца назад",
+        "creationTimeMonth_many": "{{count}} месяцев назад",
         "edit": "Редактировать",
         "delete": "Удалить",
         "send": "Отправить"

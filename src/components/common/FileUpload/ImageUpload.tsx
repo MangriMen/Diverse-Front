@@ -1,5 +1,5 @@
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-import { StyledCardMedia, StyledCardMediaBox } from 'components/post/styles';
+import { CardMediaBox, CardMediaStyled } from 'components/post/PostCard';
 import { BaseSyntheticEvent, FC, useState } from 'react';
 
 import { FileUpload } from './FileUpload';
@@ -26,14 +26,14 @@ export const ImageUpload: FC<FileUploadProps> = ({ name }) => {
     }
   }
   return (
-    <StyledCardMediaBox size="default">
-      {fileData && <StyledCardMedia component="img" image={fileData} />}
+    <CardMediaBox size="default">
+      {fileData && <CardMediaStyled component="img" image={fileData} />}
       {!fileData && (
         <StyledSvgIcon>
           <AddPhotoAlternateIcon />
         </StyledSvgIcon>
       )}
       <FileUpload name={name} onChange={handleOnChange} />
-    </StyledCardMediaBox>
+    </CardMediaBox>
   );
 };

@@ -2,7 +2,7 @@ import { useLikePostMutation, useUnlikePostMutation } from 'ducks/post/api';
 import React, { useCallback, useState } from 'react';
 import { PostModel } from 'types/post';
 
-import { PostCommentLike } from './PostCommentLike';
+import { Like } from './Like';
 
 export const PostLike = ({ post }: { post: PostModel }) => {
   const [getPostValues] = useState({ path: { post: post.id } });
@@ -34,7 +34,7 @@ export const PostLike = ({ post }: { post: PostModel }) => {
   }, [getPostValues, likeData.likedByMe, likePost, unlikePost]);
 
   return (
-    <PostCommentLike
+    <Like
       count={likeData.likes}
       liked={likeData.likedByMe}
       onClick={handleLike}
