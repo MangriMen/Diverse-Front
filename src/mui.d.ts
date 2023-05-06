@@ -6,6 +6,7 @@ declare module '@mui/material/styles/createPalette' {
     dimmed: string;
     like: string;
     border: string;
+    headerBorder: string;
   }
 
   interface PaletteOptions {

@@ -12,9 +12,9 @@ export const StyledAppBar = styled(AppBar)`
   display: flex;
   flex-direction: row;
   height: 48px;
-  box-shadow: none;
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.35);
   border-bottom: 1px solid;
-  border-color: ${props => props.theme.palette.common.third};
+  border-color: ${props => props.theme.palette.common.headerBorder};
   background: ${props => props.theme.palette.primary.light};
   margin-bottom: 1rem;
 `;
@@ -54,7 +54,7 @@ export const StyledHeaderAvatarButton = styled(Button)`
   padding: 0.25rem 0.75rem;
 
   &:hover {
-    background-color: ${props => props.theme.palette.common.hover};
+    background-color: ${props => props.theme.palette.common.border};
     box-shadow: none;
   }
 `;
