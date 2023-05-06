@@ -44,7 +44,7 @@ export const UserPage = () => {
         <UserInfo>
           <MainUserInfo>
             <FollowerRelation>
-              <UserRelation isMe={isMe} user={user} type="follower" />
+              <UserRelation isMe={isMe} user={user} type="followers" />
             </FollowerRelation>
             <AvatarWithName>
               <ProfileAvatarWithAction>
@@ -64,7 +64,7 @@ export const UserPage = () => {
               </UsernameAndName>
             </AvatarWithName>
             <FollowingRelation>
-              <UserRelation isMe={isMe} user={user} type="following" />
+              <UserRelation isMe={isMe} user={user} type="followings" />
             </FollowingRelation>
           </MainUserInfo>
           <UserDescription>
