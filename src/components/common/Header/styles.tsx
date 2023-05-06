@@ -12,9 +12,9 @@ export const StyledAppBar = styled(AppBar)`
   display: flex;
   flex-direction: row;
   height: 48px;
-  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.35);
+  box-shadow: none;
   border-bottom: 1px solid;
-  border-color: ${props => props.theme.palette.common.headerBorder};
+  border-color: ${props => props.theme.palette.common.third};
   background: ${props => props.theme.palette.primary.light};
   margin-bottom: 1rem;
 `;

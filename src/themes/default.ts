@@ -12,7 +12,6 @@ export const defaultTheme = createTheme(
           dimmed: '#9e9e9e',
           like: '#cf4b4f',
           border: '#30302f',
-          headerBorder: '#383c42',
         },
         background: {
           default: '#1f2224',
