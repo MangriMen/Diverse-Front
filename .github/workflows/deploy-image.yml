@@ -83,6 +83,8 @@ jobs:
           echo "CHECKOUT_BRANCH=$checkout_branch" >> $GITHUB_ENV
           echo "PROFILE_PATH=${{ env.PROJECT_BASE_PATH }}-$profile" >> $GITHUB_ENV
 
+          echo $checkout_branch
+
       - name: Copy compose
         uses: appleboy/scp-action@master
         with:
