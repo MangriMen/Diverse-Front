@@ -3,6 +3,7 @@ name: Docker build and deploy
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
+  BASE_HOST: ${{ vars.BASE_HOST }}
 
 on:
   push:
@@ -79,7 +80,8 @@ jobs:
           target: prod
           file: "./deploy/Dockerfile"
           build-args: |
-            "API_BASE_URL=${{ env.VITE_APP_API_BASE_URL }}"
+            BASE_HOST
+            VITE_APP_API_BASE_URL
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
@@ -90,8 +92,7 @@ jobs:
 
     env:
       PROJECT_BASE_PATH: ${{ vars.PROJECT_ROOT }}/${{ github.event.repository.name }}
-      BASE_HOST: ${{ vars.BASE_HOST }}
-      DEPLOY_FIELS: docker-compose.yml,Makefile
+      DEPLOY_FILES: docker-compose.yml,Makefile
       DEPLOY_TAG_NAME_REGEX: ([0-9].[0-9].[0-9])
 
     steps:
@@ -118,7 +119,7 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           host: ${{ secrets.SERVER_HOST }}
           port: ${{ secrets.SSH_PORT }}
-          source: ${{ env.DEPLOY_FIELS }}
+          source: ${{ env.DEPLOY_FILES }}
           target: ~/${{ env.PROFILE_PATH }}
           overwrite: true
 
