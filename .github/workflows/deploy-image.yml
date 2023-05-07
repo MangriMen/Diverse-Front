@@ -50,6 +50,16 @@ jobs:
             type=semver,pattern={{major}}.{{minor}},value=${{ github.ref_name }},enable=${{ github.ref_type == 'tag' }}
             type=semver,pattern={{major}},value=${{ github.ref_name }},enable=${{ github.ref_type == 'tag' }}
 
+      - name: Configuration for prod
+        if: ${{ github.ref_type == 'tag' }}
+        run: |
+          echo "VITE_APP_API_BASE_URL=${{ secrets.API_BASE_URL_PROD }}" >> $GITHUB_ENV
+
+      - name: Configuration for test
+        if: ${{ github.ref_type == 'branch' }}
+        run: |
+          echo "VITE_APP_API_BASE_URL=${{ secrets.API_BASE_URL_TEST }}" >> $GITHUB_ENV
+
       - name: Build and push image
         uses: docker/build-push-action@v4
         with:
