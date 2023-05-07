@@ -67,6 +67,8 @@ jobs:
           push: true
           context: .
           target: prod
+          build-args: |
+            "VITE_APP_API_BASE_URL=${{ env.VITE_APP_API_BASE_URL }}"
           file: "./deploy/Dockerfile"
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
