@@ -59,6 +59,7 @@ jobs:
     env:
       PROJECT_BASE_PATH: ${{ vars.PROJECT_ROOT }}/${{ github.event.repository.name }}
       BASE_HOST: ${{ vars.BASE_HOST }}
+      DEPLOY_FIELS: docker-compose.yml,Makefile
 
     steps:
       - uses: actions/checkout@v3
@@ -82,15 +83,16 @@ jobs:
           echo "CHECKOUT_BRANCH=$checkout_branch" >> $GITHUB_ENV
           echo "PROFILE_PATH=${{ env.PROJECT_BASE_PATH }}-$profile" >> $GITHUB_ENV
 
-      - name: Copy repository
+      - name: Copy compose
         uses: appleboy/scp-action@master
         with:
           key: ${{ secrets.SERVER_KEY }}
           username: ${{ secrets.SERVER_USERNAME }}
           host: ${{ secrets.SERVER_HOST }}
           port: ${{ secrets.SSH_PORT }}
-          source: ./
+          source: ${{ env.DEPLOY_FIELS }}
           target: ~/${{ env.PROFILE_PATH }}
+          overwrite: true
 
       - name: Deploy on server
         uses: appleboy/ssh-action@master
@@ -102,11 +104,5 @@ jobs:
           envs: PROFILE_PATH,PROFILE,CHECKOUT_BRANCH,BASE_HOST
           script: |
             cd $PROFILE_PATH
-
-            make undeploy profile=$PROFILE
-
-            git restore .
-            git checkout $CHECKOUT_BRANCH
-            git pull
 
             make deploy profile=$PROFILE
