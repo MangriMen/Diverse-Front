@@ -44,9 +44,9 @@ jobs:
             type=ref,event=branch
             type=ref,event=tag
             type=ref,event=pr
-            type=semver,pattern={{major}}.{{minor}}.{{patch}},value=${{ github.ref_name }}
-            type=semver,pattern={{major}}.{{minor}},value=${{ github.ref_name }}
-            type=semver,pattern={{major}},value=${{ github.ref_name }}
+            type=semver,pattern={{major}}.{{minor}}.{{patch}},value=${{ github.ref_name }},enable=${{ github.ref_type == 'tag' }}
+            type=semver,pattern={{major}}.{{minor}},value=${{ github.ref_name }},enable=${{ github.ref_type == 'tag' }}
+            type=semver,pattern={{major}},value=${{ github.ref_name }},enable=${{ github.ref_type == 'tag' }}
 
       - name: Build and push image
         uses: docker/build-push-action@v4
