@@ -24,6 +24,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Configuration for prod
+        if: ${{ github.ref_type == 'tag' }}
+        run: |
+          echo "VITE_APP_API_BASE_URL=${{ secrets.API_BASE_URL_PROD }}" >> $GITHUB_ENV
+
+      - name: Configuration for test
+        if: ${{ github.ref_type == 'branch' }}
+        run: |
+          echo "VITE_APP_API_BASE_URL=${{ secrets.API_BASE_URL_TEST }}" >> $GITHUB_ENV
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
         with:
@@ -68,6 +78,8 @@ jobs:
           context: .
           target: prod
           file: "./deploy/Dockerfile"
+          build-args: |
+            "API_BASE_URL=${{ env.VITE_APP_API_BASE_URL }}"
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
