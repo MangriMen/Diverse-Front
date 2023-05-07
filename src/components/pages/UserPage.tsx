@@ -24,16 +24,14 @@ import {
   UsernameAndName,
 } from 'components/user/styles';
 import { POSTS_FETCH_COUNT } from 'consts';
+import { userLoader } from 'helpers';
+import { LoaderData } from 'helpers/types';
 import { useInfinityPostFeed } from 'hooks/useInfinityPostFeed';
-import { User } from 'types/auth';
+import { useLoaderData } from 'react-router-dom';
 
-export const UserPageContent = ({
-  isMe,
-  user,
-}: {
-  isMe?: boolean;
-  user: User;
-}) => {
+export const UserPage = () => {
+  const { isMe, user } = useLoaderData() as LoaderData<typeof userLoader>;
+
   const { data, isFetching } = useInfinityPostFeed({
     type: 'user',
     count: POSTS_FETCH_COUNT.USER,
@@ -46,7 +44,7 @@ export const UserPageContent = ({
         <UserInfo>
           <MainUserInfo>
             <FollowerRelation>
-              <UserRelation isMe={isMe} user={user} type="follower" />
+              <UserRelation isMe={isMe} user={user} type="followers" />
             </FollowerRelation>
             <AvatarWithName>
               <ProfileAvatarWithAction>
@@ -66,7 +64,7 @@ export const UserPageContent = ({
               </UsernameAndName>
             </AvatarWithName>
             <FollowingRelation>
-              <UserRelation isMe={isMe} user={user} type="following" />
+              <UserRelation isMe={isMe} user={user} type="followings" />
             </FollowingRelation>
           </MainUserInfo>
           <UserDescription>
