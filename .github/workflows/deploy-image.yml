@@ -8,7 +8,6 @@ on:
   push:
     branches:
       - develop
-      - "setup-deploy"
   release:
     types: ["published"]
   workflow_dispatch:
@@ -16,6 +15,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: ${{ !github.event.release.prerelease }}
 
     permissions:
       contents: read
@@ -26,6 +26,8 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
+        with:
+          platforms: linux/arm64
 
       - name: Log in to the registry
         uses: docker/login-action@v2
@@ -39,6 +41,14 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=schedule
+            type=ref,event=branch
+            type=ref,event=tag
+            type=ref,event=pr
+            type=semver,pattern={{major}}.{{minor}}.{{patch}},value=${{ github.ref_name }},enable=${{ github.ref_type == 'tag' }}
+            type=semver,pattern={{major}}.{{minor}},value=${{ github.ref_name }},enable=${{ github.ref_type == 'tag' }}
+            type=semver,pattern={{major}},value=${{ github.ref_name }},enable=${{ github.ref_type == 'tag' }}
 
       - name: Build and push image
         uses: docker/build-push-action@v4
@@ -53,44 +63,42 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    if: ${{ always() }}
+    if: ${{ !github.event.release.prerelease && (github.ref_type == 'tag' || github.ref_name == 'develop') }}
     needs: build
 
     env:
       PROJECT_BASE_PATH: ${{ vars.PROJECT_ROOT }}/${{ github.event.repository.name }}
       BASE_HOST: ${{ vars.BASE_HOST }}
+      DEPLOY_FIELS: docker-compose.yml,Makefile
+      DEPLOY_TAG_NAME_REGEX: ([0-9].[0-9].[0-9])
 
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup environment
+      - name: Setup profile
         shell: bash
         run: |
-          branch=$(echo ${GITHUB_REF#refs/heads/})
           profile=''
-          checkout_branch=''
 
-          if [[ $branch == 'develop' || $branch == 'setup-deploy' ]]; then
-              profile='test'
-              checkout_branch='develop'
-          else
-              profile='prod'
-              checkout_branch='main'
+          if [[ $GITHUB_REF_TYPE == 'tag' && $GITHUB_REF_NAME =~ $DEPLOY_TAG_NAME_REGEX ]]; then
+            profile='prod'
+          elif [[ $GITHUB_REF_TYPE == 'branch' ]]; then
+            profile='test'
           fi
 
           echo "PROFILE=$profile" >> $GITHUB_ENV
-          echo "CHECKOUT_BRANCH=$checkout_branch" >> $GITHUB_ENV
           echo "PROFILE_PATH=${{ env.PROJECT_BASE_PATH }}-$profile" >> $GITHUB_ENV
 
-      - name: Copy repository
+      - name: Copy deploy configs
         uses: appleboy/scp-action@master
         with:
           key: ${{ secrets.SERVER_KEY }}
           username: ${{ secrets.SERVER_USERNAME }}
           host: ${{ secrets.SERVER_HOST }}
           port: ${{ secrets.SSH_PORT }}
-          source: ./
+          source: ${{ env.DEPLOY_FIELS }}
           target: ~/${{ env.PROFILE_PATH }}
+          overwrite: true
 
       - name: Deploy on server
         uses: appleboy/ssh-action@master
@@ -99,14 +107,7 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           host: ${{ secrets.SERVER_HOST }}
           port: ${{ secrets.SSH_PORT }}
-          envs: PROFILE_PATH,PROFILE,CHECKOUT_BRANCH,BASE_HOST
+          envs: PROFILE_PATH,PROFILE,BASE_HOST
           script: |
             cd $PROFILE_PATH
-
-            make undeploy profile=$PROFILE
-
-            git restore .
-            git checkout $CHECKOUT_BRANCH
-            git pull
-
             make deploy profile=$PROFILE
