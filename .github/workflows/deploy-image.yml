@@ -78,7 +78,7 @@ jobs:
         run: |
           profile=''
 
-          if [[ $GITHUB_REF_TYPE == 'tag' && $GITHUB_REF_NAME =~ $DEPLOY_TAG_NAME_REGEX]]
+          if [[ $GITHUB_REF_TYPE == 'tag' && $GITHUB_REF_NAME =~ $DEPLOY_TAG_NAME_REGEX ]]; then
             profile='prod'
           elif [[ $GITHUB_REF_TYPE == 'branch' ]]; then
             profile='test'
