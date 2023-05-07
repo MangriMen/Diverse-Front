@@ -10,6 +10,7 @@ import {
 } from 'ducks/user/api';
 import { ReactElement, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
   ServerGetRelationsCountResponse,
   ServerGetRelationsResponse,
@@ -35,22 +36,28 @@ export const getRelationsDefaultResponse: ServerGetRelationsResponse = {
 export const UserRelation = ({ isMe, user, type }: UserRelationProps) => {
   const { t } = useTranslation('translation', { keyPrefix: 'user' });
 
-  const title = type === 'following' ? 'followings' : 'followers';
+  const { relation } = useParams();
+
+  const navigate = useNavigate();
+
+  const title = type === 'followings' ? 'followings' : 'followers';
   const notFoundTitle = `${
-    type === 'following' ? 'noFollowings' : 'noFollowers'
+    type === 'followings' ? 'noFollowings' : 'noFollowers'
   }${isMe ? '' : 'NotMe'}`;
+
+  const typeForQuery = type === 'followings' ? 'following' : 'follower';
 
   const {
     data: dataCount = getRelationsCountDefaultResponse,
     isFetching: isDataCountFetching,
   } = useGetRelationsCountQuery({
     path: { user: user.id },
-    params: { type },
+    params: { type: typeForQuery },
   });
 
   const { data = getRelationsDefaultResponse } = useGetRelationsQuery({
     path: { user: user.id },
-    params: { count: RELATION_MAX_AVATARS_COUNT, type },
+    params: { count: RELATION_MAX_AVATARS_COUNT, type: typeForQuery },
   });
 
   const [relationsUsers, setRelationsUsers] = useState<ReactElement[]>();
@@ -63,15 +70,15 @@ export const UserRelation = ({ isMe, user, type }: UserRelationProps) => {
     );
   }, [data?.relations, dataCount?.count]);
 
-  const [open, setOpen] = useState(false);
+  const open = relation === type;
 
   const handleOpenModal = useCallback(() => {
-    setOpen(true);
-  }, []);
+    navigate(type);
+  }, [navigate, type]);
 
   const handleCloseModal = useCallback(() => {
-    setOpen(false);
-  }, []);
+    navigate(-1);
+  }, [navigate]);
 
   return (
     <>
