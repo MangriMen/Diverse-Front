@@ -5,6 +5,7 @@ import { API_BASE_URL } from 'consts/endpoints';
 import { useDeletePostMutation } from 'ducks/post/api';
 import { ReactElement, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { PostModel } from 'types/post';
 
 import { PostCommentMenuButton } from '../PostCommentMenuButton';
@@ -12,7 +13,6 @@ import { PostCommentMenuItem } from '../PostCommentMenuItem';
 import { VerticalMenu } from '../VerticalMenu';
 import { PostCommentMenuActions } from '../interfaces';
 import { StyledAvatar, StyledPostCardHeaderBox } from '../styles';
-import { useNavigate } from 'react-router-dom';
 
 const postMenuActions: PostCommentMenuActions = {
   edit: {

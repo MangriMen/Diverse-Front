@@ -17,13 +17,13 @@ import {
   styled,
 } from '@mui/material';
 import { SkeletonStyled } from 'components/common/SkeletonStyled';
+import { BaseLayout } from 'components/pages/styles';
 
 import {
   CardMediaSkeletonProps,
   PostSize,
   StyledCardMediaBoxProps,
 } from './interfaces';
-import { BaseLayout } from 'components/pages/styles';
 
 export const StyledCard = styled(Card, {
   shouldForwardProp: prop => prop !== 'size',

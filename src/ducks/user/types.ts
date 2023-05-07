@@ -1,3 +1,5 @@
+import { User } from 'types/auth';
+
 export interface GetUserPath {
   username: string;
 }
@@ -53,4 +55,9 @@ export interface CreateRelationRequest {
 export interface DeleteRelationRequest {
   path: GetRelationStatusPath;
   params: CreateRelationParams;
+}
+
+export interface UpdateUserRequest {
+  path: GetRelationsPath;
+  body: Partial<User>;
 }

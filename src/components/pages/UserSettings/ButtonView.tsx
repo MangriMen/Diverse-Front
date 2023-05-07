@@ -1,9 +1,10 @@
+import { ViewButton } from 'components/common/ViewButton';
 import { ROUTE_SETTINGS } from 'consts';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
+
 import { BoxSettingsNavigation } from '../styles';
-import { ViewButton } from 'components/common/ViewButton';
 
 export const ButtonView = () => {
   const { page } = useParams();

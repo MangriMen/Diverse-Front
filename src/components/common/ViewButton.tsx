@@ -1,4 +1,5 @@
 import { Box, ButtonProps, styled } from '@mui/material';
+
 import { StyledButton } from './styles';
 
 export interface ViewButtonProps extends ButtonProps {

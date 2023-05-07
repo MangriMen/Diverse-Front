@@ -1,6 +1,12 @@
 import '@mui/material';
 import { Box } from '@mui/material';
 import { ImageUpload } from 'components/common/FileUpload/ImageUpload';
+import { StyledButton } from 'components/common/styles';
+import {
+  POST_DESCRIPTION_MAX_ROWS,
+  SHAPE_CONSTRAINTS,
+  SUBMIT_TIMEOUT,
+} from 'consts';
 import { useDataMutation } from 'ducks/data/api';
 import { DataValues } from 'ducks/data/types';
 import { useCreatePostMutation } from 'ducks/post/api';
@@ -14,6 +20,7 @@ import {
   useForm,
 } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 import {
   StyledCard,
@@ -21,13 +28,6 @@ import {
   StyledCardCreateInput,
 } from '../styles';
 import { CreatePostFormProps } from './interfaces';
-import {
-  POST_DESCRIPTION_MAX_ROWS,
-  SHAPE_CONSTRAINTS,
-  SUBMIT_TIMEOUT,
-} from 'consts';
-import { useNavigate } from 'react-router-dom';
-import { StyledButton } from 'components/common/styles';
 
 type PostForm = PostValues & DataValues;
 

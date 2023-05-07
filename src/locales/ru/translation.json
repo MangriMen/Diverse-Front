@@ -80,6 +80,8 @@
   },
   "settings": {
     "information": "Информация",
-    "password": "Пароль"
+    "password": "Пароль",
+    "profile": "Профиль",
+    "saveChanges": "Сохранить изменения"
   }
 }

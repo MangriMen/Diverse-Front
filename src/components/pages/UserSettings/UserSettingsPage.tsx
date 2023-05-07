@@ -1,6 +1,6 @@
 import { StyledContainer } from '../styles';
-import { SettingsView } from './SettingsView';
 import { ButtonView } from './ButtonView';
+import { SettingsView } from './SettingsView';
 
 export const UserSettingsPage = () => {
   return (

@@ -1,8 +1,9 @@
-import { BoxSettingsView } from '../styles';
-import { Route, Routes } from 'react-router-dom';
 import { InformationView } from 'components/user/UserSettings/InformationView';
 import { PasswordView } from 'components/user/UserSettings/PasswordView';
 import { ROUTE_SETTINGS } from 'consts';
+import { Route, Routes } from 'react-router-dom';
+
+import { BoxSettingsView } from '../styles';
 
 export const SettingsView = () => {
   return (

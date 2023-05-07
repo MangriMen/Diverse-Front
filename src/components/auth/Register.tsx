@@ -3,6 +3,7 @@ import { Typography } from '@mui/material';
 import { StyledButton, StyledTextButton } from 'components/common/styles';
 import { useRegisterMutation } from 'ducks/auth/api';
 import { RegisterValues } from 'ducks/auth/types';
+import { removeWhitespace, replaceWhitespaces } from 'helpers/auth';
 import { conditionalTranslate } from 'helpers/conditionalTranslate';
 import { ChangeEvent, FC } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
@@ -16,7 +17,6 @@ import {
   StyledSwitchActionBox,
   StyledWrapperBox,
 } from './styles';
-import { removeWhitespace, replaceWhitespaces } from 'helpers/auth';
 
 const defaultValues = {
   username: '',
