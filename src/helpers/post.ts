@@ -1,3 +1,5 @@
+import { PostModel } from 'types/post';
+
 export const getLocale = (): string => {
   return navigator.languages && navigator.languages.length
     ? navigator.languages[0]
@@ -43,4 +45,8 @@ export const dateDiff = (a: Date, b: Date): DateDiff => {
   } else {
     return { diff: Math.floor(diff / _MS_PER_WEEK), units: 'weeks' };
   }
+};
+
+export const getShareUrl = (post: PostModel) => {
+  return `${window.location.origin}/post/${post.id}`;
 };

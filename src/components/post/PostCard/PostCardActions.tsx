@@ -1,17 +1,12 @@
-import {
-  StyledActionBox as PostActions,
-  PostButton,
-  PostProps,
-} from 'components/post';
+import { StyledActionBox as PostActions, PostProps } from 'components/post';
 import { PostLike } from 'components/post/Like';
-import { useTranslation } from 'react-i18next';
+
+import { ShareButton } from './ShareButton';
 
 export const PostCardActions = ({ post }: PostProps) => {
-  const { t } = useTranslation('translation', { keyPrefix: 'post' });
-
   return (
     <PostActions>
-      <PostButton>{t('share')}</PostButton>
+      <ShareButton post={post} />
       <PostLike post={post} />
     </PostActions>
   );
