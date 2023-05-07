@@ -9,7 +9,7 @@ import { FetchUser } from 'components/routes/FetchUser';
 import { Private } from 'components/routes/Private';
 import { ROUTE } from 'consts';
 import { Outlet, Route } from 'react-router-dom';
-import { UserSettingsPage } from './pages/UserSettingsPage';
+import { UserSettingsPage } from './pages/UserSettings/UserSettingsPage';
 
 export const AppRoutes = (store: Store) => (
   <Route element={<Outlet />}>
