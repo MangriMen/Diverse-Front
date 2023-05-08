@@ -8,7 +8,12 @@ import { selectUser } from 'ducks/auth/selectors';
 import { useDataMutation } from 'ducks/data/api';
 import { DataValues } from 'ducks/data/types';
 import { useUpdateUserInformationMutation } from 'ducks/user/api';
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import {
+  Controller,
+  FormProvider,
+  SubmitHandler,
+  useForm,
+} from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { User } from 'types/auth';
@@ -43,10 +48,10 @@ export const InformationView = () => {
 
       data.avatar_url = path;
 
-      const { avatar_url } = data;
+      const { avatar_url, name, username, about } = data;
       await sendSettings({
         path: { user: user?.id ?? '' },
-        body: { avatar_url },
+        body: { avatar_url, name, username, about },
       });
     } catch (error) {
       console.log(error);
@@ -59,33 +64,57 @@ export const InformationView = () => {
         <BoxSettings>
           <SettingTitle title="profile" />
           <Box display="flex" gap="3rem">
-            <AvatarUpload />
+            <AvatarUpload image={user?.avatar_url} />
             <Box display="flex" flexDirection="column" gap="1rem">
-              <Typography>{'kek'}</Typography>
-              <StyledInput
-                label="changeName"
-                variant="filled"
-                InputProps={{ disableUnderline: true }}
-              ></StyledInput>
-              <Typography>{'lol'}</Typography>
-              <StyledInput
-                label="changeNick"
-                variant="filled"
-                InputProps={{ disableUnderline: true }}
-              ></StyledInput>
+              <Typography>{t('name')}</Typography>
+              <Controller
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <StyledInput
+                    {...field}
+                    variant="filled"
+                    value={user?.name}
+                    label={t('name')}
+                    InputProps={{ disableUnderline: true }}
+                  />
+                )}
+              />
+              <Typography>{t('username')}</Typography>
+              <Controller
+                control={form.control}
+                name="username"
+                render={({ field }) => (
+                  <StyledInput
+                    {...field}
+                    label={t('username')}
+                    value={user?.username}
+                    variant="filled"
+                    InputProps={{ disableUnderline: true }}
+                  />
+                )}
+              />
             </Box>
             <Box display="flex" flexDirection="column" gap="1rem">
-              <Typography>{'About'}</Typography>
-              <StyledInput
-                label="changeNick"
-                variant="filled"
-                multiline
-                maxRows={6}
-                InputProps={{ disableUnderline: true }}
-                inputProps={{
-                  maxLength: SHAPE_CONSTRAINTS.DESCRIPTION_MAX,
-                }}
-              ></StyledInput>
+              <Typography>{t('aboutMe')}</Typography>
+              <Controller
+                control={form.control}
+                name="about"
+                render={({ field }) => (
+                  <StyledInput
+                    {...field}
+                    label={null}
+                    variant="filled"
+                    multiline
+                    maxRows={6}
+                    value={user?.about}
+                    InputProps={{ disableUnderline: true }}
+                    inputProps={{
+                      maxLength: SHAPE_CONSTRAINTS.DESCRIPTION_MAX,
+                    }}
+                  />
+                )}
+              />
             </Box>
           </Box>
           <StyledButton

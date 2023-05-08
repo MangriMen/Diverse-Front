@@ -4,7 +4,7 @@ import { BaseSyntheticEvent, useState } from 'react';
 import { FileUpload } from './FileUpload';
 import { AvatarSetting } from './styles';
 
-export const AvatarUpload = () => {
+export const AvatarUpload = ({ image }: { image?: string }) => {
   const [fileData, setFileData] = useState<string | undefined>(undefined);
 
   const handleOnChange = (event: BaseSyntheticEvent) => {
@@ -27,7 +27,7 @@ export const AvatarUpload = () => {
   return (
     <Box display="flex" position="relative">
       {fileData && <AvatarSetting src={fileData} />}
-      {!fileData && <AvatarSetting />}
+      {!fileData && <AvatarSetting src={image} />}
       <FileUpload name="file" onChange={handleOnChange} />
     </Box>
   );

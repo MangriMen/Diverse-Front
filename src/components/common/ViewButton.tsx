@@ -48,6 +48,6 @@ export const ViewButton = ({ active, ...props }: ViewButtonProps) => {
         />
       }
       {...props}
-    ></ButtonStyled>
+    />
   );
 };

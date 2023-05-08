@@ -82,6 +82,9 @@
     "information": "Информация",
     "password": "Пароль",
     "profile": "Профиль",
-    "saveChanges": "Сохранить изменения"
+    "saveChanges": "Сохранить изменения",
+    "aboutMe": "О себе",
+    "username": "Имя пользователя",
+    "name": "Имя"
   }
 }

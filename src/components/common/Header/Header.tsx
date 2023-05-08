@@ -97,6 +97,7 @@ export const Header = () => {
               anchorEl={anchorElUser}
               open={!!anchorElUser}
               onClose={handleCloseUserMenu}
+              disableScrollLock
               anchorOrigin={{
                 vertical: 'bottom',
                 horizontal: 'center',

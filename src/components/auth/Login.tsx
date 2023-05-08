@@ -1,11 +1,12 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Typography } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { IconButton, InputAdornment, Typography } from '@mui/material';
 import { StyledButton, StyledTextButton } from 'components/common/styles';
 import { useLoginMutation } from 'ducks/auth/api';
 import { LoginValues } from 'ducks/auth/types';
 import { removeWhitespace } from 'helpers/auth';
 import { conditionalTranslate } from 'helpers/conditionalTranslate';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -26,6 +27,10 @@ const defaultValues = {
 export const Login = ({ changeFormType }: AuthFormProps) => {
   const { t } = useTranslation('translation', { keyPrefix: 'auth' });
   const [login, { isError }] = useLoginMutation();
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword(show => !show);
 
   const {
     control,
@@ -74,8 +79,21 @@ export const Login = ({ changeFormType }: AuthFormProps) => {
                 {...field}
                 error={!!errors.password?.message}
                 helperText={conditionalTranslate(t, errors.password?.message)}
-                type="password"
-                InputProps={{ disableUnderline: true }}
+                type={showPassword ? 'text' : 'password'}
+                InputProps={{
+                  disableUnderline: true,
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
                 onChange={(event: ChangeEvent<HTMLInputElement>) =>
                   field.onChange(handleOnChangeNoSpace(event))
                 }
