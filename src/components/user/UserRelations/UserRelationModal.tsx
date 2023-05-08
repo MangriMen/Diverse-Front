@@ -1,5 +1,5 @@
 import CloseIcon from '@mui/icons-material/Close';
-import { ModalProps, Typography } from '@mui/material';
+import { List, ModalProps } from '@mui/material';
 import { StyledIconButton, StyledModal } from 'components/post/styles';
 import { RELATION_MAX_AVATARS_COUNT } from 'consts';
 import { selectUser } from 'ducks/auth/selectors';
@@ -11,26 +11,20 @@ import { ReactNode, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
-import { AvatarButton } from '../AvatarButton';
-import { UserRelationProps } from '../interfaces';
-import { ToggleRealtionButton } from './ToggleRealtionButton';
+import { UserRelation } from './UserRelation';
 import {
   getRelationsCountDefaultResponse,
   getRelationsDefaultResponse,
-} from './UserRelation';
-import {
-  CardContentStyled,
-  CardStyled,
-  HeaderStyled,
-  UserRelationListItem,
-} from './styles';
+} from './UserRelations';
+import { UserRelationsProps } from './interfaces';
+import { CardContentStyled, CardStyled, HeaderStyled } from './styles';
 
 export const UserRelationModal = ({
   open,
   onClose,
   user,
   type,
-}: Omit<ModalProps, 'children'> & UserRelationProps) => {
+}: Omit<ModalProps, 'children'> & UserRelationsProps) => {
   const { t } = useTranslation('translation', { keyPrefix: 'user' });
 
   const localUser = useSelector(selectUser);
@@ -61,13 +55,7 @@ export const UserRelationModal = ({
   useEffect(() => {
     setRelationsUsers(
       data?.relations.map(relation => (
-        <UserRelationListItem key={relation.id}>
-          <AvatarButton user={relation.relation_user} />
-          <Typography flex={1}>{relation.relation_user.username}</Typography>
-          {localUser?.id !== relation.relation_user.id && (
-            <ToggleRealtionButton user={relation.relation_user} />
-          )}
-        </UserRelationListItem>
+        <UserRelation key={relation.id} relation={relation} />
       )),
     );
   }, [data?.relations, dataCount.count, localUser?.id, user]);
@@ -83,7 +71,9 @@ export const UserRelationModal = ({
             </StyledIconButton>
           }
         />
-        <CardContentStyled>{relationsUsers}</CardContentStyled>
+        <CardContentStyled>
+          <List>{relationsUsers}</List>
+        </CardContentStyled>
       </CardStyled>
     </StyledModal>
   );
