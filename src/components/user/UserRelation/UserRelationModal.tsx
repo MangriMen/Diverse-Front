@@ -13,7 +13,7 @@ import { useSelector } from 'react-redux';
 
 import { AvatarButton } from '../AvatarButton';
 import { UserRelationProps } from '../interfaces';
-import { ToggleRealtionButton } from './ToggleRealtionButton';
+import { ToggleRelationButton } from './ToggleRelationButton';
 import {
   getRelationsCountDefaultResponse,
   getRelationsDefaultResponse,
@@ -63,7 +63,7 @@ export const UserRelationModal = ({
           <AvatarButton user={relation.relation_user} />
           <Typography flex={1}>{relation.relation_user.username}</Typography>
           {localUser?.id !== relation.relation_user.id && (
-            <ToggleRealtionButton user={relation.relation_user} />
+            <ToggleRelationButton user={relation.relation_user} />
           )}
         </UserRelationListItem>
       )),

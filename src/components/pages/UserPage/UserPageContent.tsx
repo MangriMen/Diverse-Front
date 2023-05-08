@@ -2,7 +2,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import { Loader } from 'components/common/LoaderPage';
 import { StyledContainer } from 'components/pages/styles';
 import { Post } from 'components/post/Post';
-import { ToggleRealtionButton } from 'components/user/UserRelation/ToggleRealtionButton';
+import { ToggleRelationButton } from 'components/user/UserRelation/ToggleRelationButton';
 import { UserRelation } from 'components/user/UserRelation/UserRelation';
 import {
   AvatarWithName,
@@ -23,7 +23,7 @@ import {
   Username,
   UsernameAndName,
 } from 'components/user/styles';
-import { POSTS_FETCH_COUNT, ROUTE } from 'consts';
+import { AT_THE_RATE_SIGN, POSTS_FETCH_COUNT, ROUTE } from 'consts';
 import { useInfinityPostFeed } from 'hooks/useInfinityPostFeed';
 import { useNavigate } from 'react-router-dom';
 import { User } from 'types/auth';
@@ -64,11 +64,11 @@ export const UserPageContent = ({
                       <SettingsIcon />
                     </ProfileAvatarSettingsButton>
                   )}
-                  {!isMe && <ToggleRealtionButton user={user} />}
+                  {!isMe && <ToggleRelationButton user={user} />}
                 </ProfileAvatarButtonBox>
               </ProfileAvatarWithAction>
               <UsernameAndName>
-                <Username>{`@${user.username}`}</Username>
+                <Username>{`${AT_THE_RATE_SIGN}${user.username}`}</Username>
                 <Name>{user.name}</Name>
               </UsernameAndName>
             </AvatarWithName>

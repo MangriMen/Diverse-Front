@@ -22,7 +22,7 @@ const getRelationStatusDefaultResponse: ServerGetRelationStatusResponse = {
   blocked: false,
 };
 
-export const ToggleRealtionButton = ({ user }: { user: User }) => {
+export const ToggleRelationButton = ({ user }: { user: User }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'user' });
 
   const localUser = useSelector(selectUser);

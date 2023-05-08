@@ -194,3 +194,24 @@ export const BoxSettings = styled(Box)`
   flex-direction: column;
   gap: 2rem;
 `;
+
+export const InformationViewBox = styled(Box)`
+  display: flex;
+  gap: 3rem;
+  ${props => props.theme.breakpoints.down('sm')} {
+    flex-direction: column;
+  }
+`;
+
+export const InputViewBox = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  ${props => props.theme.breakpoints.up('md')} {
+    min-width: 15rem;
+  }
+  ${props => props.theme.breakpoints.down('md')} {
+    width: 15rem;
+    gap: 1rem;
+  }
+`;
