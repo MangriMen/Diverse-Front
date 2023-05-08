@@ -27,7 +27,7 @@ export const CommentHeader = styled(Box)`
 
 export const CommentUsername = styled(
   ({ ...props }: UsernameLinkButtonProps) => (
-    <UsernameLinkButton variant="body2" {...props} />
+    <UsernameLinkButton typographyProps={{ variant: 'body2' }} {...props} />
   ),
 )`
   flex: 1;

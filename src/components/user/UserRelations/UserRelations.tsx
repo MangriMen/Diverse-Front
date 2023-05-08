@@ -1,7 +1,6 @@
 import { Typography } from '@mui/material';
 import { SkeletonStyled } from 'components/common/SkeletonStyled';
 import { AvatarButton } from 'components/user/AvatarButton';
-import { UserRelationsProps } from 'components/user/interfaces';
 import { RelationBlock } from 'components/user/styles';
 import { RELATION_MAX_AVATARS_COUNT } from 'consts';
 import {
@@ -17,6 +16,7 @@ import {
 } from 'types/user';
 
 import { UserRelationModal } from './UserRelationModal';
+import { UserRelationsProps } from './interfaces';
 import { AvatarGroupStyled, RelationInfo, RelationInfoText } from './styles';
 
 export const getRelationsCountDefaultResponse: ServerGetRelationsCountResponse =
