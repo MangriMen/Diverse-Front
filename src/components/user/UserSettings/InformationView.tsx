@@ -57,7 +57,7 @@ export const InformationView = () => {
 
   const [sendSettings] = useUpdateUserInformationMutation();
   const [sendData] = useDataMutation();
-  const [value, setValue] = useState(' ');
+  const [value, setValue] = useState('');
 
   const onSubmitHandler: SubmitHandler<UserForm> = async data => {
     const formData = new FormData();
