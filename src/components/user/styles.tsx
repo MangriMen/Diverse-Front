@@ -1,4 +1,5 @@
 import { Avatar, Box, Typography, styled } from '@mui/material';
+import { StyledInput } from 'components/auth/styles';
 import { BaseLayout } from 'components/pages/styles';
 import { StyledIconButton } from 'components/post/styles';
 
@@ -190,28 +191,69 @@ export const FollowingRelation = styled(Box)`
 
 export const BoxSettings = styled(Box)`
   width: 100%;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: repeat(auto, 3);
   gap: 2rem;
 `;
 
 export const InformationViewBox = styled(Box)`
-  display: flex;
-  gap: 3rem;
-  ${props => props.theme.breakpoints.down('sm')} {
-    flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  grid-template-rows: repeat(2, auto);
+  gap: 1rem;
+  grid-template-columns: subgrid;
+  ${props => props.theme.breakpoints.down('md')} {
+    grid-template-columns: repeat(1, auto);
+    grid-template-rows: repeat(4, auto);
   }
 `;
 
-export const InputViewBox = styled(Box)`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  ${props => props.theme.breakpoints.up('md')} {
-    min-width: 15rem;
-  }
+export const NameInputStyled = styled(StyledInput)`
+  grid-column: 2;
+  grid-row: 1;
   ${props => props.theme.breakpoints.down('md')} {
-    width: 15rem;
-    gap: 1rem;
+    grid-column: 1;
+    grid-row: 2;
   }
+`;
+
+export const UsernameInputStyled = styled(StyledInput)`
+  grid-column: 2;
+  grid-row: 2;
+  align-self: flex-end;
+  ${props => props.theme.breakpoints.down('md')} {
+    grid-column: 1;
+    grid-row: 3;
+  }
+`;
+
+export const AboutInputStyled = styled(StyledInput)`
+  grid-column: 3;
+  grid-row: 1 / 3;
+  ${props => props.theme.breakpoints.down('md')} {
+    grid-column: 1;
+    grid-row: 4;
+  }
+`;
+
+export const PasswordViewBox = styled(Box)`
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 20rem;
+  grid-template-rows: repeat(3, auto);
+  ${props => props.theme.breakpoints.down('md')} {
+    grid-template-columns: auto;
+  }
+`;
+
+export const CurrentPasswordInput = styled(StyledInput)`
+  grid-row: 1;
+`;
+
+export const NewPasswordInput = styled(StyledInput)`
+  grid-row: 2;
+`;
+
+export const NewPasswordConfirmInput = styled(StyledInput)`
+  grid-row: 3;
 `;

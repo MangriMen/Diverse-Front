@@ -1,4 +1,10 @@
-import { Box, Divider, Typography, styled } from '@mui/material';
+import {
+  Box,
+  Divider,
+  Typography,
+  TypographyProps,
+  styled,
+} from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 export const BoxStyle = styled(Box)`
@@ -8,12 +14,18 @@ export const BoxStyle = styled(Box)`
   gap: 1rem;
 `;
 
-export const SettingTitle = ({ title }: { title: string }) => {
+export const SettingTitle = ({
+  title,
+  size,
+}: {
+  title: string;
+  size: TypographyProps['variant'];
+}) => {
   const { t } = useTranslation('translation', { keyPrefix: 'settings' });
 
   return (
     <BoxStyle>
-      <Typography typography="h3">{t(title)}</Typography>
+      <Typography variant={size}>{t(title)}</Typography>
       <Divider />
     </BoxStyle>
   );

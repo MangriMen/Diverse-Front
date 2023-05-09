@@ -1,10 +1,13 @@
-import { Box } from '@mui/material';
+import { Box, BoxProps } from '@mui/material';
 import { BaseSyntheticEvent, useState } from 'react';
 
 import { FileUpload } from './FileUpload';
 import { AvatarSetting } from './styles';
 
-export const AvatarUpload = ({ image }: { image?: string }) => {
+export const AvatarUpload = ({
+  image,
+  ...props
+}: { image?: string } & BoxProps) => {
   const [fileData, setFileData] = useState<string | undefined>(undefined);
 
   const handleOnChange = (event: BaseSyntheticEvent) => {
@@ -25,9 +28,8 @@ export const AvatarUpload = ({ image }: { image?: string }) => {
   }
 
   return (
-    <Box display="flex" position="relative">
-      {fileData && <AvatarSetting src={fileData} />}
-      {!fileData && <AvatarSetting src={image} />}
+    <Box width="200px" display="flex" position="relative" {...props}>
+      <AvatarSetting src={fileData ? fileData : image}></AvatarSetting>
       <FileUpload name="file" onChange={handleOnChange} />
     </Box>
   );

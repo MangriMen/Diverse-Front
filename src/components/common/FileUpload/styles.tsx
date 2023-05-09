@@ -15,6 +15,8 @@ export const StyledSvgIcon = styled(SvgIcon)`
 `;
 
 export const AvatarSetting = styled(Avatar)`
+  display: flex;
+  position: relative;
   width: 12.5rem;
   height: 12.5rem;
 `;

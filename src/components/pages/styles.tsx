@@ -24,8 +24,22 @@ export const BoxSettingsNavigation = styled(Box)`
   flex-direction: column;
   height: 100%;
   gap: 0.5rem;
+  ${props => props.theme.breakpoints.down('md')} {
+    flex-direction: row;
+  }
 `;
 
 export const BoxSettingsView = styled(Box)`
   width: 100%;
+`;
+
+export const SettingsContainerStyled = styled(Container)`
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  gap: 1rem;
+  justify-content: flex-start;
+  ${props => props.theme.breakpoints.down('md')} {
+    flex-direction: column;
+  }
 `;

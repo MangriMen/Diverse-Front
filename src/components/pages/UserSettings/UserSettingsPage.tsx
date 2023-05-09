@@ -1,12 +1,12 @@
-import { StyledContainer } from '../styles';
+import { SettingsContainerStyled } from '../styles';
 import { ButtonView } from './ButtonView';
 import { SettingsView } from './SettingsView';
 
 export const UserSettingsPage = () => {
   return (
-    <StyledContainer maxWidth="lg">
+    <SettingsContainerStyled maxWidth="lg">
       <ButtonView />
       <SettingsView />
-    </StyledContainer>
+    </SettingsContainerStyled>
   );
 };

@@ -9,5 +9,5 @@ export const settingsValidator = yup.object().shape({
   username: yup
     .string()
     .trim()
-    .max(SHAPE_CONSTRAINTS.PASSWORD_MAX, 'сharactersCount'),
+    .max(SHAPE_CONSTRAINTS.PASSWORD_MAX, 'charactersCount'),
 });
