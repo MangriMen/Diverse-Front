@@ -198,7 +198,7 @@ export const BoxSettings = styled(Box)`
 
 export const InformationViewBox = styled(Box)`
   display: grid;
-  grid-template-columns: repeat(3, auto);
+  grid-template-columns: 12.5rem minmax(0, 20rem) auto;
   grid-template-rows: repeat(2, auto);
   gap: 1rem;
   grid-template-columns: subgrid;
@@ -225,11 +225,15 @@ export const UsernameInputStyled = styled(StyledInput)`
     grid-column: 1;
     grid-row: 3;
   }
+  & .MuiTextField-root.MuiHelperText {
+    margin-right: 0;
+  }
 `;
 
 export const AboutInputStyled = styled(StyledInput)`
   grid-column: 3;
   grid-row: 1 / 3;
+  flex: 1;
   ${props => props.theme.breakpoints.down('md')} {
     grid-column: 1;
     grid-row: 4;

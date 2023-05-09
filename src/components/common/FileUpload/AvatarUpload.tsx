@@ -30,7 +30,7 @@ export const AvatarUpload = ({
   return (
     <Box width="200px" display="flex" position="relative" {...props}>
       <AvatarSetting src={fileData ? fileData : image}></AvatarSetting>
-      <FileUpload name="file" onChange={handleOnChange} />
+      <FileUpload name="file" onChange={handleOnChange} isCircle />
     </Box>
   );
 };

@@ -24,7 +24,7 @@ export const BoxSettingsNavigation = styled(Box)`
   flex-direction: column;
   height: 100%;
   gap: 0.5rem;
-  ${props => props.theme.breakpoints.down('md')} {
+  ${props => props.theme.breakpoints.down('sm')} {
     flex-direction: row;
   }
 `;
@@ -39,7 +39,7 @@ export const SettingsContainerStyled = styled(Container)`
   flex: 1;
   gap: 1rem;
   justify-content: flex-start;
-  ${props => props.theme.breakpoints.down('md')} {
+  ${props => props.theme.breakpoints.down('sm')} {
     flex-direction: column;
   }
 `;

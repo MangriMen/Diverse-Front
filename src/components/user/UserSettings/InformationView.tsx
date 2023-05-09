@@ -35,6 +35,7 @@ type UserForm = User & DataValues;
 export const AvatarUploadStyled = styled(AvatarUpload)`
   grid-row: 1 / 3;
   grid-column: 1;
+  flex-shrink: 1;
   ${props => props.theme.breakpoints.down('md')} {
     grid-column: 1;
     grid-row: 1;
@@ -116,6 +117,7 @@ export const InformationView = () => {
                   {...field}
                   label={t('username')}
                   variant="filled"
+                  autoComplete="off"
                   error={!!form.formState.errors.username?.message}
                   helperText={conditionalTranslate(
                     t,
@@ -143,6 +145,7 @@ export const InformationView = () => {
                   {...field}
                   label={t('aboutMe')}
                   variant="filled"
+                  autoComplete="off"
                   multiline
                   maxRows={7.19}
                   InputProps={{ disableUnderline: true }}

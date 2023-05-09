@@ -9,6 +9,15 @@ export const StyledFileInput = styled(Box)`
   cursor: pointer;
 ` as typeof Box;
 
+export const CircleStyledFileInput = styled(Box)`
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+` as typeof Box;
+
 export const StyledSvgIcon = styled(SvgIcon)`
   height: 100%;
   font-size: 256px;
