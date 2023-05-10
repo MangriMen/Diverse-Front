@@ -94,6 +94,8 @@
     "aboutMe": "О себе",
     "username": "Имя пользователя",
     "name": "Имя",
-    "charactersCount": "Поле должно содержать до 32 символов"
+    "charactersCount": "Поле должно содержать до 32 символов",
+    "successSettingsSave": "Изменения сохранены",
+    "errorSettingsSave": "Не удалось сохранить изменения"
   }
 }

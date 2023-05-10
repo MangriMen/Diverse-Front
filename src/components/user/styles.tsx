@@ -1,5 +1,6 @@
 import { Avatar, Box, Typography, styled } from '@mui/material';
 import { StyledInput } from 'components/auth/styles';
+import { StyledButton } from 'components/common';
 import { BaseLayout } from 'components/pages/styles';
 import { StyledIconButton } from 'components/post/styles';
 
@@ -260,4 +261,11 @@ export const NewPasswordInput = styled(StyledInput)`
 
 export const NewPasswordConfirmInput = styled(StyledInput)`
   grid-row: 3;
+`;
+
+export const SaveSettingsButton = styled(StyledButton)`
+  max-width: 20rem;
+  ${props => props.theme.breakpoints.down('md')} {
+    max-width: 100%;
+  }
 `;

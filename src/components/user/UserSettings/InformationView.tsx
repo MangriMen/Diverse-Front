@@ -2,7 +2,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, InputAdornment, styled } from '@mui/material';
 import { AvatarUpload } from 'components/common/FileUpload/AvatarUpload';
 import { SettingTitle } from 'components/common/SettingTitle';
-import { StyledButton } from 'components/common/styles';
 import { AT_THE_RATE_SIGN, SHAPE_CONSTRAINTS } from 'consts';
 import { selectUser } from 'ducks/auth/selectors';
 import { useDataMutation } from 'ducks/data/api';
@@ -10,6 +9,7 @@ import { DataValues } from 'ducks/data/types';
 import { useUpdateUserInformationMutation } from 'ducks/user/api';
 import { removeWhitespace } from 'helpers/auth';
 import { conditionalTranslate } from 'helpers/conditionalTranslate';
+import { OptionsObject, useSnackbar } from 'notistack';
 import { ChangeEvent, useState } from 'react';
 import {
   Controller,
@@ -26,6 +26,7 @@ import {
   BoxSettings,
   InformationViewBox,
   NameInputStyled,
+  SaveSettingsButton,
   UsernameInputStyled,
 } from '../styles';
 import { settingsValidator } from './schemas';
@@ -43,9 +44,36 @@ export const AvatarUploadStyled = styled(AvatarUpload)`
   }
 `;
 
+interface SettingsSnackOption {
+  title: string;
+  options: OptionsObject;
+}
+
+const SettingsSnackOptions: {
+  success: SettingsSnackOption;
+  error: SettingsSnackOption;
+} = {
+  success: {
+    title: 'successSettingsSave',
+    options: {
+      variant: 'success',
+      anchorOrigin: { vertical: 'top', horizontal: 'center' },
+    },
+  },
+  error: {
+    title: 'errorSettingsSave',
+    options: {
+      variant: 'error',
+      anchorOrigin: { vertical: 'top', horizontal: 'center' },
+    },
+  },
+};
+
 export const InformationView = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'settings' });
   const user = useSelector(selectUser);
+
+  const { enqueueSnackbar } = useSnackbar();
 
   const form = useForm<UserForm>({
     defaultValues: {
@@ -73,8 +101,15 @@ export const InformationView = () => {
         path: { user: user?.id ?? '' },
         body: data,
       });
+      enqueueSnackbar(
+        t(SettingsSnackOptions.success.title),
+        SettingsSnackOptions.success.options,
+      );
     } catch (error) {
-      console.log(error);
+      enqueueSnackbar(
+        t(SettingsSnackOptions.error.title),
+        SettingsSnackOptions.error.options,
+      );
     }
   };
 
@@ -158,14 +193,14 @@ export const InformationView = () => {
               )}
             />
           </InformationViewBox>
-          <StyledButton
+          <SaveSettingsButton
             variant="contained"
             color="secondary"
             disableFocusRipple
             type="submit"
           >
             {t('saveChanges')}
-          </StyledButton>
+          </SaveSettingsButton>
         </BoxSettings>
       </Box>
     </FormProvider>

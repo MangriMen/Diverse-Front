@@ -1,5 +1,4 @@
 import { SettingTitle } from 'components/common/SettingTitle';
-import { StyledButton } from 'components/common/styles';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -8,6 +7,7 @@ import {
   NewPasswordConfirmInput,
   NewPasswordInput,
   PasswordViewBox,
+  SaveSettingsButton,
 } from '../styles';
 
 export const PasswordView = () => {
@@ -33,9 +33,13 @@ export const PasswordView = () => {
           InputProps={{ disableUnderline: true }}
         ></NewPasswordConfirmInput>
       </PasswordViewBox>
-      <StyledButton variant="contained" color="secondary" disableFocusRipple>
+      <SaveSettingsButton
+        variant="contained"
+        color="secondary"
+        disableFocusRipple
+      >
         {t('saveChanges')}
-      </StyledButton>
+      </SaveSettingsButton>
     </BoxSettings>
   );
 };
