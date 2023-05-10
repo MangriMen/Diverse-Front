@@ -35,7 +35,9 @@ export const UserRelationModal = ({
 
   const localUser = useSelector(selectUser);
 
-  const title = type === 'following' ? 'followings' : 'followers';
+  const title = type === 'followings' ? 'followings' : 'followers';
+
+  const typeForQuery = type === 'followings' ? 'following' : 'follower';
 
   const handleButtonClose = useCallback(() => {
     if (onClose !== undefined) {
@@ -46,12 +48,12 @@ export const UserRelationModal = ({
   const { data: dataCount = getRelationsCountDefaultResponse } =
     useGetRelationsCountQuery({
       path: { user: user.id },
-      params: { type },
+      params: { type: typeForQuery },
     });
 
   const { data = getRelationsDefaultResponse } = useGetRelationsQuery({
     path: { user: user.id },
-    params: { count: RELATION_MAX_AVATARS_COUNT * 2, type },
+    params: { count: RELATION_MAX_AVATARS_COUNT * 2, type: typeForQuery },
   });
 
   const [relationsUsers, setRelationsUsers] = useState<ReactNode[]>();

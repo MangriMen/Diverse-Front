@@ -3,11 +3,12 @@ import { PageWithHeader } from 'components/layout/PageWithHeader';
 import { AuthPage } from 'components/pages/AuthPage';
 import { HomePage } from 'components/pages/HomePage';
 import { NotFoundPage } from 'components/pages/NotFoundPage';
-import { UserPage, userLoader } from 'components/pages/UserPage/UserPage';
+import { UserPage } from 'components/pages/UserPage';
 import { Auth } from 'components/routes/Auth';
 import { FetchUser } from 'components/routes/FetchUser';
 import { Private } from 'components/routes/Private';
 import { ROUTE } from 'consts';
+import { userLoader } from 'helpers';
 import { Outlet, Route } from 'react-router-dom';
 
 import { UserSettingsPage } from './pages/UserSettings/UserSettingsPage';

@@ -13,7 +13,7 @@
     "emptyPassword": "Введите пароль",
     "emptyName": "Введите имя",
     "emptyUserName": "Введите отображаемое имя пользователя",
-    "сharactersCount": "Поле должно содержать до 32 символов",
+    "сharactersCount": "Поле должно содержать от 8 до 32 символов",
     "passwordConfirm": "Подтвердите пароль",
     "matchConfirmPassword": "Пароли должны совпадать",
     "notFound": "Аккаунт не найден",
@@ -32,10 +32,15 @@
     "more": "больше",
     "less": "меньше",
     "edit": "Редактировать",
-    "delete": "Удалить"
+    "delete": "Удалить",
+    "copy": "Копировать",
+    "copied": "Ссылка скопирована в буфер обмена",
+    "close": "Закрыть"
   },
   "comment": {
+    "writeComment": "Написать комментарий...",
     "creationTimeSeconds": "{{count}} секунду назад",
+    "creationTimeSeconds_zero": "только что",
     "creationTimeSeconds_few": "{{count}} секунды назад",
     "creationTimeSeconds_many": "{{count}} секунд назад",
     "creationTimeMinutes": "{{count}} минуту назад",
@@ -50,6 +55,9 @@
     "creationTimeWeeks": "{{count}} неделю назад",
     "creationTimeWeeks_few": "{{count}} недели назад",
     "creationTimeWeeks_many": "{{count}} недель назад",
+    "creationTimeMonth": "{{count}} месяц назад",
+    "creationTimeMonth_few": "{{count}} месяца назад",
+    "creationTimeMonth_many": "{{count}} месяцев назад",
     "edit": "Редактировать",
     "delete": "Удалить",
     "send": "Отправить"

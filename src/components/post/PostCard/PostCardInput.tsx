@@ -1,11 +1,21 @@
 import SendIcon from '@mui/icons-material/Send';
-import { IconButton } from '@mui/material';
+import { IconButton, InputBase, Paper, styled } from '@mui/material';
+import { PostProps } from 'components/post';
 import { useSendCommentMutation } from 'ducks/comment/api';
 import { ChangeEvent, FormEvent, useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { PostProps } from '../interfaces';
-import { StyledInputBase, StyledPaper } from '../styles';
+const PaperStyled = styled(Paper)`
+  display: flex;
+  align-items: center;
+  box-shadow: none;
+` as typeof Paper;
+
+const InputStyled = styled(InputBase)`
+  margin-left: 1rem;
+  flex-grow: 1;
+  font-size: 16px;
+`;
 
 export const PostCardInput = ({ post }: PostProps) => {
   const { t } = useTranslation('translation', { keyPrefix: 'comment' });
@@ -38,9 +48,9 @@ export const PostCardInput = ({ post }: PostProps) => {
   );
 
   return (
-    <StyledPaper component="form" onSubmit={handleSendComment} elevation={24}>
-      <StyledInputBase
-        placeholder="Написать комментарий..."
+    <PaperStyled component="form" onSubmit={handleSendComment} elevation={24}>
+      <InputStyled
+        placeholder={t('writeComment') ?? ''}
         value={commentText}
         onChange={handleInputChange}
       />
@@ -52,6 +62,6 @@ export const PostCardInput = ({ post }: PostProps) => {
       >
         <SendIcon />
       </IconButton>
-    </StyledPaper>
+    </PaperStyled>
   );
 };

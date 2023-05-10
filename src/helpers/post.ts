@@ -1,3 +1,5 @@
+import { PostModel } from 'types/post';
+
 export const getLocale = (): string => {
   return navigator.languages && navigator.languages.length
     ? navigator.languages[0]
@@ -18,10 +20,12 @@ const dateToUTC = (date: Date) => {
 
 export type dateDiffUnits = 'seconds' | 'minutes' | 'hours' | 'days' | 'weeks';
 
-export const dateDiff = (
-  a: Date,
-  b: Date,
-): { diff: number; units: dateDiffUnits } => {
+export interface DateDiff {
+  diff: number;
+  units: dateDiffUnits;
+}
+
+export const dateDiff = (a: Date, b: Date): DateDiff => {
   const _MS_PER_SECOND = 1000;
   const _MS_PER_MINUTE = _MS_PER_SECOND * 60;
   const _MS_PER_HOUR = _MS_PER_MINUTE * 60;
@@ -41,4 +45,8 @@ export const dateDiff = (
   } else {
     return { diff: Math.floor(diff / _MS_PER_WEEK), units: 'weeks' };
   }
+};
+
+export const getShareUrl = (post: PostModel) => {
+  return `${window.location.origin}/post/${post.id}`;
 };

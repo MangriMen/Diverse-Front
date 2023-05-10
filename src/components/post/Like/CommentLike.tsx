@@ -5,7 +5,7 @@ import {
 import React, { useCallback, useState } from 'react';
 import { CommentModel, PostModel } from 'types/post';
 
-import { PostCommentLike } from './PostCommentLike';
+import { Like } from './Like';
 
 export const CommentLike = ({
   post,
@@ -45,7 +45,7 @@ export const CommentLike = ({
   }, [getCommentValues, likeData.likedByMe, likeComment, unlikeComment]);
 
   return (
-    <PostCommentLike
+    <Like
       variant="comment"
       count={likeData.likes}
       liked={likeData.likedByMe}

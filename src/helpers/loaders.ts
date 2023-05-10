@@ -1,11 +1,7 @@
-import { Store } from '@reduxjs/toolkit';
-import { LoaderPage } from 'components/common/LoaderPage';
 import { userApi } from 'ducks/user/api';
-import { LoaderFunctionArgs, useLoaderData } from 'react-router-dom';
-import { AppDispatch } from 'store';
+import { LoaderFunctionArgs } from 'react-router-dom';
+import { AppDispatch, Store } from 'store';
 import { User } from 'types/auth';
-
-import { UserPageContent } from './UserPageContent';
 
 export const userLoader =
   (store: Store) =>
@@ -30,16 +26,3 @@ export const userLoader =
 
     return { isMe: false, user: data.user };
   };
-
-export const UserPage = () => {
-  const { isMe, user } = useLoaderData() as Awaited<
-    ReturnType<ReturnType<typeof userLoader>>
-  >;
-
-  return (
-    <>
-      {user === null && <LoaderPage />}
-      {user !== null && <UserPageContent isMe={isMe} user={user} />}
-    </>
-  );
-};

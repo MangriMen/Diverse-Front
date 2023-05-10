@@ -1,12 +1,12 @@
-import { Box } from '@mui/material';
-import React, { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 
-import { PostCardMediaProps } from '../interfaces';
+import { PostCardMediaProps } from './interfaces';
 import {
+  CardMediaBox,
   CardMediaSkeleton,
-  StyledCardMedia,
-  StyledCardMediaBox,
-} from '../styles';
+  CardMediaSkeletonLoaderBox,
+  CardMediaStyled,
+} from './styles';
 
 export const PostCardMeida = ({ size, image }: PostCardMediaProps) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -16,25 +16,19 @@ export const PostCardMeida = ({ size, image }: PostCardMediaProps) => {
   }, [setIsLoading]);
 
   return (
-    <StyledCardMediaBox size={size}>
+    <CardMediaBox size={size}>
       <CardMediaSkeleton
         size={size}
         variant="rectangular"
         isLoading={isLoading}
       />
-      <Box
-        sx={{
-          width: '100%',
-          height: '100%',
-          display: isLoading ? 'none' : 'flex',
-        }}
-      >
-        <StyledCardMedia
+      <CardMediaSkeletonLoaderBox display={isLoading ? 'none' : 'flex'}>
+        <CardMediaStyled
           component="img"
           onLoad={handleImageLoaded}
           image={image}
         />
-      </Box>
-    </StyledCardMediaBox>
+      </CardMediaSkeletonLoaderBox>
+    </CardMediaBox>
   );
 };
