@@ -147,7 +147,7 @@ export const InformationView = () => {
                   variant="filled"
                   autoComplete="off"
                   multiline
-                  maxRows={7.19}
+                  maxRows={7.2}
                   InputProps={{ disableUnderline: true }}
                   inputProps={{
                     maxLength: SHAPE_CONSTRAINTS.DESCRIPTION_MAX,

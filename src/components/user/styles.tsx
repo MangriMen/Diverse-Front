@@ -192,7 +192,7 @@ export const FollowingRelation = styled(Box)`
 export const BoxSettings = styled(Box)`
   width: 100%;
   display: grid;
-  grid-template-rows: repeat(auto, 3);
+  grid-template-rows: auto 14rem auto;
   gap: 2rem;
 `;
 
