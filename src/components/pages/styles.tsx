@@ -43,3 +43,9 @@ export const SettingsContainerStyled = styled(Container)`
     flex-direction: column;
   }
 `;
+
+export const HomePageLayout = styled(BaseLayout)`
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2rem;
+`;
