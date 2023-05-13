@@ -112,4 +112,5 @@ export const PostCardDescriptionText = styled(Typography)`
 export const PostCardCommentsList = styled(List)`
   overflow-y: scroll;
   padding-right: 0.4rem;
+  flex: 1;
 `;

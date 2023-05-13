@@ -34,6 +34,7 @@ export const PostCard = ({ post, setPost, size = 'default' }: PostProps) => {
             display="flex"
             flexDirection="column"
             overflow="hidden"
+            height="100%"
             visibility={expanded ? 'hidden' : 'visible'}
             gap="inherit"
           >
