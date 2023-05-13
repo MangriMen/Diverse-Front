@@ -1,4 +1,4 @@
-import { CardMediaProps } from '@mui/material';
+import { CardMediaProps, CircularProgressProps } from '@mui/material';
 import { PostProps } from 'components/post/interfaces';
 
 export interface MediaSkeletonProps {
@@ -17,4 +17,8 @@ export interface PostCardDescriptionProps {
   expanded: boolean;
   onExpand: () => void;
   description?: string;
+}
+
+export interface CommentsListLoaderProps extends CircularProgressProps {
+  visible: boolean;
 }

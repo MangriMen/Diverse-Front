@@ -1,6 +1,6 @@
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { Avatar, ListItemText } from '@mui/material';
+import { Avatar, ListItemProps, ListItemText } from '@mui/material';
 import {
   StyledActionBox as CommentActions,
   CommentButton,
@@ -43,10 +43,11 @@ const commentMenuActions: PostCommentMenuActions = {
 export const Comment = ({
   post,
   comment,
+  ...props
 }: {
   post: PostModel;
   comment: CommentModel;
-}) => {
+} & ListItemProps) => {
   const user = useSelector(selectUser);
 
   const { t } = useTranslation('translation', { keyPrefix: 'post' });
@@ -66,7 +67,7 @@ export const Comment = ({
   }, [comment.id, deleteComment, post.id]);
 
   return (
-    <ListItemStyled disablePadding alignItems="flex-start">
+    <ListItemStyled disablePadding alignItems="flex-start" {...props}>
       <ListItemAvatarStyled>
         <Avatar src={`${comment.user.avatar_url}?width=80`} />
       </ListItemAvatarStyled>

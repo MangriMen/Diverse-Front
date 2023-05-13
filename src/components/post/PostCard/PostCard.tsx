@@ -1,3 +1,4 @@
+import { Box } from '@mui/material';
 import { PostProps } from 'components/post';
 import { useState } from 'react';
 
@@ -29,13 +30,17 @@ export const PostCard = ({ post, setPost, size = 'default' }: PostProps) => {
             onExpand={handleExpandClick}
             description={post.description}
           />
-          {!expanded && (
-            <>
-              <PostCardActions post={post} setPost={setPost} />
-              <PostCardComments post={post} setPost={setPost} />
-              <PostCardInput post={post} setPost={setPost} />
-            </>
-          )}
+          <Box
+            display="flex"
+            flexDirection="column"
+            overflow="hidden"
+            visibility={expanded ? 'hidden' : 'visible'}
+            gap="inherit"
+          >
+            <PostCardActions post={post} setPost={setPost} />
+            <PostCardComments post={post} setPost={setPost} />
+            <PostCardInput post={post} setPost={setPost} />
+          </Box>
         </PostCardContent>
       )}
     </PostCardStyled>

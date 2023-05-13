@@ -84,7 +84,6 @@ export const PostCardContent = styled(CardContent, {
   padding: ${props => (props.size === 'default' ? '' : '4px')};
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 
   min-width: var(--fixed-width);
   max-width: var(--fixed-width);
@@ -111,7 +110,6 @@ export const PostCardDescriptionText = styled(Typography)`
 ` as typeof Typography;
 
 export const PostCardCommentsList = styled(List)`
-  overflow: auto;
-  height: 100%;
+  overflow-y: scroll;
   padding-right: 0.4rem;
 `;
