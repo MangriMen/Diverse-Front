@@ -8,10 +8,16 @@ import { storageGet } from 'helpers/localStorage';
 import {
   PostModel,
   ServerGetPostResponse,
+  ServerGetPostsCountResponse,
   ServerGetPostsResponse,
 } from 'types/post';
 
-import { GetPostRequest, GetPostsValues, PostValues } from './types';
+import {
+  GetPostRequest,
+  GetPostsCountRequest,
+  GetPostsValues,
+  PostValues,
+} from './types';
 
 export const postsAdapter = createEntityAdapter({
   selectId: (item: PostModel) => item.id,
@@ -34,6 +40,17 @@ export const postApi = createApi({
         body: arg,
       }),
       invalidatesTags: () => ['Post'],
+    }),
+    getPostsCount: build.query<
+      ServerGetPostsCountResponse,
+      GetPostsCountRequest
+    >({
+      query: args => ({
+        url: `${API_ENDPOINTS.POSTS}/count`,
+        method: METHOD.GET,
+        headers: { Authorization: getAccessToken() },
+        params: args.params,
+      }),
     }),
     getPosts: build.query<EntityState<PostModel>, GetPostsValues>({
       query: arg => ({
@@ -112,6 +129,8 @@ export const postApi = createApi({
 
 export const {
   useCreatePostMutation,
+  useLazyGetPostsCountQuery,
+  useLazyGetPostsQuery,
   useGetPostsQuery,
   useDeletePostMutation,
   useLikePostMutation,

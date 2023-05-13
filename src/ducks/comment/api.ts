@@ -139,6 +139,9 @@ export const commentApi = createApi({
         method: METHOD.DELETE,
         headers: { Authorization: getAccessToken() },
       }),
+      invalidatesTags: (_result, _error, arg) => [
+        { type: 'Comment' as const, id: arg.path.comment },
+      ],
     }),
     likeComment: build.mutation<ServerGetCommentResponse, GetCommentRequest>({
       query: args => ({

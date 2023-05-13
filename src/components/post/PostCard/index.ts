@@ -1,4 +1,3 @@
-export * from './PostCard';
 export * from './PostCardActions';
 export * from './PostCardComments';
 export * from './PostCardDescription';

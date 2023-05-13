@@ -38,8 +38,8 @@ export const PostCardHeader = ({ post }: { post: PostModel }) => {
   const [preparedActions] = useState(postMenuActions);
 
   preparedActions.edit.callback = useCallback(() => {
-    console.log('edit post');
-  }, []);
+    console.log('edit post:', post.id);
+  }, [post.id]);
 
   preparedActions.delete.callback = useCallback(async () => {
     await deletePost({

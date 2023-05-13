@@ -114,3 +114,14 @@ export const PostCardCommentsList = styled(List)`
   padding-right: 0.4rem;
   flex: 1;
 `;
+
+export const PostCardHidingContent = styled(Box, {
+  shouldForwardProp: prop => prop !== 'visible',
+})<{ visible: boolean }>`
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%;
+  visibility: ${props => (props.visible ? 'visible' : 'hidden')};
+  gap: inherit;
+`;

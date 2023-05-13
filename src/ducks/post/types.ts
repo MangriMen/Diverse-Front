@@ -40,6 +40,11 @@ export interface GetPostParams {
 export interface GetPostsValues {
   params?: GetPostParams;
 }
+
+export interface GetPostsCountRequest {
+  params?: GetPostParams;
+}
+
 export interface CreatePostBody {
   content: string;
   description?: string;

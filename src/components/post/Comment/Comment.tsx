@@ -57,8 +57,8 @@ export const Comment = ({
   const [preparedActions] = useState(commentMenuActions);
 
   preparedActions.edit.callback = useCallback(() => {
-    console.log('edit comment');
-  }, []);
+    console.log('edit comment:', comment.id, 'in post:', post.id);
+  }, [comment.id, post.id]);
 
   preparedActions.delete.callback = useCallback(async () => {
     deleteComment({
