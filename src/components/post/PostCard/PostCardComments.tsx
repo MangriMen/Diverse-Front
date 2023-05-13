@@ -6,43 +6,60 @@ import {
 } from 'consts';
 import { convertRemToPixels } from 'helpers/html';
 import { useInfinityCommentFeed } from 'hooks/useInfinityCommentFeed';
-import { useLayoutEffect, useRef } from 'react';
+import {
+  ReactElement,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import useStayScrolled from 'react-stay-scrolled';
 import { CommentModel } from 'types/post';
 
 import { CommentsListLoader } from './CommentsListLoader';
 import { PostCardCommentsList } from './styles';
 
+const infiniteLoaderSizePx = convertRemToPixels(
+  COMMENT_INFINITE_FEED_LOADER_SIZE_REM,
+);
+
 export const PostCardComments = ({ post }: PostProps) => {
   const ref = useRef<HTMLUListElement>(null);
 
-  const { data, isFetching } = useInfinityCommentFeed({
+  const { data, dataID, isFetching } = useInfinityCommentFeed(
     ref,
-    oldFetchBorderLoaderOffset: convertRemToPixels(
-      COMMENT_INFINITE_FEED_LOADER_SIZE_REM,
-    ),
-    post: post.id,
-    count: COMMENTS_FETCH_COUNT.FEED,
-  });
+    infiniteLoaderSizePx,
+    {
+      post: post.id,
+      count: COMMENTS_FETCH_COUNT.FEED,
+    },
+  );
+
+  const [comments, setComments] = useState<ReactElement[]>([]);
+  useEffect(
+    () =>
+      setComments(
+        data.map((comment: CommentModel) => (
+          <Comment key={comment.id} post={post} comment={comment} />
+        )),
+      ),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [JSON.stringify(dataID), post],
+  );
 
   const { stayScrolled } = useStayScrolled(ref);
 
   useLayoutEffect(() => {
     stayScrolled();
-  }, [data?.data, stayScrolled]);
+  }, [data, stayScrolled]);
 
   return (
     <PostCardCommentsList ref={ref}>
       <CommentsListLoader
-        size={`${COMMENT_INFINITE_FEED_LOADER_SIZE_REM}rem`}
         visible={isFetching}
+        size={`${COMMENT_INFINITE_FEED_LOADER_SIZE_REM}rem`}
       />
-      {data?.data
-        .slice()
-        .reverse()
-        .map((comment: CommentModel) => (
-          <Comment key={comment.id} post={post} comment={comment} />
-        ))}
+      {comments}
     </PostCardCommentsList>
   );
 };

@@ -1,44 +1,43 @@
 import {
-  useGetCommentsCountQuery,
+  commentsAdapter,
+  commentsSelector,
+  useLazyGetCommentsCountQuery,
   useLazyGetCommentsQuery,
 } from 'ducks/comment/api';
 import { GetCommentsRequest } from 'ducks/comment/types';
 import { RefObject, useCallback, useEffect } from 'react';
 
-export const useInfinityCommentFeed = ({
-  ref,
-  oldFetchBorderLoaderOffset,
-  post,
-  count,
-}: { ref: RefObject<HTMLElement>; oldFetchBorderLoaderOffset: number } & Pick<
-  GetCommentsRequest['path'],
-  'post'
-> &
-  Pick<GetCommentsRequest['params'], 'count'>) => {
-  const { data: commentsCount } = useGetCommentsCountQuery(
-    {
-      path: { post },
-    },
-    { pollingInterval: 10000 },
-  );
+export const useInfinityCommentFeed = (
+  ref: RefObject<HTMLElement>,
+  topLoaderOffset: number,
+  {
+    post,
+    count,
+  }: Pick<GetCommentsRequest['path'], 'post'> &
+    Pick<GetCommentsRequest['params'], 'count'>,
+) => {
+  const [getCommentsCount, { data: commentsCount }] =
+    useLazyGetCommentsCountQuery();
 
-  const [getComments, response] = useLazyGetCommentsQuery();
-
-  useEffect(() => {
-    getComments({
-      path: {
-        post,
-      },
-      params: {
-        count,
-      },
-    });
-  }, [count, post, getComments]);
+  const [getComments, response] = useLazyGetCommentsQuery({
+    selectFromResult: ({ data, isFetching, ...otherParams }) => ({
+      dataID: commentsSelector.selectIds(
+        data ?? commentsAdapter.getInitialState(),
+      ),
+      data: commentsSelector.selectAll(
+        data ?? commentsAdapter.getInitialState(),
+      ),
+      isFetching: otherParams.originalArgs?.params.last_seen_comment_created_at
+        ? isFetching
+        : false,
+      ...otherParams,
+    }),
+  });
 
   const handleScrollTop = useCallback(
     async (element: HTMLElement) => {
       if (!response.isFetching && response.data) {
-        const data = response.data.data;
+        const data = response.data;
 
         if (
           data.length > 0 &&
@@ -51,16 +50,20 @@ export const useInfinityCommentFeed = ({
               post,
             },
             params: {
-              last_seen_comment_id: data[data.length - 1].id,
-              last_seen_comment_created_at: data[data.length - 1].created_at,
+              last_seen_comment_id: data[0].id,
+              last_seen_comment_created_at: data[0].created_at,
               count,
             },
           });
 
-          element.scrollTop =
-            element.scrollHeight -
-            prevScrollHeight -
-            oldFetchBorderLoaderOffset;
+          element.addEventListener('DOMNodeInserted', function handleInsert() {
+            const heightDiff = element.scrollHeight - prevScrollHeight;
+            element.scrollTop = heightDiff - topLoaderOffset;
+
+            setTimeout(() => {
+              element.removeEventListener('DOMNodeInserted', handleInsert);
+            }, 0);
+          });
         }
       }
     },
@@ -68,21 +71,41 @@ export const useInfinityCommentFeed = ({
       commentsCount?.count,
       count,
       getComments,
-      oldFetchBorderLoaderOffset,
       post,
       response.data,
       response.isFetching,
+      topLoaderOffset,
     ],
   );
+
+  useEffect(() => {
+    const getCountAndNewComments = () => {
+      getCommentsCount({
+        path: { post },
+      });
+
+      getComments({
+        path: {
+          post,
+        },
+        params: {
+          count,
+        },
+      });
+    };
+
+    getCountAndNewComments();
+
+    const timerID = setInterval(getCountAndNewComments, 2000);
+    return () => clearInterval(timerID);
+  }, [count, post, getComments, getCommentsCount, ref]);
 
   useEffect(() => {
     if (ref.current) {
       const element = ref.current;
 
       const onScroll = () => {
-        const isScrollAtTop = element.scrollTop === 0;
-
-        if (isScrollAtTop) {
+        if (element.scrollTop <= 1) {
           handleScrollTop(element);
         }
       };

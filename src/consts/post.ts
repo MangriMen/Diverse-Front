@@ -20,7 +20,7 @@ export const SHAPE_CONSTRAINTS = {
 };
 
 export const COMMENTS_FETCH_COUNT = {
-  FEED: 5,
+  FEED: 10,
 };
 
 export const POST_DESCRIPTION_MAX_ROWS = 18;
