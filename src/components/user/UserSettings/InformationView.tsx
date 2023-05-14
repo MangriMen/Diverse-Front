@@ -101,6 +101,7 @@ export const InformationView = () => {
         path: { user: user?.id ?? '' },
         body: data,
       });
+
       enqueueSnackbar(
         t(SettingsSnackOptions.success.title),
         SettingsSnackOptions.success.options,

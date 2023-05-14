@@ -96,6 +96,7 @@
     "name": "Имя",
     "charactersCount": "Поле должно содержать до 32 символов",
     "successSettingsSave": "Изменения сохранены",
-    "errorSettingsSave": "Не удалось сохранить изменения"
+    "errorSettingsSave": "Не удалось сохранить изменения",
+    "avatarSizeToLarge": "Размер не должен превышать 2MB"
   }
 }
