@@ -1,6 +1,6 @@
 import { EntityState, createEntityAdapter } from '@reduxjs/toolkit';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { METHOD } from 'consts';
+import { COMMENTS_FETCH_COUNT, METHOD } from 'consts';
 import { API_BASE_URL, API_ENDPOINTS } from 'consts/endpoints';
 import { getAccessToken, prepareComment } from 'helpers/api';
 import {
@@ -106,7 +106,7 @@ export const commentApi = createApi({
                 type: 'Comment' as const,
                 id,
               })),
-              { type: 'Comment' as const, id: arg.path.post },
+              { type: 'PostComments' as const, id: arg.path.post },
               ...(!arg.params.last_seen_comment_id
                 ? ['PostComments' as const, 'Comment' as const]
                 : ['Comment' as const]),
@@ -122,7 +122,7 @@ export const commentApi = createApi({
         body: args.body,
       }),
       invalidatesTags: (_result, _error, arg) => [
-        { type: 'Comment' as const, id: arg.path.post },
+        { type: 'PostComments' as const, id: arg.path.post },
       ],
     }),
     updateComment: build.mutation<string, UpdateCommentRequest>({
@@ -142,6 +142,26 @@ export const commentApi = createApi({
       invalidatesTags: (_result, _error, arg) => [
         { type: 'Comment' as const, id: arg.path.comment },
       ],
+      onQueryStarted: async (arg, { dispatch, queryFulfilled }) => {
+        const patchResult = dispatch(
+          commentApi.util.updateQueryData(
+            'getComments',
+            {
+              path: { post: arg.path.post },
+              params: { count: COMMENTS_FETCH_COUNT.FEED },
+            },
+            draft => {
+              commentsAdapter.removeOne(draft, arg.path.comment);
+            },
+          ),
+        );
+
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+        }
+      },
     }),
     likeComment: build.mutation<ServerGetCommentResponse, GetCommentRequest>({
       query: args => ({
