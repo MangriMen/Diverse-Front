@@ -14,9 +14,12 @@ export const useInfinityPostFeed = (
   const [getPostsCount, { data: postsCount }] = useLazyGetPostsCountQuery();
 
   const [getPosts, response] = useLazyGetPostsQuery({
-    selectFromResult: ({ data, ...otherParams }) => ({
+    selectFromResult: ({ data, isFetching, ...otherParams }) => ({
       dataID: postsSelector.selectIds(data ?? postsAdapter.getInitialState()),
       data: postsSelector.selectAll(data ?? postsAdapter.getInitialState()),
+      isFetching: otherParams.originalArgs?.params?.last_seen_post_created_at
+        ? isFetching
+        : false,
       ...otherParams,
     }),
   });
