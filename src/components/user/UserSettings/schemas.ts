@@ -11,3 +11,24 @@ export const settingsValidator = yup.object().shape({
     .trim()
     .max(SHAPE_CONSTRAINTS.PASSWORD_MAX, 'charactersCount'),
 });
+
+export const changePasswordValidation = yup.object().shape({
+  currentPassword: yup
+    .string()
+    .trim()
+    .min(SHAPE_CONSTRAINTS.PASSWORD_MIN, 'сharactersCount')
+    .max(SHAPE_CONSTRAINTS.USERNAME_MAX, 'сharactersCount')
+    .matches(/^\S*$/, 'passwordMustNotContainSpaces')
+    .required('emptyPassword'),
+  newPassword: yup
+    .string()
+    .trim()
+    .min(SHAPE_CONSTRAINTS.PASSWORD_MIN, 'сharactersCount')
+    .max(SHAPE_CONSTRAINTS.USERNAME_MAX, 'сharactersCount')
+    .matches(/^\S*$/, 'passwordMustNotContainSpaces')
+    .required('emptyPassword'),
+  newPasswordConfirm: yup
+    .string()
+    .trim()
+    .oneOf([yup.ref('password'), null], 'matchConfirmPassword'),
+});

@@ -97,6 +97,9 @@
     "charactersCount": "Поле должно содержать до 32 символов",
     "successSettingsSave": "Изменения сохранены",
     "errorSettingsSave": "Не удалось сохранить изменения",
-    "avatarSizeToLarge": "Размер не должен превышать 2MB"
+    "avatarSizeToLarge": "Размер изображения не должен превышать 2MB",
+    "currentPassword": "Текущий пароль",
+    "newPassword": "Новый пароль",
+    "newPasswordConfirm": "Подтверждение нового пароля"
   }
 }
