@@ -19,7 +19,6 @@ import {
   useForm,
 } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
 
 import { CreatePostFormProps, PostForm } from './interfaces';
 
@@ -73,8 +72,6 @@ const DescriptionInput = styled(TextField)`
 export const CreatePostForm = ({ onClose }: CreatePostFormProps) => {
   const { t } = useTranslation('translation', { keyPrefix: 'post' });
 
-  const navigate = useNavigate();
-
   const form = useForm<PostForm>({ defaultValues: defaultValues });
 
   const [sendPost] = useCreatePostMutation();
@@ -113,8 +110,6 @@ export const CreatePostForm = ({ onClose }: CreatePostFormProps) => {
       );
 
       onClose();
-
-      navigate(0);
     } catch {
       enqueueSnackbar(
         t(PostSnackOptions.error.title),

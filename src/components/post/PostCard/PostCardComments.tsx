@@ -14,7 +14,6 @@ import {
   useState,
 } from 'react';
 import useStayScrolled from 'react-stay-scrolled';
-import { CommentModel } from 'types/post';
 
 import { CommentsListLoader } from './CommentsListLoader';
 import { PostCardCommentsList } from './styles';
@@ -39,7 +38,7 @@ export const PostCardComments = ({ post }: PostProps) => {
   useEffect(
     () =>
       setComments(
-        data.map((comment: CommentModel) => (
+        data.map(comment => (
           <Comment key={comment.id} post={post} comment={comment} />
         )),
       ),

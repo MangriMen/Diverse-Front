@@ -1,3 +1,4 @@
+import { COMMENT_WITHOUT_SCROLL_FETCH_DELAY } from 'consts';
 import {
   commentsAdapter,
   commentsSelector,
@@ -35,7 +36,7 @@ export const useInfinityCommentFeed = (
   });
 
   const handleScrollTop = useCallback(
-    async (element: HTMLElement) => {
+    async (element?: HTMLElement) => {
       if (!response.isFetching && response.data) {
         const data = response.data;
 
@@ -43,7 +44,10 @@ export const useInfinityCommentFeed = (
           data.length > 0 &&
           data.length < (commentsCount?.count ?? data.length + 1)
         ) {
-          const prevScrollHeight = element.scrollHeight;
+          let prevScrollHeight = 0;
+          if (element) {
+            prevScrollHeight = element.scrollHeight;
+          }
 
           await getComments({
             path: {
@@ -56,14 +60,19 @@ export const useInfinityCommentFeed = (
             },
           });
 
-          element.addEventListener('DOMNodeInserted', function handleInsert() {
-            const heightDiff = element.scrollHeight - prevScrollHeight;
-            element.scrollTop = heightDiff - topLoaderOffset;
+          if (element) {
+            element.addEventListener(
+              'DOMNodeInserted',
+              function handleInsert() {
+                const heightDiff = element.scrollHeight - prevScrollHeight;
+                element.scrollTop = heightDiff - topLoaderOffset;
 
-            setTimeout(() => {
-              element.removeEventListener('DOMNodeInserted', handleInsert);
-            }, 0);
-          });
+                setTimeout(() => {
+                  element.removeEventListener('DOMNodeInserted', handleInsert);
+                }, 0);
+              },
+            );
+          }
         }
       }
     },
@@ -99,6 +108,27 @@ export const useInfinityCommentFeed = (
     const timerID = setInterval(getCountAndNewComments, 2000);
     return () => clearInterval(timerID);
   }, [count, post, getComments, getCommentsCount, ref]);
+
+  useEffect(() => {
+    const getBottomPosts = async () => {
+      if (ref && ref.current) {
+        if (
+          ref.current.scrollHeight === ref.current.clientHeight &&
+          commentsCount &&
+          response.data
+        ) {
+          if (commentsCount.count > response.data.length) {
+            handleScrollTop();
+            setTimeout(() => {
+              getBottomPosts();
+            }, COMMENT_WITHOUT_SCROLL_FETCH_DELAY);
+          }
+        }
+      }
+    };
+
+    getBottomPosts();
+  }, [commentsCount, handleScrollTop, ref, response]);
 
   useEffect(() => {
     if (ref.current) {

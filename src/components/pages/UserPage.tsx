@@ -34,9 +34,9 @@ import { PostModel } from 'types/post';
 export const UserPage = () => {
   const { isMe, user } = useLoaderData() as LoaderData<typeof userLoader>;
 
-  const ref = useRef<HTMLUListElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
 
-  const { data, dataID, isFetching } = useInfinityPostFeed(ref, {
+  const { data, dataID, isFetching } = useInfinityPostFeed({
     type: 'user',
     count: POSTS_FETCH_COUNT.FEED,
     user_id: user.id,
@@ -88,7 +88,7 @@ export const UserPage = () => {
             <UserDescriptionText>{user.about}</UserDescriptionText>
           </UserDescription>
         </UserInfo>
-        <StyledUserPosts>{posts}</StyledUserPosts>
+        <StyledUserPosts ref={ref}>{posts}</StyledUserPosts>
         {isFetching && <Loader />}
       </UserPageLayout>
     </StyledContainer>

@@ -1,3 +1,5 @@
+import { PostModel } from 'types/post';
+
 export interface CreatePostBody {
   content: string;
   description?: string;
@@ -41,8 +43,13 @@ export interface GetPostsValues {
   params?: GetPostParams;
 }
 
+export interface GetPostCountParams {
+  type: string;
+  user_id?: string;
+}
+
 export interface GetPostsCountRequest {
-  params?: GetPostParams;
+  params?: GetPostCountParams;
 }
 
 export interface CreatePostBody {
