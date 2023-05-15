@@ -3,6 +3,7 @@ import { SettingTitle } from 'components/common/SettingTitle';
 import { useUpdatePasswordMutation } from 'ducks/user/api';
 import { UpdatePassword } from 'ducks/user/types';
 import { conditionalTranslate } from 'helpers';
+import { OptionsObject, useSnackbar } from 'notistack';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -22,8 +23,37 @@ const defaultValues = {
   passwordConfirm: '' || undefined,
 };
 
+interface SettingsSnackOption {
+  title: string;
+  options: OptionsObject;
+}
+
+const SettingsSnackOptions: {
+  success: SettingsSnackOption;
+  error: SettingsSnackOption;
+} = {
+  success: {
+    title: 'successChangePassword',
+    options: {
+      variant: 'success',
+      anchorOrigin: { vertical: 'top', horizontal: 'center' },
+    },
+  },
+  error: {
+    title: 'errorChangePassword',
+    options: {
+      variant: 'error',
+      anchorOrigin: { vertical: 'top', horizontal: 'center' },
+    },
+  },
+};
+
 export const PasswordView = () => {
-  const { t } = useTranslation('translation', { keyPrefix: 'settings' });
+  const { t } = useTranslation('translation', {
+    keyPrefix: 'settings',
+  });
+
+  const { enqueueSnackbar } = useSnackbar();
 
   const [changePassword] = useUpdatePasswordMutation();
 
@@ -36,12 +66,23 @@ export const PasswordView = () => {
     resolver: yupResolver(changePasswordValidation),
   });
 
-  const onSubmit: SubmitHandler<UpdatePassword> = data => {
-    changePassword(data);
+  const onSubmitHandler: SubmitHandler<UpdatePassword> = data => {
+    try {
+      changePassword(data);
+      enqueueSnackbar(
+        t(SettingsSnackOptions.success.title),
+        SettingsSnackOptions.success.options,
+      );
+    } catch (e) {
+      enqueueSnackbar(
+        t(SettingsSnackOptions.error.title),
+        SettingsSnackOptions.error.options,
+      );
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmitHandler)}>
       <BoxSettings>
         <SettingTitle title="password" size="h4" />
         <PasswordViewBox>

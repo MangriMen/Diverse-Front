@@ -100,6 +100,11 @@
     "avatarSizeToLarge": "Размер изображения не должен превышать 2MB",
     "currentPassword": "Текущий пароль",
     "newPassword": "Новый пароль",
-    "newPasswordConfirm": "Подтверждение нового пароля"
+    "newPasswordConfirm": "Подтверждение нового пароля",
+    "successChangePassword": "Пароль успешно изменен",
+    "errorChangePassword": "Текущий пароль недействителен",
+    "сharactersCount": "Поле должно содержать от 8 до 32 символов",
+    "matchConfirmPassword": "Пароли должны совпадать",
+    "emptyPassword": "Введите пароль"
   }
 }

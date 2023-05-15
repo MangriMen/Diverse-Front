@@ -18,8 +18,7 @@ export const changePasswordValidation = yup.object().shape({
     .trim()
     .min(SHAPE_CONSTRAINTS.PASSWORD_MIN, 'сharactersCount')
     .max(SHAPE_CONSTRAINTS.USERNAME_MAX, 'сharactersCount')
-    .matches(/^\S*$/, 'passwordMustNotContainSpaces')
-    .required('emptyPassword'),
+    .matches(/^\S*$/, 'passwordMustNotContainSpaces'),
   password: yup
     .string()
     .trim()
