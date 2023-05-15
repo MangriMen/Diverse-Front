@@ -77,9 +77,9 @@ export const InformationView = () => {
 
   const form = useForm<UserForm>({
     defaultValues: {
-      name: user?.name,
-      username: user?.username,
-      about: user?.about,
+      name: user?.name || undefined,
+      username: user?.username || undefined,
+      about: user?.about || undefined,
     },
     resolver: yupResolver(settingsValidator),
   });

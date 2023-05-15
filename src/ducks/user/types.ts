@@ -62,12 +62,13 @@ export interface UpdateUserRequest {
   body: Partial<User>;
 }
 
-export interface ChangePassword {
+export interface UpdatePassword {
+  old_password: string;
   password: string;
-  oldPassword: string;
+  passwordConfirm: string;
 }
 
 export interface UpdatePasswordRequest {
   path: GetRelationsPath;
-  body: ChangePassword;
+  body: UpdatePassword;
 }

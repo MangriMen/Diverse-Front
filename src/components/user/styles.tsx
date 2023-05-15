@@ -195,6 +195,9 @@ export const BoxSettings = styled(Box)`
   display: grid;
   grid-template-rows: auto 14rem auto;
   gap: 2rem;
+  ${props => props.theme.breakpoints.down('md')} {
+    grid-template-rows: repeat(5, auto);
+  }
 `;
 
 export const InformationViewBox = styled(Box)`
@@ -202,7 +205,6 @@ export const InformationViewBox = styled(Box)`
   grid-template-columns: 12.5rem minmax(0, 20rem) auto;
   grid-template-rows: repeat(2, auto);
   gap: 1rem;
-  grid-template-columns: subgrid;
   ${props => props.theme.breakpoints.down('md')} {
     grid-template-columns: repeat(1, auto);
     grid-template-rows: repeat(4, auto);
