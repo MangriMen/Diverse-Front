@@ -43,13 +43,6 @@ export const HeaderStyled = styled(CardHeader)`
   }
 `;
 
-export const UserRelationListItem = styled(Box)`
-  display: flex;
-  flex-direction: row;
-  gap: 0.8rem;
-  align-items: center;
-`;
-
 export const RelationInfo = styled(Box)`
   display: flex;
   justify-content: center;

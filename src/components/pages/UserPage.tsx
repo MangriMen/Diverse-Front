@@ -2,8 +2,8 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import { Loader } from 'components/common/LoaderPage';
 import { StyledContainer } from 'components/pages/styles';
 import { Post } from 'components/post/Post';
-import { ToggleRealtionButton } from 'components/user/UserRelation/ToggleRealtionButton';
-import { UserRelation } from 'components/user/UserRelation/UserRelation';
+import { UserRelations } from 'components/user/UserRelations';
+import { ToggleRelationButton } from 'components/user/UserRelations/ToggleRelationButton';
 import {
   AvatarWithName,
   FollowerRelation,
@@ -44,7 +44,7 @@ export const UserPage = () => {
         <UserInfo>
           <MainUserInfo>
             <FollowerRelation>
-              <UserRelation isMe={isMe} user={user} type="followers" />
+              <UserRelations isMe={isMe} user={user} type="followers" />
             </FollowerRelation>
             <AvatarWithName>
               <ProfileAvatarWithAction>
@@ -55,7 +55,7 @@ export const UserPage = () => {
                       <SettingsIcon />
                     </ProfileAvatarSettingsButton>
                   )}
-                  {!isMe && <ToggleRealtionButton user={user} />}
+                  {!isMe && <ToggleRelationButton user={user} />}
                 </ProfileAvatarButtonBox>
               </ProfileAvatarWithAction>
               <UsernameAndName>
@@ -64,7 +64,7 @@ export const UserPage = () => {
               </UsernameAndName>
             </AvatarWithName>
             <FollowingRelation>
-              <UserRelation isMe={isMe} user={user} type="followings" />
+              <UserRelations isMe={isMe} user={user} type="followings" />
             </FollowingRelation>
           </MainUserInfo>
           <UserDescription>
