@@ -75,8 +75,7 @@ export const ToggleRelationButton = ({
         }}
         onClick={data.following ? handleUnfollow : handleFollow}
       >
-        {data.following && <CloseIcon />}
-        {!data.following && <AddIcon />}
+        {data.following ? <CloseIcon /> : <AddIcon />}
       </StyledIconButton>
     </Tooltip>
   );
