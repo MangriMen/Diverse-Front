@@ -3,10 +3,11 @@ import {
   ListItem,
   ListItemAvatar,
   Typography,
-  TypographyProps,
   styled,
 } from '@mui/material';
 import { Span } from 'components/common/styles';
+import { UsernameLinkButton } from 'components/user/UsernameLinkButton';
+import { UsernameLinkButtonProps } from 'components/user/interfaces';
 
 export const ListItemStyled = styled(ListItem)`
   gap: 0.5rem;
@@ -24,14 +25,16 @@ export const CommentHeader = styled(Box)`
   align-items: center;
 `;
 
-export const CommentUsername = styled(({ ...props }: TypographyProps) => (
-  <Typography variant="body2" {...props} />
-))`
+export const CommentUsername = styled(
+  ({ ...props }: UsernameLinkButtonProps) => (
+    <UsernameLinkButton typographyProps={{ variant: 'body2' }} {...props} />
+  ),
+)`
   flex: 1;
   overflow: hidden;
   text-overflow: ellipsis;
   padding: 0 0.25rem;
-` as typeof Typography;
+`;
 
 export const CommentBody = styled(Span)`
   display: flex;
