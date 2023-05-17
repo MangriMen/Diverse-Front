@@ -14,6 +14,11 @@ export const StyledProfileAvatar = styled(Avatar)`
   height: 192px;
 
   ${props => props.theme.breakpoints.down('sm')} {
+    width: 96px;
+    height: 96px;
+  }
+
+  ${props => props.theme.breakpoints.down('mobile')} {
     width: 80px;
     height: 80px;
   }
@@ -23,15 +28,16 @@ export const UserInfo = styled(Box)`
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.75rem;
 `;
 
 export const MainUserInfo = styled(Box)`
   width: 100%;
   display: grid;
-  grid-template-columns: auto auto auto;
-  justify-content: space-evenly;
+  grid-template-columns: 1fr auto 1fr;
+  justify-items: center;
   align-items: center;
+  column-gap: 1rem;
 
   ${props => props.theme.breakpoints.down('mobile')} {
     grid-template-columns: 1fr 1fr;

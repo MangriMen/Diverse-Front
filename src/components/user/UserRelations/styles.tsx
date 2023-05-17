@@ -47,8 +47,6 @@ export const RelationInfo = styled(Box)`
   display: flex;
   justify-content: center;
 
-  width: 200px;
-
   ${props => props.theme.breakpoints.down('sm')} {
     display: none;
   }
