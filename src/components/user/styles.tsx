@@ -1,6 +1,8 @@
 import { Avatar, Box, Typography, styled } from '@mui/material';
 import { StyledInput } from 'components/auth/styles';
 import { StyledButton } from 'components/common';
+import { PasswordInput } from 'components/common/PasswordInput';
+import { UsernameInput } from 'components/common/UsernameInput';
 import { BaseLayout } from 'components/pages/styles';
 import { StyledIconButton } from 'components/post/styles';
 
@@ -220,7 +222,7 @@ export const NameInputStyled = styled(StyledInput)`
   }
 `;
 
-export const UsernameInputStyled = styled(StyledInput)`
+export const UsernameInputStyled = styled(UsernameInput)`
   grid-column: 2;
   grid-row: 2;
   align-self: flex-end;
@@ -253,15 +255,15 @@ export const PasswordViewBox = styled(Box)`
   }
 `;
 
-export const CurrentPasswordInput = styled(StyledInput)`
+export const CurrentPasswordInput = styled(PasswordInput)`
   grid-row: 1;
 `;
 
-export const NewPasswordInput = styled(StyledInput)`
+export const NewPasswordInput = styled(PasswordInput)`
   grid-row: 2;
 `;
 
-export const NewPasswordConfirmInput = styled(StyledInput)`
+export const NewPasswordConfirmInput = styled(PasswordInput)`
   grid-row: 3;
 `;
 

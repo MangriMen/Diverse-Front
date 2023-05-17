@@ -1,8 +1,8 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Box, InputAdornment, styled } from '@mui/material';
+import { Box, styled } from '@mui/material';
 import { AvatarUpload } from 'components/common/FileUpload/AvatarUpload';
 import { SettingTitle } from 'components/common/SettingTitle';
-import { AT_THE_RATE_SIGN, SHAPE_CONSTRAINTS } from 'consts';
+import { SHAPE_CONSTRAINTS } from 'consts';
 import { selectUser } from 'ducks/auth/selectors';
 import { useDataMutation } from 'ducks/data/api';
 import { DataValues } from 'ducks/data/types';
@@ -77,9 +77,9 @@ export const InformationView = () => {
 
   const form = useForm<UserForm>({
     defaultValues: {
-      name: user?.name || undefined,
-      username: user?.username || undefined,
-      about: user?.about || undefined,
+      name: user?.name ?? undefined,
+      username: user?.username,
+      about: user?.about ?? undefined,
     },
     resolver: yupResolver(settingsValidator),
   });
@@ -133,7 +133,6 @@ export const InformationView = () => {
               name="name"
               render={({ field }) => (
                 <NameInputStyled
-                  {...field}
                   variant="filled"
                   label={t('name')}
                   error={!!form.formState.errors.name?.message}
@@ -142,6 +141,7 @@ export const InformationView = () => {
                     form.formState.errors.name?.message,
                   )}
                   InputProps={{ disableUnderline: true }}
+                  {...field}
                 />
               )}
             />
@@ -150,23 +150,14 @@ export const InformationView = () => {
               name="username"
               render={({ field }) => (
                 <UsernameInputStyled
-                  {...field}
                   label={t('username')}
-                  variant="filled"
                   autoComplete="off"
                   error={!!form.formState.errors.username?.message}
                   helperText={conditionalTranslate(
                     t,
                     form.formState.errors.username?.message,
                   )}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        {AT_THE_RATE_SIGN}
-                      </InputAdornment>
-                    ),
-                    disableUnderline: true,
-                  }}
+                  {...field}
                   onChange={(event: ChangeEvent<HTMLInputElement>) =>
                     field.onChange(handleOnChangeNoSpace(event))
                   }
@@ -178,10 +169,8 @@ export const InformationView = () => {
               name="about"
               render={({ field }) => (
                 <AboutInputStyled
-                  {...field}
-                  label={t('aboutMe')}
                   variant="filled"
-                  autoComplete="off"
+                  label={t('aboutMe')}
                   multiline
                   maxRows={7.2}
                   InputProps={{ disableUnderline: true }}
@@ -189,6 +178,7 @@ export const InformationView = () => {
                     maxLength: SHAPE_CONSTRAINTS.DESCRIPTION_MAX,
                   }}
                   helperText={`${value.length}/${SHAPE_CONSTRAINTS.DESCRIPTION_MAX}`}
+                  {...field}
                   onChange={handleChange}
                 />
               )}

@@ -1,11 +1,17 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SettingTitle } from 'components/common/SettingTitle';
+import { STORAGE_KEYS } from 'consts';
 import { useUpdatePasswordMutation } from 'ducks/user/api';
 import { UpdatePassword } from 'ducks/user/types';
-import { conditionalTranslate } from 'helpers';
-import { OptionsObject, useSnackbar } from 'notistack';
+import {
+  conditionalTranslate,
+  handleOnChangeNoSpace,
+  storageSet,
+} from 'helpers';
+import { ChangeEvent } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 import {
   BoxSettings,
@@ -18,34 +24,9 @@ import {
 import { changePasswordValidation } from './schemas';
 
 const defaultValues = {
-  old_password: '' || undefined,
-  password: '' || undefined,
-  passwordConfirm: '' || undefined,
-};
-
-interface SettingsSnackOption {
-  title: string;
-  options: OptionsObject;
-}
-
-const SettingsSnackOptions: {
-  success: SettingsSnackOption;
-  error: SettingsSnackOption;
-} = {
-  success: {
-    title: 'successChangePassword',
-    options: {
-      variant: 'success',
-      anchorOrigin: { vertical: 'top', horizontal: 'center' },
-    },
-  },
-  error: {
-    title: 'errorChangePassword',
-    options: {
-      variant: 'error',
-      anchorOrigin: { vertical: 'top', horizontal: 'center' },
-    },
-  },
+  old_password: '',
+  password: '',
+  passwordConfirm: '',
 };
 
 export const PasswordView = () => {
@@ -53,9 +34,9 @@ export const PasswordView = () => {
     keyPrefix: 'settings',
   });
 
-  const { enqueueSnackbar } = useSnackbar();
-
   const [changePassword] = useUpdatePasswordMutation();
+
+  const navigate = useNavigate();
 
   const {
     control,
@@ -66,18 +47,14 @@ export const PasswordView = () => {
     resolver: yupResolver(changePasswordValidation),
   });
 
-  const onSubmitHandler: SubmitHandler<UpdatePassword> = data => {
+  const onSubmitHandler: SubmitHandler<UpdatePassword> = async data => {
     try {
-      changePassword(data);
-      enqueueSnackbar(
-        t(SettingsSnackOptions.success.title),
-        SettingsSnackOptions.success.options,
-      );
+      await changePassword(data).unwrap();
+      storageSet(STORAGE_KEYS.IS_PASSWORD_CHANGED_SUCCESSFULLY, true);
     } catch (e) {
-      enqueueSnackbar(
-        t(SettingsSnackOptions.error.title),
-        SettingsSnackOptions.error.options,
-      );
+      storageSet(STORAGE_KEYS.IS_PASSWORD_CHANGED_SUCCESSFULLY, false);
+    } finally {
+      navigate(0);
     }
   };
 
@@ -91,16 +68,16 @@ export const PasswordView = () => {
             name="old_password"
             render={({ field }) => (
               <CurrentPasswordInput
-                {...field}
                 label={t('currentPassword')}
                 error={!!errors.old_password?.message}
                 helperText={conditionalTranslate(
                   t,
                   errors.old_password?.message,
                 )}
-                variant="filled"
-                type="password"
-                InputProps={{ disableUnderline: true }}
+                {...field}
+                onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                  field.onChange(handleOnChangeNoSpace(event))
+                }
               />
             )}
           />
@@ -109,13 +86,14 @@ export const PasswordView = () => {
             name="password"
             render={({ field }) => (
               <NewPasswordInput
-                {...field}
                 label={t('newPassword')}
                 error={!!errors.password?.message}
                 helperText={conditionalTranslate(t, errors.password?.message)}
-                variant="filled"
-                type="password"
-                InputProps={{ disableUnderline: true }}
+                autoComplete="new-password"
+                {...field}
+                onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                  field.onChange(handleOnChangeNoSpace(event))
+                }
               />
             )}
           />
@@ -124,16 +102,16 @@ export const PasswordView = () => {
             name="passwordConfirm"
             render={({ field }) => (
               <NewPasswordConfirmInput
-                {...field}
                 label={t('newPasswordConfirm')}
                 error={!!errors.passwordConfirm?.message}
                 helperText={conditionalTranslate(
                   t,
                   errors.passwordConfirm?.message,
                 )}
-                variant="filled"
-                type="password"
-                InputProps={{ disableUnderline: true }}
+                {...field}
+                onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                  field.onChange(handleOnChangeNoSpace(event))
+                }
               />
             )}
           />

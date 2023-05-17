@@ -1,12 +1,12 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { IconButton, InputAdornment, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
+import { PasswordInput } from 'components/common/PasswordInput';
 import { StyledButton, StyledTextButton } from 'components/common/styles';
 import { useRegisterMutation } from 'ducks/auth/api';
 import { RegisterValues } from 'ducks/auth/types';
-import { removeWhitespace, replaceWhitespaces } from 'helpers/auth';
+import { handleOnChangeNickname, handleOnChangeNoSpace } from 'helpers/auth';
 import { conditionalTranslate } from 'helpers/conditionalTranslate';
-import { ChangeEvent, FC, useState } from 'react';
+import { ChangeEvent, FC } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -30,10 +30,6 @@ export const Register: FC<AuthFormProps> = ({ changeFormType }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'auth' });
   const [register, { isError }] = useRegisterMutation();
 
-  const [showPassword, setShowPassword] = useState(false);
-
-  const handleClickShowPassword = () => setShowPassword(show => !show);
-
   const {
     control,
     handleSubmit,
@@ -47,12 +43,6 @@ export const Register: FC<AuthFormProps> = ({ changeFormType }) => {
     register(data);
   };
 
-  const handleOnChangeNickname = (event: ChangeEvent<HTMLInputElement>) =>
-    replaceWhitespaces(event.target.value);
-
-  const handleOnChangeNoSpace = (event: ChangeEvent<HTMLInputElement>) =>
-    removeWhitespace(event.target.value);
-
   return (
     <StyledWrapperBox>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -64,10 +54,11 @@ export const Register: FC<AuthFormProps> = ({ changeFormType }) => {
               <StyledInput
                 label={t('usernamePlaceholder')}
                 variant="filled"
-                {...field}
                 error={!!errors.username?.message}
                 helperText={conditionalTranslate(t, errors.username?.message)}
                 InputProps={{ disableUnderline: true }}
+                autoComplete="username"
+                {...field}
                 onChange={(event: ChangeEvent<HTMLInputElement>) =>
                   field.onChange(handleOnChangeNickname(event))
                 }
@@ -81,10 +72,11 @@ export const Register: FC<AuthFormProps> = ({ changeFormType }) => {
               <StyledInput
                 label={t('emailPlaceholder')}
                 variant="filled"
-                {...field}
                 error={!!errors.email?.message}
                 helperText={conditionalTranslate(t, errors.email?.message)}
                 InputProps={{ disableUnderline: true }}
+                autoComplete="email"
+                {...field}
                 onChange={(event: ChangeEvent<HTMLInputElement>) =>
                   field.onChange(handleOnChangeNoSpace(event))
                 }
@@ -95,27 +87,13 @@ export const Register: FC<AuthFormProps> = ({ changeFormType }) => {
             control={control}
             name="password"
             render={({ field }) => (
-              <StyledInput
+              <PasswordInput
+                withShow
                 label={t('passwordPlaceholder')}
-                variant="filled"
-                {...field}
                 error={!!errors.password?.message}
                 helperText={conditionalTranslate(t, errors.password?.message)}
-                type={showPassword ? 'text' : 'password'}
-                InputProps={{
-                  disableUnderline: true,
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowPassword}
-                        edge="end"
-                      >
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
+                autoComplete="new-password"
+                {...field}
                 onChange={(event: ChangeEvent<HTMLInputElement>) =>
                   field.onChange(handleOnChangeNoSpace(event))
                 }
@@ -126,17 +104,14 @@ export const Register: FC<AuthFormProps> = ({ changeFormType }) => {
             name="passwordConfirm"
             control={control}
             render={({ field }) => (
-              <StyledInput
+              <PasswordInput
                 label={t('passwordConfirm')}
-                variant="filled"
-                {...field}
                 error={!!errors.passwordConfirm?.message}
                 helperText={conditionalTranslate(
                   t,
                   errors.passwordConfirm?.message,
                 )}
-                type="password"
-                InputProps={{ disableUnderline: true }}
+                {...field}
                 onChange={(event: ChangeEvent<HTMLInputElement>) =>
                   field.onChange(handleOnChangeNoSpace(event))
                 }
