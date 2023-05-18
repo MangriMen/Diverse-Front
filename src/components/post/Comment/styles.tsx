@@ -29,12 +29,7 @@ export const CommentUsername = styled(
   ({ ...props }: UsernameLinkButtonProps) => (
     <UsernameLinkButton typographyProps={{ variant: 'body2' }} {...props} />
   ),
-)`
-  flex: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  padding: 0 0.25rem;
-`;
+)``;
 
 export const CommentBody = styled(Span)`
   display: flex;

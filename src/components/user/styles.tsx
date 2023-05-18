@@ -1,6 +1,6 @@
 import { Avatar, Box, Typography, styled } from '@mui/material';
 import { BaseLayout } from 'components/pages/styles';
-import { StyledIconButton } from 'components/post/styles';
+import { StyledIconButton } from 'components/post';
 
 export const UserPageLayout = styled(BaseLayout)`
   width: 100%;
@@ -14,8 +14,13 @@ export const StyledProfileAvatar = styled(Avatar)`
   height: 192px;
 
   ${props => props.theme.breakpoints.down('sm')} {
-    width: 64px;
-    height: 64px;
+    width: 96px;
+    height: 96px;
+  }
+
+  ${props => props.theme.breakpoints.down('mobile')} {
+    width: 80px;
+    height: 80px;
   }
 `;
 
@@ -23,28 +28,30 @@ export const UserInfo = styled(Box)`
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.75rem;
 `;
 
 export const MainUserInfo = styled(Box)`
   width: 100%;
   display: grid;
-  grid-template-columns: auto auto auto;
-  justify-content: space-evenly;
+  grid-template-columns: 1fr auto 1fr;
+  justify-items: center;
   align-items: center;
+  column-gap: 1rem;
 
-  ${props => props.theme.breakpoints.down('sm')} {
-    grid-template-columns: auto auto;
+  ${props => props.theme.breakpoints.down('mobile')} {
+    grid-template-columns: 1fr 1fr;
     grid-template-rows: auto auto;
   }
 `;
 
 export const UserDescription = styled(Box)`
-  width: 100;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
+  word-break: break-all;
 `;
 
 export const UserDescriptionText = styled(Typography)`
@@ -90,64 +97,33 @@ export const UsersHorizontalList = styled(Box)`
   gap: 1rem;
 `;
 
-export const AvatarWithName = styled(Box)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  grid-column: 2;
-
-  ${props => props.theme.breakpoints.down('sm')} {
-    grid-column: 1;
-    grid-row: 1/3;
-  }
-`;
-
 export const Username = styled(Typography)`
   font-size: 1.5rem;
-
-  ${props => props.theme.breakpoints.down('sm')} {
-    font-size: 1rem;
-  }
 `;
 
 export const Name = styled(Typography)`
-  text-align: center;
   font-size: 1rem;
-
-  ${props => props.theme.breakpoints.down('sm')} {
-    display: none;
-  }
-`;
-
-export const NameInDescription = styled(Typography)`
-  font-size: 0.875rem;
-
-  text-align: center;
-  display: none;
-
-  ${props => props.theme.breakpoints.down('sm')} {
-    display: unset;
-  }
-`;
-
-export const UsernameAndName = styled(Box)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 `;
 
 export const ProfileAvatarWithAction = styled(Box)`
-  position: relative;
+  height: 100%;
+
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+
+  position: relative;
+  grid-column: 2;
 
   :hover * {
-    visibility: visible;
     opacity: 1;
+  }
+
+  ${props => props.theme.breakpoints.down('mobile')} {
+    grid-column: 1;
+    grid-row: 1/3;
   }
 `;
 
@@ -155,25 +131,26 @@ export const ProfileAvatarButtonBox = styled(Box)`
   position: absolute;
   bottom: 0;
   right: 0;
+
+  ${props => props.theme.breakpoints.down('sm')} {
+    position: unset;
+  }
 `;
 
-export const ProfileAvatarActionButton = styled(StyledIconButton)`
-  position: absolute;
-  bottom: 0;
-  right: 0;
-`;
-
-export const ProfileAvatarSettingsButton = styled(ProfileAvatarActionButton)`
-  visibility: hidden;
+export const ProfileAvatarSettingsButton = styled(StyledIconButton)`
   opacity: 0;
 
   transition: visibility 0.3s ease-out, opacity 0.3s ease-out;
+
+  ${props => props.theme.breakpoints.down('sm')} {
+    opacity: unset;
+  }
 `;
 
 export const FollowerRelation = styled(Box)`
   grid-column: 1;
 
-  ${props => props.theme.breakpoints.down('sm')} {
+  ${props => props.theme.breakpoints.down('mobile')} {
     grid-column: 2;
     grid-row: 1;
   }
@@ -182,7 +159,7 @@ export const FollowerRelation = styled(Box)`
 export const FollowingRelation = styled(Box)`
   grid-column: 3;
 
-  ${props => props.theme.breakpoints.down('sm')} {
+  ${props => props.theme.breakpoints.down('mobile')} {
     grid-column: 2;
     grid-row: 2;
   }
