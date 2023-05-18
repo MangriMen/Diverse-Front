@@ -51,7 +51,7 @@ export const PostCardHeader = ({ post }: { post: PostModel }) => {
   return (
     <PostHeader>
       <AvatarButton user={post.user} />
-      <UsernameLinkButton user={post.user}></UsernameLinkButton>
+      <UsernameLinkButton user={post.user} />
       <ActionMenu visible={post.user.id == user?.id}>
         {Object.values(preparedActions).map(action => (
           <PostCommentMenuItem key={action.key} action={action} />

@@ -5,12 +5,10 @@ import { Post } from 'components/post/Post';
 import { UserRelations } from 'components/user/UserRelations';
 import { ToggleRelationButton } from 'components/user/UserRelations/ToggleRelationButton';
 import {
-  AvatarWithName,
   FollowerRelation,
   FollowingRelation,
   MainUserInfo,
   Name,
-  NameInDescription,
   ProfileAvatarButtonBox,
   ProfileAvatarSettingsButton,
   ProfileAvatarWithAction,
@@ -21,7 +19,6 @@ import {
   UserInfo,
   UserPageLayout,
   Username,
-  UsernameAndName,
 } from 'components/user/styles';
 import { POSTS_FETCH_COUNT } from 'consts';
 import { userLoader } from 'helpers';
@@ -46,29 +43,24 @@ export const UserPage = () => {
             <FollowerRelation>
               <UserRelations isMe={isMe} user={user} type="followers" />
             </FollowerRelation>
-            <AvatarWithName>
-              <ProfileAvatarWithAction>
-                <StyledProfileAvatar src={`${user.avatar_url}?width=256`} />
-                <ProfileAvatarButtonBox>
-                  {isMe && (
-                    <ProfileAvatarSettingsButton>
-                      <SettingsIcon />
-                    </ProfileAvatarSettingsButton>
-                  )}
-                  {!isMe && <ToggleRelationButton user={user} />}
-                </ProfileAvatarButtonBox>
-              </ProfileAvatarWithAction>
-              <UsernameAndName>
-                <Username>{`@${user.username}`}</Username>
-                <Name>{user.name}</Name>
-              </UsernameAndName>
-            </AvatarWithName>
+            <ProfileAvatarWithAction>
+              <StyledProfileAvatar src={`${user.avatar_url}?width=256`} />
+              <ProfileAvatarButtonBox>
+                {isMe && (
+                  <ProfileAvatarSettingsButton>
+                    <SettingsIcon />
+                  </ProfileAvatarSettingsButton>
+                )}
+                {!isMe && <ToggleRelationButton user={user} />}
+              </ProfileAvatarButtonBox>
+            </ProfileAvatarWithAction>
             <FollowingRelation>
               <UserRelations isMe={isMe} user={user} type="followings" />
             </FollowingRelation>
           </MainUserInfo>
           <UserDescription>
-            <NameInDescription>{user.name}</NameInDescription>
+            <Username>{`@${user.username}`}</Username>
+            <Name>{user.name}</Name>
             <UserDescriptionText>{user.about}</UserDescriptionText>
           </UserDescription>
         </UserInfo>
