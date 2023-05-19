@@ -57,7 +57,6 @@ export const Register: FC<AuthFormProps> = ({ changeFormType }) => {
                 error={!!errors.username?.message}
                 helperText={conditionalTranslate(t, errors.username?.message)}
                 InputProps={{ disableUnderline: true }}
-                autoComplete="username"
                 {...field}
                 onChange={(event: ChangeEvent<HTMLInputElement>) =>
                   field.onChange(handleOnChangeNickname(event))
@@ -75,7 +74,6 @@ export const Register: FC<AuthFormProps> = ({ changeFormType }) => {
                 error={!!errors.email?.message}
                 helperText={conditionalTranslate(t, errors.email?.message)}
                 InputProps={{ disableUnderline: true }}
-                autoComplete="email"
                 {...field}
                 onChange={(event: ChangeEvent<HTMLInputElement>) =>
                   field.onChange(handleOnChangeNoSpace(event))
@@ -92,7 +90,6 @@ export const Register: FC<AuthFormProps> = ({ changeFormType }) => {
                 label={t('passwordPlaceholder')}
                 error={!!errors.password?.message}
                 helperText={conditionalTranslate(t, errors.password?.message)}
-                autoComplete="new-password"
                 {...field}
                 onChange={(event: ChangeEvent<HTMLInputElement>) =>
                   field.onChange(handleOnChangeNoSpace(event))

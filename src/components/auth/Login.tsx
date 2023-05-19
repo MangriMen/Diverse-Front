@@ -55,7 +55,6 @@ export const Login = ({ changeFormType }: AuthFormProps) => {
                 error={!!errors.email?.message}
                 helperText={conditionalTranslate(t, errors.email?.message)}
                 InputProps={{ disableUnderline: true }}
-                autoComplete="email"
                 {...field}
                 onChange={(event: ChangeEvent<HTMLInputElement>) =>
                   field.onChange(handleOnChangeNoSpace(event))

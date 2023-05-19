@@ -139,7 +139,6 @@ export const CreatePostForm = ({ onClose }: CreatePostFormProps) => {
                   label={t('postDescription')}
                   multiline
                   maxRows={POST_DESCRIPTION_MAX_ROWS}
-                  autoComplete="off"
                   InputProps={{ disableUnderline: true }}
                   inputProps={{
                     maxLength: SHAPE_CONSTRAINTS.DESCRIPTION_MAX,

@@ -151,7 +151,6 @@ export const InformationView = () => {
               render={({ field }) => (
                 <UsernameInputStyled
                   label={t('username')}
-                  autoComplete="off"
                   error={!!form.formState.errors.username?.message}
                   helperText={conditionalTranslate(
                     t,

@@ -89,7 +89,6 @@ export const PasswordView = () => {
                 label={t('newPassword')}
                 error={!!errors.password?.message}
                 helperText={conditionalTranslate(t, errors.password?.message)}
-                autoComplete="new-password"
                 {...field}
                 onChange={(event: ChangeEvent<HTMLInputElement>) =>
                   field.onChange(handleOnChangeNoSpace(event))
