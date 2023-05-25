@@ -1,22 +1,23 @@
-import { Avatar, Tooltip, Typography } from '@mui/material';
-import { StyledIconButton } from 'components/post/styles';
+import { Avatar } from '@mui/material';
+import { StyledIconButton } from 'components/post';
 import { ROUTE } from 'consts';
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { User } from 'types/auth';
 
-export const AvatarButton = ({ user }: { user: User | null }) => {
+import { UserTooltip } from './UserTooltip';
+import { AvatarButtonProps } from './interfaces';
+
+export const AvatarButton = ({ user, ...props }: AvatarButtonProps) => {
   const navigate = useNavigate();
 
+  const navigateToUserPage = () => {
+    navigate(`${ROUTE.HOME}${user?.username}`);
+  };
+
   return (
-    <Tooltip title={<Typography>{user?.username}</Typography>}>
-      <StyledIconButton
-        onClick={() => {
-          navigate(`${ROUTE.HOME}${user?.username}`);
-        }}
-      >
+    <UserTooltip user={user}>
+      <StyledIconButton onClick={navigateToUserPage} {...props}>
         <Avatar src={`${user?.avatar_url}?width=96`} />
       </StyledIconButton>
-    </Tooltip>
+    </UserTooltip>
   );
 };

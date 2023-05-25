@@ -40,8 +40,9 @@ export const prepareComment = (comment: CommentModel): CommentModel => {
 };
 
 export const preparePost = (post: PostModel): PostModel => {
+  post.user = prepareUser(post.user);
   post.content = prepareUrl(post.content) ?? '';
-  post.comments = post.comments.map(comment => prepareComment(comment));
+  post.comments = post.comments.map(prepareComment);
 
   return post;
 };

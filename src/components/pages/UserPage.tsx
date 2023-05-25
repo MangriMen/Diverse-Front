@@ -2,15 +2,13 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import { Loader } from 'components/common/LoaderPage';
 import { StyledContainer } from 'components/pages/styles';
 import { Post } from 'components/post/Post';
-import { ToggleRelationButton } from 'components/user/UserRelation/ToggleRelationButton';
-import { UserRelation } from 'components/user/UserRelation/UserRelation';
+import { UserRelations } from 'components/user/UserRelations';
+import { ToggleRelationButton } from 'components/user/UserRelations/ToggleRelationButton';
 import {
-  AvatarWithName,
   FollowerRelation,
   FollowingRelation,
   MainUserInfo,
   Name,
-  NameInDescription,
   ProfileAvatarButtonBox,
   ProfileAvatarSettingsButton,
   ProfileAvatarWithAction,
@@ -21,7 +19,6 @@ import {
   UserInfo,
   UserPageLayout,
   Username,
-  UsernameAndName,
 } from 'components/user/styles';
 import { AT_THE_RATE_SIGN, POSTS_FETCH_COUNT, ROUTE } from 'consts';
 import { userLoader } from 'helpers';
@@ -50,31 +47,26 @@ export const UserPage = () => {
         <UserInfo>
           <MainUserInfo>
             <FollowerRelation>
-              <UserRelation isMe={isMe} user={user} type="followers" />
+              <UserRelations isMe={isMe} user={user} type="followers" />
             </FollowerRelation>
-            <AvatarWithName>
-              <ProfileAvatarWithAction>
-                <StyledProfileAvatar src={`${user.avatar_url}?width=256`} />
-                <ProfileAvatarButtonBox>
-                  {isMe && (
-                    <ProfileAvatarSettingsButton onClick={toSettings}>
-                      <SettingsIcon />
-                    </ProfileAvatarSettingsButton>
-                  )}
-                  {!isMe && <ToggleRelationButton user={user} />}
-                </ProfileAvatarButtonBox>
-              </ProfileAvatarWithAction>
-              <UsernameAndName>
-                <Username>{`${AT_THE_RATE_SIGN}${user.username}`}</Username>
-                <Name>{user.name}</Name>
-              </UsernameAndName>
-            </AvatarWithName>
+            <ProfileAvatarWithAction>
+              <StyledProfileAvatar src={`${user.avatar_url}?width=256`} />
+              <ProfileAvatarButtonBox>
+                {isMe && (
+                  <ProfileAvatarSettingsButton onClick={toSettings}>
+                    <SettingsIcon />
+                  </ProfileAvatarSettingsButton>
+                )}
+                {!isMe && <ToggleRelationButton user={user} />}
+              </ProfileAvatarButtonBox>
+            </ProfileAvatarWithAction>
             <FollowingRelation>
-              <UserRelation isMe={isMe} user={user} type="followings" />
+              <UserRelations isMe={isMe} user={user} type="followings" />
             </FollowingRelation>
           </MainUserInfo>
           <UserDescription>
-            <NameInDescription>{user.name}</NameInDescription>
+            <Username>{`${AT_THE_RATE_SIGN}${user.username}`}</Username>
+            <Name>{user.name}</Name>
             <UserDescriptionText>{user.about}</UserDescriptionText>
           </UserDescription>
         </UserInfo>

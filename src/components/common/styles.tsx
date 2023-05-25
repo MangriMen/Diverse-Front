@@ -18,7 +18,8 @@ export const StyledTextButton = styled(Button, {
 })<{ fontSize?: string }>`
   color: ${props => props.color ?? props.theme.palette.common.white};
   font-size: ${props => props.fontSize ?? '1rem'};
-  padding: 0;
+  min-width: 0;
+  padding: 0 0.25rem;
 
   &:hover {
     background: #ffffff0f;
