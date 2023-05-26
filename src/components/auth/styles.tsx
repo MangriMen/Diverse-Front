@@ -1,4 +1,4 @@
-import { Box, Button, TextField, styled } from '@mui/material';
+import { Box, TextField, styled } from '@mui/material';
 
 export const StyledInput = styled(TextField)`
   & .MuiFilledInput-root {
@@ -27,14 +27,6 @@ export const StyledFormContainer = styled(Box)`
   align-items: center;
   padding: 8px 0;
   gap: clamp(4rem, 3.229813664596273rem + 4.968944099378882vw, 8rem);
-`;
-
-export const StyledButton = styled(Button)`
-  padding: 4px 16px;
-  font-size: 1rem;
-  &:focus-visible {
-    outline: 2px solid;
-  }
 `;
 
 export const StyledSwitchActionBox = styled(Box)`

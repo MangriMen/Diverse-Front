@@ -3,19 +3,36 @@ import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { FileUploadProps } from './interfaces';
-import { StyledFileInput } from './styles';
+import { CircleStyledFileInput, StyledFileInput } from './styles';
 
-export const FileUpload: FC<FileUploadProps> = ({ name, onChange }) => {
+export const FileUpload: FC<FileUploadProps> = ({
+  name,
+  onChange,
+  isCircle,
+}) => {
   const { register } = useFormContext();
 
   return (
-    <StyledFileInput
-      component="input"
-      {...register(name, {
-        onChange: onChange,
-      })}
-      accept={IMAGE_ALLOWED_TYPES}
-      type="file"
-    />
+    <>
+      {!isCircle ? (
+        <StyledFileInput
+          component="input"
+          {...register(name, {
+            onChange: onChange,
+          })}
+          accept={IMAGE_ALLOWED_TYPES}
+          type="file"
+        />
+      ) : (
+        <CircleStyledFileInput
+          component="input"
+          {...register(name, {
+            onChange: onChange,
+          })}
+          accept={IMAGE_ALLOWED_TYPES}
+          type="file"
+        />
+      )}
+    </>
   );
 };
