@@ -8,8 +8,7 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import { StyledButton } from 'components/auth/styles';
-import { IconButtonStyled, InputStyled } from 'components/common';
+import { IconButtonStyled, InputStyled, StyledButton } from 'components/common';
 import { DIALOG_ELEVATION } from 'consts/style';
 import { useSnackbar } from 'notistack';
 import { useTranslation } from 'react-i18next';

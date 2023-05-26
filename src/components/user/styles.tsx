@@ -1,4 +1,8 @@
 import { Avatar, Box, Typography, styled } from '@mui/material';
+import { StyledInput } from 'components/auth/styles';
+import { StyledButton } from 'components/common';
+import { PasswordInput } from 'components/common/PasswordInput';
+import { UsernameInput } from 'components/common/UsernameInput';
 import { BaseLayout } from 'components/pages/styles';
 import { StyledIconButton } from 'components/post';
 
@@ -162,5 +166,87 @@ export const FollowingRelation = styled(Box)`
   ${props => props.theme.breakpoints.down('mobile')} {
     grid-column: 2;
     grid-row: 2;
+  }
+`;
+
+export const BoxSettings = styled(Box)`
+  width: 100%;
+  display: grid;
+  grid-template-rows: auto 14rem auto;
+  gap: 2rem;
+  ${props => props.theme.breakpoints.down('md')} {
+    grid-template-rows: repeat(5, auto);
+  }
+`;
+
+export const InformationViewBox = styled(Box)`
+  display: grid;
+  grid-template-columns: 12.5rem minmax(0, 20rem) auto;
+  grid-template-rows: repeat(2, auto);
+  gap: 1rem;
+  ${props => props.theme.breakpoints.down('md')} {
+    grid-template-columns: repeat(1, auto);
+    grid-template-rows: repeat(4, auto);
+  }
+`;
+
+export const NameInputStyled = styled(StyledInput)`
+  grid-column: 2;
+  grid-row: 1;
+  ${props => props.theme.breakpoints.down('md')} {
+    grid-column: 1;
+    grid-row: 2;
+  }
+`;
+
+export const UsernameInputStyled = styled(UsernameInput)`
+  grid-column: 2;
+  grid-row: 2;
+  align-self: flex-end;
+  ${props => props.theme.breakpoints.down('md')} {
+    grid-column: 1;
+    grid-row: 3;
+  }
+  & .MuiTextField-root.MuiHelperText {
+    margin-right: 0;
+  }
+`;
+
+export const AboutInputStyled = styled(StyledInput)`
+  grid-column: 3;
+  grid-row: 1 / 3;
+  flex: 1;
+  ${props => props.theme.breakpoints.down('md')} {
+    grid-column: 1;
+    grid-row: 4;
+  }
+`;
+
+export const PasswordViewBox = styled(Box)`
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 20rem;
+  grid-template-rows: repeat(3, auto);
+  ${props => props.theme.breakpoints.down('md')} {
+    grid-template-columns: auto;
+  }
+`;
+
+export const CurrentPasswordInput = styled(PasswordInput)`
+  grid-row: 1;
+`;
+
+export const NewPasswordInput = styled(PasswordInput)`
+  grid-row: 2;
+`;
+
+export const NewPasswordConfirmInput = styled(PasswordInput)`
+  grid-row: 3;
+`;
+
+export const SaveSettingsButton = styled(StyledButton)`
+  max-width: 20rem;
+  ${props => props.theme.breakpoints.down('md')} {
+    max-width: 100%;
   }
 `;

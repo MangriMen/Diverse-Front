@@ -20,11 +20,11 @@ import {
   UserPageLayout,
   Username,
 } from 'components/user/styles';
-import { POSTS_FETCH_COUNT } from 'consts';
+import { AT_THE_RATE_SIGN, POSTS_FETCH_COUNT, ROUTE } from 'consts';
 import { userLoader } from 'helpers';
 import { LoaderData } from 'helpers/types';
 import { useInfinityPostFeed } from 'hooks/useInfinityPostFeed';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 
 export const UserPage = () => {
   const { isMe, user } = useLoaderData() as LoaderData<typeof userLoader>;
@@ -34,6 +34,12 @@ export const UserPage = () => {
     count: POSTS_FETCH_COUNT.USER,
     user_id: user.id,
   });
+
+  const navigate = useNavigate();
+
+  const toSettings = () => {
+    navigate(ROUTE.SETTINGS);
+  };
 
   return (
     <StyledContainer>
@@ -47,7 +53,7 @@ export const UserPage = () => {
               <StyledProfileAvatar src={`${user.avatar_url}?width=256`} />
               <ProfileAvatarButtonBox>
                 {isMe && (
-                  <ProfileAvatarSettingsButton>
+                  <ProfileAvatarSettingsButton onClick={toSettings}>
                     <SettingsIcon />
                   </ProfileAvatarSettingsButton>
                 )}
@@ -59,7 +65,7 @@ export const UserPage = () => {
             </FollowingRelation>
           </MainUserInfo>
           <UserDescription>
-            <Username>{`@${user.username}`}</Username>
+            <Username>{`${AT_THE_RATE_SIGN}${user.username}`}</Username>
             <Name>{user.name}</Name>
             <UserDescriptionText>{user.about}</UserDescriptionText>
           </UserDescription>
