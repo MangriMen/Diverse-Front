@@ -78,6 +78,8 @@ export const useInfinityPostFeed = (
       }
     };
 
+    getCountAndNewPosts();
+
     const timerID = setInterval(getCountAndNewPosts, COMMENT_REFETCH_TIMEOUT);
     return () => clearInterval(timerID);
   }, [count, ref, getPosts, type, user_id, getPostsCount, response.isFetching]);

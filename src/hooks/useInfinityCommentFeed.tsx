@@ -110,25 +110,36 @@ export const useInfinityCommentFeed = (
   }, [count, post, getComments, getCommentsCount, ref]);
 
   useEffect(() => {
-    const getBottomPosts = async () => {
-      if (ref && ref.current) {
-        if (
-          ref.current.scrollHeight === ref.current.clientHeight &&
+    let timerID: NodeJS.Timeout;
+
+    const getTopComments = async () => {
+      if (
+        ref &&
+        ref.current &&
+        ref.current.scrollHeight === ref.current.clientHeight
+      ) {
+        await handleScrollTop();
+
+        if (!commentsCount) {
+          timerID = setTimeout(
+            getTopComments,
+            COMMENT_WITHOUT_SCROLL_FETCH_DELAY,
+          );
+        } else if (
           commentsCount &&
-          response.data
+          commentsCount.count > response.data.length
         ) {
-          if (commentsCount.count > response.data.length) {
-            handleScrollTop();
-            setTimeout(() => {
-              getBottomPosts();
-            }, COMMENT_WITHOUT_SCROLL_FETCH_DELAY);
-          }
+          timerID = setTimeout(
+            getTopComments,
+            COMMENT_WITHOUT_SCROLL_FETCH_DELAY,
+          );
         }
       }
     };
 
-    getBottomPosts();
-  }, [commentsCount, handleScrollTop, ref, response]);
+    timerID = setTimeout(getTopComments, 0);
+    return () => clearTimeout(timerID);
+  }, [commentsCount, handleScrollTop, ref, response.data.length]);
 
   useEffect(() => {
     if (ref.current) {
