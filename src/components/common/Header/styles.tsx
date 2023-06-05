@@ -1,7 +1,6 @@
 import {
   AppBar,
   Avatar,
-  Box,
   Button,
   Toolbar,
   Typography,
@@ -31,12 +30,6 @@ export const StyledToolbar = styled(Toolbar)`
   }
 `;
 
-export const StyledUserBox = styled(Box)`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
-
 export const StyledAvatar = styled(Avatar)`
   width: 32px;
   height: 32px;
@@ -52,9 +45,19 @@ export const StyledHeaderAvatarButton = styled(Button)`
   box-shadow: none;
   background-color: transparent;
   padding: 0.25rem 0.75rem;
+  width: 32px;
 
   &:hover {
     background-color: ${props => props.theme.palette.common.border};
     box-shadow: none;
+  }
+
+  ${props => props.theme.breakpoints.down('sm')} {
+    min-width: 0;
+    padding: 0;
+    border-radius: 50%;
+    .MuiButton-endIcon {
+      margin: 0;
+    }
   }
 `;

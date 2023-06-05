@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { HeaderAvatar } from './HeaderAvatar';
-import { StyledAppBar, StyledToolbar, StyledUserBox } from './styles';
+import { StyledAppBar, StyledToolbar } from './styles';
 
 interface UserMenuItems {
   name: string;
@@ -90,7 +90,7 @@ export const Header = () => {
       <Container maxWidth="lg">
         <StyledToolbar>
           <Logo />
-          <StyledUserBox>
+          <>
             <HeaderAvatar onClick={handleOpenUserMenu} />
             <Menu
               keepMounted
@@ -109,7 +109,7 @@ export const Header = () => {
             >
               {menuItems}
             </Menu>
-          </StyledUserBox>
+          </>
         </StyledToolbar>
       </Container>
     </StyledAppBar>
