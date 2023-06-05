@@ -89,7 +89,6 @@ export const InformationView = () => {
   const [aboutLength, setAboutLength] = useState(0);
 
   const onSubmitHandler: SubmitHandler<UserForm> = async data => {
-    console.log(data);
     const formData = new FormData();
     formData.append('file', data.file[0] ?? '');
     try {
