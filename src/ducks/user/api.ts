@@ -18,6 +18,8 @@ import {
   GetRelationsCountRequest,
   GetRelationsRequest,
   GetUserRequest,
+  UpdatePassword,
+  UpdateUserRequest,
 } from './types';
 
 export const userApi = createApi({
@@ -86,6 +88,25 @@ export const userApi = createApi({
       }),
       invalidatesTags: ['RelationStatus'],
     }),
+    updateUserInformation: build.mutation<string, UpdateUserRequest>({
+      query: args => ({
+        url: `${API_ENDPOINTS.USERS}/${args.path.user}`,
+        method: METHOD.PATCH,
+        headers: { Authorization: getAccessToken() },
+        body: args.body,
+      }),
+    }),
+    updatePassword: build.mutation<
+      string,
+      Omit<UpdatePassword, 'passwordConfirm'>
+    >({
+      query: args => ({
+        url: `${API_ENDPOINTS.USERS}/password`,
+        method: METHOD.PATCH,
+        headers: { Authorization: getAccessToken() },
+        body: args,
+      }),
+    }),
   }),
 });
 
@@ -97,4 +118,6 @@ export const {
   useGetRelationStatusQuery,
   useCreateRelationMutation,
   useDeleteRelationMutation,
+  useUpdateUserInformationMutation,
+  useUpdatePasswordMutation,
 } = userApi;

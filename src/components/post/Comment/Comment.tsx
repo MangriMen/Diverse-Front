@@ -1,6 +1,6 @@
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { Avatar, ListItemProps, ListItemText } from '@mui/material';
+import { ListItemProps, ListItemText } from '@mui/material';
 import {
   StyledActionBox as CommentActions,
   CommentButton,
@@ -11,6 +11,7 @@ import {
   PostCommentMenuItem,
 } from 'components/post/ActionMenu';
 import { CommentLike } from 'components/post/Like';
+import { AvatarButton } from 'components/user/AvatarButton';
 import { selectUser } from 'ducks/auth/selectors';
 import { useDeleteCommentMutation } from 'ducks/comment/api';
 import { useCallback, useEffect, useState } from 'react';
@@ -77,14 +78,12 @@ export const Comment = ({
   return (
     <ListItemStyled disablePadding alignItems="flex-start" {...props}>
       <ListItemAvatarStyled>
-        <Avatar src={`${comment.user.avatar_url}?width=80`} />
+        <AvatarButton user={comment.user} />
       </ListItemAvatarStyled>
       <ListItemText
         primary={
           <CommentHeader>
-            <CommentUsername component="span" title={comment.user.username}>
-              {comment.user.username}
-            </CommentUsername>
+            <CommentUsername user={comment.user} />
             <CommentDate timestamp={comment.created_at} />
             <ActionMenu visible={comment.user.id == user?.id}>
               {Object.values(preparedActions).map(action => (

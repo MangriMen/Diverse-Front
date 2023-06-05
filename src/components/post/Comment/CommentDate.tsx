@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { CommentModel } from 'types/post';
 
 const CommentDateText = styled(Typography)`
-  display: inline;
+  white-space: nowrap;
   font-size: ${props => props.theme.typography.caption.fontSize};
   color: ${props => props.theme.palette.common.dimmed};
 ` as typeof Typography;

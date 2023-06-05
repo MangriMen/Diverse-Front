@@ -1,3 +1,5 @@
+import { User } from 'types/auth';
+
 export interface GetUserPath {
   username: string;
 }
@@ -53,4 +55,20 @@ export interface CreateRelationRequest {
 export interface DeleteRelationRequest {
   path: GetRelationStatusPath;
   params: CreateRelationParams;
+}
+
+export interface UpdateUserRequest {
+  path: GetRelationsPath;
+  body: Partial<User>;
+}
+
+export interface UpdatePassword {
+  old_password: string;
+  password: string;
+  passwordConfirm: string;
+}
+
+export interface UpdatePasswordRequest {
+  path: GetRelationsPath;
+  body: UpdatePassword;
 }

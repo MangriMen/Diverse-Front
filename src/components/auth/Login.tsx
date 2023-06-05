@@ -1,9 +1,10 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Typography } from '@mui/material';
-import { StyledTextButton } from 'components/common/styles';
+import { PasswordInput } from 'components/common/PasswordInput';
+import { StyledButton, StyledTextButton } from 'components/common/styles';
 import { useLoginMutation } from 'ducks/auth/api';
 import { LoginValues } from 'ducks/auth/types';
-import { removeWhitespace } from 'helpers/auth';
+import { handleOnChangeNoSpace } from 'helpers/auth';
 import { conditionalTranslate } from 'helpers/conditionalTranslate';
 import { ChangeEvent } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
@@ -12,7 +13,6 @@ import { useTranslation } from 'react-i18next';
 import { AuthFormProps } from './interfaces';
 import { loginValidator } from './schemas';
 import {
-  StyledButton,
   StyledFormBox,
   StyledInput,
   StyledSwitchActionBox,
@@ -41,9 +41,6 @@ export const Login = ({ changeFormType }: AuthFormProps) => {
     login(data);
   };
 
-  const handleOnChangeNoSpace = (event: ChangeEvent<HTMLInputElement>) =>
-    removeWhitespace(event.target.value);
-
   return (
     <StyledWrapperBox>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -55,10 +52,10 @@ export const Login = ({ changeFormType }: AuthFormProps) => {
               <StyledInput
                 label={t('emailPlaceholder')}
                 variant="filled"
-                {...field}
                 error={!!errors.email?.message}
                 helperText={conditionalTranslate(t, errors.email?.message)}
                 InputProps={{ disableUnderline: true }}
+                {...field}
                 onChange={(event: ChangeEvent<HTMLInputElement>) =>
                   field.onChange(handleOnChangeNoSpace(event))
                 }
@@ -69,14 +66,12 @@ export const Login = ({ changeFormType }: AuthFormProps) => {
             control={control}
             name="password"
             render={({ field }) => (
-              <StyledInput
+              <PasswordInput
+                withShow
                 label={t('passwordPlaceholder')}
-                variant="filled"
-                {...field}
                 error={!!errors.password?.message}
                 helperText={conditionalTranslate(t, errors.password?.message)}
-                type="password"
-                InputProps={{ disableUnderline: true }}
+                {...field}
                 onChange={(event: ChangeEvent<HTMLInputElement>) =>
                   field.onChange(handleOnChangeNoSpace(event))
                 }

@@ -11,8 +11,9 @@ import {
 import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { User } from 'types/auth';
 import { ServerGetRelationStatusResponse } from 'types/user';
+
+import { ToggleRelationButtonProps } from './interfaces';
 
 const getRelationStatusDefaultResponse: ServerGetRelationStatusResponse = {
   error: false,
@@ -22,7 +23,10 @@ const getRelationStatusDefaultResponse: ServerGetRelationStatusResponse = {
   blocked: false,
 };
 
-export const ToggleRealtionButton = ({ user }: { user: User }) => {
+export const ToggleRelationButton = ({
+  user,
+  visible,
+}: ToggleRelationButtonProps) => {
   const { t } = useTranslation('translation', { keyPrefix: 'user' });
 
   const localUser = useSelector(selectUser);
@@ -66,10 +70,12 @@ export const ToggleRealtionButton = ({ user }: { user: User }) => {
       }
     >
       <StyledIconButton
+        style={{
+          visibility: visible ?? true ? 'visible' : 'hidden',
+        }}
         onClick={data.following ? handleUnfollow : handleFollow}
       >
-        {data.following && <CloseIcon />}
-        {!data.following && <AddIcon />}
+        {data.following ? <CloseIcon /> : <AddIcon />}
       </StyledIconButton>
     </Tooltip>
   );

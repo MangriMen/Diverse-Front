@@ -1,6 +1,6 @@
 import '@mui/material';
 import { Box, TextField, styled } from '@mui/material';
-import { StyledButton } from 'components/auth/styles';
+import { StyledButton } from 'components/common';
 import { ImageUpload } from 'components/common/FileUpload/ImageUpload';
 import { PostCardContent, PostCardStyled } from 'components/post/PostCard';
 import {
@@ -134,7 +134,6 @@ export const CreatePostForm = ({ onClose }: CreatePostFormProps) => {
                   label={t('postDescription')}
                   multiline
                   maxRows={POST_DESCRIPTION_MAX_ROWS}
-                  autoComplete="off"
                   InputProps={{ disableUnderline: true }}
                   inputProps={{
                     maxLength: SHAPE_CONSTRAINTS.DESCRIPTION_MAX,
