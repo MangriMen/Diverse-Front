@@ -1,6 +1,6 @@
 import { EntityState, createEntityAdapter } from '@reduxjs/toolkit';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { STORAGE_KEYS } from 'consts';
+import { POSTS_FETCH_COUNT, STORAGE_KEYS } from 'consts';
 import { METHOD } from 'consts';
 import { API_BASE_URL, API_ENDPOINTS } from 'consts/endpoints';
 import { getAccessToken, preparePost } from 'helpers/api';
@@ -8,10 +8,16 @@ import { storageGet } from 'helpers/localStorage';
 import {
   PostModel,
   ServerGetPostResponse,
+  ServerGetPostsCountResponse,
   ServerGetPostsResponse,
 } from 'types/post';
 
-import { GetPostRequest, GetPostsValues, PostValues } from './types';
+import {
+  GetPostRequest,
+  GetPostsCountRequest,
+  GetPostsValues,
+  PostValues,
+} from './types';
 
 export const postsAdapter = createEntityAdapter({
   selectId: (item: PostModel) => item.id,
@@ -34,6 +40,17 @@ export const postApi = createApi({
         body: arg,
       }),
       invalidatesTags: () => ['Post'],
+    }),
+    getPostsCount: build.query<
+      ServerGetPostsCountResponse,
+      GetPostsCountRequest
+    >({
+      query: args => ({
+        url: `${API_ENDPOINTS.POSTS}/count`,
+        method: METHOD.GET,
+        headers: { Authorization: getAccessToken() },
+        params: args.params,
+      }),
     }),
     getPosts: build.query<EntityState<PostModel>, GetPostsValues>({
       query: arg => ({
@@ -71,8 +88,35 @@ export const postApi = createApi({
           queryArgs.params?.user_id,
         ].join('_');
       },
-      merge: (currentCache, newItems) => {
-        postsAdapter.addMany(currentCache, postsSelector.selectAll(newItems));
+      merge: (currentCache, newItems, otherArgs) => {
+        const cacheIDs = postsSelector.selectIds(currentCache);
+        const newItemsIDs = postsSelector.selectIds(newItems);
+
+        const updateIDs = cacheIDs.filter(x => newItemsIDs.includes(x));
+        const newIDs = newItemsIDs.filter(x => !cacheIDs.includes(x));
+
+        const updateItems = updateIDs.map(id => ({
+          id,
+          changes: postsSelector.selectById(newItems, id) ?? {},
+        }));
+
+        const brandNewItems = newIDs
+          .map(id => postsSelector.selectById(newItems, id))
+          .reduce(
+            (prev, value) => ({ ...prev, [value?.id ?? '-1']: value }),
+            {},
+          );
+
+        postsAdapter.updateMany(currentCache, updateItems);
+
+        if (otherArgs.arg.params?.last_seen_post_created_at) {
+          postsAdapter.addMany(currentCache, brandNewItems);
+        } else {
+          const oldState = postsSelector.selectAll(currentCache);
+          postsAdapter.removeAll(currentCache);
+          postsAdapter.addMany(currentCache, brandNewItems);
+          postsAdapter.addMany(currentCache, oldState);
+        }
       },
       forceRefetch({ currentArg, previousArg }) {
         return previousArg !== currentArg;
@@ -92,6 +136,23 @@ export const postApi = createApi({
       invalidatesTags: (_result, _error, arg) => [
         { type: 'Post' as const, id: arg.path.post },
       ],
+      onQueryStarted: async (arg, { dispatch, queryFulfilled }) => {
+        const patchResult = dispatch(
+          postApi.util.updateQueryData(
+            'getPosts',
+            { params: { type: 'all', count: POSTS_FETCH_COUNT.FEED } },
+            draft => {
+              postsAdapter.removeOne(draft, arg.path.post);
+            },
+          ),
+        );
+
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+        }
+      },
     }),
     likePost: build.mutation<ServerGetPostResponse, GetPostRequest>({
       query: args => ({
@@ -112,6 +173,8 @@ export const postApi = createApi({
 
 export const {
   useCreatePostMutation,
+  useLazyGetPostsCountQuery,
+  useLazyGetPostsQuery,
   useGetPostsQuery,
   useDeletePostMutation,
   useLikePostMutation,

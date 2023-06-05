@@ -1,30 +1,64 @@
 import { PostProps } from 'components/post';
 import { Comment } from 'components/post/Comment';
-import { ReactElement, useEffect, useRef, useState } from 'react';
+import {
+  COMMENTS_FETCH_COUNT,
+  COMMENT_INFINITE_FEED_LOADER_SIZE_REM,
+} from 'consts';
+import { convertRemToPixels } from 'helpers/html';
+import { useInfinityCommentFeed } from 'hooks/useInfinityCommentFeed';
+import {
+  ReactElement,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
+import useStayScrolled from 'react-stay-scrolled';
 
+import { CommentsListLoader } from './CommentsListLoader';
 import { PostCardCommentsList } from './styles';
+
+const infiniteLoaderSizePx = convertRemToPixels(
+  COMMENT_INFINITE_FEED_LOADER_SIZE_REM,
+);
 
 export const PostCardComments = ({ post }: PostProps) => {
   const ref = useRef<HTMLUListElement>(null);
 
-  const [comments, setComments] = useState<ReactElement[]>();
+  const { data, dataID, isFetching } = useInfinityCommentFeed(
+    ref,
+    infiniteLoaderSizePx,
+    {
+      post: post.id,
+      count: COMMENTS_FETCH_COUNT.FEED,
+    },
+  );
 
-  useEffect(() => {
-    setComments(
-      post.comments
-        .slice()
-        .reverse()
-        .map(comment => (
+  const [comments, setComments] = useState<ReactElement[]>([]);
+  useEffect(
+    () =>
+      setComments(
+        data.map(comment => (
           <Comment key={comment.id} post={post} comment={comment} />
         )),
-    );
-  }, [post, post.comments]);
+      ),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [JSON.stringify(dataID), post],
+  );
 
-  useEffect(() => {
-    if (ref !== null && ref.current !== null) {
-      ref.current.scrollTop = ref.current.scrollHeight;
-    }
-  }, [comments]);
+  const { stayScrolled } = useStayScrolled(ref);
 
-  return <PostCardCommentsList ref={ref}>{comments}</PostCardCommentsList>;
+  useLayoutEffect(() => {
+    stayScrolled();
+  }, [data, stayScrolled]);
+
+  return (
+    <PostCardCommentsList ref={ref}>
+      <CommentsListLoader
+        visible={isFetching}
+        size={`${COMMENT_INFINITE_FEED_LOADER_SIZE_REM}rem`}
+      />
+      {comments}
+    </PostCardCommentsList>
+  );
 };

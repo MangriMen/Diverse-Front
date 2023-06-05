@@ -84,7 +84,6 @@ export const PostCardContent = styled(CardContent, {
   padding: ${props => (props.size === 'default' ? '' : '4px')};
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 
   min-width: var(--fixed-width);
   max-width: var(--fixed-width);
@@ -111,7 +110,18 @@ export const PostCardDescriptionText = styled(Typography)`
 ` as typeof Typography;
 
 export const PostCardCommentsList = styled(List)`
-  overflow: auto;
-  height: 100%;
+  overflow-y: scroll;
   padding-right: 0.4rem;
+  flex: 1;
+`;
+
+export const PostCardHidingContent = styled(Box, {
+  shouldForwardProp: prop => prop !== 'visible',
+})<{ visible: boolean }>`
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%;
+  visibility: ${props => (props.visible ? 'visible' : 'hidden')};
+  gap: inherit;
 `;
