@@ -22,6 +22,10 @@ export interface PostModel {
   liked_by_me: boolean;
 }
 
+export interface ServerGetPostsCountResponse extends ServerBaseResponse {
+  count: number;
+}
+
 export interface ServerGetPostsResponse extends ServerBaseResponse {
   count: number;
   data: PostModel[];
@@ -31,6 +35,15 @@ export interface ServerGetPostResponse extends ServerBaseResponse {
   data: PostModel;
 }
 
+export interface ServerGetCommentsResponse extends ServerBaseResponse {
+  count: number;
+  data: CommentModel[];
+}
+
 export interface ServerGetCommentResponse extends ServerBaseResponse {
   data: CommentModel;
+}
+
+export interface ServerGetCommentsCountResponse extends ServerBaseResponse {
+  count: number;
 }

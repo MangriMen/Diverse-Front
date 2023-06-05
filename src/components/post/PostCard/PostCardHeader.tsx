@@ -9,9 +9,8 @@ import { AvatarButton } from 'components/user/AvatarButton';
 import { UsernameLinkButton } from 'components/user/UsernameLinkButton';
 import { selectUser } from 'ducks/auth/selectors';
 import { useDeletePostMutation } from 'ducks/post/api';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { PostModel } from 'types/post';
 
 import { PostHeader } from './styles';
@@ -31,22 +30,27 @@ const postMenuActions: PostCommentMenuActions = {
 export const PostCardHeader = ({ post }: { post: PostModel }) => {
   const user = useSelector(selectUser);
 
-  const navigate = useNavigate();
-
   const [deletePost] = useDeletePostMutation();
 
-  const [preparedActions] = useState(postMenuActions);
+  const [preparedActions, setPreparedActions] = useState(postMenuActions);
 
-  preparedActions.edit.callback = useCallback(() => {
-    console.log('edit post');
-  }, []);
+  const editCallback = useCallback(() => {
+    console.log('edit post:', post.id);
+  }, [post.id]);
 
-  preparedActions.delete.callback = useCallback(async () => {
-    await deletePost({
+  const deleteCallback = useCallback(async () => {
+    deletePost({
       path: { post: post.id },
     });
-    navigate(0);
-  }, [deletePost, navigate, post.id]);
+  }, [deletePost, post.id]);
+
+  useEffect(() => {
+    setPreparedActions(prevState => ({
+      ...prevState,
+      edit: { ...prevState.edit, callback: editCallback },
+      delete: { ...prevState.delete, callback: deleteCallback },
+    }));
+  }, [deleteCallback, editCallback]);
 
   return (
     <PostHeader>

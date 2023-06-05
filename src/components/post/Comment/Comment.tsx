@@ -1,6 +1,6 @@
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { ListItemText } from '@mui/material';
+import { ListItemProps, ListItemText } from '@mui/material';
 import {
   StyledActionBox as CommentActions,
   CommentButton,
@@ -14,7 +14,7 @@ import { CommentLike } from 'components/post/Like';
 import { AvatarButton } from 'components/user/AvatarButton';
 import { selectUser } from 'ducks/auth/selectors';
 import { useDeleteCommentMutation } from 'ducks/comment/api';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { CommentModel, PostModel } from 'types/post';
@@ -44,30 +44,39 @@ const commentMenuActions: PostCommentMenuActions = {
 export const Comment = ({
   post,
   comment,
+  ...props
 }: {
   post: PostModel;
   comment: CommentModel;
-}) => {
+} & ListItemProps) => {
   const user = useSelector(selectUser);
 
   const { t } = useTranslation('translation', { keyPrefix: 'post' });
 
   const [deleteComment] = useDeleteCommentMutation();
 
-  const [preparedActions] = useState(commentMenuActions);
+  const [preparedActions, setPreparedActions] = useState(commentMenuActions);
 
-  preparedActions.edit.callback = useCallback(() => {
-    console.log('edit comment');
-  }, []);
+  const editCallback = useCallback(() => {
+    console.log('edit comment:', comment.id, 'in post:', post.id);
+  }, [comment.id, post.id]);
 
-  preparedActions.delete.callback = useCallback(async () => {
+  const deleteCallback = useCallback(async () => {
     deleteComment({
       path: { post: post.id, comment: comment.id },
     });
   }, [comment.id, deleteComment, post.id]);
 
+  useEffect(() => {
+    setPreparedActions(prevState => ({
+      ...prevState,
+      edit: { ...prevState.edit, callback: editCallback },
+      delete: { ...prevState.delete, callback: deleteCallback },
+    }));
+  }, [deleteCallback, editCallback]);
+
   return (
-    <ListItemStyled disablePadding alignItems="flex-start">
+    <ListItemStyled disablePadding alignItems="flex-start" {...props}>
       <ListItemAvatarStyled>
         <AvatarButton user={comment.user} />
       </ListItemAvatarStyled>
