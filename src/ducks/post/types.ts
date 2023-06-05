@@ -1,5 +1,3 @@
-import { PostModel } from 'types/post';
-
 export interface CreatePostBody {
   content: string;
   description?: string;
