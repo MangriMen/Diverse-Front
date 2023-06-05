@@ -10,6 +10,7 @@ export const settingsValidator = yup.object().shape({
     .string()
     .trim()
     .max(SHAPE_CONSTRAINTS.PASSWORD_MAX, 'charactersCount'),
+  about: yup.string(),
 });
 
 export const changePasswordValidation = yup.object().shape({

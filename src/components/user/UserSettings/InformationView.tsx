@@ -86,7 +86,7 @@ export const InformationView = () => {
 
   const [sendSettings] = useUpdateUserInformationMutation();
   const [sendData] = useDataMutation();
-  const [value, setValue] = useState('');
+  const [aboutLength, setAboutLength] = useState(0);
 
   const onSubmitHandler: SubmitHandler<UserForm> = async data => {
     const formData = new FormData();
@@ -117,8 +117,9 @@ export const InformationView = () => {
   const handleOnChangeNoSpace = (event: ChangeEvent<HTMLInputElement>) =>
     removeWhitespace(event.target.value);
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
+  const handleChangeAbout = (event: ChangeEvent<HTMLInputElement>): string => {
+    setAboutLength(event.target.value.length);
+    return event.target.value;
   };
 
   return (
@@ -176,9 +177,11 @@ export const InformationView = () => {
                   inputProps={{
                     maxLength: SHAPE_CONSTRAINTS.DESCRIPTION_MAX,
                   }}
-                  helperText={`${value.length}/${SHAPE_CONSTRAINTS.DESCRIPTION_MAX}`}
+                  helperText={`${aboutLength}/${SHAPE_CONSTRAINTS.DESCRIPTION_MAX}`}
                   {...field}
-                  onChange={handleChange}
+                  onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                    field.onChange(handleChangeAbout(event))
+                  }
                 />
               )}
             />
