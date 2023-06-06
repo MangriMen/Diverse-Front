@@ -41,7 +41,10 @@ const InputBaseStyled = styled(InputBase)`
 
 export const InputStyled = ({ ...props }: InputBaseProps) => {
   return (
-    <PaperStyled elevation={INPUT_ELEVATION_ACTIVE}>
+    <PaperStyled
+      elevation={INPUT_ELEVATION_ACTIVE}
+      sx={{ width: props.fullWidth ? '100%' : 'auto' }}
+    >
       <InputBaseStyled {...props} />
     </PaperStyled>
   );
