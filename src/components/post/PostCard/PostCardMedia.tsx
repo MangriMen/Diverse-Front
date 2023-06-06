@@ -8,7 +8,7 @@ import {
   CardMediaStyled,
 } from './styles';
 
-export const PostCardMeida = ({ size, image }: PostCardMediaProps) => {
+export const PostCardMedia = ({ size, image }: PostCardMediaProps) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const handleImageLoaded = useCallback(() => {

@@ -6,7 +6,7 @@ import { PostCardComments } from './PostCard/PostCardComments';
 import { PostCardDescription } from './PostCard/PostCardDescription';
 import { PostCardHeader } from './PostCard/PostCardHeader';
 import { PostCardInput } from './PostCard/PostCardInput';
-import { PostCardMeida } from './PostCard/PostCardMeida';
+import { PostCardMedia } from './PostCard/PostCardMedia';
 import {
   PostCardActionArea,
   PostCardContent,
@@ -24,7 +24,7 @@ export const Post = ({ post, size = 'default' }: PostProps) => {
   return (
     <PostCardStyled size={size} elevation={0}>
       <PostCardActionArea>
-        <PostCardMeida size={size} image={post.content} />
+        <PostCardMedia size={size} image={post.content} />
       </PostCardActionArea>
       {size === 'default' && (
         <PostCardContent size={size}>
