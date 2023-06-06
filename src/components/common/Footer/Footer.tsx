@@ -1,5 +1,9 @@
-import { Box } from '@mui/material';
+import { Box, styled } from '@mui/material';
+
+const BoxStyled = styled(Box)`
+  margin-bottom: 1rem;
+` as typeof Box;
 
 export const Footer = () => {
-  return <Box component="footer" marginBottom="1rem" />;
+  return <BoxStyled component="footer" />;
 };

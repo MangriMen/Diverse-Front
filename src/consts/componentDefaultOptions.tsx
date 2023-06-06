@@ -18,6 +18,7 @@ export const THEME_DEFAULT_OPTIONS = {
   breakpoints: {
     values: {
       xs: 0,
+      fold: 300,
       mobile: 420,
       sm: 600,
       md: 900,

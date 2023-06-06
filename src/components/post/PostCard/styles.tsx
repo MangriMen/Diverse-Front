@@ -20,7 +20,8 @@ export const PostCardStyled = styled(Card, {
   shouldForwardProp: prop => prop !== 'size',
 })<Pick<PostProps, 'size'>>`
   height: ${props => (props.size === 'default' ? '546px' : '')};
-  width: ${props => (props.size === 'default' ? '904px' : '')};
+  width: 100%;
+  max-width: ${props => (props.size === 'default' ? '904px' : '')};
   display: flex;
   flex-direction: ${props => (props.size === 'default' ? 'row' : 'column')};
 
@@ -28,6 +29,13 @@ export const PostCardStyled = styled(Card, {
 
   &.MuiPaper-root {
     background-color: ${props => props.theme.palette.primary.dark};
+  }
+
+  ${props => props.theme.breakpoints.down('md')} {
+    height: auto;
+    width: 100%;
+    max-width: 512px;
+    flex-direction: column;
   }
 `;
 
@@ -62,7 +70,7 @@ export const CardMediaBox = styled(Box, {
   display: flex;
   justify-content: center;
   height: 100%;
-  max-height: ${props => (props.size === 'default' ? '1220px' : '756px')};
+  max-height: ${props => (props.size === 'default' ? '544px' : '756px')};
   flex-grow: ${props => (props.size === 'default' ? '1' : '')};
 `;
 
@@ -93,6 +101,10 @@ export const PostCardContent = styled(CardContent, {
   &:last-child {
     padding-bottom: ${props => (props.size === 'default' ? '16px' : '4px')};
   }
+
+  ${props => props.theme.breakpoints.down('md')} {
+    --fixed-width: auto;
+  }
 `;
 
 export const PostCardDescriptionCollapse = styled(Collapse)<
@@ -113,6 +125,12 @@ export const PostCardCommentsList = styled(List)`
   overflow-y: scroll;
   padding-right: 0.4rem;
   flex: 1;
+  max-height: none;
+
+  ${props => props.theme.breakpoints.down('md')} {
+    padding-right: 0;
+    max-height: 256px;
+  }
 `;
 
 export const PostCardHidingContent = styled(Box, {

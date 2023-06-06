@@ -5,6 +5,7 @@ import {
   DialogContent,
   DialogProps,
   DialogTitle,
+  styled,
   useMediaQuery,
   useTheme,
 } from '@mui/material';
@@ -16,6 +17,11 @@ import { useTranslation } from 'react-i18next';
 export interface ShareDialogProps extends DialogProps {
   value: string;
 }
+
+const DialogContentStyled = styled(DialogContent)`
+  display: flex;
+  align-items: center;
+`;
 
 export const ShareDialog = ({ value, ...props }: ShareDialogProps) => {
   const { t } = useTranslation('translation', { keyPrefix: 'post' });
@@ -47,8 +53,9 @@ export const ShareDialog = ({ value, ...props }: ShareDialogProps) => {
       {...props}
     >
       <DialogTitle>{t('share')}</DialogTitle>
-      <DialogContent>
+      <DialogContentStyled>
         <InputStyled
+          fullWidth
           readOnly
           value={value}
           endAdornment={
@@ -62,7 +69,7 @@ export const ShareDialog = ({ value, ...props }: ShareDialogProps) => {
             </IconButtonStyled>
           }
         />
-      </DialogContent>
+      </DialogContentStyled>
       <DialogActions>
         <StyledButton
           variant="contained"
