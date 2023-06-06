@@ -70,7 +70,7 @@ export const CardMediaBox = styled(Box, {
   display: flex;
   justify-content: center;
   height: 100%;
-  max-height: ${props => (props.size === 'default' ? '1220px' : '756px')};
+  max-height: ${props => (props.size === 'default' ? '544px' : '756px')};
   flex-grow: ${props => (props.size === 'default' ? '1' : '')};
 `;
 
@@ -129,7 +129,7 @@ export const PostCardCommentsList = styled(List)`
 
   ${props => props.theme.breakpoints.down('md')} {
     padding-right: 0;
-    max-height: 240px;
+    max-height: 256px;
   }
 `;
 
