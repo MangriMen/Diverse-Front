@@ -45,7 +45,6 @@ export const StyledHeaderAvatarButton = styled(Button)`
   box-shadow: none;
   background-color: transparent;
   padding: 0.25rem 0.75rem;
-  width: 32px;
 
   &:hover {
     background-color: ${props => props.theme.palette.common.border};
