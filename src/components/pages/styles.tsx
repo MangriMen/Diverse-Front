@@ -6,6 +6,10 @@ export const StyledContainer = styled(Container)`
   flex: 1;
   gap: 1rem;
   justify-content: flex-start;
+
+  ${props => props.theme.breakpoints.down('fold')} {
+    padding: 0;
+  }
 `;
 
 export const BaseLayout = styled(Box)`
