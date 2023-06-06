@@ -1,10 +1,10 @@
-import { Box, Container, Menu, MenuItem, Typography } from '@mui/material';
+import { Container, Menu, MenuItem, Typography } from '@mui/material';
 import { Logo } from 'components/common/Logo';
-import { CreatePostForm } from 'components/post/CreatePost/CreatePostForm';
-import { StyledModal } from 'components/post/styles';
+import { CreatePostDialog } from 'components/post/CreatePost/CreatePostDialog';
 import { logout } from 'ducks/auth';
 import { selectUser } from 'ducks/auth/selectors';
-import { ReactNode, useCallback, useEffect, useState } from 'react';
+import { useModal } from 'mui-modal-provider';
+import { ReactNode, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -23,14 +23,11 @@ export const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const { showModal } = useModal({ disableAutoDestroy: true });
+
   const user = useSelector(selectUser);
 
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-  const [open, setOpen] = useState(false);
-
-  const handleOpenCreateForm = () => {
-    setOpen(true);
-  };
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -39,6 +36,8 @@ export const Header = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const handleOpenCreateForm = () => showModal(CreatePostDialog);
 
   const [userSettings] = useState<Array<UserMenuItems>>([
     {
@@ -76,17 +75,8 @@ export const Header = () => {
     );
   }, [userSettings]);
 
-  const handleCloseCreateForm = useCallback(() => {
-    setOpen(false);
-  }, []);
-
   return (
     <StyledAppBar position="sticky">
-      <StyledModal open={open} onClose={handleCloseCreateForm}>
-        <Box>
-          <CreatePostForm onClose={handleCloseCreateForm} />
-        </Box>
-      </StyledModal>
       <Container maxWidth="lg">
         <StyledToolbar>
           <Logo />

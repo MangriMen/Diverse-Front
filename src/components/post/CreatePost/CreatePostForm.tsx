@@ -120,7 +120,12 @@ export const CreatePostForm = ({ onClose }: CreatePostFormProps) => {
 
   return (
     <FormProvider {...form}>
-      <Box component="form" onSubmit={form.handleSubmit(onSubmitHandler)}>
+      <Box
+        display="flex"
+        justifyContent="center"
+        component="form"
+        onSubmit={form.handleSubmit(onSubmitHandler)}
+      >
         <PostCardStyled elevation={0} size={postSize}>
           <ImageUpload name="file" />
           <PostCardContent size={postSize}>

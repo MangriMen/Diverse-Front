@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import { CardMediaBox, CardMediaStyled } from 'components/post/PostCard';
 import { BaseSyntheticEvent, FC, useState } from 'react';
@@ -6,10 +5,6 @@ import { BaseSyntheticEvent, FC, useState } from 'react';
 import { FileUpload } from './FileUpload';
 import { FileUploadProps } from './interfaces';
 import { StyledSvgIcon } from './styles';
-
-const CardMediaBoxStyled = styled(CardMediaBox)`
-  aspect-ratio: 1/1;
-`;
 
 export const ImageUpload: FC<FileUploadProps> = ({ name }) => {
   const [fileData, setFileData] = useState<string | undefined>(undefined);
@@ -31,7 +26,7 @@ export const ImageUpload: FC<FileUploadProps> = ({ name }) => {
     }
   }
   return (
-    <CardMediaBoxStyled size="default">
+    <CardMediaBox size="default">
       {fileData && <CardMediaStyled component="img" image={fileData} />}
       {!fileData && (
         <StyledSvgIcon>
@@ -39,6 +34,6 @@ export const ImageUpload: FC<FileUploadProps> = ({ name }) => {
         </StyledSvgIcon>
       )}
       <FileUpload name={name} onChange={handleOnChange} />
-    </CardMediaBoxStyled>
+    </CardMediaBox>
   );
 };
