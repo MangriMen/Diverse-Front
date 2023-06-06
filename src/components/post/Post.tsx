@@ -1,3 +1,4 @@
+import { Box } from '@mui/material';
 import { PostProps } from 'components/post';
 import { useState } from 'react';
 
@@ -11,6 +12,7 @@ import {
   PostCardActionArea,
   PostCardContent,
   PostCardHidingContent,
+  PostCardMediaWrapper,
   PostCardStyled,
 } from './PostCard/styles';
 
@@ -23,12 +25,22 @@ export const Post = ({ post, size = 'default' }: PostProps) => {
 
   return (
     <PostCardStyled size={size} elevation={0}>
-      <PostCardActionArea>
-        <PostCardMedia size={size} image={post.content} />
-      </PostCardActionArea>
+      <Box
+        width="100%"
+        height="100%"
+        display="flex"
+        flexDirection="column"
+        gap="0.5rem"
+      >
+        {size === 'default' && <PostCardHeader post={post} />}
+        <PostCardMediaWrapper size={size}>
+          <PostCardActionArea>
+            <PostCardMedia size={size} image={post.content} />
+          </PostCardActionArea>
+        </PostCardMediaWrapper>
+      </Box>
       {size === 'default' && (
         <PostCardContent size={size}>
-          <PostCardHeader post={post} />
           <PostCardDescription
             expanded={expanded}
             onExpand={handleExpandClick}

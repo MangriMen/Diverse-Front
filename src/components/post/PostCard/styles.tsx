@@ -28,7 +28,7 @@ export const PostCardStyled = styled(Card, {
   border: 1px solid ${props => props.theme.palette.common.third};
 
   &.MuiPaper-root {
-    background-color: ${props => props.theme.palette.primary.dark};
+    background-color: ${props => props.theme.palette.primary.dark}a0;
   }
 
   ${props => props.theme.breakpoints.down('md')} {
@@ -42,6 +42,21 @@ export const PostCardStyled = styled(Card, {
 export const PostCardActionArea = styled(CardActionArea)`
   width: 100%;
   height: 100%;
+  padding: 0.5rem;
+
+  ${props => props.theme.breakpoints.down('md')} {
+    padding: 0;
+  }
+`;
+
+export const PostCardMediaWrapper = styled(Box, {
+  shouldForwardProp: prop => prop !== 'size',
+})<CardMediaBoxProps>`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const CardMediaSkeleton = styled(SkeletonStyled, {
@@ -70,7 +85,7 @@ export const CardMediaBox = styled(Box, {
   display: flex;
   justify-content: center;
   height: 100%;
-  max-height: ${props => (props.size === 'default' ? '544px' : '756px')};
+  max-height: ${props => (props.size === 'default' ? '472px' : '756px')};
   flex-grow: ${props => (props.size === 'default' ? '1' : '')};
 `;
 
@@ -78,6 +93,7 @@ export const PostHeader = styled(Box)`
   display: flex;
   align-items: center;
   gap: 0 1rem;
+  padding: 0.5rem 0.5rem 0.25rem 0.5rem;
 `;
 
 export const PostUsername = styled(({ ...props }: TypographyProps) => (
@@ -87,6 +103,8 @@ export const PostUsername = styled(({ ...props }: TypographyProps) => (
 export const PostCardContent = styled(CardContent, {
   shouldForwardProp: prop => prop !== 'size',
 })<Pick<PostProps, 'size'>>`
+  background-color: ${props => props.theme.palette.primary.dark};
+
   --fixed-width: 360px;
 
   padding: ${props => (props.size === 'default' ? '' : '4px')};
