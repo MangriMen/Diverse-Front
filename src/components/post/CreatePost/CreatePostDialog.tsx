@@ -21,7 +21,7 @@ export const CreatePostDialog = ({ ...props }: DialogProps) => {
         elevation: fullScreen ? 0 : DIALOG_ELEVATION,
         sx: {
           justifyContent: 'center',
-          backgroundColor: 'primary.main',
+          backgroundColor: 'transparent',
           maxWidth: fullScreen ? 'none' : '904px',
         },
       }}

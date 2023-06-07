@@ -39,10 +39,12 @@ export const PostCardStyled = styled(Card, {
   }
 `;
 
-export const PostCardActionArea = styled(CardActionArea)`
+export const PostCardActionArea = styled(CardActionArea, {
+  shouldForwardProp: prop => prop !== 'size',
+})<CardMediaBoxProps>`
   width: 100%;
   height: 100%;
-  padding: 0.5rem;
+  padding: ${props => (props.size === 'default' ? '0.5rem' : '')};
 
   ${props => props.theme.breakpoints.down('md')} {
     padding: 0;
@@ -76,6 +78,8 @@ export const CardMediaSkeletonLoaderBox = styled(Box)`
 export const CardMediaStyled = styled(CardMedia)`
   object-fit: contain;
   pointer-events: none;
+  width: 100%;
+  height: 100%;
 ` as typeof CardMedia;
 
 export const CardMediaBox = styled(Box, {
@@ -83,6 +87,7 @@ export const CardMediaBox = styled(Box, {
 })<CardMediaBoxProps>`
   position: relative;
   display: flex;
+  align-items: center;
   justify-content: center;
   height: 100%;
   max-height: ${props => (props.size === 'default' ? '472px' : '756px')};
@@ -111,6 +116,7 @@ export const PostCardContent = styled(CardContent, {
   display: flex;
   flex-direction: column;
 
+  height: 100%;
   min-width: var(--fixed-width);
   max-width: var(--fixed-width);
 

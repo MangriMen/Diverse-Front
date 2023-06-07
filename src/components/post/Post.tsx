@@ -34,7 +34,7 @@ export const Post = ({ post, size = 'default' }: PostProps) => {
       >
         {size === 'default' && <PostCardHeader post={post} />}
         <PostCardMediaWrapper size={size}>
-          <PostCardActionArea>
+          <PostCardActionArea size={size}>
             <PostCardMedia size={size} image={post.content} />
           </PostCardActionArea>
         </PostCardMediaWrapper>
