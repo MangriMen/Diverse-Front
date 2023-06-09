@@ -4,7 +4,6 @@ import { StyledButton } from 'components/common';
 import { PasswordInput } from 'components/common/PasswordInput';
 import { UsernameInput } from 'components/common/UsernameInput';
 import { BaseLayout } from 'components/pages/styles';
-import { StyledIconButton } from 'components/post';
 
 export const UserPageLayout = styled(BaseLayout)`
   width: 100%;
@@ -138,16 +137,6 @@ export const ProfileAvatarButtonBox = styled(Box)`
 
   ${props => props.theme.breakpoints.down('sm')} {
     position: unset;
-  }
-`;
-
-export const ProfileAvatarSettingsButton = styled(StyledIconButton)`
-  opacity: 0;
-
-  transition: visibility 0.3s ease-out, opacity 0.3s ease-out;
-
-  ${props => props.theme.breakpoints.down('sm')} {
-    opacity: unset;
   }
 `;
 

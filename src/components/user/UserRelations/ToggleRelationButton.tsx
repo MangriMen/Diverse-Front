@@ -23,10 +23,7 @@ const getRelationStatusDefaultResponse: ServerGetRelationStatusResponse = {
   blocked: false,
 };
 
-export const ToggleRelationButton = ({
-  user,
-  visible,
-}: ToggleRelationButtonProps) => {
+export const ToggleRelationButton = ({ user }: ToggleRelationButtonProps) => {
   const { t } = useTranslation('translation', { keyPrefix: 'user' });
 
   const localUser = useSelector(selectUser);
@@ -70,9 +67,6 @@ export const ToggleRelationButton = ({
       }
     >
       <StyledIconButton
-        style={{
-          visibility: visible ?? true ? 'visible' : 'hidden',
-        }}
         onClick={data.following ? handleUnfollow : handleFollow}
       >
         {data.following ? <CloseIcon /> : <AddIcon />}
