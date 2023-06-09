@@ -1,5 +1,5 @@
 import { StyledActionBox as PostActions, PostProps } from 'components/post';
-import { PostLike } from 'components/post/Like';
+import { PostLike } from 'components/post/common/Like';
 
 import { ShareButton } from './ShareButton';
 

@@ -1,10 +1,8 @@
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import { styled } from '@mui/material';
+import { IconButtonProps, styled } from '@mui/material';
 import { StyledTextButton } from 'components/common/styles';
 import { useTranslation } from 'react-i18next';
-
-import { LikeProps } from './interfaces';
 
 const FavoriteIconFilled = styled(FavoriteIcon)`
   color: ${props => props.theme.palette.common.like};
@@ -17,6 +15,13 @@ const LikeButton = styled(StyledTextButton)`
     margin-left: 0;
   }
 `;
+
+export interface LikeProps
+  extends Pick<IconButtonProps, 'onClick' | 'disabled'> {
+  variant?: 'post' | 'comment';
+  count: number;
+  liked: boolean;
+}
 
 export const Like = ({
   count,
