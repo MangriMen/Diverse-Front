@@ -11,7 +11,7 @@ import {
 import { useDataMutation } from 'ducks/data/api';
 import { useCreatePostMutation } from 'ducks/post/api';
 import { OptionsObject, useSnackbar } from 'notistack';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import {
   Controller,
   FormProvider,
@@ -79,6 +79,8 @@ export const CreatePostForm = ({ onClose }: CreatePostFormProps) => {
 
   const [disable, setDisable] = useState(false);
 
+  const [aboutLength, setAboutLength] = useState(0);
+
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
@@ -118,6 +120,11 @@ export const CreatePostForm = ({ onClose }: CreatePostFormProps) => {
     }
   };
 
+  const handleChangeAbout = (event: ChangeEvent<HTMLInputElement>): string => {
+    setAboutLength(event.target.value.length);
+    return event.target.value;
+  };
+
   return (
     <FormProvider {...form}>
       <Box
@@ -143,6 +150,10 @@ export const CreatePostForm = ({ onClose }: CreatePostFormProps) => {
                   inputProps={{
                     maxLength: SHAPE_CONSTRAINTS.DESCRIPTION_MAX,
                   }}
+                  helperText={`${aboutLength}/${SHAPE_CONSTRAINTS.DESCRIPTION_MAX}`}
+                  onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                    field.onChange(handleChangeAbout(event))
+                  }
                 />
               )}
             />
