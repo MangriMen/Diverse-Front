@@ -1,12 +1,13 @@
 import { Tooltip, Typography, styled } from '@mui/material';
+import { CommonProps } from '@mui/material/OverridableComponent';
 import capitalize from '@mui/utils/capitalize';
 import { COMMENT_DATE_TOOLTIP_TIMEOUT, commentDateFormat } from 'consts';
 import { DateDiff, dateDiff } from 'helpers/post';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CommentModel } from 'types/post';
+import { CommentModel, PostModel } from 'types/post';
 
-const CommentDateText = styled(Typography)`
+const SmartDateText = styled(Typography)`
   white-space: nowrap;
   font-size: ${props => props.theme.typography.caption.fontSize};
   color: ${props => props.theme.palette.common.dimmed};
@@ -14,25 +15,22 @@ const CommentDateText = styled(Typography)`
 
 const baseKeyPart = 'creationTime';
 
-export const CommentDate = ({
-  timestamp,
-}: {
-  timestamp: CommentModel['created_at'];
-}) => {
-  const { i18n, t } = useTranslation('translation', { keyPrefix: 'comment' });
+export interface SmartDateProps extends CommonProps {
+  timestamp: CommentModel['created_at'] | PostModel['created_at'];
+}
 
-  const { commentDate, localizedDate } = useMemo(() => {
+export const SmartDate = ({ timestamp, ...props }: SmartDateProps) => {
+  const { i18n, t } = useTranslation('translation', { keyPrefix: 'date' });
+
+  const { date, localizedDate } = useMemo(() => {
     const date = new Date(timestamp);
     return {
-      commentDate: date,
+      date,
       localizedDate: date.toLocaleString(i18n.language, commentDateFormat),
     };
   }, [i18n.language, timestamp]);
 
-  const getDateDiff = useCallback(
-    () => dateDiff(commentDate, new Date()),
-    [commentDate],
-  );
+  const getDateDiff = useCallback(() => dateDiff(date, new Date()), [date]);
 
   const [currentDiff, setCurrentDiff] = useState(getDateDiff());
 
@@ -71,13 +69,14 @@ export const CommentDate = ({
         </Typography>
       }
     >
-      <CommentDateText
+      <SmartDateText
         component="time"
-        dateTime={commentDate.toISOString()}
+        dateTime={date.toISOString()}
         onMouseMove={updateDateDiff}
+        {...props}
       >
         {displayDate}
-      </CommentDateText>
+      </SmartDateText>
     </Tooltip>
   );
 };

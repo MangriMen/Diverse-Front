@@ -1,6 +1,6 @@
 import { Container, Menu, MenuItem, Typography } from '@mui/material';
 import { Logo } from 'components/common/Logo';
-import { CreatePostDialog } from 'components/post/CreatePost/CreatePostDialog';
+import { CreatePostDialog } from 'components/post/CreationDialog/CreatePostDialog';
 import { logout } from 'ducks/auth';
 import { selectUser } from 'ducks/auth/selectors';
 import { useModal } from 'mui-modal-provider';
