@@ -2,7 +2,7 @@ import { getShareUrl } from 'helpers/post';
 import { useModal } from 'mui-modal-provider';
 import { useTranslation } from 'react-i18next';
 
-import { ShareDialog } from '../ShareDialog';
+import { ShareDialog } from '../ShareDialog/ShareDialog';
 import { PostProps } from '../interfaces';
 import { PostButton } from '../styles';
 
