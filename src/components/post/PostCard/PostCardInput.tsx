@@ -1,9 +1,16 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import SendIcon from '@mui/icons-material/Send';
 import { IconButton, InputBase, Paper, styled } from '@mui/material';
 import { PostProps } from 'components/post';
+import { POST_INPUT_MAX_ROWS } from 'consts';
 import { useSendCommentMutation } from 'ducks/comment/api';
-import { ChangeEvent, FormEvent, useCallback, useState } from 'react';
+import { BaseEmoji } from 'emoji-mart/dist-es';
+import { KeyboardEvent, useState } from 'react';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+
+import { EmojiButton } from '../EmojiButton';
+import { commentValidator } from './schemas';
 
 const PaperStyled = styled(Paper)`
   display: flex;
@@ -17,48 +24,82 @@ const InputStyled = styled(InputBase)`
   font-size: 16px;
 `;
 
+interface InputValues {
+  content: string;
+}
+
+const defaultValues = {
+  content: '',
+};
+
 export const PostCardInput = ({ post }: PostProps) => {
   const { t } = useTranslation('translation', { keyPrefix: 'comment' });
 
-  const [isSendDisabled, setIsSendDisabled] = useState(false);
+  const { control, handleSubmit, reset, getValues, setValue } =
+    useForm<InputValues>({
+      defaultValues: defaultValues,
+      resolver: yupResolver(commentValidator),
+    });
 
-  const [commentText, setCommentText] = useState('');
+  const [isSendDisabled, setIsSendDisabled] = useState(false);
 
   const [sendComment] = useSendCommentMutation();
 
-  const handleInputChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setCommentText(e.target.value);
-  }, []);
+  const handleEmojiSelect = (emoji: BaseEmoji) => {
+    setValue('content', `${getValues('content')}${emoji.native}`);
+  };
 
-  const handleSendComment = useCallback(
-    async (e: FormEvent) => {
-      e.preventDefault();
+  const handleInputEnter = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      handleSubmit(handleSendComment)();
+      return false;
+    }
+  };
 
-      setIsSendDisabled(true);
+  const handleSendComment: SubmitHandler<InputValues> = async data => {
+    setIsSendDisabled(true);
 
-      await sendComment({
-        path: { post: post.id },
-        body: { content: commentText },
-      });
+    await sendComment({
+      path: { post: post.id },
+      body: data,
+    });
 
-      setCommentText('');
-      setIsSendDisabled(false);
-    },
-    [commentText, post.id, sendComment],
-  );
+    setIsSendDisabled(false);
+
+    reset();
+  };
 
   return (
-    <PaperStyled component="form" onSubmit={handleSendComment} elevation={24}>
-      <InputStyled
-        placeholder={t('writeComment') ?? ''}
-        value={commentText}
-        onChange={handleInputChange}
+    <PaperStyled
+      component="form"
+      onSubmit={handleSubmit(handleSendComment)}
+      elevation={24}
+    >
+      <Controller
+        control={control}
+        name="content"
+        render={({ field }) => (
+          <InputStyled
+            multiline
+            maxRows={POST_INPUT_MAX_ROWS}
+            placeholder={t('writeComment') ?? ''}
+            {...field}
+            onKeyDown={handleInputEnter}
+          />
+        )}
+      />
+      <EmojiButton
+        disableRipple
+        style={{ alignSelf: 'flex-end' }}
+        onEmojiSelect={handleEmojiSelect}
       />
       <IconButton
+        disableRipple
         type="submit"
         title={t('send') ?? ''}
-        disableRipple
         disabled={isSendDisabled}
+        style={{ alignSelf: 'flex-end' }}
       >
         <SendIcon />
       </IconButton>

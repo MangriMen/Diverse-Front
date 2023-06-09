@@ -26,6 +26,8 @@ export const COMMENTS_FETCH_COUNT = {
 export const POST_DESCRIPTION_MAX_ROWS = 18;
 export const POST_DESCRIPTION_COLLAPSED_SIZE = '6.5625rem';
 
+export const POST_INPUT_MAX_ROWS = 5;
+
 export const POSTS_LOADING_OFFSET_HEIGHT = 320;
 
 export const POST_WITHOUT_SCROLL_FETCH_DELAY = 100;
