@@ -116,6 +116,7 @@ export const PostCardDescriptionCollapse = styled(Collapse)<
 `;
 
 export const PostCardDescriptionText = styled(Typography)`
+  white-space: pre-wrap;
   overflow-wrap: break-word;
   font-size: 14px;
   padding: 0 4px;
