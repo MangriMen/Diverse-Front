@@ -75,9 +75,12 @@ export const CardMediaBox = styled(Box, {
 `;
 
 export const PostHeader = styled(Box)`
-  display: flex;
+  display: grid;
   align-items: center;
-  gap: 0 1rem;
+  justify-items: flex-start;
+  grid-template-rows: 1.5rem 1rem;
+  grid-template-columns: 2.5rem auto auto;
+  gap: 0 0.25rem;
 `;
 
 export const PostUsername = styled(({ ...props }: TypographyProps) => (

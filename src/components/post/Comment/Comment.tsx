@@ -9,8 +9,8 @@ import {
   ActionMenu,
   PostCommentMenuActions,
   PostCommentMenuItem,
-} from 'components/post/ActionMenu';
-import { CommentLike } from 'components/post/Like';
+} from 'components/post/common/ActionMenu';
+import { CommentLike } from 'components/post/common/Like';
 import { AvatarButton } from 'components/user/AvatarButton';
 import { selectUser } from 'ducks/auth/selectors';
 import { useDeleteCommentMutation } from 'ducks/comment/api';
@@ -19,7 +19,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { CommentModel, PostModel } from 'types/post';
 
-import { CommentDate } from './CommentDate';
+import { SmartDate } from '../common/SmartDate/SmartDate';
 import {
   CommentBody,
   CommentHeader,
@@ -84,7 +84,7 @@ export const Comment = ({
         primary={
           <CommentHeader>
             <CommentUsername user={comment.user} />
-            <CommentDate timestamp={comment.created_at} />
+            <SmartDate timestamp={comment.created_at} />
             <ActionMenu visible={comment.user.id == user?.id}>
               {Object.values(preparedActions).map(action => (
                 <PostCommentMenuItem key={action.key} action={action} />
