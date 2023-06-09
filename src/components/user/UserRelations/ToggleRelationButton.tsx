@@ -67,9 +67,6 @@ export const ToggleRelationButton = ({ user }: ToggleRelationButtonProps) => {
       }
     >
       <StyledIconButton
-        style={{
-          visibility: 'visible',
-        }}
         onClick={data.following ? handleUnfollow : handleFollow}
       >
         {data.following ? <CloseIcon /> : <AddIcon />}
