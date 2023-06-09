@@ -38,6 +38,7 @@
     "close": "Закрыть"
   },
   "comment": {
+    "emoji": "Эмодзи",
     "writeComment": "Написать комментарий...",
     "creationTimeSeconds": "{{count}} секунду назад",
     "creationTimeSeconds_zero": "только что",

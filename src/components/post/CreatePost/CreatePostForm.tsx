@@ -1,5 +1,5 @@
 import '@mui/material';
-import { Box, TextField, styled } from '@mui/material';
+import { Box, InputAdornment, TextField, styled } from '@mui/material';
 import { StyledButton } from 'components/common';
 import { ImageUpload } from 'components/common/FileUpload/ImageUpload';
 import { PostCardContent, PostCardStyled } from 'components/post/PostCard';
@@ -10,6 +10,7 @@ import {
 } from 'consts';
 import { useDataMutation } from 'ducks/data/api';
 import { useCreatePostMutation } from 'ducks/post/api';
+import { BaseEmoji } from 'emoji-mart/dist-es';
 import { OptionsObject, useSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
 import {
@@ -20,6 +21,7 @@ import {
 } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
+import { EmojiButton } from '../EmojiButton';
 import { CreatePostFormProps, PostForm } from './interfaces';
 
 const defaultValues = {
@@ -91,6 +93,13 @@ export const CreatePostForm = ({ onClose }: CreatePostFormProps) => {
     }
   }, [disable]);
 
+  const handleEmojiSelect = (emoji: BaseEmoji) => {
+    form.setValue(
+      'description',
+      `${form.getValues('description')}${emoji.native}`,
+    );
+  };
+
   const onSubmitHandler: SubmitHandler<PostForm> = async data => {
     setDisable(true);
 
@@ -139,7 +148,25 @@ export const CreatePostForm = ({ onClose }: CreatePostFormProps) => {
                   label={t('postDescription')}
                   multiline
                   maxRows={POST_DESCRIPTION_MAX_ROWS}
-                  InputProps={{ disableUnderline: true }}
+                  InputProps={{
+                    disableUnderline: true,
+                    endAdornment: (
+                      <InputAdornment
+                        style={{ alignSelf: 'flex-start' }}
+                        position="end"
+                      >
+                        <EmojiButton
+                          PopoverProps={{
+                            transformOrigin: {
+                              vertical: 'top',
+                              horizontal: 'left',
+                            },
+                          }}
+                          onEmojiSelect={handleEmojiSelect}
+                        />
+                      </InputAdornment>
+                    ),
+                  }}
                   inputProps={{
                     maxLength: SHAPE_CONSTRAINTS.DESCRIPTION_MAX,
                   }}

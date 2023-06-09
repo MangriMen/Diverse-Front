@@ -4,10 +4,12 @@ import { IconButton, InputBase, Paper, styled } from '@mui/material';
 import { PostProps } from 'components/post';
 import { POST_INPUT_MAX_ROWS } from 'consts';
 import { useSendCommentMutation } from 'ducks/comment/api';
+import { BaseEmoji } from 'emoji-mart/dist-es';
 import { KeyboardEvent, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
+import { EmojiButton } from '../EmojiButton';
 import { commentValidator } from './schemas';
 
 const PaperStyled = styled(Paper)`
@@ -33,14 +35,19 @@ const defaultValues = {
 export const PostCardInput = ({ post }: PostProps) => {
   const { t } = useTranslation('translation', { keyPrefix: 'comment' });
 
-  const { control, handleSubmit, reset } = useForm<InputValues>({
-    defaultValues: defaultValues,
-    resolver: yupResolver(commentValidator),
-  });
+  const { control, handleSubmit, reset, getValues, setValue } =
+    useForm<InputValues>({
+      defaultValues: defaultValues,
+      resolver: yupResolver(commentValidator),
+    });
 
   const [isSendDisabled, setIsSendDisabled] = useState(false);
 
   const [sendComment] = useSendCommentMutation();
+
+  const handleEmojiSelect = (emoji: BaseEmoji) => {
+    setValue('content', `${getValues('content')}${emoji.native}`);
+  };
 
   const handleInputEnter = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter' && !event.shiftKey) {
@@ -81,6 +88,11 @@ export const PostCardInput = ({ post }: PostProps) => {
             onKeyDown={handleInputEnter}
           />
         )}
+      />
+      <EmojiButton
+        disableRipple
+        style={{ alignSelf: 'flex-end' }}
+        onEmojiSelect={handleEmojiSelect}
       />
       <IconButton
         disableRipple
