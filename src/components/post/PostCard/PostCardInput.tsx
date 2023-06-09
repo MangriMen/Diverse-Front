@@ -83,10 +83,11 @@ export const PostCardInput = ({ post }: PostProps) => {
         )}
       />
       <IconButton
+        disableRipple
         type="submit"
         title={t('send') ?? ''}
-        disableRipple
         disabled={isSendDisabled}
+        style={{ alignSelf: 'flex-end' }}
       >
         <SendIcon />
       </IconButton>
