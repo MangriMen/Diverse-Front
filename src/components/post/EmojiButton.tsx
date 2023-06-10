@@ -1,59 +1,87 @@
 import Picker from '@emoji-mart/react';
 import SentimentSatisfiedOutlinedIcon from '@mui/icons-material/SentimentSatisfiedOutlined';
-import {
-  IconButton,
-  IconButtonProps,
-  Popover,
-  PopoverProps,
-} from '@mui/material';
+import { IconButton, IconButtonProps, Popper } from '@mui/material';
 import { BaseEmoji } from 'emoji-mart/dist-es';
-import { useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 export const EmojiButton = ({
   onEmojiSelect,
-  PopoverProps,
   ...props
 }: {
   onEmojiSelect: (emoji: BaseEmoji) => void;
-  PopoverProps?: Omit<PopoverProps, 'open'>;
 } & IconButtonProps) => {
   const { t, i18n } = useTranslation('translation', { keyPrefix: 'comment' });
 
-  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const [open, setOpen] = useState(false);
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const [timerActive, setTimerActive] = useState('');
+
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>();
+
+  const handleHover = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
+    setOpen(true);
+  };
+
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+    setOpen(prevState => !prevState);
+  };
+
+  const handlePopperHover = () => {
+    setOpen(true);
+    setTimerActive('');
   };
 
   const handleClose = () => {
-    setAnchorEl(null);
+    setTimerActive(`${Math.random()}`);
   };
 
-  const open = Boolean(anchorEl);
+  useEffect(() => {
+    if (timerActive) {
+      const timerID = setTimeout(() => {
+        setOpen(false);
+        setTimerActive('');
+      }, 1000);
+
+      return () => clearTimeout(timerID);
+    } else {
+      const timerID = setTimeout(() => {
+        setTimerActive('');
+      }, 0);
+
+      return () => clearTimeout(timerID);
+    }
+  }, [timerActive]);
 
   return (
     <>
-      <IconButton title={t('emoji') ?? ''} {...props} onClick={handleClick}>
+      <IconButton
+        style={{ background: 'transparent' }}
+        title={t('emoji') ?? ''}
+        {...props}
+        onMouseEnter={handleHover}
+        onMouseLeave={handleClose}
+        onClick={handleClick}
+      >
         <SentimentSatisfiedOutlinedIcon />
       </IconButton>
-      <Popover
+      <Popper
         open={open}
-        onClose={handleClose}
+        onMouseEnter={handlePopperHover}
+        onMouseLeave={handleClose}
         anchorEl={anchorEl}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
-        }}
-        transformOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-        PaperProps={{ style: { background: 'transparent' } }}
-        {...PopoverProps}
+        style={{ zIndex: 100000 }}
       >
-        <Picker locale={i18n.language} onEmojiSelect={onEmojiSelect} />
-      </Popover>
+        <Picker
+          theme="dark"
+          navPosition="bottom"
+          previewPosition="none"
+          locale={i18n.language}
+          onEmojiSelect={onEmojiSelect}
+        />
+      </Popper>
     </>
   );
 };

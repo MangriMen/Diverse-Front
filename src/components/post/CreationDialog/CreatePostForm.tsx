@@ -162,15 +162,7 @@ export const CreatePostForm = ({ onClose }: CreatePostFormProps) => {
                         style={{ alignSelf: 'flex-start' }}
                         position="end"
                       >
-                        <EmojiButton
-                          PopoverProps={{
-                            transformOrigin: {
-                              vertical: 'top',
-                              horizontal: 'left',
-                            },
-                          }}
-                          onEmojiSelect={handleEmojiSelect}
-                        />
+                        <EmojiButton onEmojiSelect={handleEmojiSelect} />
                       </InputAdornment>
                     ),
                   }}
