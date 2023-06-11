@@ -162,7 +162,10 @@ export const CreatePostForm = ({ onClose }: CreatePostFormProps) => {
                         style={{ alignSelf: 'flex-start' }}
                         position="end"
                       >
-                        <EmojiButton onEmojiSelect={handleEmojiSelect} />
+                        <EmojiButton
+                          value="emoji"
+                          onEmojiSelect={handleEmojiSelect}
+                        />
                       </InputAdornment>
                     ),
                   }}
