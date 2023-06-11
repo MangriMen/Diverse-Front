@@ -64,6 +64,7 @@ export const EmojiButton = ({
   return (
     <>
       <ToggleButtonStyled
+        disableRipple
         selected={open}
         ref={ref}
         title={t('emoji') ?? ''}
