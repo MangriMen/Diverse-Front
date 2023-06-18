@@ -3,6 +3,7 @@ import { Post } from 'components/post/Post';
 import { POSTS_FETCH_COUNT } from 'consts';
 import { useInfinityPostFeed } from 'hooks/useInfinityPostFeed';
 import { ReactElement, useEffect, useState } from 'react';
+import { Outlet } from 'react-router-dom';
 
 import { HomePageLayout, StyledContainer } from './styles';
 
@@ -22,6 +23,7 @@ export const HomePage = () => {
   return (
     <StyledContainer>
       <HomePageLayout>
+        <Outlet />
         {posts}
         {isFetching && <Loader />}
       </HomePageLayout>

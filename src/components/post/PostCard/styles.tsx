@@ -12,6 +12,13 @@ import {
   styled,
 } from '@mui/material';
 import { SkeletonStyled } from 'components/common';
+import {
+  getFlexDirection,
+  getFlexGrow,
+  getHeight,
+  getMaxHeight,
+  getMaxWidth,
+} from 'helpers';
 
 import { PostProps } from '../interfaces';
 import { CardMediaBoxProps, CardMediaSkeletonProps } from './interfaces';
@@ -19,11 +26,13 @@ import { CardMediaBoxProps, CardMediaSkeletonProps } from './interfaces';
 export const PostCardStyled = styled(Card, {
   shouldForwardProp: prop => prop !== 'size',
 })<Pick<PostProps, 'size'>>`
-  height: ${props => (props.size === 'default' ? '546px' : '')};
+  height: ${props => getHeight(props.size)};
   width: 100%;
-  max-width: ${props => (props.size === 'default' ? '904px' : '')};
+  max-width: ${props => getMaxWidth(props.size)};
   display: flex;
-  flex-direction: ${props => (props.size === 'default' ? 'row' : 'column')};
+  flex-direction: ${props => getFlexDirection(props.size)};
+
+  overflow-y: scroll;
 
   border: 1px solid ${props => props.theme.palette.common.third};
 
@@ -34,7 +43,7 @@ export const PostCardStyled = styled(Card, {
   ${props => props.theme.breakpoints.down('md')} {
     height: auto;
     width: 100%;
-    max-width: 512px;
+    max-width: ${props => (props.size === 'fullscreen' ? '' : '512px')};
     flex-direction: column;
   }
 `;
@@ -50,7 +59,8 @@ export const CardMediaSkeleton = styled(SkeletonStyled, {
   display: ${props => (props.isLoading ? '' : 'none')};
   width: 100%;
   height: auto;
-  aspect-ratio: ${props => (props.size === 'default' ? '' : '2/1')};
+  aspect-ratio: ${props =>
+    props.size === 'fullscreen' || props.size === 'default' ? '1/1' : '2/1'};
 `;
 
 export const CardMediaSkeletonLoaderBox = styled(Box)`
@@ -70,8 +80,9 @@ export const CardMediaBox = styled(Box, {
   display: flex;
   justify-content: center;
   height: 100%;
-  max-height: ${props => (props.size === 'default' ? '544px' : '756px')};
-  flex-grow: ${props => (props.size === 'default' ? '1' : '')};
+  max-height: ${props => getMaxHeight(props.size)};
+  flex-grow: ${props => getFlexGrow(props.size)};
+  user-select: none;
 `;
 
 export const PostHeader = styled(Box)`
@@ -92,7 +103,8 @@ export const PostCardContent = styled(CardContent, {
 })<Pick<PostProps, 'size'>>`
   --fixed-width: 360px;
 
-  padding: ${props => (props.size === 'default' ? '' : '4px')};
+  padding: ${props =>
+    props.size === 'fullscreen' || props.size === 'default' ? '' : '4px'};
   display: flex;
   flex-direction: column;
 
@@ -102,7 +114,8 @@ export const PostCardContent = styled(CardContent, {
   gap: 0.5rem;
 
   &:last-child {
-    padding-bottom: ${props => (props.size === 'default' ? '16px' : '4px')};
+    padding-bottom: ${props =>
+      props.size === 'fullscreen' || props.size === 'default' ? '16px' : '4px'};
   }
 
   ${props => props.theme.breakpoints.down('md')} {

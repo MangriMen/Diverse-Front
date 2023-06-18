@@ -6,8 +6,6 @@ import {
   DialogProps,
   DialogTitle,
   styled,
-  useMediaQuery,
-  useTheme,
 } from '@mui/material';
 import { IconButtonStyled, InputStyled, StyledButton } from 'components/common';
 import { DIALOG_ELEVATION } from 'consts/style';
@@ -26,9 +24,6 @@ const DialogContentStyled = styled(DialogContent)`
 export const ShareDialog = ({ value, ...props }: ShareDialogProps) => {
   const { t } = useTranslation('translation', { keyPrefix: 'post' });
 
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-
   const { enqueueSnackbar } = useSnackbar();
 
   const handleCopy = () => {
@@ -46,12 +41,7 @@ export const ShareDialog = ({ value, ...props }: ShareDialogProps) => {
   };
 
   return (
-    <Dialog
-      fullWidth
-      fullScreen={fullScreen}
-      PaperProps={{ elevation: DIALOG_ELEVATION }}
-      {...props}
-    >
+    <Dialog fullWidth PaperProps={{ elevation: DIALOG_ELEVATION }} {...props}>
       <DialogTitle>{t('share')}</DialogTitle>
       <DialogContentStyled>
         <InputStyled

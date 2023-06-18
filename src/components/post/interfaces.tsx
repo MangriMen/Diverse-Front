@@ -1,6 +1,6 @@
 import { PostModel } from 'types/post';
 
-export type PostSize = 'default' | 'small';
+export type PostSize = 'fullscreen' | 'default' | 'small';
 
 export interface PostProps {
   post: PostModel;

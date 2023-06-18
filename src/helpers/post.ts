@@ -1,3 +1,4 @@
+import { PostSize } from 'components/post';
 import { PostModel } from 'types/post';
 
 export const getLocale = (): string => {
@@ -49,4 +50,57 @@ export const dateDiff = (a: Date, b: Date): DateDiff => {
 
 export const getShareUrl = (post: PostModel) => {
   return `${window.location.origin}/post/${post.id}`;
+};
+
+export const getHeight = (size?: PostSize) => {
+  switch (size) {
+    case 'fullscreen':
+      return '100%';
+    case 'default':
+      return '546px';
+    default:
+      return '';
+  }
+};
+
+export const getMaxHeight = (size?: PostSize) => {
+  switch (size) {
+    case 'fullscreen':
+      return '';
+    case 'default':
+      return '544px';
+    default:
+      return '756px';
+  }
+};
+
+export const getMaxWidth = (size?: PostSize) => {
+  switch (size) {
+    case 'fullscreen':
+      return '';
+    case 'default':
+      return '904px';
+    default:
+      return '';
+  }
+};
+
+export const getFlexDirection = (size?: PostSize) => {
+  switch (size) {
+    case 'fullscreen':
+    case 'default':
+      return 'row';
+    default:
+      return 'column';
+  }
+};
+
+export const getFlexGrow = (size?: PostSize) => {
+  switch (size) {
+    case 'fullscreen':
+    case 'default':
+      return '1';
+    default:
+      return '';
+  }
 };
