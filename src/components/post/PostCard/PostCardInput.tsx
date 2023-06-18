@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import SendIcon from '@mui/icons-material/Send';
-import { IconButton, InputBase, Paper, styled } from '@mui/material';
+import { InputBase, Paper, styled } from '@mui/material';
+import { IconButtonStyled } from 'components/common';
 import { PostProps } from 'components/post';
 import { POST_INPUT_MAX_ROWS } from 'consts';
 import { useSendCommentMutation } from 'ducks/comment/api';
@@ -16,6 +17,8 @@ const PaperStyled = styled(Paper)`
   display: flex;
   align-items: center;
   box-shadow: none;
+  padding: 0.25rem;
+  gap: 0.25rem;
 ` as typeof Paper;
 
 const InputStyled = styled(InputBase)`
@@ -91,10 +94,11 @@ export const PostCardInput = ({ post }: PostProps) => {
       />
       <EmojiButton
         disableRipple
+        value="emoji"
         style={{ alignSelf: 'flex-end' }}
         onEmojiSelect={handleEmojiSelect}
       />
-      <IconButton
+      <IconButtonStyled
         disableRipple
         type="submit"
         title={t('send') ?? ''}
@@ -102,7 +106,7 @@ export const PostCardInput = ({ post }: PostProps) => {
         style={{ alignSelf: 'flex-end' }}
       >
         <SendIcon />
-      </IconButton>
+      </IconButtonStyled>
     </PaperStyled>
   );
 };

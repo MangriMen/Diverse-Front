@@ -163,12 +163,7 @@ export const CreatePostForm = ({ onClose }: CreatePostFormProps) => {
                         position="end"
                       >
                         <EmojiButton
-                          PopoverProps={{
-                            transformOrigin: {
-                              vertical: 'top',
-                              horizontal: 'left',
-                            },
-                          }}
+                          value="emoji"
                           onEmojiSelect={handleEmojiSelect}
                         />
                       </InputAdornment>

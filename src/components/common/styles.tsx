@@ -1,7 +1,15 @@
-import { Box, BoxProps, Button, IconButton, styled } from '@mui/material';
+import {
+  Box,
+  BoxProps,
+  Button,
+  IconButton,
+  ToggleButton,
+  styled,
+} from '@mui/material';
 import { MediaSkeletonProps } from 'components/post/PostCard';
 
 export const IconButtonStyled = styled(IconButton)`
+  padding: 0.25rem;
   border-radius: 0.25rem;
 
   &:hover {
@@ -10,6 +18,28 @@ export const IconButtonStyled = styled(IconButton)`
 
   &:active {
     background: ${props => props.theme.palette.transparentButton.dark};
+  }
+
+  &:focus-visible {
+    outline: 1px solid white;
+  }
+`;
+
+export const ToggleButtonStyled = styled(ToggleButton)`
+  border: none;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+
+  &:hover {
+    background: ${props => props.theme.palette.transparentButton.light};
+  }
+
+  &:active {
+    background: ${props => props.theme.palette.transparentButton.dark};
+  }
+
+  &:focus-visible {
+    outline: 1px solid white;
   }
 `;
 
