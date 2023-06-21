@@ -3,6 +3,7 @@ export const ROUTE = {
   AUTH: '/auth',
   SETTINGS: '/settings',
   USER: '/:user/:relation?',
+  POST: '/post/:post',
   NOT_FOUND: '*',
 };
 

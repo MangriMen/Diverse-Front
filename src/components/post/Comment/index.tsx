@@ -1,2 +1,2 @@
 export * from './Comment';
-export * from './CommentDate';
+export * from '../common/SmartDate/SmartDate';

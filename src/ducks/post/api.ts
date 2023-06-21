@@ -127,6 +127,17 @@ export const postApi = createApi({
           response.data.map(preparePost),
         ),
     }),
+    getPost: build.query<ServerGetPostResponse, GetPostRequest>({
+      query: args => ({
+        url: `${API_ENDPOINTS.POSTS}/${args.path.post}`,
+        method: METHOD.GET,
+        headers: { Authorization: getAccessToken() },
+      }),
+      transformResponse: (response: ServerGetPostResponse) => ({
+        ...response,
+        data: preparePost(response.data),
+      }),
+    }),
     deletePost: build.mutation<string, GetPostRequest>({
       query: args => ({
         url: `${API_ENDPOINTS.POSTS}/${args.path.post}`,
@@ -176,6 +187,7 @@ export const {
   useLazyGetPostsCountQuery,
   useLazyGetPostsQuery,
   useGetPostsQuery,
+  useGetPostQuery,
   useDeletePostMutation,
   useLikePostMutation,
   useUnlikePostMutation,

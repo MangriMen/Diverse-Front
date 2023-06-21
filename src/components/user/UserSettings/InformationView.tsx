@@ -86,7 +86,7 @@ export const InformationView = () => {
 
   const [sendSettings] = useUpdateUserInformationMutation();
   const [sendData] = useDataMutation();
-  const [aboutLength, setAboutLength] = useState(0);
+  const [aboutLength, setAboutLength] = useState(user?.about?.length ?? 0);
 
   const onSubmitHandler: SubmitHandler<UserForm> = async data => {
     const formData = new FormData();

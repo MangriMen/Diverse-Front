@@ -10,8 +10,10 @@ import { FetchUser } from 'components/routes/FetchUser';
 import { Private } from 'components/routes/Private';
 import { ShowSnackbar } from 'components/routes/ShowSnackbar';
 import { ROUTE } from 'consts';
-import { userLoader } from 'helpers';
+import { postLoader, userLoader } from 'helpers';
 import { Outlet, Route } from 'react-router-dom';
+
+import { FullscreenPost } from './post/FullscreenPost/FullscreenPost';
 
 export const AppRoutes = (store: Store) => (
   <Route element={<Outlet />}>
@@ -22,7 +24,14 @@ export const AppRoutes = (store: Store) => (
         </Route>
         <Route element={<Private />}>
           <Route element={<PageWithHeader />}>
-            <Route path={ROUTE.HOME} element={<HomePage />} />
+            <Route path={ROUTE.HOME} element={<HomePage />}>
+              <Route
+                path={ROUTE.POST}
+                element={<FullscreenPost />}
+                errorElement={<NotFoundPage />}
+                loader={postLoader(store)}
+              />
+            </Route>
             <Route
               path={ROUTE.USER}
               element={<UserPage />}

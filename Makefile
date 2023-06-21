@@ -23,7 +23,7 @@ endef
 
 COMPOSE_DEPLOY_COMMAND=$(call gen_compose_command,$(profile))
 
-UP_FLAGS_DEPLOY=-d
+UP_FLAGS_DEPLOY=-d --force-recreate
 
 all:
 	@echo "Usage: make BUILD_TARGET"
@@ -31,12 +31,9 @@ all:
 	@echo "BUILD_TARGET:"
 	@echo "\tdeploy profile=\t-\tdeploy with profile prod or test"
 
-deploy: undeploy check_deploy_environment
+deploy: check_deploy_environment
 	$(COMPOSE_DEPLOY_COMMAND) pull
 	$(COMPOSE_DEPLOY_COMMAND) up $(UP_FLAGS_DEPLOY)
-
-undeploy: check_profile_exists
-	$(COMPOSE_DEPLOY_COMMAND) down
 
 check_deploy_environment: check_profile_exists
 

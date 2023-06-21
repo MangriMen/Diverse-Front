@@ -1,3 +1,4 @@
+import { postApi } from 'ducks/post/api';
 import { userApi } from 'ducks/user/api';
 import { LoaderFunctionArgs } from 'react-router-dom';
 import { AppDispatch, Store } from 'store';
@@ -25,4 +26,23 @@ export const userLoader =
     }
 
     return { isMe: false, user: data.user };
+  };
+
+export const postLoader =
+  (store: Store) =>
+  async ({ params, request }: LoaderFunctionArgs) => {
+    const promise = (store.dispatch as AppDispatch)(
+      postApi.endpoints.getPost.initiate({
+        path: { post: params.post ?? '' },
+      }),
+    );
+    request.signal.onabort = promise.abort;
+
+    const { data, isError } = await promise;
+
+    if (isError || data?.error || data?.data === undefined) {
+      throw new Response('Not Found', { status: 404 });
+    }
+
+    return { post: data.data };
   };

@@ -1,6 +1,7 @@
 import { Box } from '@mui/material';
 import { PostProps } from 'components/post';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { PostCardActions } from './PostCard/PostCardActions';
 import { PostCardComments } from './PostCard/PostCardComments';
@@ -17,10 +18,19 @@ import {
 } from './PostCard/styles';
 
 export const Post = ({ post, size = 'default' }: PostProps) => {
+  const isDisplayContentButton = size !== 'fullscreen';
+  const isDisplayContent = size === 'fullscreen' || size === 'default';
+
+  const navigate = useNavigate();
+
   const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
+  };
+
+  const handleContentClick = () => {
+    navigate(`/post/${post.id}`);
   };
 
   return (
@@ -34,12 +44,17 @@ export const Post = ({ post, size = 'default' }: PostProps) => {
       >
         {size === 'default' && <PostCardHeader post={post} />}
         <PostCardMediaWrapper size={size}>
-          <PostCardActionArea size={size}>
+          {isDisplayContentButton && (
+            <PostCardActionArea onClick={handleContentClick}>
+              <PostCardMedia size={size} image={post.content} />
+            </PostCardActionArea>
+          )}
+          {!isDisplayContentButton && (
             <PostCardMedia size={size} image={post.content} />
-          </PostCardActionArea>
+          )}
         </PostCardMediaWrapper>
       </Box>
-      {size === 'default' && (
+      {isDisplayContent && (
         <PostCardContent size={size}>
           <PostCardDescription
             expanded={expanded}

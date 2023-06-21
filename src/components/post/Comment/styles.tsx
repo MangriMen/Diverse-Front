@@ -38,6 +38,7 @@ export const CommentBody = styled(Span)`
 
 export const CommentText = styled(Typography)`
   float: left;
+  white-space: pre-wrap;
   overflow-wrap: break-word;
   font-size: ${props => props.theme.typography.body2.fontSize};
   padding: 0 0.25rem;

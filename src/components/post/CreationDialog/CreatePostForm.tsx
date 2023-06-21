@@ -1,5 +1,5 @@
 import '@mui/material';
-import { Box, TextField, styled } from '@mui/material';
+import { Box, InputAdornment, TextField, styled } from '@mui/material';
 import { StyledButton } from 'components/common';
 import { ImageUpload } from 'components/common/FileUpload/ImageUpload';
 import { PostCardContent, PostCardStyled } from 'components/post/PostCard';
@@ -10,8 +10,9 @@ import {
 } from 'consts';
 import { useDataMutation } from 'ducks/data/api';
 import { useCreatePostMutation } from 'ducks/post/api';
+import { BaseEmoji } from 'emoji-mart/dist-es';
 import { OptionsObject, useSnackbar } from 'notistack';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import {
   Controller,
   FormProvider,
@@ -20,6 +21,7 @@ import {
 } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
+import { EmojiButton } from '../EmojiButton';
 import { CreatePostFormProps, PostForm } from './interfaces';
 
 const defaultValues = {
@@ -79,6 +81,8 @@ export const CreatePostForm = ({ onClose }: CreatePostFormProps) => {
 
   const [disable, setDisable] = useState(false);
 
+  const [aboutLength, setAboutLength] = useState(0);
+
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
@@ -90,6 +94,13 @@ export const CreatePostForm = ({ onClose }: CreatePostFormProps) => {
       return () => clearTimeout(timer);
     }
   }, [disable]);
+
+  const handleEmojiSelect = (emoji: BaseEmoji) => {
+    form.setValue(
+      'description',
+      `${form.getValues('description')}${emoji.native}`,
+    );
+  };
 
   const onSubmitHandler: SubmitHandler<PostForm> = async data => {
     setDisable(true);
@@ -118,6 +129,11 @@ export const CreatePostForm = ({ onClose }: CreatePostFormProps) => {
     }
   };
 
+  const handleChangeAbout = (event: ChangeEvent<HTMLInputElement>): string => {
+    setAboutLength(event.target.value.length);
+    return event.target.value;
+  };
+
   return (
     <FormProvider {...form}>
       <Box
@@ -139,10 +155,27 @@ export const CreatePostForm = ({ onClose }: CreatePostFormProps) => {
                   label={t('postDescription')}
                   multiline
                   maxRows={POST_DESCRIPTION_MAX_ROWS}
-                  InputProps={{ disableUnderline: true }}
+                  InputProps={{
+                    disableUnderline: true,
+                    endAdornment: (
+                      <InputAdornment
+                        style={{ alignSelf: 'flex-start' }}
+                        position="end"
+                      >
+                        <EmojiButton
+                          value="emoji"
+                          onEmojiSelect={handleEmojiSelect}
+                        />
+                      </InputAdornment>
+                    ),
+                  }}
                   inputProps={{
                     maxLength: SHAPE_CONSTRAINTS.DESCRIPTION_MAX,
                   }}
+                  helperText={`${aboutLength}/${SHAPE_CONSTRAINTS.DESCRIPTION_MAX}`}
+                  onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                    field.onChange(handleChangeAbout(event))
+                  }
                 />
               )}
             />

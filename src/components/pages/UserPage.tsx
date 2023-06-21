@@ -1,6 +1,7 @@
 import SettingsIcon from '@mui/icons-material/Settings';
 import { Loader } from 'components/common/LoaderPage';
 import { StyledContainer } from 'components/pages/styles';
+import { StyledIconButton } from 'components/post';
 import { Post } from 'components/post/Post';
 import { UserRelations } from 'components/user/UserRelations';
 import { ToggleRelationButton } from 'components/user/UserRelations/ToggleRelationButton';
@@ -10,7 +11,6 @@ import {
   MainUserInfo,
   Name,
   ProfileAvatarButtonBox,
-  ProfileAvatarSettingsButton,
   ProfileAvatarWithAction,
   StyledProfileAvatar,
   StyledUserPosts,
@@ -68,9 +68,9 @@ export const UserPage = () => {
               <StyledProfileAvatar src={`${user.avatar_url}?width=256`} />
               <ProfileAvatarButtonBox>
                 {isMe && (
-                  <ProfileAvatarSettingsButton onClick={toSettings}>
+                  <StyledIconButton onClick={toSettings}>
                     <SettingsIcon />
-                  </ProfileAvatarSettingsButton>
+                  </StyledIconButton>
                 )}
                 {!isMe && <ToggleRelationButton user={user} />}
               </ProfileAvatarButtonBox>

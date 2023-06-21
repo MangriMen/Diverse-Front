@@ -4,7 +4,7 @@ import {
   ActionMenu,
   PostCommentMenuActions,
   PostCommentMenuItem,
-} from 'components/post/ActionMenu';
+} from 'components/post/common/ActionMenu';
 import { AvatarButton } from 'components/user/AvatarButton';
 import { UsernameLinkButton } from 'components/user/UsernameLinkButton';
 import { selectUser } from 'ducks/auth/selectors';
@@ -13,6 +13,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { PostModel } from 'types/post';
 
+import { SmartDate } from '../Comment';
 import { PostHeader } from './styles';
 
 const postMenuActions: PostCommentMenuActions = {
@@ -54,9 +55,22 @@ export const PostCardHeader = ({ post }: { post: PostModel }) => {
 
   return (
     <PostHeader>
-      <AvatarButton user={post.user} />
-      <UsernameLinkButton user={post.user} />
-      <ActionMenu visible={post.user.id == user?.id}>
+      <AvatarButton
+        user={post.user}
+        style={{ gridRow: '1/3', gridColumn: 1 }}
+      />
+      <UsernameLinkButton
+        user={post.user}
+        style={{ gridRow: 1, gridColumn: 2 }}
+      />
+      <SmartDate
+        timestamp={post.created_at}
+        style={{ gridRow: 2, gridColumn: 2, paddingLeft: '4px' }}
+      />
+      <ActionMenu
+        visible={post.user.id == user?.id}
+        style={{ gridRow: '1', gridColumn: 3 }}
+      >
         {Object.values(preparedActions).map(action => (
           <PostCommentMenuItem key={action.key} action={action} />
         ))}
