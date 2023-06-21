@@ -32,7 +32,7 @@ export const PostCardStyled = styled(Card, {
   display: flex;
   flex-direction: ${props => getFlexDirection(props.size)};
 
-  overflow-y: scroll;
+  overflow-y: auto;
 
   border: 1px solid ${props => props.theme.palette.common.third};
 
